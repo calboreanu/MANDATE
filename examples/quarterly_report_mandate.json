@@ -1,0 +1,285 @@
+{
+  "mandate_id": "MND-2026-QUARTERLY-001",
+  "version": "1.0",
+  "generated": "2026-02-02T12:00:00-05:00",
+  "anchor": {
+    "mission_intent": "Prepare Q4 financial summary for executive review.",
+    "minimum": {
+      "includes_revenue_total": true,
+      "includes_expense_total": true,
+      "metrics_count": 3
+    },
+    "target": {
+      "includes_segment_breakdown": true,
+      "includes_expense_categories": true,
+      "metrics_count": 7,
+      "includes_trend_analysis": true
+    },
+    "constraints": [
+      "data_sources IN ['internal_systems']",
+      "deadline <= 2026-02-06T17:00:00-05:00",
+      "audience == 'executive'"
+    ],
+    "anchor_hash": "183af60d6e6256ca4d2845765363d6bdd546cb62578b595dc8a1b486dea93ce0"
+  },
+  "courses_of_action": [
+    {
+      "coa_id": "COA-A",
+      "approach": "Speed-optimized: use pre-aggregated dashboard metrics and standard executive template.",
+      "task_dag": {
+        "nodes": [
+          {
+            "id": "t1",
+            "name": "Pull dashboard metrics",
+            "description": "Retrieve revenue, expenses, and key metrics."
+          },
+          {
+            "id": "t2",
+            "name": "Draft executive summary",
+            "description": "Summarize results for executive audience."
+          },
+          {
+            "id": "t3",
+            "name": "Light QA",
+            "description": "Quick checks for missing sections and obvious errors."
+          }
+        ],
+        "edges": [
+          {
+            "from": "t1",
+            "to": "t2"
+          },
+          {
+            "from": "t2",
+            "to": "t3"
+          }
+        ]
+      },
+      "procedures": [
+        "SOP-QBR-001",
+        "SOP-DASH-002"
+      ],
+      "capabilities": [
+        "tool:fin-dashboard"
+      ],
+      "risk_assessment": {
+        "score": "MEDIUM",
+        "confidence_min": "HIGH",
+        "confidence_target": "MEDIUM",
+        "primary_factor": "Potential nuance loss due to pre-aggregated sources.",
+        "rubric": "Ordinal likelihood\u00d7impact bins (implementation-specific)."
+      },
+      "off_nominal_triggers": [
+        "time_remaining <= PT1H",
+        "dashboard_unavailable == true"
+      ],
+      "estimated_time": "2h"
+    },
+    {
+      "coa_id": "COA-B",
+      "approach": "Thoroughness-optimized: query raw internal data sources, compute custom aggregations, and build visuals.",
+      "task_dag": {
+        "nodes": [
+          {
+            "id": "t1",
+            "name": "Query raw datasets",
+            "description": "Collect revenue/expense data from internal warehouse."
+          },
+          {
+            "id": "t2",
+            "name": "Compute aggregations",
+            "description": "Segment breakdowns, categories, trends."
+          },
+          {
+            "id": "t3",
+            "name": "Build visuals",
+            "description": "Charts suitable for executive review."
+          },
+          {
+            "id": "t4",
+            "name": "QA + executive polish",
+            "description": "Ensure readability and constraint compliance."
+          }
+        ],
+        "edges": [
+          {
+            "from": "t1",
+            "to": "t2"
+          },
+          {
+            "from": "t2",
+            "to": "t3"
+          },
+          {
+            "from": "t3",
+            "to": "t4"
+          }
+        ]
+      },
+      "procedures": [
+        "SOP-QBR-001"
+      ],
+      "capabilities": [
+        "tool:fin-dashboard"
+      ],
+      "risk_assessment": {
+        "score": "LOW",
+        "confidence_min": "HIGH",
+        "confidence_target": "HIGH",
+        "primary_factor": "More time/resource usage; higher complexity.",
+        "rubric": "Ordinal likelihood\u00d7impact bins (implementation-specific)."
+      },
+      "off_nominal_triggers": [
+        "warehouse_query_fails == true",
+        "time_remaining <= PT4H"
+      ],
+      "estimated_time": "8h"
+    }
+  ],
+  "recommendation": {
+    "primary_coa": "COA-A",
+    "fallback_sequence": [
+      "COA-B"
+    ],
+    "rationale": "COA-A meets minimum quickly under deadline pressure; COA-B is fallback if dashboard is unavailable or time permits."
+  },
+  "trace": {
+    "chain_hash": "ae5ec723bc7e1499f2f83207e77a8e5a4080ac7053436d8fad9170299e1bfb13",
+    "entry_count": 5,
+    "entries": [
+      {
+        "role": "Interpreter",
+        "decision_type": "anchor_extraction",
+        "timestamp": "2026-02-02T12:00:10-05:00",
+        "parent_hashes": [],
+        "search": {
+          "query": "Q4 financial summary requirements",
+          "source": "input_document",
+          "k": 0,
+          "total_results": 0
+        },
+        "selected": null,
+        "confidence": "HIGH",
+        "rationale": "Input explicitly states revenue, expenses, key metrics, deadline, and audience.",
+        "hash": "f7b748631fdfa73492bfa085d7702c658e42e28a656a8658da60ec92cd4a03a7"
+      },
+      {
+        "role": "Decomposition",
+        "decision_type": "task_decomposition",
+        "timestamp": "2026-02-02T12:00:20-05:00",
+        "parent_hashes": [
+          "f7b748631fdfa73492bfa085d7702c658e42e28a656a8658da60ec92cd4a03a7"
+        ],
+        "search": {
+          "query": "quarterly report workflow template",
+          "source": "SOP-Library",
+          "k": 5,
+          "total_results": 12,
+          "ranker_version": "v1"
+        },
+        "results": [
+          {
+            "id": "SOP-QBR-001",
+            "score": 0.91,
+            "summary": "Executive quarterly report template"
+          },
+          {
+            "id": "SOP-FIN-004",
+            "score": 0.77,
+            "summary": "Finance summary standard operating procedure"
+          }
+        ],
+        "selected": "SOP-QBR-001",
+        "selection_criteria": "Matches executive audience and Q4 cadence.",
+        "confidence": "MEDIUM",
+        "rationale": "Template provides a DAG skeleton; thresholds remain governed by the anchor.",
+        "hash": "4500f51a62de592397b194f8df0ff749f6bcc4fcee502014abaee97d3fb3046f"
+      },
+      {
+        "role": "Procedure",
+        "decision_type": "procedure_assignment",
+        "timestamp": "2026-02-02T12:00:30-05:00",
+        "parent_hashes": [
+          "4500f51a62de592397b194f8df0ff749f6bcc4fcee502014abaee97d3fb3046f"
+        ],
+        "search": {
+          "query": "SOP for pulling dashboard metrics",
+          "source": "SOP-Library",
+          "k": 5,
+          "total_results": 8
+        },
+        "results": [
+          {
+            "id": "SOP-DASH-002",
+            "score": 0.88,
+            "summary": "Pull metrics from internal dashboard"
+          }
+        ],
+        "selected": "SOP-DASH-002",
+        "selection_criteria": "Internal-only data source aligns with constraints.",
+        "confidence": "HIGH",
+        "rationale": "Procedure exists and is routinely used for executive reporting.",
+        "hash": "d7adc2018de84fd23bd214d0ef71464a25373f554c10bbf4662a8743c34233c4"
+      },
+      {
+        "role": "Binding",
+        "decision_type": "capability_binding",
+        "timestamp": "2026-02-02T12:00:40-05:00",
+        "parent_hashes": [
+          "d7adc2018de84fd23bd214d0ef71464a25373f554c10bbf4662a8743c34233c4"
+        ],
+        "search": {
+          "query": "internal dashboard access tool",
+          "source": "capability_inventory",
+          "k": 5,
+          "total_results": 3
+        },
+        "results": [
+          {
+            "id": "tool:fin-dashboard",
+            "score": 0.93,
+            "summary": "Finance dashboard read-only API"
+          }
+        ],
+        "selected": "tool:fin-dashboard",
+        "selection_criteria": "Meets internal source constraint.",
+        "confidence": "HIGH",
+        "rationale": "Tool is available and authorized for the report role.",
+        "hash": "ad2fc2018276268407833a42570206ecb7d1f78beb00d7577ec3b87dd355e45d"
+      },
+      {
+        "role": "Validation",
+        "decision_type": "validate_coas",
+        "timestamp": "2026-02-02T12:00:50-05:00",
+        "parent_hashes": [
+          "ad2fc2018276268407833a42570206ecb7d1f78beb00d7577ec3b87dd355e45d"
+        ],
+        "search": {
+          "query": "precedent search anchor_hash=183af60d6e6256ca4d2845765363d6bdd546cb62578b595dc8a1b486dea93ce0",
+          "source": "success_registry",
+          "k": 5,
+          "total_results": 0
+        },
+        "selected": null,
+        "confidence": "MEDIUM",
+        "rationale": "No registry precedent; COAs validated by procedure availability and constraint checks.",
+        "hash": "41d72863edc8c6cda0f437b07e29d1dff9fe8a8c0395b09f2e2448b146fcaa7f"
+      }
+    ]
+  },
+  "registry_reference": {
+    "similar_mandates": [],
+    "match_type": "NOVEL",
+    "similarity_description": "No precedent entries for this anchor_hash."
+  },
+  "metadata": {
+    "input_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "sources_consulted": [
+      "input_document",
+      "SOP-Library",
+      "capability_inventory",
+      "success_registry"
+    ],
+    "output_hash": "07692e85f35e1bdf0fce4c125a56591500359b440917990719b281ee2216a329"
+  }
+}

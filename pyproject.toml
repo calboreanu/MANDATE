@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mandate"
+version = "1.0.0"
+description = "MANDATE: mandate-as-code schemas and validation utilities"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+authors = [
+  {name = "Elias Calboreanu"},
+]
+dependencies = [
+  "jsonschema>=4.19.0",
+  "referencing>=0.30.0",
+  "importlib_resources>=5.0.0; python_version < '3.11'",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.0.0",
+]
+
+[project.scripts]
+mandate = "mandate.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+mandate = ["schemas/*.json"]

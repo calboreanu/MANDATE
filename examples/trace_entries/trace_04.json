@@ -1,0 +1,26 @@
+{
+  "role": "Binding",
+  "decision_type": "capability_binding",
+  "timestamp": "2026-02-02T12:00:40-05:00",
+  "parent_hashes": [
+    "d7adc2018de84fd23bd214d0ef71464a25373f554c10bbf4662a8743c34233c4"
+  ],
+  "search": {
+    "query": "internal dashboard access tool",
+    "source": "capability_inventory",
+    "k": 5,
+    "total_results": 3
+  },
+  "results": [
+    {
+      "id": "tool:fin-dashboard",
+      "score": 0.93,
+      "summary": "Finance dashboard read-only API"
+    }
+  ],
+  "selected": "tool:fin-dashboard",
+  "selection_criteria": "Meets internal source constraint.",
+  "confidence": "HIGH",
+  "rationale": "Tool is available and authorized for the report role.",
+  "hash": "ad2fc2018276268407833a42570206ecb7d1f78beb00d7577ec3b87dd355e45d"
+}

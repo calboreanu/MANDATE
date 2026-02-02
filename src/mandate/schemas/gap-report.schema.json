@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:mandate:schema:gap-report.schema.json",
+  "title": "MANDATE gap analysis report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "gap_id",
+    "gap_type",
+    "detected_by",
+    "pipeline_stage",
+    "location",
+    "reason",
+    "remediation",
+    "readiness_score",
+    "trace_to_gap"
+  ],
+  "properties": {
+    "gap_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "gap_type": {
+      "type": "string",
+      "enum": [
+        "UNDEFINED_MINIMUM",
+        "UNDEFINED_TARGET",
+        "UNKNOWN_PATTERN",
+        "MISSING_TTP",
+        "MISSING_CAPABILITY",
+        "UNASSESSABLE_RISK"
+      ]
+    },
+    "detected_by": {
+      "type": "string",
+      "enum": [
+        "Intake",
+        "Interpreter",
+        "Decomposition",
+        "Procedure",
+        "Binding",
+        "Validation"
+      ]
+    },
+    "pipeline_stage": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 6
+    },
+    "location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "input_reference",
+        "field_or_task"
+      ],
+      "properties": {
+        "input_reference": {
+          "type": "string"
+        },
+        "field_or_task": {
+          "type": "string"
+        }
+      }
+    },
+    "reason": {
+      "type": "string"
+    },
+    "remediation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action_required",
+        "responsible_party",
+        "complexity"
+      ],
+      "properties": {
+        "action_required": {
+          "type": "string"
+        },
+        "responsible_party": {
+          "type": "string"
+        },
+        "complexity": {
+          "type": "string",
+          "enum": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ]
+        }
+      }
+    },
+    "readiness_score": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "completion_percentage",
+        "blocking",
+        "partial_spec_available"
+      ],
+      "properties": {
+        "completion_percentage": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "blocking": {
+          "type": "boolean"
+        },
+        "partial_spec_available": {
+          "type": "boolean"
+        }
+      }
+    },
+    "trace_to_gap": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

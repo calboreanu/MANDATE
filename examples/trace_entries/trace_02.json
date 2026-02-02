@@ -1,0 +1,32 @@
+{
+  "role": "Decomposition",
+  "decision_type": "task_decomposition",
+  "timestamp": "2026-02-02T12:00:20-05:00",
+  "parent_hashes": [
+    "f7b748631fdfa73492bfa085d7702c658e42e28a656a8658da60ec92cd4a03a7"
+  ],
+  "search": {
+    "query": "quarterly report workflow template",
+    "source": "SOP-Library",
+    "k": 5,
+    "total_results": 12,
+    "ranker_version": "v1"
+  },
+  "results": [
+    {
+      "id": "SOP-QBR-001",
+      "score": 0.91,
+      "summary": "Executive quarterly report template"
+    },
+    {
+      "id": "SOP-FIN-004",
+      "score": 0.77,
+      "summary": "Finance summary standard operating procedure"
+    }
+  ],
+  "selected": "SOP-QBR-001",
+  "selection_criteria": "Matches executive audience and Q4 cadence.",
+  "confidence": "MEDIUM",
+  "rationale": "Template provides a DAG skeleton; thresholds remain governed by the anchor.",
+  "hash": "4500f51a62de592397b194f8df0ff749f6bcc4fcee502014abaee97d3fb3046f"
+}

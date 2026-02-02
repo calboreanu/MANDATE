@@ -1,0 +1,26 @@
+{
+  "role": "Procedure",
+  "decision_type": "procedure_assignment",
+  "timestamp": "2026-02-02T12:00:30-05:00",
+  "parent_hashes": [
+    "4500f51a62de592397b194f8df0ff749f6bcc4fcee502014abaee97d3fb3046f"
+  ],
+  "search": {
+    "query": "SOP for pulling dashboard metrics",
+    "source": "SOP-Library",
+    "k": 5,
+    "total_results": 8
+  },
+  "results": [
+    {
+      "id": "SOP-DASH-002",
+      "score": 0.88,
+      "summary": "Pull metrics from internal dashboard"
+    }
+  ],
+  "selected": "SOP-DASH-002",
+  "selection_criteria": "Internal-only data source aligns with constraints.",
+  "confidence": "HIGH",
+  "rationale": "Procedure exists and is routinely used for executive reporting.",
+  "hash": "d7adc2018de84fd23bd214d0ef71464a25373f554c10bbf4662a8743c34233c4"
+}

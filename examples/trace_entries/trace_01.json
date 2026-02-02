@@ -1,0 +1,16 @@
+{
+  "role": "Interpreter",
+  "decision_type": "anchor_extraction",
+  "timestamp": "2026-02-02T12:00:10-05:00",
+  "parent_hashes": [],
+  "search": {
+    "query": "Q4 financial summary requirements",
+    "source": "input_document",
+    "k": 0,
+    "total_results": 0
+  },
+  "selected": null,
+  "confidence": "HIGH",
+  "rationale": "Input explicitly states revenue, expenses, key metrics, deadline, and audience.",
+  "hash": "f7b748631fdfa73492bfa085d7702c658e42e28a656a8658da60ec92cd4a03a7"
+}

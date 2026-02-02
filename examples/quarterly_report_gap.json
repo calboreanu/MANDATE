@@ -1,0 +1,22 @@
+{
+  "gap_id": "GAP-2026-001",
+  "gap_type": "UNDEFINED_MINIMUM",
+  "detected_by": "Interpreter",
+  "pipeline_stage": 2,
+  "location": {
+    "input_reference": "para-3",
+    "field_or_task": "quality_threshold"
+  },
+  "reason": "Input document specifies 'high quality' without quantifiable threshold.",
+  "remediation": {
+    "action_required": "Define minimum acceptable quality metric (e.g., error_rate <= 5%).",
+    "responsible_party": "Process Owner",
+    "complexity": "LOW"
+  },
+  "readiness_score": {
+    "completion_percentage": 17,
+    "blocking": true,
+    "partial_spec_available": false
+  },
+  "trace_to_gap": "f7b748631fdfa73492bfa085d7702c658e42e28a656a8658da60ec92cd4a03a7"
+}

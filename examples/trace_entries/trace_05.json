@@ -1,0 +1,18 @@
+{
+  "role": "Validation",
+  "decision_type": "validate_coas",
+  "timestamp": "2026-02-02T12:00:50-05:00",
+  "parent_hashes": [
+    "ad2fc2018276268407833a42570206ecb7d1f78beb00d7577ec3b87dd355e45d"
+  ],
+  "search": {
+    "query": "precedent search anchor_hash=ffc45b89d436d5c9c93d6a9afe2632761f09ea192836c9bd17bcc371b2207f59",
+    "source": "success_registry",
+    "k": 5,
+    "total_results": 0
+  },
+  "selected": null,
+  "confidence": "MEDIUM",
+  "rationale": "No registry precedent; COAs validated by procedure availability and constraint checks.",
+  "hash": "07e88d6a9b2dcfbcc2c9e31002ff829ee6767f74b9401432dddc7f88bcd651e9"
+}

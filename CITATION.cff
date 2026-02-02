@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the MANDATE paper and this repository."
+title: "MANDATE: mandate-as-code schemas and validation utilities"
+authors:
+  - family-names: "Calboreanu"
+    given-names: "Elias"
+    orcid: "https://orcid.org/0009-0008-9194-0589"
+date-released: 2026-02-02
+version: "1.0.0"
+repository-code: "https://github.com/calboreanu/MANDATE"
+license: "Apache-2.0"
+keywords:
+  - "autonomous agents"
+  - "requirements engineering"
+  - "provenance"
+  - "policy-as-code"
+  - "risk management"
+  - "multi-agent systems"
+  - "AI governance"
+
+preferred-citation:
+  type: article
+  title: "MANDATE: A Tolerance-Based Framework for Autonomous Agent Task Specification"
+  authors:
+    - family-names: "Calboreanu"
+      given-names: "Elias"
+      orcid: "https://orcid.org/0009-0008-9194-0589"
+  year: 2026
+  # Update with arXiv ID when published:
+  # doi: "10.48550/arXiv.XXXX.XXXXX"
+  # url: "https://arxiv.org/abs/XXXX.XXXXX"
