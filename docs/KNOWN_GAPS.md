@@ -11,10 +11,12 @@ supplement (Deviation Table and/or Threats to Validity) and summarized here.
    process cannot be re-run externally; scaffolds and the answer key ship,
    the human sign-off process does not (documented deviation).
 
-3. **Confidence intervals and significance tests: pending.** The v2
-   comparative table reports point estimates over full populations
-   (n=1,200–1,500 per cell). Bootstrap CIs and paired tests are a documented
-   open item. Small gaps (e.g., Cond-A 0.981 vs ReAct 0.968) are below the
+3. **Confidence intervals and significance tests: delivered 2026-07-10.**
+   Task-clustered and per-record bootstrap CIs (10,000 resamples, seed
+   20260710) plus Holm-corrected paired Wilcoxon tests on the shared
+   120-task main corpus now ship in `analysis/bootstrap_contrasts_results.json`
+   (script: `code/scripts/bootstrap_contrasts.py`). Small gaps at the
+   Cond-A/B3 boundary (clustered CI [+0.004, +0.029]) remain below the
    pre-registered minimum detectable effect and must not be read as wins.
 
 4. **Subjective judge outcomes are unreliable by their own IRR.**
@@ -25,7 +27,9 @@ supplement (Deviation Table and/or Threats to Validity) and summarized here.
 
 5. **Phase B semantic adversarial comparison: partial (80.7%).** Grading
    paused under budget Deviation D-13; baseline_4 generation halted at
-   86.3%; baselines 5–6 scoped out under D-12 with baseline_4 as the
+   86.3% (3,021/3,500 on the frozen evaluation tree; the closeout status
+   JSON snapshot reads 2,993 because it was written while the generator
+   drained); baselines 5–6 scoped out under D-12 with baseline_4 as the
    multi-agent-shell class representative. Resumable; not claimable today.
 
 6. **Source-level ablations A1/A2/A4/A6/A7: not run at full scale.**

@@ -1,5 +1,28 @@
 # Changelog — MANDATE 2026Q2 Evaluation Deposit
 
+## v2-closeout+contrasts — 2026-07-10
+
+- Claim-to-data mapping pass: every §12 Tier-2 number recomputed from
+  deposit data (comparative table 63/63 values exact; structural counts;
+  cross-vendor 12/12 cells; perturbation strata; IRR artifacts).
+- Bootstrap contrasts delivered (pre-registered in the v2 Amendment
+  statistical-power section): `code/scripts/bootstrap_contrasts.py`,
+  results in `analysis/` (seed 20260710, B=10,000; per-record + task-
+  clustered CIs; Holm-corrected paired Wilcoxon on 120 task means).
+- v1 IRR evidence staged into the deposit:
+  `v1_main/grading/v1_sampled/v1_irr_report.json` (canonical kappa/alpha
+  artifact) and `double_grade/pass{1,2}_scores.jsonl` (per-judge scores;
+  alpha recomputation verified).
+- CLAIM_TO_DATA_MAP corrections: rows 5/6 now executable; row 7 Qwen
+  fallback corrected to 5.3% overall (16% SEC-only); row 9 rewritten to
+  the disk-verifiable refusal signature; row 14 annotated for the b4
+  2,993-vs-3,021 snapshot-timing difference; row 18 added (contrasts).
+- KNOWN_GAPS #3 (CIs) closed; #5 annotated.
+- Supplement updated: new Pairwise Contrasts subsection; threats items
+  on CIs and multiple-comparison correction marked delivered; D-10 row
+  qualified (v2 20% double-grade IRR not executed before D-13 pause);
+  grading-methodology paragraph states executed IRR per cycle.
+
 ## v2-closeout — 2026-07-08
 
 - Stage 4 v2 full-coverage grading complete: 12,000/12,000 records, zero
