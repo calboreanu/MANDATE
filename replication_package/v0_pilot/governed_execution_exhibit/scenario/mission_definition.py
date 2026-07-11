@@ -1,5 +1,5 @@
 """Normal Mission scenario definition — matches the AEGIS JSX demo 'Normal Mission' flow."""
-from .models import (
+from models_dataclasses import (
     MissionConfig, CourseOfAction, TaskNode, ToolBinding,
 )
 
