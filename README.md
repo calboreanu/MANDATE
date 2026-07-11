@@ -97,10 +97,20 @@ byte-faithful re-execution should use 1.0.0rc1.
   multi-agent-shell class representative). No cross-system semantic
   adversarial claims are made from partial grades. Resumable via
   `grade-v2 --skip-existing` against frozen records.
-- **Confidence intervals** on the v2 comparative table are pending
-  (documented open item); subjective judge outcomes (trace_completeness
-  α=0.194, fabrication_count α=0.216) fell below the reliability threshold
-  and are flagged wherever used.
+- **Confidence intervals** for the pre-registered contrast family were
+  delivered 2026-07-10 (`analysis/bootstrap_contrasts_results.json`;
+  script `code/scripts/bootstrap_contrasts.py`, seed 20260710); the wider
+  9-system grid remains descriptive. Subjective judge outcomes
+  (trace_completeness α=0.194, fabrication_count α=0.216) fell below the
+  reliability threshold and are flagged wherever used; structural claims
+  derive from artifact inspection.
+
+  Note on `v1_main/grading/v1_sampled/judges_config.json`: the file
+  records the pre-registered ensemble (Opus); the v1 cycle executed with
+  Sonnet substituted under deviation D-08 and v2 restored Opus under
+  D-10. `pre_registration/DEVIATIONS.md` carries the four long-form
+  deviation narratives; the complete 13-entry structured table is §9 of
+  the Empirical Evidence Supplemental in `supplement_pdfs/`.
 - Cond-A receives pre-extracted structured input and is an upper-bound
   characterization, **not** an apples-to-apples comparator against baselines;
   the fair MANDATE comparator is Cond-B.
