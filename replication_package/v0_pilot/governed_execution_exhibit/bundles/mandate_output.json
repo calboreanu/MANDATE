@@ -1,0 +1,434 @@
+{
+  "mandate_id": "AEGIS-NORMAL-001",
+  "version": "1.0",
+  "generated": "2026-02-11T14:50:07.611Z",
+  "anchor": {
+    "mission_intent": "Identify exploitable vulnerabilities in external-facing services",
+    "minimum": {
+      "description": "Enumerate external services and identify potential vulnerabilities"
+    },
+    "target": {
+      "description": "Achieve initial access via confirmed exploitable vulnerability"
+    },
+    "constraints": [
+      "target.scope IN ['10.0.1.0/24', 'acme.example.com']",
+      "execution.duration <= PT4H",
+      "FORBIDS data_exfiltration",
+      "FORBIDS destructive_action"
+    ],
+    "anchor_hash": "209cb89ea87e9387b3ef3b0741785cdad7e5a5da68c6189ec24bf0f22624a6a6"
+  },
+  "courses_of_action": [
+    {
+      "coa_id": "COA-1",
+      "approach": "Passive recon + enumeration only",
+      "task_dag": {
+        "nodes": [
+          {
+            "id": "1",
+            "name": "Passive reconnaissance"
+          },
+          {
+            "id": "2",
+            "name": "Active host discovery"
+          },
+          {
+            "id": "3",
+            "name": "Service enumeration (batch A)"
+          },
+          {
+            "id": "4",
+            "name": "Service enumeration (batch B)"
+          },
+          {
+            "id": "5",
+            "name": "Service fingerprinting (batch A)"
+          },
+          {
+            "id": "6",
+            "name": "Service fingerprinting (batch B)"
+          },
+          {
+            "id": "7",
+            "name": "Vulnerability scanning (thread 1)"
+          },
+          {
+            "id": "8",
+            "name": "Vulnerability scanning (thread 2)"
+          },
+          {
+            "id": "9",
+            "name": "Vulnerability scanning (thread 3)"
+          },
+          {
+            "id": "10",
+            "name": "Finding validation"
+          },
+          {
+            "id": "11",
+            "name": "Report generation"
+          },
+          {
+            "id": "12",
+            "name": "Final summary"
+          }
+        ],
+        "edges": [
+          {
+            "from": "1",
+            "to": "2"
+          },
+          {
+            "from": "2",
+            "to": "3"
+          },
+          {
+            "from": "2",
+            "to": "4"
+          },
+          {
+            "from": "3",
+            "to": "5"
+          },
+          {
+            "from": "4",
+            "to": "6"
+          },
+          {
+            "from": "5",
+            "to": "7"
+          },
+          {
+            "from": "5",
+            "to": "8"
+          },
+          {
+            "from": "6",
+            "to": "8"
+          },
+          {
+            "from": "6",
+            "to": "9"
+          },
+          {
+            "from": "7",
+            "to": "10"
+          },
+          {
+            "from": "8",
+            "to": "10"
+          },
+          {
+            "from": "9",
+            "to": "10"
+          },
+          {
+            "from": "10",
+            "to": "11"
+          },
+          {
+            "from": "11",
+            "to": "12"
+          }
+        ]
+      },
+      "risk_assessment": {
+        "score": "LOW",
+        "confidence_min": "MEDIUM",
+        "confidence_target": "HIGH",
+        "primary_factor": "execution_uncertainty"
+      },
+      "off_nominal_triggers": [
+        "target.scope_violations > 0",
+        "execution.rate > 100",
+        "detection.signature_count > 0"
+      ]
+    },
+    {
+      "coa_id": "COA-2",
+      "approach": "Active scanning + vulnerability validation + exploit attempts",
+      "task_dag": {
+        "nodes": [
+          {
+            "id": "1",
+            "name": "Passive reconnaissance"
+          },
+          {
+            "id": "2",
+            "name": "Active host discovery"
+          },
+          {
+            "id": "3",
+            "name": "Service enumeration (batch A)"
+          },
+          {
+            "id": "4",
+            "name": "Service enumeration (batch B)"
+          },
+          {
+            "id": "5",
+            "name": "Service fingerprinting (batch A)"
+          },
+          {
+            "id": "6",
+            "name": "Service fingerprinting (batch B)"
+          },
+          {
+            "id": "7",
+            "name": "Vulnerability scanning (thread 1)"
+          },
+          {
+            "id": "8",
+            "name": "Vulnerability scanning (thread 2)"
+          },
+          {
+            "id": "9",
+            "name": "Vulnerability scanning (thread 3)"
+          },
+          {
+            "id": "10",
+            "name": "Finding validation"
+          },
+          {
+            "id": "11",
+            "name": "Exploit attempt"
+          },
+          {
+            "id": "12",
+            "name": "Final summary"
+          },
+          {
+            "id": "12",
+            "name": "Report generation"
+          }
+        ],
+        "edges": [
+          {
+            "from": "1",
+            "to": "2"
+          },
+          {
+            "from": "2",
+            "to": "3"
+          },
+          {
+            "from": "2",
+            "to": "4"
+          },
+          {
+            "from": "3",
+            "to": "5"
+          },
+          {
+            "from": "4",
+            "to": "6"
+          },
+          {
+            "from": "5",
+            "to": "7"
+          },
+          {
+            "from": "5",
+            "to": "8"
+          },
+          {
+            "from": "6",
+            "to": "8"
+          },
+          {
+            "from": "6",
+            "to": "9"
+          },
+          {
+            "from": "7",
+            "to": "10"
+          },
+          {
+            "from": "8",
+            "to": "10"
+          },
+          {
+            "from": "9",
+            "to": "10"
+          },
+          {
+            "from": "10",
+            "to": "11"
+          },
+          {
+            "from": "11",
+            "to": "12"
+          },
+          {
+            "from": "11",
+            "to": "12"
+          }
+        ]
+      },
+      "risk_assessment": {
+        "score": "MEDIUM",
+        "confidence_min": "MEDIUM",
+        "confidence_target": "HIGH",
+        "primary_factor": "execution_uncertainty"
+      },
+      "off_nominal_triggers": [
+        "target.scope_violations > 0",
+        "execution.rate > 100",
+        "detection.signature_count > 0"
+      ]
+    },
+    {
+      "coa_id": "COA-3",
+      "approach": "Full scanning + aggressive exploit attempts",
+      "task_dag": {
+        "nodes": [
+          {
+            "id": "1",
+            "name": "Passive reconnaissance"
+          },
+          {
+            "id": "2",
+            "name": "Active host discovery"
+          },
+          {
+            "id": "3",
+            "name": "Service enumeration (batch A)"
+          },
+          {
+            "id": "4",
+            "name": "Service enumeration (batch B)"
+          },
+          {
+            "id": "5",
+            "name": "Service fingerprinting (batch A)"
+          },
+          {
+            "id": "6",
+            "name": "Service fingerprinting (batch B)"
+          },
+          {
+            "id": "7",
+            "name": "Vulnerability scanning (thread 1)"
+          },
+          {
+            "id": "8",
+            "name": "Vulnerability scanning (thread 2)"
+          },
+          {
+            "id": "9",
+            "name": "Vulnerability scanning (thread 3)"
+          },
+          {
+            "id": "10",
+            "name": "Finding validation"
+          },
+          {
+            "id": "11",
+            "name": "Exploit attempt"
+          },
+          {
+            "id": "12",
+            "name": "Final summary"
+          },
+          {
+            "id": "12",
+            "name": "Report generation"
+          }
+        ],
+        "edges": [
+          {
+            "from": "1",
+            "to": "2"
+          },
+          {
+            "from": "2",
+            "to": "3"
+          },
+          {
+            "from": "2",
+            "to": "4"
+          },
+          {
+            "from": "3",
+            "to": "5"
+          },
+          {
+            "from": "4",
+            "to": "6"
+          },
+          {
+            "from": "5",
+            "to": "7"
+          },
+          {
+            "from": "5",
+            "to": "8"
+          },
+          {
+            "from": "6",
+            "to": "8"
+          },
+          {
+            "from": "6",
+            "to": "9"
+          },
+          {
+            "from": "7",
+            "to": "10"
+          },
+          {
+            "from": "8",
+            "to": "10"
+          },
+          {
+            "from": "9",
+            "to": "10"
+          },
+          {
+            "from": "10",
+            "to": "11"
+          },
+          {
+            "from": "11",
+            "to": "12"
+          },
+          {
+            "from": "11",
+            "to": "12"
+          }
+        ]
+      },
+      "risk_assessment": {
+        "score": "HIGH",
+        "confidence_min": "MEDIUM",
+        "confidence_target": "HIGH",
+        "primary_factor": "execution_uncertainty"
+      },
+      "off_nominal_triggers": [
+        "target.scope_violations > 0",
+        "execution.rate > 100",
+        "detection.signature_count > 0"
+      ]
+    }
+  ],
+  "recommendation": {
+    "primary_coa": "COA-2",
+    "fallback_sequence": [
+      "COA-1",
+      "COA-3"
+    ],
+    "rationale": "Primary COA COA-2 balances mission objectives with operational risk"
+  },
+  "trace": {
+    "chain_hash": "be18c62df75158cc2a3fa0a06bcb4bac65a614d366bc6880e4e01af14f381cc2",
+    "entry_count": 6,
+    "entries": [
+      "2f45a8671cc4477953c247e22b8b3ca1aebb25d471242e278416b89cd7408ece",
+      "89ae1b34ad1167491a3c6603f1fcbb22062e17422b279803d53b9ab7165bd074",
+      "9f7b6657e4c745510000bad8d089afac4738eccd9af74e29f3213c2078807798",
+      "12a18c1ccc1cc54ff6b079aaa9e62cea6de862373918617f9c63d4e81ad19840",
+      "b78d4278306c55860137581a4fb59b293243baca7f7c55ac0a31962ba67f2706",
+      "567c5579405393c5aade21ee7527fc035a2936618b7b4cfbee8b03690a7443bc"
+    ]
+  }
+}

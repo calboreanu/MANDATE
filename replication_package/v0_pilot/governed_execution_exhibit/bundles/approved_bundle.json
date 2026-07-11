@@ -1,0 +1,92 @@
+{
+  "operation_id": "AEGIS-NORMAL-001",
+  "mandate_hash": "f353aa91fca8626f46178d8a5c394b56c8a765bd992dd2ba4962d160d3a8ef35",
+  "policy_id": "AEGIS_POLICY",
+  "policy_version": "v1.0-normal",
+  "selected_coa": "COA-2",
+  "authorized_tools": [
+    {
+      "tool_id": "metasploit",
+      "tool_class": "EXPLOIT",
+      "definition_hash": "98af33661ebfe27b4656fa9941da3746472f40adebdb88d374f8354c53d78dba"
+    },
+    {
+      "tool_id": "nmap",
+      "tool_class": "RECON",
+      "definition_hash": "30afe10fefea79077a52ec7d0e02a069967bfa8a6c3f83189861c5058cc62396"
+    },
+    {
+      "tool_id": "nmap",
+      "tool_class": "SCAN",
+      "definition_hash": "a2ec7b9a0f6025fb2644d768f68223ef10e7289a7292a172aa54228e9dc250b5"
+    },
+    {
+      "tool_id": "nuclei",
+      "tool_class": "SCAN",
+      "definition_hash": "09eb3b87431bc55ddd79ce12c531cfa7d9d5997c7a2d476ae641b0e2a18724c2"
+    }
+  ],
+  "target_scope": [
+    "acme.example.com",
+    "10.0.1.0/24",
+    "10.0.1.5"
+  ],
+  "constraints": [
+    "target.scope IN ['10.0.1.0/24', 'acme.example.com']",
+    "execution.duration <= PT4H",
+    "FORBIDS data_exfiltration",
+    "FORBIDS destructive_action"
+  ],
+  "decision_tree": {
+    "primary": "COA-2",
+    "fallback": [
+      "COA-1"
+    ]
+  },
+  "tripwires": [
+    {
+      "id": "T1",
+      "predicate": "execution_time > max_autonomous",
+      "action": "ESCALATE_TO_HITL"
+    },
+    {
+      "id": "T2",
+      "predicate": "containment_level >= max_autonomous",
+      "action": "CEASE_OPERATIONS"
+    }
+  ],
+  "safe_state": {
+    "action": "cease_all_operations",
+    "notify": "soc@acme.example.com"
+  },
+  "containment_config": {
+    "initial_level": 0,
+    "max_autonomous": 2
+  },
+  "time_window": "2026-12-31T06:00:00Z",
+  "verdicts": {
+    "COA-1": {
+      "verdict": "ALLOW",
+      "confidence": 100.0,
+      "reason_codes": [
+        "POLICY_ALLOW"
+      ]
+    },
+    "COA-2": {
+      "verdict": "ALLOW",
+      "confidence": 100.0,
+      "reason_codes": [
+        "POLICY_ALLOW"
+      ]
+    },
+    "COA-3": {
+      "verdict": "ALLOW",
+      "confidence": 100.0,
+      "reason_codes": [
+        "POLICY_ALLOW"
+      ]
+    }
+  },
+  "timestamp": "2026-02-11T14:50:07.622945Z",
+  "bundle_hash": "eec03b3da6cf4466397ef66626728e3b8215152301ec54df1d6ea2b953d3780c"
+}
