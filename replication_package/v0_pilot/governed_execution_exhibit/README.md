@@ -36,6 +36,28 @@ aggressive). The recommendation selects COA-2 with fallback sequence
 | `output/evidence_chain.jsonl` | 8-record hash-linked, ECDSA-signed evidence chain (OPERATION_START -> 5x TOOL_INVOCATION -> CHAIN_SEALED) |
 | `output/audit_log.jsonl` | LATTICE audit log (12 ALLOW verdicts; bundle approvals) |
 | `keys/public_key.pem` | Public key for evidence-chain signature verification (private key intentionally excluded) |
+| `scenario/mission_definition.py` | The scenario definition: COA task DAGs and the tool-to-MITRE-ATT&CK-TTP bindings (T1595, T1046, T1190) |
+
+## Artifact caveats (honest disclosure)
+
+- **Tool backends are simulated** (see Scope above). The evidence chain
+  contains a stub `exploit_success: true` field emitted by the
+  simulated metasploit backend; it is simulated output and is not
+  evidence of exploitation against a real target. No paper claim rests
+  on it.
+- **The COA-2 `task_dag` in `mandate_output.json` contains a known
+  duplicate node id (`12`) and a duplicate edge (`11 -> 12`)** in this
+  demo scenario definition. It does not affect the executed five-tool
+  sequence or evidence-chain verification, and is left as-is rather than
+  silently corrected.
+- **The authorization audit log and the execution evidence chain are
+  separate records of the demo run.** `output/audit_log.jsonl` records
+  multiple bundle approvals (rotating bundle hashes) from the
+  authorization layer; `output/evidence_chain.jsonl` is a single sealed
+  execution operation (`operation_id e218f74c...`, bundle hash
+  `7d43...`). They are each internally consistent and independently
+  verifiable, but are not cross-linked by a shared bundle hash, so the
+  deposit does not assert one unbroken authorize-to-execute hash lineage.
 
 ## Verify
 
