@@ -1,0 +1,1689 @@
+{
+  "current_state": "waiting",
+  "latest_probe": {
+    "consecutive_healthy_intervals": 2,
+    "exit_code": 0,
+    "n_success": 5,
+    "n_total": 5,
+    "ts": "2026-07-01T11:27:36Z"
+  },
+  "transitions": [
+    {
+      "details": {
+        "counts": {
+          "by_record": 1470,
+          "double_grade_json": 0,
+          "incomplete_grades": 27
+        },
+        "reason": "daemon_started"
+      },
+      "state": "waiting",
+      "ts": "2026-06-25T15:37:55Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 1470,
+          "double_grade_json": 0,
+          "incomplete_grades": 27
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-06-25T15:57:33Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 27,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 1470,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 1470,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-06-25T15:57:33Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 2866,
+          "double_grade_json": 0,
+          "incomplete_grades": 18
+        },
+        "exit_code": -15,
+        "progress_metric": "by_record",
+        "progress_value": 2866,
+        "reason": "no_new_checkpoints_gt_10min"
+      },
+      "state": "halted_again",
+      "ts": "2026-06-26T06:01:47Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 2866,
+          "double_grade_json": 0,
+          "incomplete_grades": 18
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-06-26T06:01:47Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 2866,
+          "double_grade_json": 0,
+          "incomplete_grades": 18
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-06-26T06:36:52Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 18,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 2866,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 2866,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-06-26T06:36:52Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 3495,
+          "double_grade_json": 0,
+          "incomplete_grades": 7
+        },
+        "exit_code": -15,
+        "progress_metric": "by_record",
+        "progress_value": 3495,
+        "reason": "no_new_checkpoints_gt_10min"
+      },
+      "state": "halted_again",
+      "ts": "2026-06-26T13:09:59Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 3495,
+          "double_grade_json": 0,
+          "incomplete_grades": 7
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-06-26T13:09:59Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 3495,
+          "double_grade_json": 0,
+          "incomplete_grades": 7
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-06-26T13:44:34Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 7,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 3495,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 3495,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-06-26T13:44:34Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 4921,
+          "double_grade_json": 0,
+          "incomplete_grades": 22
+        },
+        "exit_code": -15,
+        "progress_metric": "by_record",
+        "progress_value": 4921,
+        "reason": "no_new_checkpoints_gt_10min"
+      },
+      "state": "halted_again",
+      "ts": "2026-06-27T04:10:58Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 4921,
+          "double_grade_json": 0,
+          "incomplete_grades": 22
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-06-27T04:10:58Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 4921,
+          "double_grade_json": 0,
+          "incomplete_grades": 22
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-06-27T06:46:33Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 22,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 4921,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 4921,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-06-27T06:46:33Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 9556,
+          "double_grade_json": 0,
+          "incomplete_grades": 37
+        },
+        "exit_code": -15,
+        "progress_metric": "by_record",
+        "progress_value": 9556,
+        "reason": "no_new_checkpoints_gt_10min"
+      },
+      "state": "halted_again",
+      "ts": "2026-06-29T02:40:21Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 9556,
+          "double_grade_json": 0,
+          "incomplete_grades": 37
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-06-29T02:40:21Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 9556,
+          "double_grade_json": 0,
+          "incomplete_grades": 37
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-06-29T10:45:04Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 37,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 9556,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 9556,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-06-29T10:45:04Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 9557,
+          "double_grade_json": 0,
+          "incomplete_grades": 8
+        },
+        "exit_code": -15,
+        "progress_metric": "by_record",
+        "progress_value": 9557,
+        "reason": "no_new_checkpoints_gt_10min"
+      },
+      "state": "halted_again",
+      "ts": "2026-06-29T11:03:05Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 9557,
+          "double_grade_json": 0,
+          "incomplete_grades": 8
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-06-29T11:03:05Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 9557,
+          "double_grade_json": 0,
+          "incomplete_grades": 8
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-06-29T15:23:29Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 8,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 9557,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 9557,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-06-29T15:23:29Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 9559,
+          "double_grade_json": 0,
+          "incomplete_grades": 7
+        },
+        "exit_code": -15,
+        "progress_metric": "by_record",
+        "progress_value": 9559,
+        "reason": "no_new_checkpoints_gt_10min"
+      },
+      "state": "halted_again",
+      "ts": "2026-06-29T15:35:30Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 9559,
+          "double_grade_json": 0,
+          "incomplete_grades": 7
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-06-29T15:35:30Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 9559,
+          "double_grade_json": 0,
+          "incomplete_grades": 7
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-06-29T19:21:19Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 7,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 9559,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 9559,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-06-29T19:21:19Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 9576,
+          "double_grade_json": 0,
+          "incomplete_grades": 13
+        },
+        "exit_code": -15,
+        "progress_metric": "by_record",
+        "progress_value": 9576,
+        "reason": "no_new_checkpoints_gt_10min"
+      },
+      "state": "halted_again",
+      "ts": "2026-06-29T20:15:21Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 9576,
+          "double_grade_json": 0,
+          "incomplete_grades": 13
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-06-29T20:15:21Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 9576,
+          "double_grade_json": 0,
+          "incomplete_grades": 13
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-06-29T21:42:49Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 13,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 9576,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 9576,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-06-29T21:42:49Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 11977,
+          "double_grade_json": 0,
+          "incomplete_grades": 23
+        },
+        "exit_code": 1,
+        "reason": "grade_v2_exit"
+      },
+      "state": "halted_again",
+      "ts": "2026-06-30T22:07:02Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 11977,
+          "double_grade_json": 0,
+          "incomplete_grades": 23
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-06-30T22:07:02Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 11977,
+          "double_grade_json": 0,
+          "incomplete_grades": 23
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-06-30T22:41:34Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 23,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 11977,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 11977,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-06-30T22:41:34Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 11998,
+          "double_grade_json": 0,
+          "incomplete_grades": 2
+        },
+        "exit_code": 1,
+        "reason": "grade_v2_exit"
+      },
+      "state": "halted_again",
+      "ts": "2026-06-30T22:58:35Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 11998,
+          "double_grade_json": 0,
+          "incomplete_grades": 2
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-06-30T22:58:35Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 11998,
+          "double_grade_json": 0,
+          "incomplete_grades": 2
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-06-30T23:33:06Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 2,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 11998,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 11998,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-06-30T23:33:06Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 11999,
+          "double_grade_json": 0,
+          "incomplete_grades": 1
+        },
+        "exit_code": 1,
+        "reason": "grade_v2_exit"
+      },
+      "state": "halted_again",
+      "ts": "2026-06-30T23:35:07Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 11999,
+          "double_grade_json": 0,
+          "incomplete_grades": 1
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-06-30T23:35:07Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 11999,
+          "double_grade_json": 0,
+          "incomplete_grades": 1
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-07-01T00:09:39Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 1,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 11999,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 11999,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-07-01T00:09:39Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 11999,
+          "double_grade_json": 0,
+          "incomplete_grades": 1
+        },
+        "exit_code": 1,
+        "reason": "grade_v2_exit"
+      },
+      "state": "halted_again",
+      "ts": "2026-07-01T00:10:39Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 11999,
+          "double_grade_json": 0,
+          "incomplete_grades": 1
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-07-01T00:10:39Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 11999,
+          "double_grade_json": 0,
+          "incomplete_grades": 1
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-07-01T00:45:11Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 1,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 11999,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 11999,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-07-01T00:45:11Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 11999,
+          "double_grade_json": 0,
+          "incomplete_grades": 1
+        },
+        "exit_code": 1,
+        "reason": "grade_v2_exit"
+      },
+      "state": "halted_again",
+      "ts": "2026-07-01T00:46:11Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 11999,
+          "double_grade_json": 0,
+          "incomplete_grades": 1
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-07-01T00:46:11Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 11999,
+          "double_grade_json": 0,
+          "incomplete_grades": 1
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-07-01T01:20:43Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 1,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 11999,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 11999,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-07-01T01:20:43Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "exit_code": 1,
+        "reason": "grade_v2_exit"
+      },
+      "state": "halted_again",
+      "ts": "2026-07-01T01:21:43Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-07-01T01:21:43Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-07-01T01:56:13Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 0,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-07-01T01:56:13Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "exit_code": 1,
+        "reason": "grade_v2_exit"
+      },
+      "state": "halted_again",
+      "ts": "2026-07-01T01:57:13Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-07-01T01:57:13Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-07-01T02:33:28Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 0,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-07-01T02:33:28Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "exit_code": 1,
+        "reason": "grade_v2_exit"
+      },
+      "state": "halted_again",
+      "ts": "2026-07-01T02:34:29Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-07-01T02:34:29Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-07-01T03:09:01Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 0,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-07-01T03:09:01Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "exit_code": 1,
+        "reason": "grade_v2_exit"
+      },
+      "state": "halted_again",
+      "ts": "2026-07-01T03:10:01Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-07-01T03:10:01Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-07-01T03:44:35Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 0,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-07-01T03:44:35Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "exit_code": 1,
+        "reason": "grade_v2_exit"
+      },
+      "state": "halted_again",
+      "ts": "2026-07-01T03:45:35Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-07-01T03:45:35Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-07-01T04:20:09Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 0,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-07-01T04:20:09Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "exit_code": 1,
+        "reason": "grade_v2_exit"
+      },
+      "state": "halted_again",
+      "ts": "2026-07-01T04:21:09Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-07-01T04:21:09Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-07-01T04:55:41Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 0,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-07-01T04:55:41Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "exit_code": 1,
+        "reason": "grade_v2_exit"
+      },
+      "state": "halted_again",
+      "ts": "2026-07-01T04:56:41Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-07-01T04:56:41Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-07-01T05:31:14Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 0,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-07-01T05:31:14Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "exit_code": 1,
+        "reason": "grade_v2_exit"
+      },
+      "state": "halted_again",
+      "ts": "2026-07-01T05:32:14Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-07-01T05:32:14Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-07-01T06:06:46Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 0,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-07-01T06:06:46Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "exit_code": 1,
+        "reason": "grade_v2_exit"
+      },
+      "state": "halted_again",
+      "ts": "2026-07-01T06:07:46Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-07-01T06:07:46Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-07-01T06:42:21Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 0,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-07-01T06:42:21Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "exit_code": 1,
+        "reason": "grade_v2_exit"
+      },
+      "state": "halted_again",
+      "ts": "2026-07-01T06:43:21Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-07-01T06:43:21Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-07-01T07:17:56Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 0,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-07-01T07:17:56Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "exit_code": 1,
+        "reason": "grade_v2_exit"
+      },
+      "state": "halted_again",
+      "ts": "2026-07-01T07:18:56Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-07-01T07:18:56Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-07-01T07:53:31Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 0,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-07-01T07:53:31Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "exit_code": 1,
+        "reason": "grade_v2_exit"
+      },
+      "state": "halted_again",
+      "ts": "2026-07-01T07:54:31Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-07-01T07:54:31Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-07-01T08:29:24Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 0,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-07-01T08:29:24Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "exit_code": 1,
+        "reason": "grade_v2_exit"
+      },
+      "state": "halted_again",
+      "ts": "2026-07-01T08:30:25Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-07-01T08:30:25Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-07-01T09:05:02Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 0,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-07-01T09:05:02Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "exit_code": 1,
+        "reason": "grade_v2_exit"
+      },
+      "state": "halted_again",
+      "ts": "2026-07-01T09:06:02Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-07-01T09:06:02Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-07-01T09:40:52Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 0,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-07-01T09:40:52Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "exit_code": 1,
+        "reason": "grade_v2_exit"
+      },
+      "state": "halted_again",
+      "ts": "2026-07-01T09:41:52Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-07-01T09:41:52Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-07-01T10:16:27Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 0,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-07-01T10:16:27Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "exit_code": 1,
+        "reason": "grade_v2_exit"
+      },
+      "state": "halted_again",
+      "ts": "2026-07-01T10:17:27Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-07-01T10:17:27Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-07-01T10:52:01Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 0,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-07-01T10:52:02Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "exit_code": 1,
+        "reason": "grade_v2_exit"
+      },
+      "state": "halted_again",
+      "ts": "2026-07-01T10:53:02Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-07-01T10:53:02Z"
+    },
+    {
+      "details": {
+        "consecutive_healthy_intervals": 2,
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "gate_cleared",
+      "ts": "2026-07-01T11:27:36Z"
+    },
+    {
+      "details": {
+        "archived_incomplete_before_resume": 0,
+        "command": "/Users/ws01admin/Desktop/Desktop - lattice-ws01/MANDATE Evaluation/mandate_eval_2026Q2/.venv/bin/python -m apparatus.run grade-v2 --anonymized 08_grading_v2/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --rubric v2 --out 08_grading_v2 --full-coverage --double-grade-pct 0.20 --double-grade-seed 20260624 --skip-existing --max-workers 5",
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "counts_before": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        }
+      },
+      "state": "resumed",
+      "ts": "2026-07-01T11:27:36Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "exit_code": 1,
+        "reason": "grade_v2_exit"
+      },
+      "state": "halted_again",
+      "ts": "2026-07-01T11:28:37Z"
+    },
+    {
+      "details": {
+        "counts": {
+          "by_record": 12000,
+          "double_grade_json": 0,
+          "incomplete_grades": 0
+        },
+        "reason": "grade_halted_again"
+      },
+      "state": "waiting",
+      "ts": "2026-07-01T11:28:37Z"
+    }
+  ],
+  "updated_at": "2026-07-01T11:28:37Z"
+}

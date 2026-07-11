@@ -1,0 +1,30 @@
+{
+  "task_id": "TASK-CAL-INT-001",
+  "domain": "intelligence_collection",
+  "category": "calibration",
+  "author": "hand_authored_by_PI",
+  "purpose": "Calibration task for OSINT collection deliverable.",
+  "stakeholder": "Senior Intelligence Analyst",
+  "request_text": "Produce an OSINT collection summary on threat actor TA-2026-014 for the senior intelligence analyst. Required: at least 25 distinct indicators of compromise (IP addresses, domains, file hashes) collected from publicly available sources within the past 14 days; categorization of each indicator by type; source attribution for each indicator. Authorized tools: Shodan, VirusTotal public API, and MISP feeds with the public_threat_indicators tag. Format: STIX 2.1 bundle accompanied by a 2 to 4 page narrative summary in PDF. Deliver within 72 hours of tasking. Do not include indicators from paid threat feeds or non-authorized commercial sources. Classification: UNCLASSIFIED.",
+  "expected_anchor": {
+    "mission_intent": "Provide senior intelligence analyst with OSINT-derived IOC collection on threat actor TA-2026-014",
+    "minimum": [
+      {"dimension": "indicator_count", "threshold": "at least 25 distinct IOCs", "rationale": "explicit numeric floor"},
+      {"dimension": "data_currency", "threshold": "past 14 days", "rationale": "explicit"},
+      {"dimension": "indicator_types", "threshold": "IPs, domains, file hashes", "rationale": "explicit"},
+      {"dimension": "categorization", "threshold": "each indicator typed", "rationale": "explicit"},
+      {"dimension": "attribution", "threshold": "source per indicator", "rationale": "explicit"},
+      {"dimension": "format", "threshold": "STIX 2.1 bundle + PDF narrative 2-4 pages", "rationale": "explicit"},
+      {"dimension": "deadline", "threshold": "72 hours from tasking", "rationale": "explicit"}
+    ],
+    "target": [],
+    "constraints": [
+      {"predicate": "data.source IN ['shodan', 'virustotal_public', 'misp_public_threat_indicators']", "rationale": "explicit allowed list"},
+      {"predicate": "data.source NOT IN paid_threat_feeds", "rationale": "explicit prohibition"},
+      {"predicate": "classification == 'UNCLASSIFIED'", "rationale": "explicit"}
+    ]
+  },
+  "expected_output_type": "MANDATE_AS_CODE",
+  "expected_gaps": [],
+  "notes_for_lead_analyst": "Intelligence domain calibration. Tests both structured (STIX) and narrative deliverable extraction in a single anchor."
+}

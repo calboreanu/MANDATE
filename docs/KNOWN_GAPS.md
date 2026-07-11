@@ -1,0 +1,50 @@
+# Known Gaps — What This Deposit Cannot Support
+
+Honest boundaries, stated once, in one place. Each is documented in the
+supplement (Deviation Table and/or Threats to Validity) and summarized here.
+
+1. **Human-expert baseline: never measured.** The pre-registered
+   human-authored workflow-template comparator was not executed. No claim in
+   the paper or supplement compares MANDATE to human specification quality.
+
+2. **SME ground-truth pool unavailable.** The signed-anchor SME ratification
+   process cannot be re-run externally; scaffolds and the answer key ship,
+   the human sign-off process does not (documented deviation).
+
+3. **Confidence intervals and significance tests: pending.** The v2
+   comparative table reports point estimates over full populations
+   (n=1,200–1,500 per cell). Bootstrap CIs and paired tests are a documented
+   open item. Small gaps (e.g., Cond-A 0.981 vs ReAct 0.968) are below the
+   pre-registered minimum detectable effect and must not be read as wins.
+
+4. **Subjective judge outcomes are unreliable by their own IRR.**
+   trace_completeness (α=0.194) and fabrication_count (α=0.216) fell below
+   the reliability threshold; structural claims deliberately derive from
+   on-disk record inspection instead. Treat those two grade columns as
+   descriptive.
+
+5. **Phase B semantic adversarial comparison: partial (80.7%).** Grading
+   paused under budget Deviation D-13; baseline_4 generation halted at
+   86.3%; baselines 5–6 scoped out under D-12 with baseline_4 as the
+   multi-agent-shell class representative. Resumable; not claimable today.
+
+6. **Source-level ablations A1/A2/A4/A6/A7: not run at full scale.**
+   Upstream-blocked at the variant-build level. The auxiliary `ablation_mvp/`
+   demonstrates all seven ablations end-to-end at 150-task scale but does not
+   substitute for the pre-registered full-scale runs.
+
+7. **Single-lab provenance.** All results come from one author-controlled
+   environment. Independent-lab replication has not been attempted; this
+   repository exists to enable it.
+
+8. **Judge-authoring overlap.** The same vendor families that power judges
+   also power some baselines and the ground-truth scaffolding; mitigations
+   (anonymization, three-vendor ensemble, shape-neutral rubric) are
+   documented in the supplement's Threats section.
+
+9. **Cond-B generation cost is unlogged** (`api_cost_usd = null` by design on
+   all 1,500 records); the cost ledger carries this as a flagged estimate.
+
+10. **Provider temporal drift.** Judge and baseline model versions are pinned
+    by identifier, but hosted-model behavior drifts; byte-identical re-grades
+    are not expected (temporal-validity threat).

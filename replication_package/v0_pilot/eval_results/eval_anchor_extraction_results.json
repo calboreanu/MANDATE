@@ -1,0 +1,608 @@
+{
+  "per_example": [
+    {
+      "seed_id": "CONV-INTA-001",
+      "domain": "cyber",
+      "gap_producing": false,
+      "decision_type": "CLASSIFICATION",
+      "classification_correct": true,
+      "fields": {
+        "mission_intent": true,
+        "scope": true,
+        "constraints": true
+      },
+      "all_fields_present": true
+    },
+    {
+      "seed_id": "CONV-INTA-002",
+      "domain": "cyber",
+      "gap_producing": false,
+      "decision_type": "CLASSIFICATION",
+      "classification_correct": true,
+      "fields": {
+        "mission_intent": true,
+        "scope": true,
+        "constraints": true
+      },
+      "all_fields_present": true
+    },
+    {
+      "seed_id": "CONV-INTA-003",
+      "domain": "legal",
+      "gap_producing": false,
+      "decision_type": "CLASSIFICATION",
+      "classification_correct": true,
+      "fields": {
+        "mission_intent": true,
+        "scope": true,
+        "constraints": true
+      },
+      "all_fields_present": true
+    },
+    {
+      "seed_id": "CONV-INTA-004",
+      "domain": "cyber",
+      "gap_producing": false,
+      "decision_type": "CLASSIFICATION",
+      "classification_correct": true,
+      "fields": {
+        "mission_intent": true,
+        "scope": false,
+        "constraints": true
+      },
+      "all_fields_present": false
+    },
+    {
+      "seed_id": "CONV-INTA-005",
+      "domain": "cyber",
+      "gap_producing": true,
+      "decision_type": "FLAGGED",
+      "classification_correct": true,
+      "fields": {
+        "mission_intent": true,
+        "scope": false,
+        "constraints": true
+      },
+      "all_fields_present": false
+    },
+    {
+      "seed_id": "CONV-INTA-006",
+      "domain": "cyber",
+      "gap_producing": false,
+      "decision_type": "REQUIRES_CLARIFICATION",
+      "classification_correct": false,
+      "fields": {
+        "mission_intent": true,
+        "scope": true,
+        "constraints": true
+      },
+      "all_fields_present": true
+    },
+    {
+      "seed_id": "CONV-INTA-007",
+      "domain": "cyber",
+      "gap_producing": false,
+      "decision_type": "CLASSIFICATION",
+      "classification_correct": true,
+      "fields": {
+        "mission_intent": true,
+        "scope": true,
+        "constraints": true
+      },
+      "all_fields_present": true
+    },
+    {
+      "seed_id": "CONV-INTA-008",
+      "domain": "cyber",
+      "gap_producing": true,
+      "decision_type": "REQUIRES_CLARIFICATION",
+      "classification_correct": true,
+      "fields": {
+        "mission_intent": true,
+        "scope": false,
+        "constraints": true
+      },
+      "all_fields_present": false
+    },
+    {
+      "seed_id": "CONV-INTA-009",
+      "domain": "cyber",
+      "gap_producing": true,
+      "decision_type": "REQUIRES_CLARIFICATION",
+      "classification_correct": true,
+      "fields": {
+        "mission_intent": true,
+        "scope": false,
+        "constraints": true
+      },
+      "all_fields_present": false
+    },
+    {
+      "seed_id": "CONV-INTA-010",
+      "domain": "cyber",
+      "gap_producing": false,
+      "decision_type": "CLASSIFICATION",
+      "classification_correct": true,
+      "fields": {
+        "mission_intent": true,
+        "scope": true,
+        "constraints": true
+      },
+      "all_fields_present": true
+    },
+    {
+      "seed_id": "CONV-INTA-011",
+      "domain": "cyber",
+      "gap_producing": false,
+      "decision_type": "PARTIAL_EXTRACTION",
+      "classification_correct": true,
+      "fields": {
+        "mission_intent": true,
+        "scope": true,
+        "constraints": true
+      },
+      "all_fields_present": true
+    },
+    {
+      "seed_id": "CONV-INTA-012",
+      "domain": "cyber",
+      "gap_producing": false,
+      "decision_type": "CLASSIFICATION",
+      "classification_correct": true,
+      "fields": {
+        "mission_intent": true,
+        "scope": true,
+        "constraints": true
+      },
+      "all_fields_present": true
+    },
+    {
+      "seed_id": "CONV-INTA-013",
+      "domain": "cyber",
+      "gap_producing": true,
+      "decision_type": "REQUIRES_CLARIFICATION",
+      "classification_correct": true,
+      "fields": {
+        "mission_intent": true,
+        "scope": false,
+        "constraints": true
+      },
+      "all_fields_present": false
+    },
+    {
+      "seed_id": "CONV-INTA-014",
+      "domain": "cyber",
+      "gap_producing": false,
+      "decision_type": "CLASSIFICATION",
+      "classification_correct": true,
+      "fields": {
+        "mission_intent": true,
+        "scope": true,
+        "constraints": true
+      },
+      "all_fields_present": true
+    },
+    {
+      "seed_id": "CONV-INTA-015",
+      "domain": "cyber",
+      "gap_producing": false,
+      "decision_type": "CLASSIFICATION",
+      "classification_correct": true,
+      "fields": {
+        "mission_intent": true,
+        "scope": true,
+        "constraints": true
+      },
+      "all_fields_present": true
+    },
+    {
+      "seed_id": "CONV-INTA-016",
+      "domain": "cyber",
+      "gap_producing": true,
+      "decision_type": "extract_anchor",
+      "classification_correct": false,
+      "fields": {
+        "mission_intent": true,
+        "scope": false,
+        "constraints": true
+      },
+      "all_fields_present": false
+    },
+    {
+      "seed_id": "CONV-INTA-017",
+      "domain": "financial",
+      "gap_producing": true,
+      "decision_type": "extract_anchor",
+      "classification_correct": false,
+      "fields": {
+        "mission_intent": true,
+        "scope": false,
+        "constraints": true
+      },
+      "all_fields_present": false
+    },
+    {
+      "seed_id": "CONV-INTA-018",
+      "domain": "cyber",
+      "gap_producing": true,
+      "decision_type": "extract_anchor",
+      "classification_correct": false,
+      "fields": {
+        "mission_intent": true,
+        "scope": false,
+        "constraints": true
+      },
+      "all_fields_present": false
+    },
+    {
+      "seed_id": "CONV-INTE-001",
+      "domain": "cyber",
+      "gap_producing": true,
+      "decision_type": "anchor_extraction",
+      "classification_correct": false,
+      "fields": {
+        "mission_intent": true,
+        "scope": false,
+        "constraints": true
+      },
+      "all_fields_present": false
+    },
+    {
+      "seed_id": "CONV-INTE-002",
+      "domain": "cyber",
+      "gap_producing": true,
+      "decision_type": "anchor_extraction",
+      "classification_correct": false,
+      "fields": {
+        "mission_intent": true,
+        "scope": false,
+        "constraints": true
+      },
+      "all_fields_present": false
+    },
+    {
+      "seed_id": "CONV-INTE-003",
+      "domain": "cyber",
+      "gap_producing": true,
+      "decision_type": "anchor_extraction",
+      "classification_correct": false,
+      "fields": {
+        "mission_intent": true,
+        "scope": false,
+        "constraints": true
+      },
+      "all_fields_present": false
+    },
+    {
+      "seed_id": "CONV-INTE-004",
+      "domain": "cyber",
+      "gap_producing": true,
+      "decision_type": "anchor_extraction",
+      "classification_correct": false,
+      "fields": {
+        "mission_intent": true,
+        "scope": false,
+        "constraints": true
+      },
+      "all_fields_present": false
+    },
+    {
+      "seed_id": "CONV-INTE-005",
+      "domain": "cyber",
+      "gap_producing": true,
+      "decision_type": "anchor_extraction",
+      "classification_correct": false,
+      "fields": {
+        "mission_intent": true,
+        "scope": false,
+        "constraints": true
+      },
+      "all_fields_present": false
+    },
+    {
+      "seed_id": "CONV-INTE-006",
+      "domain": "cyber",
+      "gap_producing": true,
+      "decision_type": "anchor_extraction",
+      "classification_correct": false,
+      "fields": {
+        "mission_intent": true,
+        "scope": false,
+        "constraints": true
+      },
+      "all_fields_present": false
+    },
+    {
+      "seed_id": "CONV-INTE-007",
+      "domain": "cyber",
+      "gap_producing": true,
+      "decision_type": "anchor_extraction",
+      "classification_correct": false,
+      "fields": {
+        "mission_intent": true,
+        "scope": false,
+        "constraints": true
+      },
+      "all_fields_present": false
+    },
+    {
+      "seed_id": "CONV-INTE-008",
+      "domain": "cyber",
+      "gap_producing": true,
+      "decision_type": "anchor_extraction",
+      "classification_correct": false,
+      "fields": {
+        "mission_intent": true,
+        "scope": false,
+        "constraints": true
+      },
+      "all_fields_present": false
+    },
+    {
+      "seed_id": "CONV-INTE-009",
+      "domain": "cyber",
+      "gap_producing": true,
+      "decision_type": "anchor_extraction",
+      "classification_correct": false,
+      "fields": {
+        "mission_intent": true,
+        "scope": false,
+        "constraints": true
+      },
+      "all_fields_present": false
+    },
+    {
+      "seed_id": "CONV-INTE-010",
+      "domain": "financial",
+      "gap_producing": true,
+      "decision_type": "anchor_extraction",
+      "classification_correct": false,
+      "fields": {
+        "mission_intent": true,
+        "scope": false,
+        "constraints": true
+      },
+      "all_fields_present": false
+    },
+    {
+      "seed_id": "CONV-INTE-011",
+      "domain": "legal",
+      "gap_producing": true,
+      "decision_type": "anchor_extraction",
+      "classification_correct": false,
+      "fields": {
+        "mission_intent": true,
+        "scope": false,
+        "constraints": true
+      },
+      "all_fields_present": false
+    },
+    {
+      "seed_id": "CONV-INTE-012",
+      "domain": "financial",
+      "gap_producing": true,
+      "decision_type": "anchor_extraction",
+      "classification_correct": false,
+      "fields": {
+        "mission_intent": true,
+        "scope": false,
+        "constraints": true
+      },
+      "all_fields_present": false
+    },
+    {
+      "seed_id": "CONV-INTE-013",
+      "domain": "cyber",
+      "gap_producing": true,
+      "decision_type": "anchor_extraction",
+      "classification_correct": false,
+      "fields": {
+        "mission_intent": true,
+        "scope": false,
+        "constraints": true
+      },
+      "all_fields_present": false
+    },
+    {
+      "seed_id": "CONV-INTE-014",
+      "domain": "cyber",
+      "gap_producing": true,
+      "decision_type": "anchor_extraction",
+      "classification_correct": false,
+      "fields": {
+        "mission_intent": true,
+        "scope": false,
+        "constraints": true
+      },
+      "all_fields_present": false
+    },
+    {
+      "seed_id": "CONV-INTE-015",
+      "domain": "cyber",
+      "gap_producing": true,
+      "decision_type": "anchor_extraction",
+      "classification_correct": false,
+      "fields": {
+        "mission_intent": true,
+        "scope": false,
+        "constraints": true
+      },
+      "all_fields_present": false
+    },
+    {
+      "seed_id": "CONV-INTE-016",
+      "domain": "cyber",
+      "gap_producing": true,
+      "decision_type": "anchor_extraction",
+      "classification_correct": false,
+      "fields": {
+        "mission_intent": true,
+        "scope": false,
+        "constraints": true
+      },
+      "all_fields_present": false
+    },
+    {
+      "seed_id": "SEED-C1-01",
+      "domain": "cyber",
+      "gap_producing": false,
+      "decision_type": "extract_anchor",
+      "classification_correct": true,
+      "fields": {
+        "mission_intent": true,
+        "scope": true,
+        "constraints": true
+      },
+      "all_fields_present": true
+    },
+    {
+      "seed_id": "SEED-C1-02",
+      "domain": "intel",
+      "gap_producing": false,
+      "decision_type": "extract_anchor",
+      "classification_correct": true,
+      "fields": {
+        "mission_intent": true,
+        "scope": true,
+        "constraints": true
+      },
+      "all_fields_present": true
+    },
+    {
+      "seed_id": "SEED-C1-03",
+      "domain": "financial",
+      "gap_producing": false,
+      "decision_type": "extract_anchor",
+      "classification_correct": true,
+      "fields": {
+        "mission_intent": true,
+        "scope": true,
+        "constraints": true
+      },
+      "all_fields_present": true
+    },
+    {
+      "seed_id": "SEED-C1-04",
+      "domain": "legal",
+      "gap_producing": true,
+      "decision_type": "extract_anchor",
+      "classification_correct": false,
+      "fields": {
+        "mission_intent": true,
+        "scope": true,
+        "constraints": true
+      },
+      "all_fields_present": true
+    },
+    {
+      "seed_id": "SEED-C1-05",
+      "domain": "cyber",
+      "gap_producing": false,
+      "decision_type": "extract_anchor",
+      "classification_correct": true,
+      "fields": {
+        "mission_intent": true,
+        "scope": true,
+        "constraints": true
+      },
+      "all_fields_present": true
+    },
+    {
+      "seed_id": "SEED-C1-06",
+      "domain": "intel",
+      "gap_producing": false,
+      "decision_type": "extract_anchor",
+      "classification_correct": true,
+      "fields": {
+        "mission_intent": true,
+        "scope": true,
+        "constraints": true
+      },
+      "all_fields_present": true
+    },
+    {
+      "seed_id": "SEED-C1-07",
+      "domain": "financial",
+      "gap_producing": false,
+      "decision_type": "extract_anchor",
+      "classification_correct": true,
+      "fields": {
+        "mission_intent": true,
+        "scope": true,
+        "constraints": true
+      },
+      "all_fields_present": true
+    },
+    {
+      "seed_id": "SEED-C1-08",
+      "domain": "legal",
+      "gap_producing": true,
+      "decision_type": "extract_anchor",
+      "classification_correct": false,
+      "fields": {
+        "mission_intent": true,
+        "scope": true,
+        "constraints": true
+      },
+      "all_fields_present": true
+    },
+    {
+      "seed_id": "SEED-C1-09",
+      "domain": "cyber",
+      "gap_producing": false,
+      "decision_type": "extract_anchor",
+      "classification_correct": true,
+      "fields": {
+        "mission_intent": true,
+        "scope": true,
+        "constraints": true
+      },
+      "all_fields_present": true
+    },
+    {
+      "seed_id": "SEED-C1-10",
+      "domain": "intel",
+      "gap_producing": false,
+      "decision_type": "extract_anchor",
+      "classification_correct": true,
+      "fields": {
+        "mission_intent": true,
+        "scope": true,
+        "constraints": true
+      },
+      "all_fields_present": true
+    }
+  ],
+  "aggregate": {
+    "total_examples": 44,
+    "by_domain": {
+      "cyber": {
+        "count": 32,
+        "complete_extraction_rate": 0.375,
+        "classification_accuracy": 0.5
+      },
+      "financial": {
+        "count": 5,
+        "complete_extraction_rate": 0.4,
+        "classification_accuracy": 0.4
+      },
+      "intel": {
+        "count": 3,
+        "complete_extraction_rate": 1.0,
+        "classification_accuracy": 1.0
+      },
+      "legal": {
+        "count": 4,
+        "complete_extraction_rate": 0.75,
+        "classification_accuracy": 0.25
+      }
+    },
+    "field_presence_rate": {
+      "mission_intent": 1.0,
+      "scope": 0.45454545454545453,
+      "constraints": 1.0
+    },
+    "classification_accuracy": 0.5,
+    "complete_extraction_rate": 0.45454545454545453
+  }
+}

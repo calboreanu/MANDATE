@@ -1,0 +1,31 @@
+Data License — Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+The data in this repository — RunRecords, corpora, ground truth, perturbation
+suites, grading outputs, and extracted findings under replication_package/ —
+is licensed under the Creative Commons Attribution 4.0 International license.
+
+You are free to:
+  Share — copy and redistribute the material in any medium or format
+  Adapt — remix, transform, and build upon the material for any purpose,
+          even commercially.
+
+Under the following terms:
+  Attribution — You must give appropriate credit (Elias Calboreanu,
+  MANDATE 2026Q2 Evaluation Replication Package), provide a link to the
+  license, and indicate if changes were made. You may do so in any
+  reasonable manner, but not in any way that suggests the licensor
+  endorses you or your use.
+
+  No additional restrictions — You may not apply legal terms or
+  technological measures that legally restrict others from doing anything
+  the license permits.
+
+Full legal code: https://creativecommons.org/licenses/by/4.0/legalcode
+Human-readable summary: https://creativecommons.org/licenses/by/4.0/
+
+Scope notes:
+- Code (code/, scripts) is separately licensed under Apache-2.0 (see LICENSE).
+- Pre-registration prompts and forms (pre_registration/) are dedicated to the
+  public domain under CC0 1.0: https://creativecommons.org/publicdomain/zero/1.0/
+- The paper text and the proprietary AEGIS reference implementation are NOT
+  included in this grant; see prior_published_paper/CITATION_TO_PAPER.md.

@@ -1,0 +1,543 @@
+{
+  "run_id": "ablation_a6__TASK-MAIN-FIN-039__r01",
+  "task_id": "TASK-MAIN-FIN-039",
+  "system_id": "ablation_a6",
+  "system_label": "Ablation A6 (canonical MLT v1.0.0rc1)",
+  "run_number": 1,
+  "seed": 20260629,
+  "started_at": "2026-06-29T17:50:11Z",
+  "wall_clock_ms": 2.2957,
+  "role_timings": [
+    {
+      "role_name": "Intake",
+      "status": "success",
+      "duration_ms": 0.013,
+      "llm_used": false,
+      "llm_fallback": false,
+      "llm_fallback_reason": ""
+    },
+    {
+      "role_name": "Interpreter",
+      "status": "success",
+      "duration_ms": 0.045,
+      "llm_used": false,
+      "llm_fallback": false,
+      "llm_fallback_reason": ""
+    },
+    {
+      "role_name": "Decomposition",
+      "status": "success",
+      "duration_ms": 0.02,
+      "llm_used": false,
+      "llm_fallback": false,
+      "llm_fallback_reason": ""
+    },
+    {
+      "role_name": "Procedure",
+      "status": "success",
+      "duration_ms": 0.075,
+      "llm_used": false,
+      "llm_fallback": false,
+      "llm_fallback_reason": ""
+    },
+    {
+      "role_name": "Binding",
+      "status": "success",
+      "duration_ms": 0.01,
+      "llm_used": false,
+      "llm_fallback": false,
+      "llm_fallback_reason": ""
+    },
+    {
+      "role_name": "Validation",
+      "status": "success",
+      "duration_ms": 2.023,
+      "llm_used": false,
+      "llm_fallback": false,
+      "llm_fallback_reason": ""
+    }
+  ],
+  "api_cost_usd": null,
+  "local_compute_ms": 2.2957,
+  "model_versions": {
+    "mlt": "mlt-stack-1.0.0rc1",
+    "ablation": "A6"
+  },
+  "decoding_params": {
+    "condition": "ablation_a6",
+    "ablation_id": "A6",
+    "config_overrides": {
+      "ablate_search_trace": true
+    },
+    "domain_profile_mode": "default",
+    "domain_profile_name": null
+  },
+  "code_ref": "mlt-stack-1.0.0rc1",
+  "harness_version": "0.1.0",
+  "output_type": "MANDATE_AS_CODE",
+  "output": {
+    "artifact": {
+      "mandate_id": "TASK-MAIN-FIN-039",
+      "version": "1.0",
+      "generated": "2026-06-29T17:50:11.814Z",
+      "anchor": {
+        "mission_intent": "Subject: Urgent \u2014 Need Comprehensive Risk Assessment Framework Mapped Across All Business Units by Friday\n\nTeam, given the upcoming integrated audit cycle, I need you to develop a complete risk-of-material-misstatement assessment template that maps every component of internal control over financial reporting \u2014 control environment, risk assessment, information and communication, control activities, and monitoring \u2014 across all of our operating subsidiaries and business units, fully tailored to reflect how size and complexity of each unit affects both the risks of misstatement and the controls necessary to address those risks, consistent with the PCAOB's AS 2110 framework. The template should also incorporate considerations for applicable SEC accounting requirements, relevant legal and regulatory compliance factors per AS 2405, and any situations where we're dividing audit responsibility with another firm under AS 1206. I want this to be a \"best efforts\" deliverable that nonetheless meets whatever quality standard the engagement partner would consider sufficient for reliance during fieldwork. Please have the fully completed template, including entity-level and process-level risk mappings for all thirty-seven subsidiaries across twelve jurisdictions, reviewed by the methodology group and ready for partner sign-off by end of business Friday. Let me know if you have questions but please don't let that slow down delivery.",
+        "minimum": {
+          "description": "Minimally satisfy: Subject: Urgent \u2014 Need Comprehensive Risk Assessment Framework Mapped Across All Business Units by Friday\n\nTeam, given t"
+        },
+        "constraints": [],
+        "anchor_hash": "791e4d2fdc56d24216ce2b9278baa290e6c09ef1cb863b1f96248050d2c33f2f",
+        "target": {
+          "description": "Fully achieve: Subject: Urgent \u2014 Need Comprehensive Risk Assessment Framework Mapped Across All Business Units by Friday\n\nTeam, given t"
+        }
+      },
+      "courses_of_action": [
+        {
+          "coa_id": "COA-1",
+          "approach": "Minimal manual assessment approach",
+          "task_dag": {
+            "nodes": [
+              {
+                "id": "1",
+                "name": "Manual Assessment",
+                "description": "Manual assessment of target scope"
+              },
+              {
+                "id": "2",
+                "name": "Results Documentation",
+                "description": "Document assessment findings"
+              }
+            ],
+            "edges": [
+              {
+                "from": "1",
+                "to": "2"
+              }
+            ]
+          },
+          "risk_assessment": {
+            "score": "LOW",
+            "confidence_min": "LOW",
+            "confidence_target": "MEDIUM",
+            "primary_factor": "execution_uncertainty"
+          },
+          "off_nominal_triggers": [
+            "target.scope_violations > 0",
+            "execution.rate > 100"
+          ],
+          "procedures": [
+            "Step 1: Manual Assessment",
+            "Step 2: Results Documentation"
+          ]
+        }
+      ],
+      "recommendation": {
+        "primary_coa": "COA-1",
+        "fallback_sequence": [],
+        "rationale": "Single COA COA-1: Minimal manual assessment approach"
+      },
+      "trace": {
+        "chain_hash": "",
+        "entry_count": 0,
+        "entries": []
+      },
+      "registry_reference": {
+        "similar_mandates": [],
+        "match_type": "NOVEL",
+        "similarity_description": "Success registry not configured."
+      },
+      "metadata": {
+        "sources_consulted": [
+          "mission_input",
+          "anchor",
+          "courses_of_action",
+          "constraints",
+          "validation_algorithm",
+          "local_pipeline_state"
+        ],
+        "nist_rmf": {
+          "framework": "NIST AI RMF 1.0",
+          "generated_at": "2026-06-29T17:50:11.814Z",
+          "MAP": {
+            "1.1": {
+              "status": "PARTIAL",
+              "evidence": [
+                "mission_intent_present=True",
+                "scope_items=0"
+              ],
+              "notes": "Mission context and scope establishment."
+            },
+            "1.5": {
+              "status": "PARTIAL",
+              "evidence": [
+                "risk_tolerance_present=False"
+              ],
+              "notes": "Risk context captured from anchor risk_tolerance."
+            },
+            "1.6": {
+              "status": "PARTIAL",
+              "evidence": [
+                "constraint_count=0"
+              ],
+              "notes": "Constraints are captured as portable predicate strings."
+            },
+            "2.1": {
+              "status": "SATISFIED",
+              "evidence": [
+                "coa_count=1",
+                "task_nodes=2"
+              ],
+              "notes": "Task decomposition coverage."
+            },
+            "2.2": {
+              "status": "PARTIAL",
+              "evidence": [
+                "alternative_coas=1"
+              ],
+              "notes": "Alternative COA exploration."
+            },
+            "3.2": {
+              "status": "SATISFIED",
+              "evidence": [
+                "risk_assessment_coverage=1.0"
+              ],
+              "notes": "Risk-aware planning across generated COAs."
+            },
+            "5.1": {
+              "status": "PARTIAL",
+              "evidence": [
+                "anchor_hash_present=True",
+                "trace_entries=0"
+              ],
+              "notes": "Traceability and provenance linkage."
+            }
+          },
+          "MEASURE": {
+            "1.1": {
+              "status": "SATISFIED",
+              "evidence": [
+                "minimum_satisfaction_score=1.0"
+              ],
+              "notes": "Minimum satisfaction measurement."
+            },
+            "2.3": {
+              "status": "SATISFIED",
+              "evidence": [
+                "constraint_compliance_score=1.0"
+              ],
+              "notes": "Constraint compliance measurement."
+            },
+            "2.8": {
+              "status": "SATISFIED",
+              "evidence": [
+                "risk_aggregation_score=1.0"
+              ],
+              "notes": "Risk aggregation and calibration checks."
+            },
+            "3.1": {
+              "status": "SATISFIED",
+              "evidence": [
+                "off_nominal_trigger_count=2"
+              ],
+              "notes": "Operational monitoring readiness signals."
+            }
+          },
+          "GOVERN": {
+            "1.1": {
+              "status": "PARTIAL",
+              "evidence": [
+                "constraint_policies_defined=False",
+                "strict_mode=False"
+              ],
+              "notes": "Constraint grammar defines enforceable governance policies."
+            },
+            "1.2": {
+              "status": "SATISFIED",
+              "evidence": [
+                "orchestrator_role=deterministic_1plus6",
+                "agent_roles=intake,interpreter,decomposition,procedure,binding,validation"
+              ],
+              "notes": "Accountability is structurally enforced by the 1+6 architecture: one deterministic orchestrator routes all work through 6 specialized LLM agent roles with schema-validated handoffs."
+            },
+            "1.5": {
+              "status": "NOT_SATISFIED",
+              "evidence": [
+                "risk_tolerance_integrated=False"
+              ],
+              "notes": "Risk tolerance from anchor feeds governance decisions."
+            },
+            "2.1": {
+              "status": "PARTIAL",
+              "evidence": [
+                "training_data_validated=true",
+                "adapter_manifest_required=true"
+              ],
+              "notes": "Training data pipeline includes quality validation and scaling checks. Model fine-tuning uses LoRA adapters with manifest verification."
+            },
+            "3.2": {
+              "status": "PARTIAL",
+              "evidence": [
+                "alternative_coas_explored=1"
+              ],
+              "notes": "COA diversity provides multiple approaches; human review recommended."
+            },
+            "4.1": {
+              "status": "SATISFIED",
+              "evidence": [
+                "cryptographic_integrity=True"
+              ],
+              "notes": "Signed artifacts and hash-linked traces demonstrate commitment to verifiable AI."
+            },
+            "6.1": {
+              "status": "PARTIAL",
+              "evidence": [
+                "strict_mode_enabled=False",
+                "deployment_gate=lattice_execution_gate"
+              ],
+              "notes": "Deployment gated by LATTICE execution gate with signed audit trail."
+            }
+          },
+          "MANAGE": {
+            "1.1": {
+              "status": "PARTIAL",
+              "evidence": [
+                "evidence_chain_entries=0",
+                "hash_linked_provenance=False"
+              ],
+              "notes": "Risk management process is integrated through hash-linked evidence chains."
+            },
+            "2.1": {
+              "status": "SATISFIED",
+              "evidence": [
+                "off_nominal_trigger_count=2"
+              ],
+              "notes": "Off-nominal triggers provide runtime monitoring predicates for deployed mandates."
+            },
+            "2.4": {
+              "status": "PARTIAL",
+              "evidence": [
+                "gap_analysis_supported=true",
+                "human_review_gate=lattice_hitl_threshold"
+              ],
+              "notes": "Gap analysis reports enable structured feedback; LATTICE HITL threshold gates low-confidence decisions for human review."
+            },
+            "3.1": {
+              "status": "SATISFIED",
+              "evidence": [
+                "tripwire_triggers=2",
+                "containment_fsm=lattice_containment",
+                "safe_state=HALT"
+              ],
+              "notes": "Incident response via tripwire predicates, containment FSM, and HALT safe state."
+            },
+            "4.1": {
+              "status": "SATISFIED",
+              "evidence": [
+                "validation_passed=True"
+              ],
+              "notes": "Validation role provides automated review; success registry tracks improvements."
+            },
+            "4.2": {
+              "status": "PARTIAL",
+              "evidence": [
+                "audit_chain_preserved=true"
+              ],
+              "notes": "Signed audit chains are preserved for post-deployment review. Formal decommissioning procedures to be documented."
+            }
+          }
+        },
+        "input_hash": "e22870f6fa2b0974158605755b542fa3b421a1251b4df67614dd62bd27de1780",
+        "output_hash": "f5e59e0789581199e6383fde753d2a555655e9a38b0f43515939357b70917e14"
+      }
+    },
+    "gap_reports": [
+      {
+        "gap_id": "GAP-TASK-MAIN-FIN-039-001",
+        "gap_type": "UNDEFINED_MINIMUM",
+        "severity": "DEGRADING",
+        "gap_source": "SPECIFICATION_GAP",
+        "detected_by": "Interpreter",
+        "pipeline_stage": 2,
+        "location": {
+          "category": "anchor",
+          "input_reference": "mission_input",
+          "field_or_task": "minimum_outcome"
+        },
+        "evidence": {
+          "trace_entry_hashes": [
+            "82d4f95a171c1df6ec25d65ff085e5b34189e422a0f029865d5dd0b5af557c0a"
+          ]
+        },
+        "reason": "Mission input does not specify an explicit minimum outcome. A default was derived from mission intent.",
+        "remediation": {
+          "action_required": "Define an explicit minimum_outcome field with quantifiable acceptance criteria.",
+          "responsible_party": "Mission Author",
+          "complexity": "LOW"
+        },
+        "readiness_score": {
+          "completion_percentage": 30,
+          "blocking": false,
+          "partial_spec_available": true
+        },
+        "readiness_assessment": {
+          "completeness_score": 0.14,
+          "readiness_percentage": 14,
+          "blocking_gap_count": 1,
+          "recommendation": "INSUFFICIENT_FOR_AUTOMATION"
+        },
+        "trace_to_gap": "82d4f95a171c1df6ec25d65ff085e5b34189e422a0f029865d5dd0b5af557c0a"
+      },
+      {
+        "gap_id": "GAP-TASK-MAIN-FIN-039-002",
+        "gap_type": "UNDEFINED_TARGET",
+        "severity": "DEGRADING",
+        "gap_source": "SPECIFICATION_GAP",
+        "detected_by": "Interpreter",
+        "pipeline_stage": 2,
+        "location": {
+          "category": "anchor",
+          "input_reference": "mission_input",
+          "field_or_task": "target_outcome"
+        },
+        "evidence": {
+          "trace_entry_hashes": [
+            "3511ee3114820157b7b66baaedb5ff5f866158839712ffb66c317cce3c40797a"
+          ]
+        },
+        "reason": "Mission input does not specify an explicit target outcome. A default was derived from mission intent.",
+        "remediation": {
+          "action_required": "Define an explicit target_outcome field describing the ideal outcome with measurable criteria.",
+          "responsible_party": "Mission Author",
+          "complexity": "LOW"
+        },
+        "readiness_score": {
+          "completion_percentage": 30,
+          "blocking": false,
+          "partial_spec_available": true
+        },
+        "readiness_assessment": {
+          "completeness_score": 0.14,
+          "readiness_percentage": 14,
+          "blocking_gap_count": 1,
+          "recommendation": "INSUFFICIENT_FOR_AUTOMATION"
+        },
+        "trace_to_gap": "3511ee3114820157b7b66baaedb5ff5f866158839712ffb66c317cce3c40797a"
+      },
+      {
+        "gap_id": "GAP-TASK-MAIN-FIN-039-003",
+        "gap_type": "UNASSESSABLE_RISK",
+        "severity": "DEGRADING",
+        "gap_source": "SPECIFICATION_GAP",
+        "detected_by": "Interpreter",
+        "pipeline_stage": 2,
+        "location": {
+          "category": "risk",
+          "input_reference": "mission_input",
+          "field_or_task": "risk_tolerance"
+        },
+        "evidence": {
+          "trace_entry_hashes": [
+            "b34f98a4ac5706e04f883a20b708c38b86c8a3365091f08b4f8ac8196d5c0d27"
+          ]
+        },
+        "reason": "Cannot determine risk tolerance. No explicit risk_tolerance was provided and no FORBIDS constraints exist to infer one.",
+        "remediation": {
+          "action_required": "Provide an explicit risk_tolerance field (LOW, MEDIUM, or HIGH) or add FORBIDS constraints to establish boundaries.",
+          "responsible_party": "Mission Author",
+          "complexity": "LOW"
+        },
+        "readiness_score": {
+          "completion_percentage": 0,
+          "blocking": false,
+          "partial_spec_available": false
+        },
+        "readiness_assessment": {
+          "completeness_score": 0.14,
+          "readiness_percentage": 14,
+          "blocking_gap_count": 1,
+          "recommendation": "INSUFFICIENT_FOR_AUTOMATION"
+        },
+        "trace_to_gap": "b34f98a4ac5706e04f883a20b708c38b86c8a3365091f08b4f8ac8196d5c0d27"
+      },
+      {
+        "gap_id": "GAP-TASK-MAIN-FIN-039-004",
+        "gap_type": "MISSING_CAPABILITY",
+        "severity": "DEGRADING",
+        "gap_source": "SPECIFICATION_GAP",
+        "detected_by": "Decomposition",
+        "pipeline_stage": 3,
+        "location": {
+          "category": "capability",
+          "input_reference": "mission_input",
+          "field_or_task": "available_tools"
+        },
+        "evidence": {
+          "trace_entry_hashes": [
+            "b12b734c27e22a037b210a54a8f3b143afe7870d4a5b97e6d91135397f575d9a"
+          ]
+        },
+        "reason": "No tools specified in mission input. COA generation limited to manual assessment approach.",
+        "remediation": {
+          "action_required": "Provide available_tools with tool_id, tool_class, and description for each available tool.",
+          "responsible_party": "Mission Author",
+          "complexity": "MEDIUM"
+        },
+        "readiness_score": {
+          "completion_percentage": 10,
+          "blocking": false,
+          "partial_spec_available": false
+        },
+        "readiness_assessment": {
+          "completeness_score": 0.14,
+          "readiness_percentage": 14,
+          "blocking_gap_count": 1,
+          "recommendation": "INSUFFICIENT_FOR_AUTOMATION"
+        },
+        "trace_to_gap": "b12b734c27e22a037b210a54a8f3b143afe7870d4a5b97e6d91135397f575d9a"
+      },
+      {
+        "gap_id": "GAP-TASK-MAIN-FIN-039-005",
+        "gap_type": "UNKNOWN_PATTERN",
+        "severity": "BLOCKING",
+        "gap_source": "SPECIFICATION_GAP",
+        "detected_by": "Decomposition",
+        "pipeline_stage": 3,
+        "location": {
+          "category": "task_dag",
+          "input_reference": "mission_input",
+          "field_or_task": "scope"
+        },
+        "evidence": {
+          "trace_entry_hashes": [
+            "69a15462afd7478e0d3620f938c60101a64760d21a603cb89b4a995cce74c9b8"
+          ]
+        },
+        "reason": "No target scope defined. Cannot generate targeted COAs without knowing the operational boundary.",
+        "remediation": {
+          "action_required": "Define scope as a list of target identifiers (IP ranges, hostnames, or asset references).",
+          "responsible_party": "Mission Author",
+          "complexity": "LOW"
+        },
+        "readiness_score": {
+          "completion_percentage": 0,
+          "blocking": true,
+          "partial_spec_available": false
+        },
+        "readiness_assessment": {
+          "completeness_score": 0.14,
+          "readiness_percentage": 14,
+          "blocking_gap_count": 1,
+          "recommendation": "INSUFFICIENT_FOR_AUTOMATION"
+        },
+        "trace_to_gap": "69a15462afd7478e0d3620f938c60101a64760d21a603cb89b4a995cce74c9b8"
+      }
+    ],
+    "has_gaps": true,
+    "ablation_id": "A6"
+  },
+  "ok": true,
+  "errors": [],
+  "any_llm_fallback": false,
+  "fallback_roles": [],
+  "llm_roles_used": []
+}

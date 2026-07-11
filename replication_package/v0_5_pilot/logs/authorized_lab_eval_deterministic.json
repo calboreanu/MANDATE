@@ -1,0 +1,358 @@
+{
+  "generated_at": "2026-04-13T17:21:48Z",
+  "manifest": "/Users/ws01admin/Desktop/AEGIS/training/eval/authorized_lab_manifest.json",
+  "corpus_version": "0.1.0",
+  "tags": [],
+  "repetitions": 1,
+  "profiles": [
+    {
+      "profile": "deterministic",
+      "config": {
+        "mode": "deterministic"
+      },
+      "summary": {
+        "profile": "deterministic",
+        "total_runs": 6,
+        "cases_passed": 6,
+        "cases_failed": 0,
+        "pass_rate": 1.0,
+        "pipeline_ok_rate": 0.8333,
+        "check_pass_rate": 1.0,
+        "avg_duration_ms": 4.148,
+        "avg_coas": 1.5,
+        "avg_gaps": 1.5,
+        "llm_used_role_rate": 0.0,
+        "llm_fallback_role_rate": 0.0,
+        "llm_effective_role_rate": 0.0
+      },
+      "cases": [
+        {
+          "case_id": "AUTH-LAB-001",
+          "name": "Authorized Lab Service Inventory",
+          "repetition": 1,
+          "passed": true,
+          "pipeline_ok": true,
+          "error": "",
+          "checks": [
+            {
+              "check_name": "pipeline_ok",
+              "passed": true,
+              "detail": "expected=True, actual=True"
+            },
+            {
+              "check_name": "min_coas",
+              "passed": true,
+              "detail": "expected>=1, actual=2"
+            },
+            {
+              "check_name": "max_coas",
+              "passed": true,
+              "detail": "expected<=3, actual=2"
+            },
+            {
+              "check_name": "required_tool_classes_present",
+              "passed": true,
+              "detail": "nodes_found=7, has_procedures=True"
+            },
+            {
+              "check_name": "recommendation_has_primary",
+              "passed": true,
+              "detail": "primary_coa=COA-3"
+            },
+            {
+              "check_name": "anchor_hash_present",
+              "passed": true,
+              "detail": "anchor_hash=present"
+            },
+            {
+              "check_name": "trace_present",
+              "passed": true,
+              "detail": "chain_hash=present"
+            },
+            {
+              "check_name": "constraints_count",
+              "passed": true,
+              "detail": "expected=6, actual=6"
+            }
+          ],
+          "checks_passed": 8,
+          "checks_total": 8,
+          "duration_ms": 6.603916,
+          "coa_count": 2,
+          "gap_count": 0,
+          "llm_used_roles": 0,
+          "llm_fallback_roles": 0,
+          "llm_effective_roles": 0,
+          "roles_executed": 6
+        },
+        {
+          "case_id": "AUTH-LAB-002",
+          "name": "Authorized Lab Web Review",
+          "repetition": 1,
+          "passed": true,
+          "pipeline_ok": true,
+          "error": "",
+          "checks": [
+            {
+              "check_name": "pipeline_ok",
+              "passed": true,
+              "detail": "expected=True, actual=True"
+            },
+            {
+              "check_name": "min_coas",
+              "passed": true,
+              "detail": "expected>=1, actual=2"
+            },
+            {
+              "check_name": "max_coas",
+              "passed": true,
+              "detail": "expected<=3, actual=2"
+            },
+            {
+              "check_name": "required_tool_classes_present",
+              "passed": true,
+              "detail": "nodes_found=7, has_procedures=True"
+            },
+            {
+              "check_name": "recommendation_has_primary",
+              "passed": true,
+              "detail": "primary_coa=COA-3"
+            },
+            {
+              "check_name": "anchor_hash_present",
+              "passed": true,
+              "detail": "anchor_hash=present"
+            },
+            {
+              "check_name": "trace_present",
+              "passed": true,
+              "detail": "chain_hash=present"
+            },
+            {
+              "check_name": "constraints_count",
+              "passed": true,
+              "detail": "expected=6, actual=6"
+            }
+          ],
+          "checks_passed": 8,
+          "checks_total": 8,
+          "duration_ms": 4.577625,
+          "coa_count": 2,
+          "gap_count": 0,
+          "llm_used_roles": 0,
+          "llm_fallback_roles": 0,
+          "llm_effective_roles": 0,
+          "roles_executed": 6
+        },
+        {
+          "case_id": "AUTH-LAB-003",
+          "name": "Incident Response Containment",
+          "repetition": 1,
+          "passed": true,
+          "pipeline_ok": true,
+          "error": "",
+          "checks": [
+            {
+              "check_name": "pipeline_ok",
+              "passed": true,
+              "detail": "expected=True, actual=True"
+            },
+            {
+              "check_name": "min_coas",
+              "passed": true,
+              "detail": "expected>=2, actual=3"
+            },
+            {
+              "check_name": "max_coas",
+              "passed": true,
+              "detail": "expected<=3, actual=3"
+            },
+            {
+              "check_name": "required_tool_classes_present",
+              "passed": true,
+              "detail": "nodes_found=10, has_procedures=True"
+            },
+            {
+              "check_name": "recommendation_has_primary",
+              "passed": true,
+              "detail": "primary_coa=COA-2"
+            },
+            {
+              "check_name": "recommendation_has_fallback",
+              "passed": true,
+              "detail": "fallback_count=2"
+            },
+            {
+              "check_name": "anchor_hash_present",
+              "passed": true,
+              "detail": "anchor_hash=present"
+            },
+            {
+              "check_name": "trace_present",
+              "passed": true,
+              "detail": "chain_hash=present"
+            },
+            {
+              "check_name": "constraints_count",
+              "passed": true,
+              "detail": "expected=5, actual=5"
+            }
+          ],
+          "checks_passed": 9,
+          "checks_total": 9,
+          "duration_ms": 5.523542,
+          "coa_count": 3,
+          "gap_count": 3,
+          "llm_used_roles": 0,
+          "llm_fallback_roles": 0,
+          "llm_effective_roles": 0,
+          "roles_executed": 6
+        },
+        {
+          "case_id": "AUTH-LAB-004",
+          "name": "Authorized Lab Readiness Gap Review",
+          "repetition": 1,
+          "passed": true,
+          "pipeline_ok": true,
+          "error": "",
+          "checks": [
+            {
+              "check_name": "pipeline_ok",
+              "passed": true,
+              "detail": "expected=True, actual=True"
+            },
+            {
+              "check_name": "min_coas",
+              "passed": true,
+              "detail": "expected>=1, actual=1"
+            },
+            {
+              "check_name": "max_coas",
+              "passed": true,
+              "detail": "expected<=3, actual=1"
+            },
+            {
+              "check_name": "recommendation_has_primary",
+              "passed": true,
+              "detail": "primary_coa=COA-1"
+            },
+            {
+              "check_name": "anchor_hash_present",
+              "passed": true,
+              "detail": "anchor_hash=present"
+            },
+            {
+              "check_name": "trace_present",
+              "passed": true,
+              "detail": "chain_hash=present"
+            },
+            {
+              "check_name": "constraints_count",
+              "passed": true,
+              "detail": "expected=2, actual=2"
+            },
+            {
+              "check_name": "gaps_detected",
+              "passed": true,
+              "detail": "gaps_found=3"
+            },
+            {
+              "check_name": "min_gaps",
+              "passed": true,
+              "detail": "expected>=2, actual=3"
+            }
+          ],
+          "checks_passed": 9,
+          "checks_total": 9,
+          "duration_ms": 4.109333,
+          "coa_count": 1,
+          "gap_count": 3,
+          "llm_used_roles": 0,
+          "llm_fallback_roles": 0,
+          "llm_effective_roles": 0,
+          "roles_executed": 6
+        },
+        {
+          "case_id": "AUTH-LAB-005",
+          "name": "Minimal Valid Recon Edge Case",
+          "repetition": 1,
+          "passed": true,
+          "pipeline_ok": true,
+          "error": "",
+          "checks": [
+            {
+              "check_name": "pipeline_ok",
+              "passed": true,
+              "detail": "expected=True, actual=True"
+            },
+            {
+              "check_name": "min_coas",
+              "passed": true,
+              "detail": "expected>=1, actual=1"
+            },
+            {
+              "check_name": "recommendation_has_primary",
+              "passed": true,
+              "detail": "primary_coa=COA-1"
+            },
+            {
+              "check_name": "anchor_hash_present",
+              "passed": true,
+              "detail": "anchor_hash=present"
+            },
+            {
+              "check_name": "trace_present",
+              "passed": true,
+              "detail": "chain_hash=present"
+            },
+            {
+              "check_name": "gaps_detected",
+              "passed": true,
+              "detail": "gaps_found=3"
+            },
+            {
+              "check_name": "min_gaps",
+              "passed": true,
+              "detail": "expected>=2, actual=3"
+            }
+          ],
+          "checks_passed": 7,
+          "checks_total": 7,
+          "duration_ms": 4.073,
+          "coa_count": 1,
+          "gap_count": 3,
+          "llm_used_roles": 0,
+          "llm_fallback_roles": 0,
+          "llm_effective_roles": 0,
+          "roles_executed": 6
+        },
+        {
+          "case_id": "AUTH-LAB-006",
+          "name": "Invalid Input Missing Mission Fields",
+          "repetition": 1,
+          "passed": true,
+          "pipeline_ok": false,
+          "error": "Invalid mission input: 'mission_id'",
+          "checks": [
+            {
+              "check_name": "pipeline_ok",
+              "passed": true,
+              "detail": "Pipeline correctly failed on invalid input"
+            }
+          ],
+          "checks_passed": 1,
+          "checks_total": 1,
+          "duration_ms": 0.0,
+          "coa_count": 0,
+          "gap_count": 0,
+          "llm_used_roles": 0,
+          "llm_fallback_roles": 0,
+          "llm_effective_roles": 0,
+          "roles_executed": 0
+        }
+      ]
+    }
+  ],
+  "deltas_vs_deterministic": [],
+  "warnings": []
+}

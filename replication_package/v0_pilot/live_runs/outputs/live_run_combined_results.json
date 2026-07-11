@@ -1,0 +1,858 @@
+{
+  "run_timestamp": "2026-04-08T07:55:10Z",
+  "total_scenarios": 8,
+  "total_elapsed_ms": 59.8,
+  "summary": {
+    "success": 3,
+    "gap_report": 5,
+    "failure": 0
+  },
+  "results": [
+    {
+      "scenario": "scenario_01_ciso_report",
+      "mission_id": "LIVE-CISO-001",
+      "status": "SUCCESS",
+      "ok": true,
+      "has_gaps": false,
+      "elapsed_ms": 7.4,
+      "summary": {
+        "ok": true,
+        "roles_executed": 6,
+        "roles_passed": 6,
+        "gaps": 0,
+        "errors": [],
+        "mandate_id": "LIVE-CISO-001",
+        "total_duration_ms": 7.437
+      },
+      "metadata": {
+        "scenario": "Paper Section 11 - CISO Weekly Security Report",
+        "domain": "business_reporting",
+        "paper_reference": "Section 11.1-11.6",
+        "claim": "RQ1 - Verifiable success criteria with anchor extraction",
+        "expected_outcome": "SUCCESS - mandate-as-code with anchor hash, trace chain, 2 COAs"
+      },
+      "artifact": {
+        "has_anchor": true,
+        "anchor_hash": "6902013ebe3c5e0b672288deb6f8f72ed19b0977f54e427c94f07e0bc924699b",
+        "num_coas": 2,
+        "has_trace": true,
+        "trace_entries": 6,
+        "has_registry_reference": true,
+        "has_risk_profile": false,
+        "recommendation": "COA-3"
+      },
+      "coas": [
+        {
+          "coa_id": "COA-1",
+          "num_tasks": 3,
+          "num_edges": 3,
+          "has_risk_assessment": true,
+          "risk_score": "LOW",
+          "confidence_min": "MEDIUM"
+        },
+        {
+          "coa_id": "COA-3",
+          "num_tasks": 4,
+          "num_edges": 3,
+          "has_risk_assessment": true,
+          "risk_score": "MEDIUM",
+          "confidence_min": "LOW"
+        }
+      ],
+      "trace_chain": {
+        "chain_hash": "d67cca0852ed5afe6b8e8bc8ee5c478122bdec6c11f60b6e2e5aed1319f8ae9a",
+        "num_entries": 6,
+        "roles": [
+          "Intake",
+          "Interpreter",
+          "Decomposition",
+          "Procedure",
+          "Binding",
+          "Validation"
+        ],
+        "all_hashed": true
+      },
+      "role_results": [
+        {
+          "role": "Intake",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Interpreter",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Decomposition",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Procedure",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Binding",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Validation",
+          "ok": true,
+          "elapsed_ms": null
+        }
+      ]
+    },
+    {
+      "scenario": "scenario_02_gap_undefined_minimum",
+      "mission_id": "LIVE-GAP-UNDEF-MIN-001",
+      "status": "GAP_REPORT",
+      "ok": true,
+      "has_gaps": true,
+      "elapsed_ms": 4.3,
+      "summary": {
+        "ok": true,
+        "roles_executed": 6,
+        "roles_passed": 6,
+        "gaps": 2,
+        "errors": [],
+        "mandate_id": "LIVE-GAP-UNDEF-MIN-001",
+        "total_duration_ms": 4.321
+      },
+      "metadata": {
+        "scenario": "Paper Section 11.7 Gap Variant - UNDEFINED_MINIMUM",
+        "domain": "business_reporting",
+        "paper_reference": "Section 11.7, Table 11 row 1",
+        "claim": "RQ3 - Gap detection: UNDEFINED_MINIMUM when patch compliance threshold is not specified",
+        "expected_outcome": "GAP REPORT with gap_type=UNDEFINED_MINIMUM, readiness_score ~83%"
+      },
+      "artifact": {
+        "has_anchor": true,
+        "anchor_hash": "8707143714afb4c11405472d1b496d0d302ebdd354edb92946ae5fb4cb1a55a3",
+        "num_coas": 1,
+        "has_trace": true,
+        "trace_entries": 6,
+        "has_registry_reference": true,
+        "has_risk_profile": false,
+        "recommendation": "COA-1"
+      },
+      "coas": [
+        {
+          "coa_id": "COA-1",
+          "num_tasks": 2,
+          "num_edges": 1,
+          "has_risk_assessment": true,
+          "risk_score": "LOW",
+          "confidence_min": "LOW"
+        }
+      ],
+      "trace_chain": {
+        "chain_hash": "898da1def1a06e7342702f0dd4a711c55b9b2a42ffb6ec341036b6fecb31e275",
+        "num_entries": 6,
+        "roles": [
+          "Intake",
+          "Interpreter",
+          "Decomposition",
+          "Procedure",
+          "Binding",
+          "Validation"
+        ],
+        "all_hashed": true
+      },
+      "gap_reports": [
+        {
+          "gap_type": "UNDEFINED_MINIMUM",
+          "detected_by": "Interpreter",
+          "severity": "DEGRADING",
+          "blocking": false,
+          "field_or_task": "",
+          "reason": "Mission input does not specify an explicit minimum outcome. A default was derived from mission intent.",
+          "readiness_score": {
+            "completion_percentage": 30,
+            "blocking": false,
+            "partial_spec_available": true
+          }
+        },
+        {
+          "gap_type": "MISSING_CAPABILITY",
+          "detected_by": "Decomposition",
+          "severity": "DEGRADING",
+          "blocking": false,
+          "field_or_task": "",
+          "reason": "No RECON-class tools available. Reconnaissance is typically required for target enumeration.",
+          "readiness_score": {
+            "completion_percentage": 50,
+            "blocking": false,
+            "partial_spec_available": true
+          }
+        }
+      ],
+      "role_results": [
+        {
+          "role": "Intake",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Interpreter",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Decomposition",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Procedure",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Binding",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Validation",
+          "ok": true,
+          "elapsed_ms": null
+        }
+      ]
+    },
+    {
+      "scenario": "scenario_03_gap_undefined_target",
+      "mission_id": "LIVE-GAP-UNDEF-TGT-001",
+      "status": "GAP_REPORT",
+      "ok": true,
+      "has_gaps": true,
+      "elapsed_ms": 4.7,
+      "summary": {
+        "ok": true,
+        "roles_executed": 6,
+        "roles_passed": 6,
+        "gaps": 1,
+        "errors": [],
+        "mandate_id": "LIVE-GAP-UNDEF-TGT-001",
+        "total_duration_ms": 4.689
+      },
+      "metadata": {
+        "scenario": "Gap trigger - UNDEFINED_TARGET",
+        "domain": "pentest",
+        "paper_reference": "Table 11 row 2",
+        "claim": "RQ3 - Gap detection: UNDEFINED_TARGET when target outcome not specified",
+        "expected_outcome": "GAP REPORT or degraded mandate with UNDEFINED_TARGET gap"
+      },
+      "artifact": {
+        "has_anchor": true,
+        "anchor_hash": "d4d3ea4ec57c9d7c9b3b4692eaf57ca5289d1ab19bd1cb610012330bf7327d95",
+        "num_coas": 1,
+        "has_trace": true,
+        "trace_entries": 6,
+        "has_registry_reference": true,
+        "has_risk_profile": false,
+        "recommendation": "COA-1"
+      },
+      "coas": [
+        {
+          "coa_id": "COA-1",
+          "num_tasks": 3,
+          "num_edges": 3,
+          "has_risk_assessment": true,
+          "risk_score": "LOW",
+          "confidence_min": "MEDIUM"
+        }
+      ],
+      "trace_chain": {
+        "chain_hash": "964abc27fd187799d926c577ef2a284cab14c34e32fd5e5ce318e2f5335494a7",
+        "num_entries": 6,
+        "roles": [
+          "Intake",
+          "Interpreter",
+          "Decomposition",
+          "Procedure",
+          "Binding",
+          "Validation"
+        ],
+        "all_hashed": true
+      },
+      "gap_reports": [
+        {
+          "gap_type": "UNDEFINED_TARGET",
+          "detected_by": "Interpreter",
+          "severity": "DEGRADING",
+          "blocking": false,
+          "field_or_task": "",
+          "reason": "Mission input does not specify an explicit target outcome. A default was derived from mission intent.",
+          "readiness_score": {
+            "completion_percentage": 30,
+            "blocking": false,
+            "partial_spec_available": true
+          }
+        }
+      ],
+      "role_results": [
+        {
+          "role": "Intake",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Interpreter",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Decomposition",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Procedure",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Binding",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Validation",
+          "ok": true,
+          "elapsed_ms": null
+        }
+      ]
+    },
+    {
+      "scenario": "scenario_04_gap_unknown_pattern",
+      "mission_id": "LIVE-GAP-UNKNOWN-PAT-001",
+      "status": "GAP_REPORT",
+      "ok": true,
+      "has_gaps": true,
+      "elapsed_ms": 4.2,
+      "summary": {
+        "ok": true,
+        "roles_executed": 6,
+        "roles_passed": 6,
+        "gaps": 1,
+        "errors": [],
+        "mandate_id": "LIVE-GAP-UNKNOWN-PAT-001",
+        "total_duration_ms": 4.147
+      },
+      "metadata": {
+        "scenario": "Gap trigger - UNKNOWN_PATTERN (no scope)",
+        "domain": "pentest",
+        "paper_reference": "Table 11 row 3",
+        "claim": "RQ3 - Gap detection: UNKNOWN_PATTERN when scope is empty",
+        "expected_outcome": "GAP REPORT with UNKNOWN_PATTERN - blocking gap, scope required"
+      },
+      "artifact": {
+        "has_anchor": true,
+        "anchor_hash": "40825526f68c9a51466866ea53ac7f304c8e7452d86bb9b011e7a46e63c8b8d3",
+        "num_coas": 1,
+        "has_trace": true,
+        "trace_entries": 6,
+        "has_registry_reference": true,
+        "has_risk_profile": false,
+        "recommendation": "COA-1"
+      },
+      "coas": [
+        {
+          "coa_id": "COA-1",
+          "num_tasks": 2,
+          "num_edges": 1,
+          "has_risk_assessment": true,
+          "risk_score": "LOW",
+          "confidence_min": "MEDIUM"
+        }
+      ],
+      "trace_chain": {
+        "chain_hash": "cf06b8490d3b1c66a0f00522d5345f4bf48ba67d6eca5f73c71832389c144b00",
+        "num_entries": 6,
+        "roles": [
+          "Intake",
+          "Interpreter",
+          "Decomposition",
+          "Procedure",
+          "Binding",
+          "Validation"
+        ],
+        "all_hashed": true
+      },
+      "gap_reports": [
+        {
+          "gap_type": "UNKNOWN_PATTERN",
+          "detected_by": "Decomposition",
+          "severity": "BLOCKING",
+          "blocking": false,
+          "field_or_task": "",
+          "reason": "No target scope defined. Cannot generate targeted COAs without knowing the operational boundary.",
+          "readiness_score": {
+            "completion_percentage": 0,
+            "blocking": true,
+            "partial_spec_available": false
+          }
+        }
+      ],
+      "role_results": [
+        {
+          "role": "Intake",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Interpreter",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Decomposition",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Procedure",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Binding",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Validation",
+          "ok": true,
+          "elapsed_ms": null
+        }
+      ]
+    },
+    {
+      "scenario": "scenario_05_gap_missing_capability",
+      "mission_id": "LIVE-GAP-MISS-CAP-001",
+      "status": "GAP_REPORT",
+      "ok": true,
+      "has_gaps": true,
+      "elapsed_ms": 4.3,
+      "summary": {
+        "ok": true,
+        "roles_executed": 6,
+        "roles_passed": 6,
+        "gaps": 1,
+        "errors": [],
+        "mandate_id": "LIVE-GAP-MISS-CAP-001",
+        "total_duration_ms": 4.235
+      },
+      "metadata": {
+        "scenario": "Gap trigger - MISSING_CAPABILITY (no tools)",
+        "domain": "pentest",
+        "paper_reference": "Table 11 row 5",
+        "claim": "RQ3 - Gap detection: MISSING_CAPABILITY when no tools available",
+        "expected_outcome": "GAP REPORT with MISSING_CAPABILITY gaps"
+      },
+      "artifact": {
+        "has_anchor": true,
+        "anchor_hash": "1dff20b7123efb32ae3493274a25e9dbf5a903640f30e8ee5d28e8c6439435db",
+        "num_coas": 1,
+        "has_trace": true,
+        "trace_entries": 6,
+        "has_registry_reference": true,
+        "has_risk_profile": false,
+        "recommendation": "COA-1"
+      },
+      "coas": [
+        {
+          "coa_id": "COA-1",
+          "num_tasks": 2,
+          "num_edges": 1,
+          "has_risk_assessment": true,
+          "risk_score": "LOW",
+          "confidence_min": "LOW"
+        }
+      ],
+      "trace_chain": {
+        "chain_hash": "0f8a2753bcce145a55f0cf7ddc493ed1a37dd4e1e66f5142f804b823a6199120",
+        "num_entries": 6,
+        "roles": [
+          "Intake",
+          "Interpreter",
+          "Decomposition",
+          "Procedure",
+          "Binding",
+          "Validation"
+        ],
+        "all_hashed": true
+      },
+      "gap_reports": [
+        {
+          "gap_type": "MISSING_CAPABILITY",
+          "detected_by": "Decomposition",
+          "severity": "DEGRADING",
+          "blocking": false,
+          "field_or_task": "",
+          "reason": "No tools specified in mission input. COA generation limited to manual assessment approach.",
+          "readiness_score": {
+            "completion_percentage": 10,
+            "blocking": false,
+            "partial_spec_available": false
+          }
+        }
+      ],
+      "role_results": [
+        {
+          "role": "Intake",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Interpreter",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Decomposition",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Procedure",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Binding",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Validation",
+          "ok": true,
+          "elapsed_ms": null
+        }
+      ]
+    },
+    {
+      "scenario": "scenario_06_gap_unassessable_risk",
+      "mission_id": "LIVE-GAP-UNASSESS-001",
+      "status": "GAP_REPORT",
+      "ok": true,
+      "has_gaps": true,
+      "elapsed_ms": 4.9,
+      "summary": {
+        "ok": true,
+        "roles_executed": 6,
+        "roles_passed": 6,
+        "gaps": 2,
+        "errors": [],
+        "mandate_id": "LIVE-GAP-UNASSESS-001",
+        "total_duration_ms": 4.935
+      },
+      "metadata": {
+        "scenario": "Gap trigger - UNASSESSABLE_RISK (no risk_tolerance, no FORBIDS)",
+        "domain": "operations",
+        "paper_reference": "Table 11 row 6",
+        "claim": "RQ3 - Gap detection: UNASSESSABLE_RISK when risk cannot be evaluated",
+        "expected_outcome": "GAP REPORT with UNASSESSABLE_RISK gap"
+      },
+      "artifact": {
+        "has_anchor": true,
+        "anchor_hash": "91bdacfe15a06542a7950bcaae561a129298a8499f8fac052dbd992a98255ac1",
+        "num_coas": 1,
+        "has_trace": true,
+        "trace_entries": 6,
+        "has_registry_reference": true,
+        "has_risk_profile": false,
+        "recommendation": "COA-1"
+      },
+      "coas": [
+        {
+          "coa_id": "COA-1",
+          "num_tasks": 2,
+          "num_edges": 1,
+          "has_risk_assessment": true,
+          "risk_score": "LOW",
+          "confidence_min": "LOW"
+        }
+      ],
+      "trace_chain": {
+        "chain_hash": "f46127987bd6b83a03d81ccee1eb7609c04d3671ff7c525a7dd52c59346c1abd",
+        "num_entries": 6,
+        "roles": [
+          "Intake",
+          "Interpreter",
+          "Decomposition",
+          "Procedure",
+          "Binding",
+          "Validation"
+        ],
+        "all_hashed": true
+      },
+      "gap_reports": [
+        {
+          "gap_type": "UNASSESSABLE_RISK",
+          "detected_by": "Interpreter",
+          "severity": "DEGRADING",
+          "blocking": false,
+          "field_or_task": "",
+          "reason": "Cannot determine risk tolerance. No explicit risk_tolerance was provided and no FORBIDS constraints exist to infer one.",
+          "readiness_score": {
+            "completion_percentage": 0,
+            "blocking": false,
+            "partial_spec_available": false
+          }
+        },
+        {
+          "gap_type": "MISSING_CAPABILITY",
+          "detected_by": "Decomposition",
+          "severity": "DEGRADING",
+          "blocking": false,
+          "field_or_task": "",
+          "reason": "No RECON-class tools available. Reconnaissance is typically required for target enumeration.",
+          "readiness_score": {
+            "completion_percentage": 50,
+            "blocking": false,
+            "partial_spec_available": true
+          }
+        }
+      ],
+      "role_results": [
+        {
+          "role": "Intake",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Interpreter",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Decomposition",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Procedure",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Binding",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Validation",
+          "ok": true,
+          "elapsed_ms": null
+        }
+      ]
+    },
+    {
+      "scenario": "scenario_07_multi_coa_ir",
+      "mission_id": "LIVE-MULTI-COA-IR-001",
+      "status": "SUCCESS",
+      "ok": true,
+      "has_gaps": false,
+      "elapsed_ms": 5.4,
+      "summary": {
+        "ok": true,
+        "roles_executed": 6,
+        "roles_passed": 6,
+        "gaps": 0,
+        "errors": [],
+        "mandate_id": "LIVE-MULTI-COA-IR-001",
+        "total_duration_ms": 5.435
+      },
+      "metadata": {
+        "scenario": "Multi-COA Incident Response - Active Ransomware",
+        "domain": "incident_response",
+        "paper_reference": "RQ2 + Cross-domain (IR)",
+        "claim": "RQ2 - Multiple valid COAs with structural variation; Cross-domain IR",
+        "severity": "P1",
+        "expected_outcome": "SUCCESS with 2-3 COAs (Conservative/Moderate/Aggressive) showing different approaches"
+      },
+      "artifact": {
+        "has_anchor": true,
+        "anchor_hash": "861eabb91d4caf3971d93fca3a709e8138b4baba7062c5f93556ff51b5aea6fd",
+        "num_coas": 3,
+        "has_trace": true,
+        "trace_entries": 6,
+        "has_registry_reference": true,
+        "has_risk_profile": false,
+        "recommendation": "COA-2"
+      },
+      "coas": [
+        {
+          "coa_id": "COA-1",
+          "num_tasks": 3,
+          "num_edges": 3,
+          "has_risk_assessment": true,
+          "risk_score": "MEDIUM",
+          "confidence_min": "MEDIUM"
+        },
+        {
+          "coa_id": "COA-2",
+          "num_tasks": 4,
+          "num_edges": 3,
+          "has_risk_assessment": true,
+          "risk_score": "HIGH",
+          "confidence_min": "MEDIUM"
+        },
+        {
+          "coa_id": "COA-3",
+          "num_tasks": 4,
+          "num_edges": 3,
+          "has_risk_assessment": true,
+          "risk_score": "HIGH",
+          "confidence_min": "MEDIUM"
+        }
+      ],
+      "trace_chain": {
+        "chain_hash": "f132d850e0936394145fa1b5ae432acc86d0955b07a53df193a0b11fe7746bc5",
+        "num_entries": 6,
+        "roles": [
+          "Intake",
+          "Interpreter",
+          "Decomposition",
+          "Procedure",
+          "Binding",
+          "Validation"
+        ],
+        "all_hashed": true
+      },
+      "role_results": [
+        {
+          "role": "Intake",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Interpreter",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Decomposition",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Procedure",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Binding",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Validation",
+          "ok": true,
+          "elapsed_ms": null
+        }
+      ]
+    },
+    {
+      "scenario": "scenario_08_cross_domain_intel",
+      "mission_id": "LIVE-XDOMAIN-INTEL-001",
+      "status": "SUCCESS",
+      "ok": true,
+      "has_gaps": false,
+      "elapsed_ms": 4.9,
+      "summary": {
+        "ok": true,
+        "roles_executed": 6,
+        "roles_passed": 6,
+        "gaps": 0,
+        "errors": [],
+        "mandate_id": "LIVE-XDOMAIN-INTEL-001",
+        "total_duration_ms": 4.888
+      },
+      "metadata": {
+        "scenario": "Cross-domain Intelligence - OSINT Collection",
+        "domain": "defense_intel",
+        "paper_reference": "Cross-domain (INTEL) + RQ1",
+        "claim": "Cross-domain execution with full anchor extraction in intelligence domain",
+        "expected_outcome": "SUCCESS with mandate-as-code, 2 COAs (Conservative/Moderate)"
+      },
+      "artifact": {
+        "has_anchor": true,
+        "anchor_hash": "e11a3b1e177623529b839fc76751ee7e19dea6f66dc1c3cfefefe11ad2cf32c5",
+        "num_coas": 2,
+        "has_trace": true,
+        "trace_entries": 6,
+        "has_registry_reference": true,
+        "has_risk_profile": false,
+        "recommendation": "COA-3"
+      },
+      "coas": [
+        {
+          "coa_id": "COA-1",
+          "num_tasks": 3,
+          "num_edges": 3,
+          "has_risk_assessment": true,
+          "risk_score": "LOW",
+          "confidence_min": "MEDIUM"
+        },
+        {
+          "coa_id": "COA-3",
+          "num_tasks": 4,
+          "num_edges": 3,
+          "has_risk_assessment": true,
+          "risk_score": "MEDIUM",
+          "confidence_min": "LOW"
+        }
+      ],
+      "trace_chain": {
+        "chain_hash": "53b47ea1c817a32fd14137578d0bbe47f20b1113de5a964222d10c3e56733df4",
+        "num_entries": 6,
+        "roles": [
+          "Intake",
+          "Interpreter",
+          "Decomposition",
+          "Procedure",
+          "Binding",
+          "Validation"
+        ],
+        "all_hashed": true
+      },
+      "role_results": [
+        {
+          "role": "Intake",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Interpreter",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Decomposition",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Procedure",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Binding",
+          "ok": true,
+          "elapsed_ms": null
+        },
+        {
+          "role": "Validation",
+          "ok": true,
+          "elapsed_ms": null
+        }
+      ]
+    }
+  ]
+}

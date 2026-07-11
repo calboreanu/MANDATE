@@ -1,0 +1,294 @@
+{
+  "currency": "USD",
+  "as_of": "2026-06-25",
+  "note": "Aggregated from handoff reports, stderr logs, and per-record api_cost_usd sums. Read-only; no apparatus runs.",
+  "handoffs": [
+    {
+      "handoff_id": "HANDOFF_02",
+      "cost_usd": 0.09,
+      "phases": [
+        "Phase 3 Corpus"
+      ],
+      "providers": [
+        "Anthropic"
+      ],
+      "basis": [
+        "actual"
+      ]
+    },
+    {
+      "handoff_id": "HANDOFF_03",
+      "cost_usd": 2.78,
+      "phases": [
+        "Phase 3 Corpus"
+      ],
+      "providers": [
+        "Anthropic"
+      ],
+      "basis": [
+        "actual"
+      ]
+    },
+    {
+      "handoff_id": "HANDOFF_04",
+      "cost_usd": 0.87,
+      "phases": [
+        "Phase 5 Baselines"
+      ],
+      "providers": [
+        "Anthropic"
+      ],
+      "basis": [
+        "attested"
+      ]
+    },
+    {
+      "handoff_id": "HANDOFF_04b",
+      "cost_usd": 0.2963,
+      "phases": [
+        "Phase 5 Baselines"
+      ],
+      "providers": [
+        "Anthropic+OpenAI"
+      ],
+      "basis": [
+        "actual"
+      ]
+    },
+    {
+      "handoff_id": "HANDOFF_04c",
+      "cost_usd": 0.1965,
+      "phases": [
+        "Phase 5 Baselines"
+      ],
+      "providers": [
+        "Anthropic"
+      ],
+      "basis": [
+        "actual"
+      ]
+    },
+    {
+      "handoff_id": "HANDOFF_06c",
+      "cost_usd": 1.0,
+      "phases": [
+        "Phase 4 GroundTruth"
+      ],
+      "providers": [
+        "Anthropic"
+      ],
+      "basis": [
+        "attested"
+      ]
+    },
+    {
+      "handoff_id": "HANDOFF_07",
+      "cost_usd": 2.3,
+      "phases": [
+        "Phase 3 Corpus"
+      ],
+      "providers": [
+        "Anthropic"
+      ],
+      "basis": [
+        "actual"
+      ]
+    },
+    {
+      "handoff_id": "HANDOFF_07c",
+      "cost_usd": 0.76,
+      "phases": [
+        "Phase 3 Corpus"
+      ],
+      "providers": [
+        "Anthropic"
+      ],
+      "basis": [
+        "actual"
+      ]
+    },
+    {
+      "handoff_id": "HANDOFF_08b",
+      "cost_usd": 3.0,
+      "phases": [
+        "Phase 3 Corpus"
+      ],
+      "providers": [
+        "Anthropic"
+      ],
+      "basis": [
+        "attested"
+      ]
+    },
+    {
+      "handoff_id": "HANDOFF_09",
+      "cost_usd": 12.0,
+      "phases": [
+        "Phase 4 GroundTruth"
+      ],
+      "providers": [
+        "Anthropic"
+      ],
+      "basis": [
+        "attested"
+      ]
+    },
+    {
+      "handoff_id": "HANDOFF_10",
+      "cost_usd": 3.0892,
+      "phases": [
+        "Phase 6 Perturbations"
+      ],
+      "providers": [
+        "Anthropic"
+      ],
+      "basis": [
+        "actual"
+      ]
+    },
+    {
+      "handoff_id": "HANDOFF_11a",
+      "cost_usd": 1.51,
+      "phases": [
+        "Phase 1 Pilot"
+      ],
+      "providers": [
+        "Anthropic"
+      ],
+      "basis": [
+        "attested"
+      ]
+    },
+    {
+      "handoff_id": "HANDOFF_11b-i",
+      "cost_usd": 0.0,
+      "phases": [
+        "Phase 6 Generation"
+      ],
+      "providers": [
+        "Ollama (local)"
+      ],
+      "basis": [
+        "actual"
+      ]
+    },
+    {
+      "handoff_id": "HANDOFF_11b-ii",
+      "cost_usd": 340.3096,
+      "phases": [
+        "Phase 6 Generation"
+      ],
+      "providers": [
+        "Anthropic",
+        "Anthropic (AutoGen)",
+        "Anthropic (CrewAI)",
+        "Anthropic (LangGraph)",
+        "Anthropic (ReAct)",
+        "OpenAI (GPT)"
+      ],
+      "basis": [
+        "actual"
+      ]
+    },
+    {
+      "handoff_id": "HANDOFF_13b/13d/13e",
+      "cost_usd": 1750.0,
+      "phases": [
+        "Phase 8 v1 Grading"
+      ],
+      "providers": [
+        "GPT-4o+Opus/Sonnet+Gemini"
+      ],
+      "basis": [
+        "projected midpoint of $1,500-2,000; a killed run cost ~$500; no clean cumulative attestation"
+      ]
+    },
+    {
+      "handoff_id": "HANDOFF_19/Stage3",
+      "cost_usd": 40.375,
+      "phases": [
+        "Phase 6 Generation"
+      ],
+      "providers": [
+        "Anthropic",
+        "Anthropic (UNLOGGED)"
+      ],
+      "basis": [
+        "FLAG",
+        "actual"
+      ]
+    },
+    {
+      "handoff_id": "HANDOFF_20",
+      "cost_usd": 7700.0,
+      "phases": [
+        "Stage 4 v2 Grading"
+      ],
+      "providers": [
+        "GPT-4o+Opus+Gemini"
+      ],
+      "basis": [
+        "PROJECTION (Sonnet-priced); COMPLETE 12000/12000 on 2026-07-01; actuals on provider dashboards — see cost_ledger.md closeout addendum + supplement D-13"
+      ]
+    },
+    {
+      "handoff_id": "HANDOFF_20gt",
+      "cost_usd": 4.0,
+      "phases": [
+        "Phase 4 GroundTruth"
+      ],
+      "providers": [
+        "Anthropic"
+      ],
+      "basis": [
+        "attested"
+      ]
+    },
+    {
+      "handoff_id": "HANDOFF_24",
+      "cost_usd": 7350.0,
+      "phases": [
+        "Stage 6 Perturbations"
+      ],
+      "providers": [
+        "mixed"
+      ],
+      "basis": [
+        "PROJECTION (Sonnet-priced); closeout 2026-07-08: generation record-sum actuals $648.29 logged final; b4 halted at 3021/3500; b5/b6 scoped out under D-12; semantic grading paused 14685/18200 (80.7%) under D-13 — see cost_ledger.md closeout addendum"
+      ]
+    }
+  ],
+  "phase_rollup_usd": {
+    "Phase 1 Pilot": 1.51,
+    "Phase 3 Corpus": 8.93,
+    "Phase 4 GroundTruth": 17.0,
+    "Phase 5 Baselines": 1.3628,
+    "Phase 6 Generation": 380.6846,
+    "Phase 6 Perturbations": 3.0892,
+    "Phase 8 v1 Grading": 1750.0,
+    "Stage 4 v2 Grading": 7700.0,
+    "Stage 6 Perturbations": 7350.0
+  },
+  "actual_logged_to_date_usd": 390.1966,
+  "attested_small_items_usd": 22.38,
+  "projected_future_usd": 16800.0,
+  "grand_total_all_rows_usd": 17212.5766,
+  "published_estimate_15256": {
+    "components": {
+      "Stage 1 apparatus": 0,
+      "Stage 2 pilots": 1,
+      "Stage 3 Cond-A": 30,
+      "Stage 3 Cond-B": 175,
+      "Stage 4 grading": 7700,
+      "Stage 6 perturbations": 7350
+    },
+    "sum": 15256
+  },
+  "flags": [
+    "Cond-B RunRecords report api_cost_usd=null on all 1500 records (cost not logged by design). The $175 Stage-3 Cond-B estimate cannot be verified from records.",
+    "Stage 4 grading ($7,700) and Stage 6 perturbations ($7,350) were forward-looking projections (99% of the $15,256 estimate) priced on a Sonnet-rate basis. CLOSEOUT 2026-07-08: Stage 4 complete 12000/12000 (2026-07-01); Stage 6 generation record-sum $648.29 logged final (b4 halted at 3021/3500) with grading paused at 14685/18200 (80.7%) under D-13. D-10's Opus restoration raised per-grade cost ~5x; realized spend exceeded the projection — provider dashboards authoritative. See cost_ledger.md closeout addendum.",
+    "Cond-A record-summed actual is $32.14 (main 1200) / $40.38 (incl. 300 hold-out); the $32.14 calibrates the $30 Stage-3-Cond-A estimate.",
+    "Baseline generation record-sum ($340.31) reconciles with the attested HANDOFF_11b-ii figure ($339.03).",
+    "HANDOFF_11a: the two pre-existing summary files disagree ($1.51 vs $25.00). $25 was the escalation BOUNDARY in the report, not the spend; $1.51 is used here."
+  ]
+}

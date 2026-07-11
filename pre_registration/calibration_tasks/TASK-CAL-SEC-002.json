@@ -1,0 +1,30 @@
+{
+  "task_id": "TASK-CAL-SEC-002",
+  "domain": "security_operations",
+  "category": "calibration",
+  "author": "hand_authored_by_PI",
+  "purpose": "Calibration task with unambiguous thresholds.",
+  "stakeholder": "IT Operations Director",
+  "request_text": "Produce the weekly patch compliance dashboard for the IT Operations Director. Required content: overall compliance percentage across our managed Windows fleet, with a minimum acceptable level of 95%; list of all production servers below 90% compliance; total count of security patches overdue by more than 14 days. Source data: WSUS only. Deliver as an HTML dashboard suitable for embedding in our internal SharePoint portal, due Monday at 0900 hours. Do not include unmanaged endpoints or BYOD devices. Audience: internal IT operations team.",
+  "expected_anchor": {
+    "mission_intent": "Provide IT Operations Director with weekly Windows patch compliance status",
+    "minimum": [
+      {"dimension": "overall_compliance_threshold", "threshold": "at least 95%", "rationale": "explicit"},
+      {"dimension": "scope_coverage", "threshold": "all managed Windows endpoints", "rationale": "explicit"},
+      {"dimension": "required_sections", "threshold": "overall percentage, sub-90% server list, 14-day overdue count", "rationale": "three explicit sections"},
+      {"dimension": "format", "threshold": "HTML dashboard", "rationale": "explicit"},
+      {"dimension": "deadline", "threshold": "Monday 0900", "rationale": "explicit"}
+    ],
+    "target": [
+      {"objective": "embeddability_quality", "rationale": "explicit fitness-for-embedding requirement"}
+    ],
+    "constraints": [
+      {"predicate": "data.source == 'wsus'", "rationale": "explicit"},
+      {"predicate": "scope.includes_unmanaged == false", "rationale": "explicit exclusion"},
+      {"predicate": "scope.includes_byod == false", "rationale": "explicit exclusion"}
+    ]
+  },
+  "expected_output_type": "MANDATE_AS_CODE",
+  "expected_gaps": [],
+  "notes_for_lead_analyst": "Calibration baseline for HTML deliverable format."
+}

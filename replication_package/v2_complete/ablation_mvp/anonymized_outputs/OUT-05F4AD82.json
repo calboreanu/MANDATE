@@ -1,0 +1,594 @@
+{
+  "anon_id": "OUT-05F4AD82",
+  "task_id": "TASK-MAIN-FIN-037",
+  "output_type": "MANDATE_AS_CODE",
+  "output": {
+    "artifact": {
+      "mandate_id": "TASK-MAIN-FIN-037",
+      "version": "1.0",
+      "generated": "2026-06-29T17:50:11.741Z",
+      "anchor": {
+        "mission_intent": "Subject: Urgent Request \u2013 Integrated Audit Substantive Procedure Adjustment Protocol\n\nTeam, following our preliminary walkthrough of the Q3 integrated audit engagement for Meridian Holdings, we need to build out a documented protocol that captures how identified control deficiencies discovered during the ICFR audit feed into modifications of our substantive testing on the financial statement side. Specifically, the protocol should map each deficiency severity level to guidance on how nature, timing, and extent of substantive procedures should be adjusted, and it needs to reflect the principle that substantive procedures must be performed for all relevant assertions regardless of how strong we assess control risk to be. Here's where I need the team to stretch: I want this protocol finalized and fully peer-reviewed by end of day Friday, but I also want it to comprehensively address every possible deficiency scenario across all five COSO components and all material account groupings, including those we haven't scoped into this year's engagement yet. Additionally, the protocol should ensure \"best efforts\" alignment with the firm's global methodology, though I'll leave it to the team's professional judgment to determine what level of alignment is sufficient. Please coordinate with the IT audit and valuation specialists as needed and route the draft through quality management before delivery.",
+        "minimum": {
+          "description": "Minimally satisfy: Subject: Urgent Request \u2013 Integrated Audit Substantive Procedure Adjustment Protocol\n\nTeam, following our preliminary wa"
+        },
+        "constraints": [],
+        "anchor_hash": "1326921f5231671375750225efe72769b739eb9088e7d9b9610858d316d7074b",
+        "target": {
+          "description": "Fully achieve: Subject: Urgent Request \u2013 Integrated Audit Substantive Procedure Adjustment Protocol\n\nTeam, following our preliminary wa"
+        }
+      },
+      "courses_of_action": [
+        {
+          "coa_id": "COA-1",
+          "approach": "Minimal manual assessment approach",
+          "task_dag": {
+            "nodes": [
+              {
+                "id": "1",
+                "name": "Manual Assessment",
+                "description": "Manual assessment of target scope"
+              },
+              {
+                "id": "2",
+                "name": "Results Documentation",
+                "description": "Document assessment findings"
+              }
+            ],
+            "edges": [
+              {
+                "from": "1",
+                "to": "2"
+              }
+            ]
+          },
+          "risk_assessment": {
+            "score": "LOW",
+            "confidence_min": "LOW",
+            "confidence_target": "MEDIUM",
+            "primary_factor": "execution_uncertainty"
+          },
+          "off_nominal_triggers": [
+            "target.scope_violations > 0",
+            "execution.rate > 100"
+          ],
+          "procedures": [
+            "Step 1: Manual Assessment",
+            "Step 2: Results Documentation"
+          ]
+        }
+      ],
+      "recommendation": {
+        "primary_coa": "COA-1",
+        "fallback_sequence": [],
+        "rationale": "Single COA COA-1: Minimal manual assessment approach"
+      },
+      "trace": {
+        "chain_hash": "398a5b0d629e76aa15d52a6ccff5284e5d1e23a70a57d7d0eb711b0cc2add0d2",
+        "entry_count": 6,
+        "entries": [
+          {
+            "role": "Intake",
+            "decision_type": "intake_phase",
+            "timestamp": "2026-06-29T17:50:11.741Z",
+            "parent_hashes": [],
+            "search": {
+              "query": "Intake phase execution for mission TASK-MAIN-FIN-037",
+              "source": "pipeline_state",
+              "k": 5,
+              "total_results": 5
+            },
+            "results": [
+              {
+                "id": "mission_id",
+                "score": 1.0,
+                "summary": "mission_id=TASK-MAIN-FIN-037"
+              },
+              {
+                "id": "constraint_count",
+                "score": 1.0,
+                "summary": "constraint_count=0"
+              },
+              {
+                "id": "scope_count",
+                "score": 1.0,
+                "summary": "scope_count=0"
+              },
+              {
+                "id": "llm_used",
+                "score": 1.0,
+                "summary": "llm_used=False"
+              },
+              {
+                "id": "llm_fallback",
+                "score": 1.0,
+                "summary": "llm_fallback=False"
+              }
+            ],
+            "selected": "Intake",
+            "selection_criteria": "role completed without errors",
+            "confidence": "HIGH",
+            "selection": {
+              "selected": "Intake",
+              "criteria": "role completed without errors",
+              "confidence": "HIGH",
+              "rationale": "Intake complete: mission_id=TASK-MAIN-FIN-037"
+            },
+            "rationale": "Intake complete: mission_id=TASK-MAIN-FIN-037",
+            "mission_id": "TASK-MAIN-FIN-037",
+            "risk": {},
+            "search_trace_version": "1.0",
+            "metadata": {
+              "role_status": "success"
+            },
+            "hash": "ec5e53a9fa84eda7823f112dd858f0d814b106fe3434be7fc912c67b2a933e65"
+          },
+          {
+            "role": "Interpreter",
+            "decision_type": "interpreter_phase",
+            "timestamp": "2026-06-29T17:50:11.741Z",
+            "parent_hashes": [
+              "ec5e53a9fa84eda7823f112dd858f0d814b106fe3434be7fc912c67b2a933e65"
+            ],
+            "search": {
+              "query": "Interpreter phase execution for mission TASK-MAIN-FIN-037",
+              "source": "pipeline_state",
+              "k": 5,
+              "total_results": 5
+            },
+            "results": [
+              {
+                "id": "anchor_hash",
+                "score": 1.0,
+                "summary": "anchor_hash=1326921f5231671375750225efe72769b739eb9088e7d9b9610858d316d7074b"
+              },
+              {
+                "id": "constraint_count",
+                "score": 1.0,
+                "summary": "constraint_count=0"
+              },
+              {
+                "id": "gaps_detected",
+                "score": 1.0,
+                "summary": "gaps_detected=3"
+              },
+              {
+                "id": "llm_used",
+                "score": 1.0,
+                "summary": "llm_used=False"
+              },
+              {
+                "id": "llm_fallback",
+                "score": 1.0,
+                "summary": "llm_fallback=False"
+              }
+            ],
+            "selected": "Interpreter",
+            "selection_criteria": "role completed without errors",
+            "confidence": "HIGH",
+            "selection": {
+              "selected": "Interpreter",
+              "criteria": "role completed without errors",
+              "confidence": "HIGH",
+              "rationale": "Anchor extracted: hash=1326921f52316713... (3 gap(s) detected)"
+            },
+            "rationale": "Anchor extracted: hash=1326921f52316713... (3 gap(s) detected)",
+            "mission_id": "TASK-MAIN-FIN-037",
+            "risk": {},
+            "search_trace_version": "1.0",
+            "metadata": {
+              "role_status": "success"
+            },
+            "hash": "c12a98228875bbdd73dfb634648fd26b3fb73222776b37a81855466077de3f70"
+          },
+          {
+            "role": "Decomposition",
+            "decision_type": "decomposition_phase",
+            "timestamp": "2026-06-29T17:50:11.741Z",
+            "parent_hashes": [
+              "c12a98228875bbdd73dfb634648fd26b3fb73222776b37a81855466077de3f70"
+            ],
+            "search": {
+              "query": "Decomposition phase execution for mission TASK-MAIN-FIN-037",
+              "source": "pipeline_state",
+              "k": 6,
+              "total_results": 6
+            },
+            "results": [
+              {
+                "id": "coa_count",
+                "score": 1.0,
+                "summary": "coa_count=1"
+              },
+              {
+                "id": "coa_ids",
+                "score": 1.0,
+                "summary": "coa_ids: 1 item(s)"
+              },
+              {
+                "id": "gaps_detected",
+                "score": 1.0,
+                "summary": "gaps_detected=2"
+              },
+              {
+                "id": "nist_map",
+                "score": 1.0,
+                "summary": "nist_map: 7 key(s)"
+              },
+              {
+                "id": "llm_used",
+                "score": 1.0,
+                "summary": "llm_used=False"
+              }
+            ],
+            "selected": "Decomposition",
+            "selection_criteria": "role completed without errors",
+            "confidence": "HIGH",
+            "selection": {
+              "selected": "Decomposition",
+              "criteria": "role completed without errors",
+              "confidence": "HIGH",
+              "rationale": "Generated 1 COA(s) (2 gap(s) detected)"
+            },
+            "rationale": "Generated 1 COA(s) (2 gap(s) detected)",
+            "mission_id": "TASK-MAIN-FIN-037",
+            "risk": {},
+            "search_trace_version": "1.0",
+            "metadata": {
+              "role_status": "success"
+            },
+            "hash": "aee4cc545b37fc57715ab62494304a599931639ec55c2c08185ec8c23b408b91"
+          },
+          {
+            "role": "Procedure",
+            "decision_type": "procedure_phase",
+            "timestamp": "2026-06-29T17:50:11.741Z",
+            "parent_hashes": [
+              "aee4cc545b37fc57715ab62494304a599931639ec55c2c08185ec8c23b408b91"
+            ],
+            "search": {
+              "query": "Procedure phase execution for mission TASK-MAIN-FIN-037",
+              "source": "pipeline_state",
+              "k": 7,
+              "total_results": 7
+            },
+            "results": [
+              {
+                "id": "procedure_count",
+                "score": 1.0,
+                "summary": "procedure_count=2"
+              },
+              {
+                "id": "trigger_count",
+                "score": 1.0,
+                "summary": "trigger_count=2"
+              },
+              {
+                "id": "missing_ttp_gaps",
+                "score": 1.0,
+                "summary": "missing_ttp_gaps=0"
+              },
+              {
+                "id": "missing_procedure_gaps",
+                "score": 1.0,
+                "summary": "missing_procedure_gaps=0"
+              },
+              {
+                "id": "gaps_detected",
+                "score": 1.0,
+                "summary": "gaps_detected=0"
+              }
+            ],
+            "selected": "Procedure",
+            "selection_criteria": "role completed without errors",
+            "confidence": "HIGH",
+            "selection": {
+              "selected": "Procedure",
+              "criteria": "role completed without errors",
+              "confidence": "HIGH",
+              "rationale": "Generated 2 procedures, 2 triggers across 1 COA(s)"
+            },
+            "rationale": "Generated 2 procedures, 2 triggers across 1 COA(s)",
+            "mission_id": "TASK-MAIN-FIN-037",
+            "risk": {},
+            "search_trace_version": "1.0",
+            "metadata": {
+              "role_status": "success"
+            },
+            "hash": "691d2062025ba8d2d1a26d9b8bb98011b87795805009215edfccd54999396930"
+          },
+          {
+            "role": "Binding",
+            "decision_type": "binding_phase",
+            "timestamp": "2026-06-29T17:50:11.741Z",
+            "parent_hashes": [
+              "691d2062025ba8d2d1a26d9b8bb98011b87795805009215edfccd54999396930"
+            ],
+            "search": {
+              "query": "Binding phase execution for mission TASK-MAIN-FIN-037",
+              "source": "pipeline_state",
+              "k": 4,
+              "total_results": 4
+            },
+            "results": [
+              {
+                "id": "primary_coa",
+                "score": 1.0,
+                "summary": "primary_coa=COA-1"
+              },
+              {
+                "id": "risk_scores",
+                "score": 1.0,
+                "summary": "risk_scores: 1 key(s)"
+              },
+              {
+                "id": "llm_used",
+                "score": 1.0,
+                "summary": "llm_used=False"
+              },
+              {
+                "id": "llm_fallback",
+                "score": 1.0,
+                "summary": "llm_fallback=False"
+              }
+            ],
+            "selected": "Binding",
+            "selection_criteria": "role completed without errors",
+            "confidence": "HIGH",
+            "selection": {
+              "selected": "Binding",
+              "criteria": "role completed without errors",
+              "confidence": "HIGH",
+              "rationale": "Risk assessed for 1 COA(s), recommended: COA-1"
+            },
+            "rationale": "Risk assessed for 1 COA(s), recommended: COA-1",
+            "mission_id": "TASK-MAIN-FIN-037",
+            "risk": {},
+            "search_trace_version": "1.0",
+            "metadata": {
+              "role_status": "success"
+            },
+            "hash": "4711e93d44e931f1d4baff3d1e5e4b315c115beb32d4f137ad71dafcfcc2eae1"
+          },
+          {
+            "role": "Validation",
+            "decision_type": "validation_phase",
+            "timestamp": "2026-06-29T17:50:11.742Z",
+            "parent_hashes": [
+              "4711e93d44e931f1d4baff3d1e5e4b315c115beb32d4f137ad71dafcfcc2eae1"
+            ],
+            "search": {
+              "query": "Validate artifact for mission TASK-MAIN-FIN-037",
+              "source": "validator",
+              "k": 1,
+              "total_results": 1
+            },
+            "results": [
+              {
+                "id": "validator.validate_artifact",
+                "score": 1.0,
+                "summary": "Schema/hash/constraint validation run"
+              }
+            ],
+            "selected": "validator.validate_artifact",
+            "selection_criteria": "final pipeline gate",
+            "confidence": "HIGH",
+            "selection": {
+              "selected": "validator.validate_artifact",
+              "criteria": "final pipeline gate",
+              "confidence": "HIGH",
+              "rationale": "Validation role assembled and validated final artifact"
+            },
+            "rationale": "Validation role assembled and validated final artifact",
+            "mission_id": "TASK-MAIN-FIN-037",
+            "risk": {},
+            "search_trace_version": "1.0",
+            "hash": "0bd15df45229328052b1365b6b9070f121276de44314ab69e0829d3b44eaff9b"
+          }
+        ]
+      },
+      "registry_reference": {
+        "similar_mandates": [],
+        "match_type": "NOVEL",
+        "similarity_description": "Success registry not configured."
+      },
+      "metadata": {
+        "sources_consulted": [
+          "mission_input",
+          "anchor",
+          "courses_of_action",
+          "constraints",
+          "validation_algorithm",
+          "trace_chain",
+          "local_pipeline_state"
+        ],
+        "input_hash": "9a39652630fcdf3b712d9d8a057d85495c457f8a9234ddbffe4093dd84add0fb",
+        "output_hash": "b87beb63a2e6324b4dbdf7f43043f6351c9f6d2d7cc710644da54e21b92901d2"
+      }
+    },
+    "gap_reports": [
+      {
+        "gap_id": "GAP-TASK-MAIN-FIN-037-001",
+        "gap_type": "UNDEFINED_MINIMUM",
+        "severity": "DEGRADING",
+        "gap_source": "SPECIFICATION_GAP",
+        "detected_by": "Interpreter",
+        "pipeline_stage": 2,
+        "location": {
+          "category": "anchor",
+          "input_reference": "mission_input",
+          "field_or_task": "minimum_outcome"
+        },
+        "evidence": {
+          "trace_entry_hashes": [
+            "ecb5c5c09539bef77825418abbfeaab5914cce34ecaa0d7d311f24f8f21dae64"
+          ]
+        },
+        "reason": "Mission input does not specify an explicit minimum outcome. A default was derived from mission intent.",
+        "remediation": {
+          "action_required": "Define an explicit minimum_outcome field with quantifiable acceptance criteria.",
+          "responsible_party": "Mission Author",
+          "complexity": "LOW"
+        },
+        "readiness_score": {
+          "completion_percentage": 30,
+          "blocking": false,
+          "partial_spec_available": true
+        },
+        "readiness_assessment": {
+          "completeness_score": 0.14,
+          "readiness_percentage": 14,
+          "blocking_gap_count": 1,
+          "recommendation": "INSUFFICIENT_FOR_AUTOMATION"
+        },
+        "trace_to_gap": "ecb5c5c09539bef77825418abbfeaab5914cce34ecaa0d7d311f24f8f21dae64"
+      },
+      {
+        "gap_id": "GAP-TASK-MAIN-FIN-037-002",
+        "gap_type": "UNDEFINED_TARGET",
+        "severity": "DEGRADING",
+        "gap_source": "SPECIFICATION_GAP",
+        "detected_by": "Interpreter",
+        "pipeline_stage": 2,
+        "location": {
+          "category": "anchor",
+          "input_reference": "mission_input",
+          "field_or_task": "target_outcome"
+        },
+        "evidence": {
+          "trace_entry_hashes": [
+            "102db8f12ae56298a5d702adcde7f5401000a5aa5b4947732c7ae51a3e6ddbfc"
+          ]
+        },
+        "reason": "Mission input does not specify an explicit target outcome. A default was derived from mission intent.",
+        "remediation": {
+          "action_required": "Define an explicit target_outcome field describing the ideal outcome with measurable criteria.",
+          "responsible_party": "Mission Author",
+          "complexity": "LOW"
+        },
+        "readiness_score": {
+          "completion_percentage": 30,
+          "blocking": false,
+          "partial_spec_available": true
+        },
+        "readiness_assessment": {
+          "completeness_score": 0.14,
+          "readiness_percentage": 14,
+          "blocking_gap_count": 1,
+          "recommendation": "INSUFFICIENT_FOR_AUTOMATION"
+        },
+        "trace_to_gap": "102db8f12ae56298a5d702adcde7f5401000a5aa5b4947732c7ae51a3e6ddbfc"
+      },
+      {
+        "gap_id": "GAP-TASK-MAIN-FIN-037-003",
+        "gap_type": "UNASSESSABLE_RISK",
+        "severity": "DEGRADING",
+        "gap_source": "SPECIFICATION_GAP",
+        "detected_by": "Interpreter",
+        "pipeline_stage": 2,
+        "location": {
+          "category": "risk",
+          "input_reference": "mission_input",
+          "field_or_task": "risk_tolerance"
+        },
+        "evidence": {
+          "trace_entry_hashes": [
+            "4ebefb6b86152a5acb19a6a9b8b5d8fe2d6e476db066716d7df042a43c34560b"
+          ]
+        },
+        "reason": "Cannot determine risk tolerance. No explicit risk_tolerance was provided and no FORBIDS constraints exist to infer one.",
+        "remediation": {
+          "action_required": "Provide an explicit risk_tolerance field (LOW, MEDIUM, or HIGH) or add FORBIDS constraints to establish boundaries.",
+          "responsible_party": "Mission Author",
+          "complexity": "LOW"
+        },
+        "readiness_score": {
+          "completion_percentage": 0,
+          "blocking": false,
+          "partial_spec_available": false
+        },
+        "readiness_assessment": {
+          "completeness_score": 0.14,
+          "readiness_percentage": 14,
+          "blocking_gap_count": 1,
+          "recommendation": "INSUFFICIENT_FOR_AUTOMATION"
+        },
+        "trace_to_gap": "4ebefb6b86152a5acb19a6a9b8b5d8fe2d6e476db066716d7df042a43c34560b"
+      },
+      {
+        "gap_id": "GAP-TASK-MAIN-FIN-037-004",
+        "gap_type": "MISSING_CAPABILITY",
+        "severity": "DEGRADING",
+        "gap_source": "SPECIFICATION_GAP",
+        "detected_by": "Decomposition",
+        "pipeline_stage": 3,
+        "location": {
+          "category": "capability",
+          "input_reference": "mission_input",
+          "field_or_task": "available_tools"
+        },
+        "evidence": {
+          "trace_entry_hashes": [
+            "7a7cb1dc6f370f6b5c6cd30b6bdd918e8f1405574fed9423c21dcdbadd8735e9"
+          ]
+        },
+        "reason": "No tools specified in mission input. COA generation limited to manual assessment approach.",
+        "remediation": {
+          "action_required": "Provide available_tools with tool_id, tool_class, and description for each available tool.",
+          "responsible_party": "Mission Author",
+          "complexity": "MEDIUM"
+        },
+        "readiness_score": {
+          "completion_percentage": 10,
+          "blocking": false,
+          "partial_spec_available": false
+        },
+        "readiness_assessment": {
+          "completeness_score": 0.14,
+          "readiness_percentage": 14,
+          "blocking_gap_count": 1,
+          "recommendation": "INSUFFICIENT_FOR_AUTOMATION"
+        },
+        "trace_to_gap": "7a7cb1dc6f370f6b5c6cd30b6bdd918e8f1405574fed9423c21dcdbadd8735e9"
+      },
+      {
+        "gap_id": "GAP-TASK-MAIN-FIN-037-005",
+        "gap_type": "UNKNOWN_PATTERN",
+        "severity": "BLOCKING",
+        "gap_source": "SPECIFICATION_GAP",
+        "detected_by": "Decomposition",
+        "pipeline_stage": 3,
+        "location": {
+          "category": "task_dag",
+          "input_reference": "mission_input",
+          "field_or_task": "scope"
+        },
+        "evidence": {
+          "trace_entry_hashes": [
+            "8d4607781f02a3098b7583c646f97c38e9ae45f736095c279405fc3c890100f7"
+          ]
+        },
+        "reason": "No target scope defined. Cannot generate targeted COAs without knowing the operational boundary.",
+        "remediation": {
+          "action_required": "Define scope as a list of target identifiers (IP ranges, hostnames, or asset references).",
+          "responsible_party": "Mission Author",
+          "complexity": "LOW"
+        },
+        "readiness_score": {
+          "completion_percentage": 0,
+          "blocking": true,
+          "partial_spec_available": false
+        },
+        "readiness_assessment": {
+          "completeness_score": 0.14,
+          "readiness_percentage": 14,
+          "blocking_gap_count": 1,
+          "recommendation": "INSUFFICIENT_FOR_AUTOMATION"
+        },
+        "trace_to_gap": "8d4607781f02a3098b7583c646f97c38e9ae45f736095c279405fc3c890100f7"
+      }
+    ],
+    "has_gaps": true
+  },
+  "ok": true
+}

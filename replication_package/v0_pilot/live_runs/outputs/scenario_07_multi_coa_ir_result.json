@@ -1,0 +1,106 @@
+{
+  "scenario": "scenario_07_multi_coa_ir",
+  "mission_id": "LIVE-MULTI-COA-IR-001",
+  "status": "SUCCESS",
+  "ok": true,
+  "has_gaps": false,
+  "elapsed_ms": 5.4,
+  "summary": {
+    "ok": true,
+    "roles_executed": 6,
+    "roles_passed": 6,
+    "gaps": 0,
+    "errors": [],
+    "mandate_id": "LIVE-MULTI-COA-IR-001",
+    "total_duration_ms": 5.435
+  },
+  "metadata": {
+    "scenario": "Multi-COA Incident Response - Active Ransomware",
+    "domain": "incident_response",
+    "paper_reference": "RQ2 + Cross-domain (IR)",
+    "claim": "RQ2 - Multiple valid COAs with structural variation; Cross-domain IR",
+    "severity": "P1",
+    "expected_outcome": "SUCCESS with 2-3 COAs (Conservative/Moderate/Aggressive) showing different approaches"
+  },
+  "artifact": {
+    "has_anchor": true,
+    "anchor_hash": "861eabb91d4caf3971d93fca3a709e8138b4baba7062c5f93556ff51b5aea6fd",
+    "num_coas": 3,
+    "has_trace": true,
+    "trace_entries": 6,
+    "has_registry_reference": true,
+    "has_risk_profile": false,
+    "recommendation": "COA-2"
+  },
+  "coas": [
+    {
+      "coa_id": "COA-1",
+      "num_tasks": 3,
+      "num_edges": 3,
+      "has_risk_assessment": true,
+      "risk_score": "MEDIUM",
+      "confidence_min": "MEDIUM"
+    },
+    {
+      "coa_id": "COA-2",
+      "num_tasks": 4,
+      "num_edges": 3,
+      "has_risk_assessment": true,
+      "risk_score": "HIGH",
+      "confidence_min": "MEDIUM"
+    },
+    {
+      "coa_id": "COA-3",
+      "num_tasks": 4,
+      "num_edges": 3,
+      "has_risk_assessment": true,
+      "risk_score": "HIGH",
+      "confidence_min": "MEDIUM"
+    }
+  ],
+  "trace_chain": {
+    "chain_hash": "f132d850e0936394145fa1b5ae432acc86d0955b07a53df193a0b11fe7746bc5",
+    "num_entries": 6,
+    "roles": [
+      "Intake",
+      "Interpreter",
+      "Decomposition",
+      "Procedure",
+      "Binding",
+      "Validation"
+    ],
+    "all_hashed": true
+  },
+  "role_results": [
+    {
+      "role": "Intake",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Interpreter",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Decomposition",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Procedure",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Binding",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Validation",
+      "ok": true,
+      "elapsed_ms": null
+    }
+  ]
+}

@@ -1,0 +1,165 @@
+{
+  "ok": false,
+  "strict_lifecycle": false,
+  "lifecycle": [
+    {
+      "from_stage": "BOOT",
+      "to_stage": "MANDATE",
+      "requested_preload_models": [
+        "mandate-intake",
+        "mandate-interpreter"
+      ],
+      "settle_seconds": 5.0,
+      "ok": true,
+      "result": {
+        "from_stage": "BOOT",
+        "to_stage": "MANDATE",
+        "unloaded_models": [],
+        "preloaded_models": [
+          "mandate-intake",
+          "mandate-interpreter"
+        ],
+        "settle_seconds": 5.0
+      }
+    },
+    {
+      "from_stage": "MANDATE",
+      "to_stage": "LATTICE",
+      "requested_preload_models": [
+        "lattice-planner"
+      ],
+      "settle_seconds": 5.0,
+      "ok": true,
+      "result": {
+        "from_stage": "MANDATE",
+        "to_stage": "LATTICE",
+        "unloaded_models": [
+          "mandate-interpreter:latest",
+          "mandate-intake:latest"
+        ],
+        "preloaded_models": [
+          "lattice-planner"
+        ],
+        "settle_seconds": 5.0
+      }
+    },
+    {
+      "from_stage": "LATTICE",
+      "to_stage": "TRACE",
+      "requested_preload_models": [
+        "trace-executor",
+        "trace-watcher"
+      ],
+      "settle_seconds": 5.0,
+      "ok": true,
+      "result": {
+        "from_stage": "LATTICE",
+        "to_stage": "TRACE",
+        "unloaded_models": [
+          "lattice-planner:latest"
+        ],
+        "preloaded_models": [
+          "trace-executor",
+          "trace-watcher"
+        ],
+        "settle_seconds": 5.0
+      }
+    },
+    {
+      "from_stage": "TRACE",
+      "to_stage": "IDLE",
+      "requested_preload_models": [],
+      "settle_seconds": 5.0,
+      "ok": true,
+      "result": {
+        "from_stage": "TRACE",
+        "to_stage": "IDLE",
+        "unloaded_models": [
+          "trace-watcher:latest",
+          "trace-executor:latest"
+        ],
+        "preloaded_models": [],
+        "settle_seconds": 5.0
+      }
+    }
+  ],
+  "stages": {
+    "MANDATE": {
+      "stage": "MANDATE",
+      "status": "FAILED",
+      "ok": false,
+      "error": "[Errno 2] No such file or directory: '/Users/ws01admin/Desktop/AEGIS/examples/authorized_lab/service_inventory_run/generated/phase1_trace/mission.json'"
+    },
+    "LATTICE": {
+      "stage": "LATTICE",
+      "status": "FAILED",
+      "ok": false,
+      "error": "[Errno 2] No such file or directory: '/Users/ws01admin/Desktop/AEGIS/examples/authorized_lab/service_inventory_run/generated/phase1_trace/action_bundle.json'"
+    },
+    "TRACE": {
+      "stage": "TRACE",
+      "status": "DONE",
+      "ok": true,
+      "result": {
+        "ok": true,
+        "status": "OK",
+        "reason": "",
+        "stub": false,
+        "evidence_path": "/Users/ws01admin/Desktop/AEGIS/examples/authorized_lab/service_inventory_run/generated/phase1_trace/trace_out/evidence.jsonl"
+      }
+    }
+  },
+  "errors": [
+    "MANDATE stage failed: [Errno 2] No such file or directory: '/Users/ws01admin/Desktop/AEGIS/examples/authorized_lab/service_inventory_run/generated/phase1_trace/mission.json'",
+    "LATTICE stage failed: [Errno 2] No such file or directory: '/Users/ws01admin/Desktop/AEGIS/examples/authorized_lab/service_inventory_run/generated/phase1_trace/action_bundle.json'"
+  ],
+  "authorized_lab": {
+    "profile_id": "authorized-lab-v1",
+    "bundle": {
+      "bundle_id": "AUTHLAB-RUN-001",
+      "name": "Authorized Lab Service Inventory",
+      "profile_id": "authorized-lab-v1",
+      "mission_json": "/Users/ws01admin/Desktop/AEGIS/examples/authorized_lab/service_inventory_run/generated/phase1_trace/mission.json",
+      "lattice_action_json": "/Users/ws01admin/Desktop/AEGIS/examples/authorized_lab/service_inventory_run/generated/phase1_trace/action_bundle.json",
+      "lattice_policy_json": "/Users/ws01admin/Desktop/AEGIS/examples/authorized_lab/service_inventory_run/generated/phase1_trace/policy_bundle.json",
+      "trace_bundle": "/Users/ws01admin/Desktop/AEGIS/examples/authorized_lab/service_inventory_run/generated/phase1_trace/trace_bundle_signed.json",
+      "trace_governance_key": "/Users/ws01admin/Desktop/AEGIS/examples/authorized_lab/service_inventory_run/generated/phase1_trace/keys/governance_public.pem",
+      "trace_evidence_key": "/Users/ws01admin/Desktop/AEGIS/examples/authorized_lab/service_inventory_run/generated/phase1_trace/keys/evidence_private.pem",
+      "trace_out_dir": "/Users/ws01admin/Desktop/AEGIS/examples/authorized_lab/service_inventory_run/generated/phase1_trace/trace_out",
+      "trace_approval_json": "/Users/ws01admin/Desktop/AEGIS/examples/authorized_lab/service_inventory_run/generated/phase1_trace/trace_approval.json",
+      "notes": "Phase 1 prepared TRACE dry run. Bundle, keys, and approval record are generated for simulated lab-safe execution only."
+    },
+    "model_manifest_id": "ws01-model-manifest-2026-04-13",
+    "stack_config_id": "authorized-lab-stack-v1",
+    "base_url": "http://localhost:11434",
+    "timeout_s": 300.0,
+    "settle_seconds": 5.0,
+    "stage_preloads": {
+      "MANDATE": [
+        "mandate-intake",
+        "mandate-interpreter"
+      ],
+      "LATTICE": [
+        "lattice-planner"
+      ],
+      "TRACE": [
+        "trace-executor",
+        "trace-watcher"
+      ]
+    },
+    "approval": {
+      "approval_id": "TRACE-APP-2DF82F3108E3",
+      "approval_ref": "LAB-AUTH-2026-0413-EXEC-01",
+      "approved_by": "ws01admin",
+      "approved_at": "2026-04-14T13:24:38.182251+00:00",
+      "mission_id": "MANDATE-AUTHLAB-RUN-001",
+      "policy_id": "AUTHLAB-POLICY-001",
+      "approval_scope": "TRACE_DRY_RUN",
+      "lattice_verdict": "ALLOW",
+      "profile_id": "authorized-lab-v1",
+      "action_bundle_id": "AUTHLAB-ACTION-001",
+      "notes": "Authorized phase-1 TRACE dry run for simulated lab-safe execution only."
+    },
+    "warnings": []
+  }
+}

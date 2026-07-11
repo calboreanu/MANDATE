@@ -1,0 +1,88 @@
+{
+  "generated_at": "2026-04-30T12:12:29Z",
+  "project_root": "/Users/ws01admin/Desktop/AEGIS",
+  "report_path": "/Users/ws01admin/Desktop/AEGIS/logs/kan751_acceptance_from_readiness_2026-04-30_081228.json",
+  "overall_status": "BLOCKED",
+  "criteria": {
+    "ac1_all_6_roles_through_fine_tuned_models": {
+      "status": "BLOCKED",
+      "evidence": {
+        "preflight": "BLOCKED",
+        "llm_smoke": "SKIPPED",
+        "readiness_e2e": "SKIPPED",
+        "standalone_e2e": "PASS",
+        "effective_e2e": "PASS"
+      }
+    },
+    "ac2_all_6_adapters_registered_and_responding": {
+      "status": "BLOCKED",
+      "evidence": {
+        "register_adapters": "SKIPPED",
+        "llm_smoke": "SKIPPED"
+      }
+    },
+    "ac3_valid_mandate_artifacts_from_example_missions": {
+      "status": "PASS",
+      "evidence": {
+        "readiness_e2e": "SKIPPED",
+        "standalone_e2e": "PASS",
+        "effective_e2e": "PASS"
+      }
+    },
+    "ac4_gap_reports_correct_for_underspecified_mission": {
+      "status": "PASS",
+      "evidence": {
+        "readiness_e2e": "SKIPPED",
+        "standalone_e2e": "PASS",
+        "effective_e2e": "PASS",
+        "deterministic_gap_check": "SKIPPED"
+      }
+    },
+    "ac5_fallback_to_deterministic_when_ollama_unavailable": {
+      "status": "BLOCKED",
+      "evidence": {
+        "fallback_regression_check": "SKIPPED"
+      }
+    }
+  },
+  "stages": {
+    "readiness_gate": {
+      "status": "BLOCKED",
+      "reason": "overall_status=BLOCKED",
+      "source": "/Users/ws01admin/Desktop/AEGIS/logs/readiness_gate_2026-04-30_081228.json"
+    },
+    "fallback_regression": {
+      "status": "SKIPPED",
+      "reason": "skip_flag"
+    },
+    "e2e_regression": {
+      "status": "PASS",
+      "reason": "pytest_passed",
+      "command": "/Users/ws01admin/Desktop/AEGIS/.venv/bin/python -m pytest tests/test_e2e_pipeline.py -q",
+      "returncode": 0,
+      "timed_out": false,
+      "stdout_tail": [
+        "........................................................................ [ 92%]",
+        "......                                                                   [100%]",
+        "78 passed in 0.44s"
+      ],
+      "stderr_tail": []
+    },
+    "deterministic_gap_check": {
+      "status": "SKIPPED",
+      "reason": "skip_flag"
+    },
+    "ab_evaluation": {
+      "status": "SKIPPED",
+      "reason": "not_requested"
+    }
+  },
+  "artifacts": {
+    "readiness_json": "",
+    "ab_report": ""
+  },
+  "ab_profile_summaries": [],
+  "blockers": [
+    "missing_adapters:lattice-planner"
+  ]
+}

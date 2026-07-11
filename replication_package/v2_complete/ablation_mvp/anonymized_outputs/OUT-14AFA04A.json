@@ -1,0 +1,604 @@
+{
+  "anon_id": "OUT-14AFA04A",
+  "task_id": "TASK-HOLDOUT-SES-013",
+  "output_type": "MANDATE_AS_CODE",
+  "output": {
+    "artifact": {
+      "mandate_id": "TASK-HOLDOUT-SES-013",
+      "version": "1.0",
+      "generated": "2026-06-29T17:50:15.470Z",
+      "anchor": {
+        "mission_intent": "We need a full Infrastructure Management process specification aligned with NIST SP 800-160 Volume 1 for our upcoming secure satellite ground station project (Project Meridian). The specification should define how infrastructure resources and services \u2014 including development environments, test labs, build servers, configuration management tooling, and communications networks \u2014 are identified, obtained, provisioned, and maintained to support both organizational and project-level security objectives across the entire system life cycle. It must address how infrastructure security requirements and security constraints are derived and flowed down so that all infrastructure resources, not just those directly providing a security function, are evaluated against applicable constraints. The spec should reference ISO/IEC/IEEE 15288:2015 Infrastructure Management process activities and outcomes as the process framework baseline, then overlay the security considerations from SP 800-160 Vol. 1 Chapter 3 regarding security functions, services, and constraint adequacy. Please include criteria for determining when an infrastructure resource is adequate to securely implement and support the project, roles and responsibilities for infrastructure provisioning decisions, traceability from infrastructure security constraints back to stakeholder protection needs, and a review cadence tied to major life-cycle stage gates. We need a draft ready for the systems engineering review board by end of next month.",
+        "minimum": {
+          "description": "Minimally satisfy: We need a full Infrastructure Management process specification aligned with NIST SP 800-160 Volume 1 for our upcoming se"
+        },
+        "constraints": [],
+        "anchor_hash": "2e39ab20bdeae4ec45b5c8a875c4cc357d4dd71285cad2e9883d206c15b31a60",
+        "target": {
+          "description": "Fully achieve: We need a full Infrastructure Management process specification aligned with NIST SP 800-160 Volume 1 for our upcoming se"
+        }
+      },
+      "courses_of_action": [
+        {
+          "coa_id": "COA-1",
+          "approach": "Minimal manual assessment approach",
+          "task_dag": {
+            "nodes": [
+              {
+                "id": "1",
+                "name": "Manual Assessment",
+                "description": "Manual assessment of target scope"
+              },
+              {
+                "id": "2",
+                "name": "Results Documentation",
+                "description": "Document assessment findings"
+              }
+            ],
+            "edges": [
+              {
+                "from": "1",
+                "to": "2"
+              }
+            ]
+          },
+          "risk_assessment": {
+            "score": "LOW",
+            "confidence_min": "LOW",
+            "confidence_target": "MEDIUM",
+            "primary_factor": "execution_uncertainty"
+          },
+          "off_nominal_triggers": [
+            "target.scope_violations > 0",
+            "execution.rate > 100"
+          ],
+          "procedures": [
+            "Step 1: Manual Assessment",
+            "Step 2: Results Documentation"
+          ]
+        }
+      ],
+      "recommendation": {
+        "primary_coa": "COA-1",
+        "fallback_sequence": [],
+        "rationale": "Single COA COA-1: Minimal manual assessment approach"
+      },
+      "trace": {
+        "chain_hash": "cb009d5b0a5bd8f6d292aa290fc8110830696b6b2e7110e4306966039881b26f",
+        "entry_count": 6,
+        "entries": [
+          {
+            "role": "Intake",
+            "decision_type": "intake_phase",
+            "timestamp": "2026-06-29T17:50:15.470Z",
+            "parent_hashes": [],
+            "search": {
+              "query": "Intake phase execution for mission TASK-HOLDOUT-SES-013",
+              "source": "pipeline_state",
+              "k": 5,
+              "total_results": 5
+            },
+            "results": [
+              {
+                "id": "mission_id",
+                "score": 1.0,
+                "summary": "mission_id=TASK-HOLDOUT-SES-013"
+              },
+              {
+                "id": "constraint_count",
+                "score": 1.0,
+                "summary": "constraint_count=0"
+              },
+              {
+                "id": "scope_count",
+                "score": 1.0,
+                "summary": "scope_count=0"
+              },
+              {
+                "id": "llm_used",
+                "score": 1.0,
+                "summary": "llm_used=False"
+              },
+              {
+                "id": "llm_fallback",
+                "score": 1.0,
+                "summary": "llm_fallback=False"
+              }
+            ],
+            "selected": "Intake",
+            "selection_criteria": "role completed without errors",
+            "confidence": "HIGH",
+            "selection": {
+              "selected": "Intake",
+              "criteria": "role completed without errors",
+              "confidence": "HIGH",
+              "rationale": "Intake complete: mission_id=TASK-HOLDOUT-SES-013"
+            },
+            "rationale": "Intake complete: mission_id=TASK-HOLDOUT-SES-013",
+            "mission_id": "TASK-HOLDOUT-SES-013",
+            "risk": {},
+            "search_trace_version": "1.0",
+            "metadata": {
+              "role_status": "success"
+            },
+            "hash": "6faaefa05be7719174cd13bf80818c5fff5b7c9ff4f5e8af8d5de3008f5c6eb8"
+          },
+          {
+            "role": "Interpreter",
+            "decision_type": "interpreter_phase",
+            "timestamp": "2026-06-29T17:50:15.470Z",
+            "parent_hashes": [
+              "6faaefa05be7719174cd13bf80818c5fff5b7c9ff4f5e8af8d5de3008f5c6eb8"
+            ],
+            "search": {
+              "query": "Interpreter phase execution for mission TASK-HOLDOUT-SES-013",
+              "source": "pipeline_state",
+              "k": 5,
+              "total_results": 5
+            },
+            "results": [
+              {
+                "id": "anchor_hash",
+                "score": 1.0,
+                "summary": "anchor_hash=2e39ab20bdeae4ec45b5c8a875c4cc357d4dd71285cad2e9883d206c15b31a60"
+              },
+              {
+                "id": "constraint_count",
+                "score": 1.0,
+                "summary": "constraint_count=0"
+              },
+              {
+                "id": "gaps_detected",
+                "score": 1.0,
+                "summary": "gaps_detected=3"
+              },
+              {
+                "id": "llm_used",
+                "score": 1.0,
+                "summary": "llm_used=False"
+              },
+              {
+                "id": "llm_fallback",
+                "score": 1.0,
+                "summary": "llm_fallback=False"
+              }
+            ],
+            "selected": "Interpreter",
+            "selection_criteria": "role completed without errors",
+            "confidence": "HIGH",
+            "selection": {
+              "selected": "Interpreter",
+              "criteria": "role completed without errors",
+              "confidence": "HIGH",
+              "rationale": "Anchor extracted: hash=2e39ab20bdeae4ec... (3 gap(s) detected)"
+            },
+            "rationale": "Anchor extracted: hash=2e39ab20bdeae4ec... (3 gap(s) detected)",
+            "mission_id": "TASK-HOLDOUT-SES-013",
+            "risk": {},
+            "search_trace_version": "1.0",
+            "metadata": {
+              "role_status": "success"
+            },
+            "hash": "73374de19c934f0846998e2f45925bf72699e98b9a673a783a3af2346b01b85f"
+          },
+          {
+            "role": "Decomposition",
+            "decision_type": "decomposition_phase",
+            "timestamp": "2026-06-29T17:50:15.470Z",
+            "parent_hashes": [
+              "73374de19c934f0846998e2f45925bf72699e98b9a673a783a3af2346b01b85f"
+            ],
+            "search": {
+              "query": "Decomposition phase execution for mission TASK-HOLDOUT-SES-013",
+              "source": "pipeline_state",
+              "k": 6,
+              "total_results": 6
+            },
+            "results": [
+              {
+                "id": "coa_count",
+                "score": 1.0,
+                "summary": "coa_count=1"
+              },
+              {
+                "id": "coa_ids",
+                "score": 1.0,
+                "summary": "coa_ids: 1 item(s)"
+              },
+              {
+                "id": "gaps_detected",
+                "score": 1.0,
+                "summary": "gaps_detected=2"
+              },
+              {
+                "id": "nist_map",
+                "score": 1.0,
+                "summary": "nist_map: 7 key(s)"
+              },
+              {
+                "id": "llm_used",
+                "score": 1.0,
+                "summary": "llm_used=False"
+              }
+            ],
+            "selected": "Decomposition",
+            "selection_criteria": "role completed without errors",
+            "confidence": "HIGH",
+            "selection": {
+              "selected": "Decomposition",
+              "criteria": "role completed without errors",
+              "confidence": "HIGH",
+              "rationale": "Generated 1 COA(s) (2 gap(s) detected)"
+            },
+            "rationale": "Generated 1 COA(s) (2 gap(s) detected)",
+            "mission_id": "TASK-HOLDOUT-SES-013",
+            "risk": {},
+            "search_trace_version": "1.0",
+            "metadata": {
+              "role_status": "success"
+            },
+            "hash": "2ffbda544df42602eba9cdd7fd23286860095ff184d6bf52a3eea1bbd21a83be"
+          },
+          {
+            "role": "Procedure",
+            "decision_type": "procedure_phase",
+            "timestamp": "2026-06-29T17:50:15.470Z",
+            "parent_hashes": [
+              "2ffbda544df42602eba9cdd7fd23286860095ff184d6bf52a3eea1bbd21a83be"
+            ],
+            "search": {
+              "query": "Procedure phase execution for mission TASK-HOLDOUT-SES-013",
+              "source": "pipeline_state",
+              "k": 7,
+              "total_results": 7
+            },
+            "results": [
+              {
+                "id": "procedure_count",
+                "score": 1.0,
+                "summary": "procedure_count=2"
+              },
+              {
+                "id": "trigger_count",
+                "score": 1.0,
+                "summary": "trigger_count=2"
+              },
+              {
+                "id": "missing_ttp_gaps",
+                "score": 1.0,
+                "summary": "missing_ttp_gaps=0"
+              },
+              {
+                "id": "missing_procedure_gaps",
+                "score": 1.0,
+                "summary": "missing_procedure_gaps=0"
+              },
+              {
+                "id": "gaps_detected",
+                "score": 1.0,
+                "summary": "gaps_detected=0"
+              }
+            ],
+            "selected": "Procedure",
+            "selection_criteria": "role completed without errors",
+            "confidence": "HIGH",
+            "selection": {
+              "selected": "Procedure",
+              "criteria": "role completed without errors",
+              "confidence": "HIGH",
+              "rationale": "Generated 2 procedures, 2 triggers across 1 COA(s)"
+            },
+            "rationale": "Generated 2 procedures, 2 triggers across 1 COA(s)",
+            "mission_id": "TASK-HOLDOUT-SES-013",
+            "risk": {},
+            "search_trace_version": "1.0",
+            "metadata": {
+              "role_status": "success"
+            },
+            "hash": "30b372d55c8ee7d15385c592dae5df4feab71bf230e6dd751bd8b219d61e3027"
+          },
+          {
+            "role": "Binding",
+            "decision_type": "binding_phase",
+            "timestamp": "2026-06-29T17:50:15.470Z",
+            "parent_hashes": [
+              "30b372d55c8ee7d15385c592dae5df4feab71bf230e6dd751bd8b219d61e3027"
+            ],
+            "search": {
+              "query": "Binding phase execution for mission TASK-HOLDOUT-SES-013",
+              "source": "pipeline_state",
+              "k": 4,
+              "total_results": 4
+            },
+            "results": [
+              {
+                "id": "primary_coa",
+                "score": 1.0,
+                "summary": "primary_coa=COA-1"
+              },
+              {
+                "id": "risk_scores",
+                "score": 1.0,
+                "summary": "risk_scores: 1 key(s)"
+              },
+              {
+                "id": "llm_used",
+                "score": 1.0,
+                "summary": "llm_used=False"
+              },
+              {
+                "id": "llm_fallback",
+                "score": 1.0,
+                "summary": "llm_fallback=False"
+              }
+            ],
+            "selected": "Binding",
+            "selection_criteria": "role completed without errors",
+            "confidence": "HIGH",
+            "selection": {
+              "selected": "Binding",
+              "criteria": "role completed without errors",
+              "confidence": "HIGH",
+              "rationale": "Risk assessed for 1 COA(s), recommended: COA-1"
+            },
+            "rationale": "Risk assessed for 1 COA(s), recommended: COA-1",
+            "mission_id": "TASK-HOLDOUT-SES-013",
+            "risk": {},
+            "search_trace_version": "1.0",
+            "metadata": {
+              "role_status": "success"
+            },
+            "hash": "c40307da5c3967edfd3d57b8312b022507af420716dfabbb40a68504cabf47fe"
+          },
+          {
+            "role": "Validation",
+            "decision_type": "validation_phase",
+            "timestamp": "2026-06-29T17:50:15.470Z",
+            "parent_hashes": [
+              "c40307da5c3967edfd3d57b8312b022507af420716dfabbb40a68504cabf47fe"
+            ],
+            "search": {
+              "query": "Validate artifact for mission TASK-HOLDOUT-SES-013",
+              "source": "validator",
+              "k": 1,
+              "total_results": 1
+            },
+            "results": [
+              {
+                "id": "validator.validate_artifact",
+                "score": 1.0,
+                "summary": "Schema/hash/constraint validation run"
+              }
+            ],
+            "selected": "validator.validate_artifact",
+            "selection_criteria": "final pipeline gate",
+            "confidence": "HIGH",
+            "selection": {
+              "selected": "validator.validate_artifact",
+              "criteria": "final pipeline gate",
+              "confidence": "HIGH",
+              "rationale": "Validation role assembled and validated final artifact"
+            },
+            "rationale": "Validation role assembled and validated final artifact",
+            "mission_id": "TASK-HOLDOUT-SES-013",
+            "risk": {},
+            "search_trace_version": "1.0",
+            "hash": "75241aedc4aaccbb831306918662322d24b3c89cad655fc1f0aab3a8a4c23523"
+          }
+        ]
+      },
+      "registry_reference": {
+        "similar_mandates": [],
+        "match_type": "NOVEL",
+        "similarity_description": "Success registry not configured."
+      },
+      "metadata": {
+        "sources_consulted": [
+          "mission_input",
+          "anchor",
+          "courses_of_action",
+          "constraints",
+          "validation_algorithm",
+          "trace_chain",
+          "local_pipeline_state"
+        ],
+        "nist_rmf": {
+          "framework": "NIST AI RMF 1.0",
+          "generated_at": "2026-06-29T17:50:15.470Z",
+          "MAP": {
+            "1.1": {
+              "status": "PARTIAL",
+              "evidence": [
+                "mission_intent_present=True",
+                "scope_items=0"
+              ],
+              "notes": "Mission context and scope establishment."
+            },
+            "1.5": {
+              "status": "PARTIAL",
+              "evidence": [
+                "risk_tolerance_present=False"
+              ],
+              "notes": "Risk context captured from anchor risk_tolerance."
+            },
+            "1.6": {
+              "status": "PARTIAL",
+              "evidence": [
+                "constraint_count=0"
+              ],
+              "notes": "Constraints are captured as portable predicate strings."
+            },
+            "2.1": {
+              "status": "SATISFIED",
+              "evidence": [
+                "coa_count=1",
+                "task_nodes=2"
+              ],
+              "notes": "Task decomposition coverage."
+            },
+            "2.2": {
+              "status": "PARTIAL",
+              "evidence": [
+                "alternative_coas=1"
+              ],
+              "notes": "Alternative COA exploration."
+            },
+            "3.2": {
+              "status": "SATISFIED",
+              "evidence": [
+                "risk_assessment_coverage=1.0"
+              ],
+              "notes": "Risk-aware planning across generated COAs."
+            },
+            "5.1": {
+              "status": "SATISFIED",
+              "evidence": [
+                "anchor_hash_present=True",
+                "trace_entries=6"
+              ],
+              "notes": "Traceability and provenance linkage."
+            }
+          },
+          "MEASURE": {
+            "1.1": {
+              "status": "SATISFIED",
+              "evidence": [
+                "minimum_satisfaction_score=1.0"
+              ],
+              "notes": "Minimum satisfaction measurement."
+            },
+            "2.3": {
+              "status": "SATISFIED",
+              "evidence": [
+                "constraint_compliance_score=1.0"
+              ],
+              "notes": "Constraint compliance measurement."
+            },
+            "2.8": {
+              "status": "SATISFIED",
+              "evidence": [
+                "risk_aggregation_score=1.0"
+              ],
+              "notes": "Risk aggregation and calibration checks."
+            },
+            "3.1": {
+              "status": "SATISFIED",
+              "evidence": [
+                "off_nominal_trigger_count=2"
+              ],
+              "notes": "Operational monitoring readiness signals."
+            }
+          },
+          "GOVERN": {
+            "1.1": {
+              "status": "PARTIAL",
+              "evidence": [
+                "constraint_policies_defined=False",
+                "strict_mode=False"
+              ],
+              "notes": "Constraint grammar defines enforceable governance policies."
+            },
+            "1.2": {
+              "status": "SATISFIED",
+              "evidence": [
+                "orchestrator_role=deterministic_1plus6",
+                "agent_roles=intake,interpreter,decomposition,procedure,binding,validation"
+              ],
+              "notes": "Accountability is structurally enforced by the 1+6 architecture: one deterministic orchestrator routes all work through 6 specialized LLM agent roles with schema-validated handoffs."
+            },
+            "1.5": {
+              "status": "NOT_SATISFIED",
+              "evidence": [
+                "risk_tolerance_integrated=False"
+              ],
+              "notes": "Risk tolerance from anchor feeds governance decisions."
+            },
+            "2.1": {
+              "status": "PARTIAL",
+              "evidence": [
+                "training_data_validated=true",
+                "adapter_manifest_required=true"
+              ],
+              "notes": "Training data pipeline includes quality validation and scaling checks. Model fine-tuning uses LoRA adapters with manifest verification."
+            },
+            "3.2": {
+              "status": "PARTIAL",
+              "evidence": [
+                "alternative_coas_explored=1"
+              ],
+              "notes": "COA diversity provides multiple approaches; human review recommended."
+            },
+            "4.1": {
+              "status": "SATISFIED",
+              "evidence": [
+                "cryptographic_integrity=True"
+              ],
+              "notes": "Signed artifacts and hash-linked traces demonstrate commitment to verifiable AI."
+            },
+            "6.1": {
+              "status": "PARTIAL",
+              "evidence": [
+                "strict_mode_enabled=False",
+                "deployment_gate=lattice_execution_gate"
+              ],
+              "notes": "Deployment gated by LATTICE execution gate with signed audit trail."
+            }
+          },
+          "MANAGE": {
+            "1.1": {
+              "status": "SATISFIED",
+              "evidence": [
+                "evidence_chain_entries=6",
+                "hash_linked_provenance=True"
+              ],
+              "notes": "Risk management process is integrated through hash-linked evidence chains."
+            },
+            "2.1": {
+              "status": "SATISFIED",
+              "evidence": [
+                "off_nominal_trigger_count=2"
+              ],
+              "notes": "Off-nominal triggers provide runtime monitoring predicates for deployed mandates."
+            },
+            "2.4": {
+              "status": "PARTIAL",
+              "evidence": [
+                "gap_analysis_supported=true",
+                "human_review_gate=lattice_hitl_threshold"
+              ],
+              "notes": "Gap analysis reports enable structured feedback; LATTICE HITL threshold gates low-confidence decisions for human review."
+            },
+            "3.1": {
+              "status": "SATISFIED",
+              "evidence": [
+                "tripwire_triggers=2",
+                "containment_fsm=lattice_containment",
+                "safe_state=HALT"
+              ],
+              "notes": "Incident response via tripwire predicates, containment FSM, and HALT safe state."
+            },
+            "4.1": {
+              "status": "SATISFIED",
+              "evidence": [
+                "validation_passed=True"
+              ],
+              "notes": "Validation role provides automated review; success registry tracks improvements."
+            },
+            "4.2": {
+              "status": "PARTIAL",
+              "evidence": [
+                "audit_chain_preserved=true"
+              ],
+              "notes": "Signed audit chains are preserved for post-deployment review. Formal decommissioning procedures to be documented."
+            }
+          }
+        },
+        "input_hash": "ad845f3d906d6e4ed67c9211eac2c8a1f7e81e30e1a3d33fe71b2d43d4cefcf9",
+        "output_hash": "da769304df0af9babf40e080d85e44a5d1db416af61dcb08a6ecaabc3034cf3c"
+      }
+    },
+    "gap_reports": [],
+    "has_gaps": false
+  },
+  "ok": true
+}

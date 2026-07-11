@@ -1,0 +1,52 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.12, pytest-9.0.3, pluggy-1.6.0 -- /usr/bin/python
+cachedir: .pytest_cache
+rootdir: /sessions/intelligent-ecstatic-cerf/mnt/Desktop/AEGIS
+configfile: pyproject.toml
+collecting ... collected 43 items
+
+tests/mandate/test_metrics.py::TestRoleMetric::test_basic_creation PASSED [  2%]
+tests/mandate/test_metrics.py::TestRoleMetric::test_defaults PASSED      [  4%]
+tests/mandate/test_metrics.py::TestRoleMetric::test_to_dict PASSED       [  6%]
+tests/mandate/test_metrics.py::TestPipelineMetrics::test_total_duration PASSED [  9%]
+tests/mandate/test_metrics.py::TestPipelineMetrics::test_roles_passed PASSED [ 11%]
+tests/mandate/test_metrics.py::TestPipelineMetrics::test_slowest_role PASSED [ 13%]
+tests/mandate/test_metrics.py::TestPipelineMetrics::test_fastest_role PASSED [ 16%]
+tests/mandate/test_metrics.py::TestPipelineMetrics::test_role_duration_pct PASSED [ 18%]
+tests/mandate/test_metrics.py::TestPipelineMetrics::test_summary PASSED  [ 20%]
+tests/mandate/test_metrics.py::TestPipelineMetrics::test_empty_metrics PASSED [ 23%]
+tests/mandate/test_metrics.py::TestPipelineMetrics::test_mixed_pass_fail PASSED [ 25%]
+tests/mandate/test_metrics.py::TestMetricsCollector::test_full_collection PASSED [ 27%]
+tests/mandate/test_metrics.py::TestMetricsCollector::test_end_role_without_start PASSED [ 30%]
+tests/mandate/test_metrics.py::TestMetricsCollector::test_reset PASSED   [ 32%]
+tests/mandate/test_metrics.py::TestMetricsCollector::test_real_timing PASSED [ 34%]
+tests/mandate/test_metrics.py::TestBenchmarkStats::test_empty PASSED     [ 37%]
+tests/mandate/test_metrics.py::TestBenchmarkStats::test_record_runs PASSED [ 39%]
+tests/mandate/test_metrics.py::TestBenchmarkStats::test_per_role_avg PASSED [ 41%]
+tests/mandate/test_metrics.py::TestBenchmarkStats::test_summary PASSED   [ 44%]
+tests/mandate/test_evaluation.py::TestExpectedOutcome::test_from_dict_defaults PASSED [ 46%]
+tests/mandate/test_evaluation.py::TestExpectedOutcome::test_from_dict_full PASSED [ 48%]
+tests/mandate/test_evaluation.py::TestExpectedOutcome::test_from_dict_failure_case PASSED [ 51%]
+tests/mandate/test_evaluation.py::TestCheckResult::test_pass PASSED      [ 53%]
+tests/mandate/test_evaluation.py::TestCheckResult::test_fail PASSED      [ 55%]
+tests/mandate/test_evaluation.py::TestCaseResult::test_checks_counts PASSED [ 58%]
+tests/mandate/test_evaluation.py::TestCaseResult::test_to_dict PASSED    [ 60%]
+tests/mandate/test_evaluation.py::TestEvaluationReport::test_empty_report PASSED [ 62%]
+tests/mandate/test_evaluation.py::TestEvaluationReport::test_pass_rate PASSED [ 65%]
+tests/mandate/test_evaluation.py::TestEvaluationReport::test_summary_includes_failures PASSED [ 67%]
+tests/mandate/test_evaluation.py::TestEvaluationReport::test_to_dict PASSED [ 69%]
+tests/mandate/test_evaluation.py::TestEvaluationCase::test_from_dict PASSED [ 72%]
+tests/mandate/test_evaluation.py::TestEvaluationHarness::test_from_manifest PASSED [ 74%]
+tests/mandate/test_evaluation.py::TestEvaluationHarness::test_run_normal_mission PASSED [ 76%]
+tests/mandate/test_evaluation.py::TestEvaluationHarness::test_run_all_corpus PASSED [ 79%]
+tests/mandate/test_evaluation.py::TestEvaluationHarness::test_tag_filtering PASSED [ 81%]
+tests/mandate/test_evaluation.py::TestEvaluationHarness::test_repetitions PASSED [ 83%]
+tests/mandate/test_evaluation.py::TestEvaluationHarness::test_metrics_collected PASSED [ 86%]
+tests/mandate/test_evaluation.py::TestEvaluationHarness::test_invalid_input_case PASSED [ 88%]
+tests/mandate/test_evaluation.py::TestEvaluationHarness::test_underspecified_detects_gaps PASSED [ 90%]
+tests/mandate/test_evaluation.py::TestPipelineMetricsIntegration::test_pipeline_returns_metrics PASSED [ 93%]
+tests/mandate/test_evaluation.py::TestPipelineMetricsIntegration::test_pipeline_metrics_opt_out PASSED [ 95%]
+tests/mandate/test_evaluation.py::TestPipelineMetricsIntegration::test_pipeline_result_summary_includes_duration PASSED [ 97%]
+tests/mandate/test_evaluation.py::TestPipelineMetricsIntegration::test_failed_pipeline_has_metrics PASSED [100%]
+
+============================== 43 passed in 0.20s ==============================

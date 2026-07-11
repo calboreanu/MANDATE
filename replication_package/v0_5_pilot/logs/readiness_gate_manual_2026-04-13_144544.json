@@ -1,0 +1,44 @@
+{
+  "timestamp": "2026-04-13_144544",
+  "project_root": "/Users/ws01admin/Desktop/AEGIS",
+  "overall_status": "FAIL",
+  "steps": {
+    "preflight": {
+      "status": "PASS",
+      "reason": ""
+    },
+    "register_adapters": {
+      "status": "FAIL",
+      "reason": "register_lora_adapters_failed"
+    },
+    "llm_smoke": {
+      "status": "BLOCKED",
+      "reason": "registration_not_pass"
+    },
+    "e2e": {
+      "status": "BLOCKED",
+      "reason": "llm_smoke_not_pass"
+    },
+    "acceptance_report": {
+      "status": "FAIL",
+      "reason": "acceptance_failed"
+    }
+  },
+  "context": {
+    "python_bin": "/Users/ws01admin/Desktop/AEGIS/.venv/bin/python",
+    "ollama_reachable": true,
+    "training_running": false
+  },
+  "artifacts": {
+    "readiness_log": "/Users/ws01admin/Desktop/AEGIS/logs/readiness_gate_2026-04-13_144544.log",
+    "smoke_log": "",
+    "acceptance_report": "/Users/ws01admin/Desktop/AEGIS/logs/kan751_acceptance_manual_2026-04-13_144544.json",
+    "json_summary": "/Users/ws01admin/Desktop/AEGIS/logs/readiness_gate_manual_2026-04-13_144544.json"
+  },
+  "blockers": [
+    "register_lora_adapters_failed",
+    "llm_smoke_blocked_by_registration",
+    "e2e_blocked_by_llm_smoke",
+    "acceptance_failed"
+  ]
+}

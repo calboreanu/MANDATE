@@ -1,0 +1,27 @@
+{
+  "mission_id": "LIVE-GAP-UNASSESS-001",
+  "intent": "Deploy new monitoring agent across production servers in the DMZ segment",
+  "scope": ["dmz-172.16.0.0/24", "prod-db-01", "prod-web-01", "prod-web-02"],
+  "time_limit": "PT2H",
+  "constraints": [
+    "scope.target IN ['dmz-172.16.0.0/24']",
+    "execution.duration <= PT2H"
+  ],
+  "minimum_outcome": "Monitoring agent installed on all 3 production servers with health check passing",
+  "target_outcome": "Full monitoring coverage with alerting rules configured and tested",
+  "available_tools": [
+    {
+      "tool_id": "ansible",
+      "tool_class": "PROCESS",
+      "description": "Configuration management and deployment automation",
+      "parameters": {"inventory": "dmz_hosts", "playbook": "deploy_monitor.yml"}
+    }
+  ],
+  "metadata": {
+    "scenario": "Gap trigger - UNASSESSABLE_RISK (no risk_tolerance, no FORBIDS)",
+    "domain": "operations",
+    "paper_reference": "Table 11 row 6",
+    "claim": "RQ3 - Gap detection: UNASSESSABLE_RISK when risk cannot be evaluated",
+    "expected_outcome": "GAP REPORT with UNASSESSABLE_RISK gap"
+  }
+}

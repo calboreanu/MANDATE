@@ -1,0 +1,137 @@
+{
+  "generated_at": "2026-04-13T18:45:45Z",
+  "project_root": "/Users/ws01admin/Desktop/AEGIS",
+  "status": "PASS",
+  "require_ready": true,
+  "check_training_process": true,
+  "training_running": false,
+  "roles": [
+    {
+      "role": "intake",
+      "model_name": "mandate-intake",
+      "adapter_dir": "/Users/ws01admin/Desktop/AEGIS/training/adapters/mandate-intake-v1",
+      "adapter_file": "/Users/ws01admin/Desktop/AEGIS/training/adapters/mandate-intake-v1/adapters.safetensors",
+      "modelfile": "/Users/ws01admin/Desktop/AEGIS/config/Modelfiles/Modelfile.mandate-intake",
+      "adapter_exists": true,
+      "adapter_size_bytes": 19410732,
+      "adapter_sha256": "0609a8953d534e51eb043af7c184192e75b6e6daf0f83b3532531698c26e0e99",
+      "modelfile_exists": true,
+      "from_line": "FROM qwen3:8b",
+      "adapter_line": "",
+      "expected_from": "qwen3:8b",
+      "errors": [],
+      "warnings": [
+        "intake:adapter_line_missing"
+      ],
+      "ok": true
+    },
+    {
+      "role": "interpreter",
+      "model_name": "mandate-interpreter",
+      "adapter_dir": "/Users/ws01admin/Desktop/AEGIS/training/adapters/mandate-interpreter-v1",
+      "adapter_file": "/Users/ws01admin/Desktop/AEGIS/training/adapters/mandate-interpreter-v1/adapters.safetensors",
+      "modelfile": "/Users/ws01admin/Desktop/AEGIS/config/Modelfiles/Modelfile.mandate-interpreter",
+      "adapter_exists": true,
+      "adapter_size_bytes": 33566552,
+      "adapter_sha256": "c43bb429a3d46452c17d8c3edc9c11507f5e11f3a3fb2386eb9d6b394bc011db",
+      "modelfile_exists": true,
+      "from_line": "FROM qwen3:32b",
+      "adapter_line": "",
+      "expected_from": "qwen3:32b",
+      "errors": [],
+      "warnings": [
+        "interpreter:adapter_line_missing"
+      ],
+      "ok": true
+    },
+    {
+      "role": "decomp",
+      "model_name": "mandate-decomp",
+      "adapter_dir": "/Users/ws01admin/Desktop/AEGIS/training/adapters/mandate-decomp-v1",
+      "adapter_file": "/Users/ws01admin/Desktop/AEGIS/training/adapters/mandate-decomp-v1/adapters.safetensors",
+      "modelfile": "/Users/ws01admin/Desktop/AEGIS/config/Modelfiles/Modelfile.mandate-decomp",
+      "adapter_exists": true,
+      "adapter_size_bytes": 33566552,
+      "adapter_sha256": "9911834b2d8c5cae645a97c9a9a483aaa8c332c9e670a68f41bb7f9552cb4ac5",
+      "modelfile_exists": true,
+      "from_line": "FROM qwen3:32b",
+      "adapter_line": "",
+      "expected_from": "qwen3:32b",
+      "errors": [],
+      "warnings": [
+        "decomp:adapter_line_missing"
+      ],
+      "ok": true
+    },
+    {
+      "role": "procedure",
+      "model_name": "mandate-procedure",
+      "adapter_dir": "/Users/ws01admin/Desktop/AEGIS/training/adapters/mandate-procedure-v1",
+      "adapter_file": "/Users/ws01admin/Desktop/AEGIS/training/adapters/mandate-procedure-v1/adapters.safetensors",
+      "modelfile": "/Users/ws01admin/Desktop/AEGIS/config/Modelfiles/Modelfile.mandate-procedure",
+      "adapter_exists": true,
+      "adapter_size_bytes": 19410732,
+      "adapter_sha256": "68f9f5d5357ca56e72065681599e5c7694e6fa1abbc7dc35ebf5f1059aebbc50",
+      "modelfile_exists": true,
+      "from_line": "FROM qwen3:8b",
+      "adapter_line": "",
+      "expected_from": "qwen3:8b",
+      "errors": [],
+      "warnings": [
+        "procedure:adapter_line_missing"
+      ],
+      "ok": true
+    },
+    {
+      "role": "binding",
+      "model_name": "mandate-binding",
+      "adapter_dir": "/Users/ws01admin/Desktop/AEGIS/training/adapters/mandate-binding-v1",
+      "adapter_file": "/Users/ws01admin/Desktop/AEGIS/training/adapters/mandate-binding-v1/adapters.safetensors",
+      "modelfile": "/Users/ws01admin/Desktop/AEGIS/config/Modelfiles/Modelfile.mandate-binding",
+      "adapter_exists": true,
+      "adapter_size_bytes": 33566552,
+      "adapter_sha256": "d6eb5fd353606092cb3804c3886c26235c0c48b96e91a6dac98f3cf0969c1805",
+      "modelfile_exists": true,
+      "from_line": "FROM qwen3:32b",
+      "adapter_line": "",
+      "expected_from": "qwen3:32b",
+      "errors": [],
+      "warnings": [
+        "binding:adapter_line_missing"
+      ],
+      "ok": true
+    },
+    {
+      "role": "validation",
+      "model_name": "mandate-validation",
+      "adapter_dir": "/Users/ws01admin/Desktop/AEGIS/training/adapters/mandate-validation-v1",
+      "adapter_file": "/Users/ws01admin/Desktop/AEGIS/training/adapters/mandate-validation-v1/adapters.safetensors",
+      "modelfile": "/Users/ws01admin/Desktop/AEGIS/config/Modelfiles/Modelfile.mandate-validation",
+      "adapter_exists": true,
+      "adapter_size_bytes": 33566552,
+      "adapter_sha256": "c8e6173265699ebd6dc4ed759dd27e2dc9482896130a054c487e4a72745c9f1e",
+      "modelfile_exists": true,
+      "from_line": "FROM qwen3:32b",
+      "adapter_line": "",
+      "expected_from": "qwen3:32b",
+      "errors": [],
+      "warnings": [
+        "validation:adapter_line_missing"
+      ],
+      "ok": true
+    }
+  ],
+  "finding_count": 0,
+  "warning_count": 6,
+  "blocker_count": 0,
+  "findings": [],
+  "warnings": [
+    "intake:adapter_line_missing",
+    "interpreter:adapter_line_missing",
+    "decomp:adapter_line_missing",
+    "procedure:adapter_line_missing",
+    "binding:adapter_line_missing",
+    "validation:adapter_line_missing"
+  ],
+  "blockers": []
+}

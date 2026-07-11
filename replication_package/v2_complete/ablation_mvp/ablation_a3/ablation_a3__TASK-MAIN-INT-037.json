@@ -1,0 +1,682 @@
+{
+  "run_id": "ablation_a3__TASK-MAIN-INT-037__r01",
+  "task_id": "TASK-MAIN-INT-037",
+  "system_id": "ablation_a3",
+  "system_label": "Ablation A3 (canonical MLT v1.0.0rc1)",
+  "run_number": 1,
+  "seed": 20260629,
+  "started_at": "2026-06-29T17:50:13Z",
+  "wall_clock_ms": 4.498,
+  "role_timings": [
+    {
+      "role_name": "Intake",
+      "status": "success",
+      "duration_ms": 0.006,
+      "llm_used": false,
+      "llm_fallback": false,
+      "llm_fallback_reason": ""
+    },
+    {
+      "role_name": "Interpreter",
+      "status": "success",
+      "duration_ms": 0.025,
+      "llm_used": false,
+      "llm_fallback": false,
+      "llm_fallback_reason": ""
+    },
+    {
+      "role_name": "Decomposition",
+      "status": "success",
+      "duration_ms": 0.013,
+      "llm_used": false,
+      "llm_fallback": false,
+      "llm_fallback_reason": ""
+    },
+    {
+      "role_name": "Procedure",
+      "status": "success",
+      "duration_ms": 0.058,
+      "llm_used": false,
+      "llm_fallback": false,
+      "llm_fallback_reason": ""
+    },
+    {
+      "role_name": "Binding",
+      "status": "success",
+      "duration_ms": 0.008,
+      "llm_used": false,
+      "llm_fallback": false,
+      "llm_fallback_reason": ""
+    },
+    {
+      "role_name": "Validation",
+      "status": "success",
+      "duration_ms": 4.025,
+      "llm_used": false,
+      "llm_fallback": false,
+      "llm_fallback_reason": ""
+    }
+  ],
+  "api_cost_usd": null,
+  "local_compute_ms": 4.498,
+  "model_versions": {
+    "mlt": "mlt-stack-1.0.0rc1",
+    "ablation": "A3"
+  },
+  "decoding_params": {
+    "condition": "ablation_a3",
+    "ablation_id": "A3",
+    "config_overrides": {
+      "emit_gaps": false
+    },
+    "domain_profile_mode": "default",
+    "domain_profile_name": null
+  },
+  "code_ref": "mlt-stack-1.0.0rc1",
+  "harness_version": "0.1.0",
+  "output_type": "MANDATE_AS_CODE",
+  "output": {
+    "artifact": {
+      "mandate_id": "TASK-MAIN-INT-037",
+      "version": "1.0",
+      "generated": "2026-06-29T17:50:13.349Z",
+      "anchor": {
+        "mission_intent": "We need the collection management team to compile a comprehensive cross-committee oversight mapping that identifies every congressional committee\u2014both the Senate Select Committee on Intelligence, the House Permanent Select Committee on Intelligence, and all additional committees across both chambers\u2014that exercises oversight authority or funding responsibility over any element of the Intelligence Community, including those IC components embedded within broader departments and agencies. For each committee, the mapping should detail the specific nature of their oversight role, whether they hold authorization or appropriations authority, whether they receive covert action notifications, and the current party composition breakdown. This product needs to be delivered by close of business Thursday, but we also want it to reflect any committee reassignments or membership changes that may result from the upcoming session reorganization expected next month, so make sure those are incorporated as well. The final deliverable should be suitable for use as a reference annex to a tasking coordination memo going to the ODNI Civil Liberties Protection Officer's shop, so please ensure it addresses privacy and civil liberties coordination equities where relevant interagency matters intersect with legislative oversight functions. Best efforts to make this as complete and accurate as possible.",
+        "minimum": {
+          "description": "Minimally satisfy: We need the collection management team to compile a comprehensive cross-committee oversight mapping that identifies ever"
+        },
+        "constraints": [],
+        "anchor_hash": "5a15aa3f7f87df1ea2517c380e849edc5e9b8888488010d69382dd161aaf6834",
+        "target": {
+          "description": "Fully achieve: We need the collection management team to compile a comprehensive cross-committee oversight mapping that identifies ever"
+        }
+      },
+      "courses_of_action": [
+        {
+          "coa_id": "COA-1",
+          "approach": "Minimal manual assessment approach",
+          "task_dag": {
+            "nodes": [
+              {
+                "id": "1",
+                "name": "Manual Assessment",
+                "description": "Manual assessment of target scope"
+              },
+              {
+                "id": "2",
+                "name": "Results Documentation",
+                "description": "Document assessment findings"
+              }
+            ],
+            "edges": [
+              {
+                "from": "1",
+                "to": "2"
+              }
+            ]
+          },
+          "risk_assessment": {
+            "score": "LOW",
+            "confidence_min": "LOW",
+            "confidence_target": "MEDIUM",
+            "primary_factor": "execution_uncertainty"
+          },
+          "off_nominal_triggers": [
+            "target.scope_violations > 0",
+            "execution.rate > 100"
+          ],
+          "procedures": [
+            "Step 1: Manual Assessment",
+            "Step 2: Results Documentation"
+          ]
+        }
+      ],
+      "recommendation": {
+        "primary_coa": "COA-1",
+        "fallback_sequence": [],
+        "rationale": "Single COA COA-1: Minimal manual assessment approach"
+      },
+      "trace": {
+        "chain_hash": "4cb2f363bafc36968eaa990329dd86ffd071d2e656e2af657b5e2e90446068dd",
+        "entry_count": 6,
+        "entries": [
+          {
+            "role": "Intake",
+            "decision_type": "intake_phase",
+            "timestamp": "2026-06-29T17:50:13.349Z",
+            "parent_hashes": [],
+            "search": {
+              "query": "Intake phase execution for mission TASK-MAIN-INT-037",
+              "source": "pipeline_state",
+              "k": 5,
+              "total_results": 5
+            },
+            "results": [
+              {
+                "id": "mission_id",
+                "score": 1.0,
+                "summary": "mission_id=TASK-MAIN-INT-037"
+              },
+              {
+                "id": "constraint_count",
+                "score": 1.0,
+                "summary": "constraint_count=0"
+              },
+              {
+                "id": "scope_count",
+                "score": 1.0,
+                "summary": "scope_count=0"
+              },
+              {
+                "id": "llm_used",
+                "score": 1.0,
+                "summary": "llm_used=False"
+              },
+              {
+                "id": "llm_fallback",
+                "score": 1.0,
+                "summary": "llm_fallback=False"
+              }
+            ],
+            "selected": "Intake",
+            "selection_criteria": "role completed without errors",
+            "confidence": "HIGH",
+            "selection": {
+              "selected": "Intake",
+              "criteria": "role completed without errors",
+              "confidence": "HIGH",
+              "rationale": "Intake complete: mission_id=TASK-MAIN-INT-037"
+            },
+            "rationale": "Intake complete: mission_id=TASK-MAIN-INT-037",
+            "mission_id": "TASK-MAIN-INT-037",
+            "risk": {},
+            "search_trace_version": "1.0",
+            "metadata": {
+              "role_status": "success"
+            },
+            "hash": "e0555f11f36fad1cb015bc43676317e2cae778138b332312018fc68b4fb9e70a"
+          },
+          {
+            "role": "Interpreter",
+            "decision_type": "interpreter_phase",
+            "timestamp": "2026-06-29T17:50:13.350Z",
+            "parent_hashes": [
+              "e0555f11f36fad1cb015bc43676317e2cae778138b332312018fc68b4fb9e70a"
+            ],
+            "search": {
+              "query": "Interpreter phase execution for mission TASK-MAIN-INT-037",
+              "source": "pipeline_state",
+              "k": 5,
+              "total_results": 5
+            },
+            "results": [
+              {
+                "id": "anchor_hash",
+                "score": 1.0,
+                "summary": "anchor_hash=5a15aa3f7f87df1ea2517c380e849edc5e9b8888488010d69382dd161aaf6834"
+              },
+              {
+                "id": "constraint_count",
+                "score": 1.0,
+                "summary": "constraint_count=0"
+              },
+              {
+                "id": "gaps_detected",
+                "score": 1.0,
+                "summary": "gaps_detected=3"
+              },
+              {
+                "id": "llm_used",
+                "score": 1.0,
+                "summary": "llm_used=False"
+              },
+              {
+                "id": "llm_fallback",
+                "score": 1.0,
+                "summary": "llm_fallback=False"
+              }
+            ],
+            "selected": "Interpreter",
+            "selection_criteria": "role completed without errors",
+            "confidence": "HIGH",
+            "selection": {
+              "selected": "Interpreter",
+              "criteria": "role completed without errors",
+              "confidence": "HIGH",
+              "rationale": "Anchor extracted: hash=5a15aa3f7f87df1e... (3 gap(s) detected)"
+            },
+            "rationale": "Anchor extracted: hash=5a15aa3f7f87df1e... (3 gap(s) detected)",
+            "mission_id": "TASK-MAIN-INT-037",
+            "risk": {},
+            "search_trace_version": "1.0",
+            "metadata": {
+              "role_status": "success"
+            },
+            "hash": "3ae7ac26c6ea73d0a91733f06f39dc99aaaf2d7d5bcef1aa771f80c4f37e8d6b"
+          },
+          {
+            "role": "Decomposition",
+            "decision_type": "decomposition_phase",
+            "timestamp": "2026-06-29T17:50:13.350Z",
+            "parent_hashes": [
+              "3ae7ac26c6ea73d0a91733f06f39dc99aaaf2d7d5bcef1aa771f80c4f37e8d6b"
+            ],
+            "search": {
+              "query": "Decomposition phase execution for mission TASK-MAIN-INT-037",
+              "source": "pipeline_state",
+              "k": 6,
+              "total_results": 6
+            },
+            "results": [
+              {
+                "id": "coa_count",
+                "score": 1.0,
+                "summary": "coa_count=1"
+              },
+              {
+                "id": "coa_ids",
+                "score": 1.0,
+                "summary": "coa_ids: 1 item(s)"
+              },
+              {
+                "id": "gaps_detected",
+                "score": 1.0,
+                "summary": "gaps_detected=2"
+              },
+              {
+                "id": "nist_map",
+                "score": 1.0,
+                "summary": "nist_map: 7 key(s)"
+              },
+              {
+                "id": "llm_used",
+                "score": 1.0,
+                "summary": "llm_used=False"
+              }
+            ],
+            "selected": "Decomposition",
+            "selection_criteria": "role completed without errors",
+            "confidence": "HIGH",
+            "selection": {
+              "selected": "Decomposition",
+              "criteria": "role completed without errors",
+              "confidence": "HIGH",
+              "rationale": "Generated 1 COA(s) (2 gap(s) detected)"
+            },
+            "rationale": "Generated 1 COA(s) (2 gap(s) detected)",
+            "mission_id": "TASK-MAIN-INT-037",
+            "risk": {},
+            "search_trace_version": "1.0",
+            "metadata": {
+              "role_status": "success"
+            },
+            "hash": "4acc6c1379a9aefdbe2c8c20bcf61f828aa27054f38e9d3df4dc7ccd6e608bf1"
+          },
+          {
+            "role": "Procedure",
+            "decision_type": "procedure_phase",
+            "timestamp": "2026-06-29T17:50:13.350Z",
+            "parent_hashes": [
+              "4acc6c1379a9aefdbe2c8c20bcf61f828aa27054f38e9d3df4dc7ccd6e608bf1"
+            ],
+            "search": {
+              "query": "Procedure phase execution for mission TASK-MAIN-INT-037",
+              "source": "pipeline_state",
+              "k": 7,
+              "total_results": 7
+            },
+            "results": [
+              {
+                "id": "procedure_count",
+                "score": 1.0,
+                "summary": "procedure_count=2"
+              },
+              {
+                "id": "trigger_count",
+                "score": 1.0,
+                "summary": "trigger_count=2"
+              },
+              {
+                "id": "missing_ttp_gaps",
+                "score": 1.0,
+                "summary": "missing_ttp_gaps=0"
+              },
+              {
+                "id": "missing_procedure_gaps",
+                "score": 1.0,
+                "summary": "missing_procedure_gaps=0"
+              },
+              {
+                "id": "gaps_detected",
+                "score": 1.0,
+                "summary": "gaps_detected=0"
+              }
+            ],
+            "selected": "Procedure",
+            "selection_criteria": "role completed without errors",
+            "confidence": "HIGH",
+            "selection": {
+              "selected": "Procedure",
+              "criteria": "role completed without errors",
+              "confidence": "HIGH",
+              "rationale": "Generated 2 procedures, 2 triggers across 1 COA(s)"
+            },
+            "rationale": "Generated 2 procedures, 2 triggers across 1 COA(s)",
+            "mission_id": "TASK-MAIN-INT-037",
+            "risk": {},
+            "search_trace_version": "1.0",
+            "metadata": {
+              "role_status": "success"
+            },
+            "hash": "c1e6a5e054e3276e301ec8695c5583591e60c510c55d1001eb6d367ea3120774"
+          },
+          {
+            "role": "Binding",
+            "decision_type": "binding_phase",
+            "timestamp": "2026-06-29T17:50:13.350Z",
+            "parent_hashes": [
+              "c1e6a5e054e3276e301ec8695c5583591e60c510c55d1001eb6d367ea3120774"
+            ],
+            "search": {
+              "query": "Binding phase execution for mission TASK-MAIN-INT-037",
+              "source": "pipeline_state",
+              "k": 4,
+              "total_results": 4
+            },
+            "results": [
+              {
+                "id": "primary_coa",
+                "score": 1.0,
+                "summary": "primary_coa=COA-1"
+              },
+              {
+                "id": "risk_scores",
+                "score": 1.0,
+                "summary": "risk_scores: 1 key(s)"
+              },
+              {
+                "id": "llm_used",
+                "score": 1.0,
+                "summary": "llm_used=False"
+              },
+              {
+                "id": "llm_fallback",
+                "score": 1.0,
+                "summary": "llm_fallback=False"
+              }
+            ],
+            "selected": "Binding",
+            "selection_criteria": "role completed without errors",
+            "confidence": "HIGH",
+            "selection": {
+              "selected": "Binding",
+              "criteria": "role completed without errors",
+              "confidence": "HIGH",
+              "rationale": "Risk assessed for 1 COA(s), recommended: COA-1"
+            },
+            "rationale": "Risk assessed for 1 COA(s), recommended: COA-1",
+            "mission_id": "TASK-MAIN-INT-037",
+            "risk": {},
+            "search_trace_version": "1.0",
+            "metadata": {
+              "role_status": "success"
+            },
+            "hash": "29d4cb2c5e4988857c9cdbfaf66f44a2503855ae5739d4b5f2ffcdccfd0e32aa"
+          },
+          {
+            "role": "Validation",
+            "decision_type": "validation_phase",
+            "timestamp": "2026-06-29T17:50:13.350Z",
+            "parent_hashes": [
+              "29d4cb2c5e4988857c9cdbfaf66f44a2503855ae5739d4b5f2ffcdccfd0e32aa"
+            ],
+            "search": {
+              "query": "Validate artifact for mission TASK-MAIN-INT-037",
+              "source": "validator",
+              "k": 1,
+              "total_results": 1
+            },
+            "results": [
+              {
+                "id": "validator.validate_artifact",
+                "score": 1.0,
+                "summary": "Schema/hash/constraint validation run"
+              }
+            ],
+            "selected": "validator.validate_artifact",
+            "selection_criteria": "final pipeline gate",
+            "confidence": "HIGH",
+            "selection": {
+              "selected": "validator.validate_artifact",
+              "criteria": "final pipeline gate",
+              "confidence": "HIGH",
+              "rationale": "Validation role assembled and validated final artifact"
+            },
+            "rationale": "Validation role assembled and validated final artifact",
+            "mission_id": "TASK-MAIN-INT-037",
+            "risk": {},
+            "search_trace_version": "1.0",
+            "hash": "58bfdb7718a89cebfdd37a970f4195974c33deb38200e109fe3a0f743f8ef863"
+          }
+        ]
+      },
+      "registry_reference": {
+        "similar_mandates": [],
+        "match_type": "NOVEL",
+        "similarity_description": "Success registry not configured."
+      },
+      "metadata": {
+        "sources_consulted": [
+          "mission_input",
+          "anchor",
+          "courses_of_action",
+          "constraints",
+          "validation_algorithm",
+          "trace_chain",
+          "local_pipeline_state"
+        ],
+        "nist_rmf": {
+          "framework": "NIST AI RMF 1.0",
+          "generated_at": "2026-06-29T17:50:13.350Z",
+          "MAP": {
+            "1.1": {
+              "status": "PARTIAL",
+              "evidence": [
+                "mission_intent_present=True",
+                "scope_items=0"
+              ],
+              "notes": "Mission context and scope establishment."
+            },
+            "1.5": {
+              "status": "PARTIAL",
+              "evidence": [
+                "risk_tolerance_present=False"
+              ],
+              "notes": "Risk context captured from anchor risk_tolerance."
+            },
+            "1.6": {
+              "status": "PARTIAL",
+              "evidence": [
+                "constraint_count=0"
+              ],
+              "notes": "Constraints are captured as portable predicate strings."
+            },
+            "2.1": {
+              "status": "SATISFIED",
+              "evidence": [
+                "coa_count=1",
+                "task_nodes=2"
+              ],
+              "notes": "Task decomposition coverage."
+            },
+            "2.2": {
+              "status": "PARTIAL",
+              "evidence": [
+                "alternative_coas=1"
+              ],
+              "notes": "Alternative COA exploration."
+            },
+            "3.2": {
+              "status": "SATISFIED",
+              "evidence": [
+                "risk_assessment_coverage=1.0"
+              ],
+              "notes": "Risk-aware planning across generated COAs."
+            },
+            "5.1": {
+              "status": "SATISFIED",
+              "evidence": [
+                "anchor_hash_present=True",
+                "trace_entries=6"
+              ],
+              "notes": "Traceability and provenance linkage."
+            }
+          },
+          "MEASURE": {
+            "1.1": {
+              "status": "SATISFIED",
+              "evidence": [
+                "minimum_satisfaction_score=1.0"
+              ],
+              "notes": "Minimum satisfaction measurement."
+            },
+            "2.3": {
+              "status": "SATISFIED",
+              "evidence": [
+                "constraint_compliance_score=1.0"
+              ],
+              "notes": "Constraint compliance measurement."
+            },
+            "2.8": {
+              "status": "SATISFIED",
+              "evidence": [
+                "risk_aggregation_score=1.0"
+              ],
+              "notes": "Risk aggregation and calibration checks."
+            },
+            "3.1": {
+              "status": "SATISFIED",
+              "evidence": [
+                "off_nominal_trigger_count=2"
+              ],
+              "notes": "Operational monitoring readiness signals."
+            }
+          },
+          "GOVERN": {
+            "1.1": {
+              "status": "PARTIAL",
+              "evidence": [
+                "constraint_policies_defined=False",
+                "strict_mode=False"
+              ],
+              "notes": "Constraint grammar defines enforceable governance policies."
+            },
+            "1.2": {
+              "status": "SATISFIED",
+              "evidence": [
+                "orchestrator_role=deterministic_1plus6",
+                "agent_roles=intake,interpreter,decomposition,procedure,binding,validation"
+              ],
+              "notes": "Accountability is structurally enforced by the 1+6 architecture: one deterministic orchestrator routes all work through 6 specialized LLM agent roles with schema-validated handoffs."
+            },
+            "1.5": {
+              "status": "NOT_SATISFIED",
+              "evidence": [
+                "risk_tolerance_integrated=False"
+              ],
+              "notes": "Risk tolerance from anchor feeds governance decisions."
+            },
+            "2.1": {
+              "status": "PARTIAL",
+              "evidence": [
+                "training_data_validated=true",
+                "adapter_manifest_required=true"
+              ],
+              "notes": "Training data pipeline includes quality validation and scaling checks. Model fine-tuning uses LoRA adapters with manifest verification."
+            },
+            "3.2": {
+              "status": "PARTIAL",
+              "evidence": [
+                "alternative_coas_explored=1"
+              ],
+              "notes": "COA diversity provides multiple approaches; human review recommended."
+            },
+            "4.1": {
+              "status": "SATISFIED",
+              "evidence": [
+                "cryptographic_integrity=True"
+              ],
+              "notes": "Signed artifacts and hash-linked traces demonstrate commitment to verifiable AI."
+            },
+            "6.1": {
+              "status": "PARTIAL",
+              "evidence": [
+                "strict_mode_enabled=False",
+                "deployment_gate=lattice_execution_gate"
+              ],
+              "notes": "Deployment gated by LATTICE execution gate with signed audit trail."
+            }
+          },
+          "MANAGE": {
+            "1.1": {
+              "status": "SATISFIED",
+              "evidence": [
+                "evidence_chain_entries=6",
+                "hash_linked_provenance=True"
+              ],
+              "notes": "Risk management process is integrated through hash-linked evidence chains."
+            },
+            "2.1": {
+              "status": "SATISFIED",
+              "evidence": [
+                "off_nominal_trigger_count=2"
+              ],
+              "notes": "Off-nominal triggers provide runtime monitoring predicates for deployed mandates."
+            },
+            "2.4": {
+              "status": "PARTIAL",
+              "evidence": [
+                "gap_analysis_supported=true",
+                "human_review_gate=lattice_hitl_threshold"
+              ],
+              "notes": "Gap analysis reports enable structured feedback; LATTICE HITL threshold gates low-confidence decisions for human review."
+            },
+            "3.1": {
+              "status": "SATISFIED",
+              "evidence": [
+                "tripwire_triggers=2",
+                "containment_fsm=lattice_containment",
+                "safe_state=HALT"
+              ],
+              "notes": "Incident response via tripwire predicates, containment FSM, and HALT safe state."
+            },
+            "4.1": {
+              "status": "SATISFIED",
+              "evidence": [
+                "validation_passed=True"
+              ],
+              "notes": "Validation role provides automated review; success registry tracks improvements."
+            },
+            "4.2": {
+              "status": "PARTIAL",
+              "evidence": [
+                "audit_chain_preserved=true"
+              ],
+              "notes": "Signed audit chains are preserved for post-deployment review. Formal decommissioning procedures to be documented."
+            }
+          }
+        },
+        "input_hash": "772022219ba923207d2e6d30c47f80b979407b5503f46ead93138db9fc57f2b0",
+        "output_hash": "1347ac1298dc753bef0247f1c3d5c6b5d9f2a0bd276e510314350bf02ba7ed0b"
+      }
+    },
+    "gap_reports": [],
+    "has_gaps": false,
+    "ablation_id": "A3"
+  },
+  "ok": true,
+  "errors": [],
+  "any_llm_fallback": false,
+  "fallback_roles": [],
+  "llm_roles_used": []
+}

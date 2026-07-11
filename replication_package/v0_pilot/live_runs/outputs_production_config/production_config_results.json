@@ -1,0 +1,1159 @@
+{
+  "run_timestamp": "2026-04-08T10:36:28Z",
+  "config": {
+    "llm_backend": "ollama",
+    "llm_base_url": "http://localhost:11434",
+    "llm_timeout_s": 300.0,
+    "llm_default_model": "",
+    "llm_fallback_enabled": true,
+    "llm_prompt_dir": "config/system-prompts",
+    "llm_prompt_require_files": false,
+    "llm_rag_index": "rag/embeddings/enterprise-attack.jsonl",
+    "llm_retrieval_k": 5,
+    "llm_registry_top_k": 5,
+    "llm_role_models": {
+      "Intake": "mandate-intake",
+      "Interpreter": "mandate-interpreter",
+      "Decomposition": "mandate-decomp",
+      "Procedure": "mandate-procedure",
+      "Binding": "mandate-binding",
+      "Validation": "mandate-validation"
+    },
+    "llm_role_temperatures": {
+      "Intake": 0.0,
+      "Interpreter": 0.1,
+      "Decomposition": 0.2,
+      "Procedure": 0.1,
+      "Binding": 0.1,
+      "Validation": 0.0
+    },
+    "llm_role_max_tokens": {
+      "Intake": 1024,
+      "Interpreter": 2048,
+      "Decomposition": 4096,
+      "Procedure": 4096,
+      "Binding": 2048,
+      "Validation": 2048
+    },
+    "llm_role_retries": {
+      "Intake": 2,
+      "Interpreter": 2,
+      "Decomposition": 3,
+      "Procedure": 3,
+      "Binding": 2,
+      "Validation": 2
+    }
+  },
+  "environment": {
+    "ollama_reachable": true,
+    "total_llm_succeeded": 40,
+    "total_fallbacks": 8
+  },
+  "results": [
+    {
+      "scenario": "scenario_01_ciso_report",
+      "mission_id": "LIVE-CISO-001",
+      "status": "SUCCESS",
+      "ok": true,
+      "has_gaps": false,
+      "elapsed_ms": 915003.0,
+      "llm_summary": {
+        "llm_succeeded": 4,
+        "llm_fell_back": 2,
+        "deterministic_only": 0,
+        "backend": "ollama",
+        "base_url": "http://localhost:11434"
+      },
+      "role_details": [
+        {
+          "role": "Intake",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": true,
+          "llm_fallback_reason": "Ollama backend failed after 3 attempt(s): Ollama response missing message content",
+          "llm_model": "mandate-intake",
+          "llm_temperature": 0.0,
+          "llm_max_tokens": 1024,
+          "llm_retries": 2
+        },
+        {
+          "role": "Interpreter",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-interpreter",
+          "llm_temperature": 0.1,
+          "llm_max_tokens": 2048,
+          "llm_retries": 2,
+          "llm_tokens_used": 1967,
+          "llm_latency_ms": 138186.16637500236,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Decomposition",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-decomp",
+          "llm_temperature": 0.2,
+          "llm_max_tokens": 4096,
+          "llm_retries": 3,
+          "llm_tokens_used": 2272,
+          "llm_latency_ms": 153085.86341699993,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Procedure",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-procedure",
+          "llm_temperature": 0.1,
+          "llm_max_tokens": 4096,
+          "llm_retries": 3,
+          "llm_tokens_used": 2269,
+          "llm_latency_ms": 38458.31120799994,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Binding",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-binding",
+          "llm_temperature": 0.1,
+          "llm_max_tokens": 2048,
+          "llm_retries": 2,
+          "llm_tokens_used": 2131,
+          "llm_latency_ms": 117286.00820900465,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Validation",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": true,
+          "llm_fallback_reason": "LLM response parsing failed after 3 attempt(s): schema validation failed: 'decision_summary' is a required property",
+          "llm_model": "mandate-validation",
+          "llm_temperature": 0.0,
+          "llm_max_tokens": 2048,
+          "llm_retries": 2
+        }
+      ],
+      "summary": {
+        "ok": true,
+        "roles_executed": 6,
+        "roles_passed": 6,
+        "gaps": 0,
+        "errors": [],
+        "mandate_id": "LIVE-CISO-001",
+        "total_duration_ms": 915002.997
+      },
+      "artifact": {
+        "anchor_hash": "6902013ebe3c5e0b672288deb6f8f72ed19b0977f54e427c94f07e0bc924699b",
+        "num_coas": 2,
+        "trace_entries": 6,
+        "has_recommendation": true
+      }
+    },
+    {
+      "scenario": "scenario_02_gap_undefined_minimum",
+      "mission_id": "LIVE-GAP-UNDEF-MIN-001",
+      "status": "GAP_REPORT",
+      "ok": true,
+      "has_gaps": true,
+      "elapsed_ms": 841901.7,
+      "llm_summary": {
+        "llm_succeeded": 5,
+        "llm_fell_back": 1,
+        "deterministic_only": 0,
+        "backend": "ollama",
+        "base_url": "http://localhost:11434"
+      },
+      "role_details": [
+        {
+          "role": "Intake",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-intake",
+          "llm_temperature": 0.0,
+          "llm_max_tokens": 1024,
+          "llm_retries": 2,
+          "llm_tokens_used": 1048,
+          "llm_latency_ms": 17148.406583000906,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Interpreter",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-interpreter",
+          "llm_temperature": 0.1,
+          "llm_max_tokens": 2048,
+          "llm_retries": 2,
+          "llm_tokens_used": 1607,
+          "llm_latency_ms": 101684.28983300691,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Decomposition",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-decomp",
+          "llm_temperature": 0.2,
+          "llm_max_tokens": 4096,
+          "llm_retries": 3,
+          "llm_tokens_used": 1109,
+          "llm_latency_ms": 51791.19066700514,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Procedure",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-procedure",
+          "llm_temperature": 0.1,
+          "llm_max_tokens": 4096,
+          "llm_retries": 3,
+          "llm_tokens_used": 1336,
+          "llm_latency_ms": 22303.475374996196,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Binding",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-binding",
+          "llm_temperature": 0.1,
+          "llm_max_tokens": 2048,
+          "llm_retries": 2,
+          "llm_tokens_used": 1143,
+          "llm_latency_ms": 60666.42329200113,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Validation",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": true,
+          "llm_fallback_reason": "LLM response parsing failed after 3 attempt(s): schema validation failed: 'decision_summary' is a required property",
+          "llm_model": "mandate-validation",
+          "llm_temperature": 0.0,
+          "llm_max_tokens": 2048,
+          "llm_retries": 2
+        }
+      ],
+      "summary": {
+        "ok": true,
+        "roles_executed": 6,
+        "roles_passed": 6,
+        "gaps": 3,
+        "errors": [],
+        "mandate_id": "INTAKE-20231010-001",
+        "total_duration_ms": 841901.709
+      },
+      "artifact": {
+        "anchor_hash": "6f77f4158abdf0876976e8f3299827a988b7c5c554f4084b76843ed2cfbb9c24",
+        "num_coas": 1,
+        "trace_entries": 6,
+        "has_recommendation": true
+      },
+      "gap_reports": [
+        {
+          "gap_type": "UNDEFINED_MINIMUM",
+          "severity": "DEGRADING"
+        },
+        {
+          "gap_type": "MISSING_CAPABILITY",
+          "severity": "DEGRADING"
+        },
+        {
+          "gap_type": "UNKNOWN_PATTERN",
+          "severity": "BLOCKING"
+        }
+      ]
+    },
+    {
+      "scenario": "scenario_03_gap_undefined_target",
+      "mission_id": "LIVE-GAP-UNDEF-TGT-001",
+      "status": "GAP_REPORT",
+      "ok": true,
+      "has_gaps": true,
+      "elapsed_ms": 1221684.2,
+      "llm_summary": {
+        "llm_succeeded": 5,
+        "llm_fell_back": 1,
+        "deterministic_only": 0,
+        "backend": "ollama",
+        "base_url": "http://localhost:11434"
+      },
+      "role_details": [
+        {
+          "role": "Intake",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-intake",
+          "llm_temperature": 0.0,
+          "llm_max_tokens": 1024,
+          "llm_retries": 2,
+          "llm_tokens_used": 1055,
+          "llm_latency_ms": 16710.349125001812,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Interpreter",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": true,
+          "llm_fallback_reason": "Ollama backend failed after 3 attempt(s): Ollama response missing message content",
+          "llm_model": "mandate-interpreter",
+          "llm_temperature": 0.1,
+          "llm_max_tokens": 2048,
+          "llm_retries": 2
+        },
+        {
+          "role": "Decomposition",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-decomp",
+          "llm_temperature": 0.2,
+          "llm_max_tokens": 4096,
+          "llm_retries": 3,
+          "llm_tokens_used": 2094,
+          "llm_latency_ms": 154730.8127909928,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Procedure",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-procedure",
+          "llm_temperature": 0.1,
+          "llm_max_tokens": 4096,
+          "llm_retries": 3,
+          "llm_tokens_used": 1235,
+          "llm_latency_ms": 19674.894666997716,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Binding",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-binding",
+          "llm_temperature": 0.1,
+          "llm_max_tokens": 2048,
+          "llm_retries": 2,
+          "llm_tokens_used": 1592,
+          "llm_latency_ms": 99323.41191700834,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Validation",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-validation",
+          "llm_temperature": 0.0,
+          "llm_max_tokens": 2048,
+          "llm_retries": 2,
+          "llm_tokens_used": 1911,
+          "llm_latency_ms": 96040.1146249933,
+          "llm_prompt_source": "inline"
+        }
+      ],
+      "summary": {
+        "ok": true,
+        "roles_executed": 6,
+        "roles_passed": 6,
+        "gaps": 5,
+        "errors": [],
+        "mandate_id": "00000000-0000-0000-0000-000000000000",
+        "total_duration_ms": 1221684.152
+      },
+      "artifact": {
+        "anchor_hash": "5b99461ff1d58c25ac3e5294d5f268f5c9a6faabbbc4cb870791e6d88c1b171c",
+        "num_coas": 1,
+        "trace_entries": 6,
+        "has_recommendation": true
+      },
+      "gap_reports": [
+        {
+          "gap_type": "UNDEFINED_MINIMUM",
+          "severity": "DEGRADING"
+        },
+        {
+          "gap_type": "UNDEFINED_TARGET",
+          "severity": "DEGRADING"
+        },
+        {
+          "gap_type": "UNASSESSABLE_RISK",
+          "severity": "DEGRADING"
+        },
+        {
+          "gap_type": "MISSING_CAPABILITY",
+          "severity": "DEGRADING"
+        },
+        {
+          "gap_type": "UNKNOWN_PATTERN",
+          "severity": "BLOCKING"
+        }
+      ]
+    },
+    {
+      "scenario": "scenario_04_gap_unknown_pattern",
+      "mission_id": "LIVE-GAP-UNKNOWN-PAT-001",
+      "status": "GAP_REPORT",
+      "ok": true,
+      "has_gaps": true,
+      "elapsed_ms": 587612.8,
+      "llm_summary": {
+        "llm_succeeded": 6,
+        "llm_fell_back": 0,
+        "deterministic_only": 0,
+        "backend": "ollama",
+        "base_url": "http://localhost:11434"
+      },
+      "role_details": [
+        {
+          "role": "Intake",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-intake",
+          "llm_temperature": 0.0,
+          "llm_max_tokens": 1024,
+          "llm_retries": 2,
+          "llm_tokens_used": 1087,
+          "llm_latency_ms": 17563.403749998542,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Interpreter",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-interpreter",
+          "llm_temperature": 0.1,
+          "llm_max_tokens": 2048,
+          "llm_retries": 2,
+          "llm_tokens_used": 1888,
+          "llm_latency_ms": 134510.0723749929,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Decomposition",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-decomp",
+          "llm_temperature": 0.2,
+          "llm_max_tokens": 4096,
+          "llm_retries": 3,
+          "llm_tokens_used": 1553,
+          "llm_latency_ms": 96367.36458299856,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Procedure",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-procedure",
+          "llm_temperature": 0.1,
+          "llm_max_tokens": 4096,
+          "llm_retries": 3,
+          "llm_tokens_used": 1444,
+          "llm_latency_ms": 24672.765958996024,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Binding",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-binding",
+          "llm_temperature": 0.1,
+          "llm_max_tokens": 2048,
+          "llm_retries": 2,
+          "llm_tokens_used": 1082,
+          "llm_latency_ms": 49113.97308300366,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Validation",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-validation",
+          "llm_temperature": 0.0,
+          "llm_max_tokens": 2048,
+          "llm_retries": 2,
+          "llm_tokens_used": 1538,
+          "llm_latency_ms": 65820.99683399429,
+          "llm_prompt_source": "inline"
+        }
+      ],
+      "summary": {
+        "ok": true,
+        "roles_executed": 6,
+        "roles_passed": 6,
+        "gaps": 4,
+        "errors": [],
+        "mandate_id": "00000000-0000-0000-0000-000000000000",
+        "total_duration_ms": 587612.801
+      },
+      "artifact": {
+        "anchor_hash": "37a2f6b50d4930056651c817bfd5602f23972e7ba065dd0d5e3ab6543c46bb6e",
+        "num_coas": 1,
+        "trace_entries": 6,
+        "has_recommendation": true
+      },
+      "gap_reports": [
+        {
+          "gap_type": "UNDEFINED_MINIMUM",
+          "severity": "DEGRADING"
+        },
+        {
+          "gap_type": "UNDEFINED_TARGET",
+          "severity": "DEGRADING"
+        },
+        {
+          "gap_type": "MISSING_CAPABILITY",
+          "severity": "DEGRADING"
+        },
+        {
+          "gap_type": "UNKNOWN_PATTERN",
+          "severity": "BLOCKING"
+        }
+      ]
+    },
+    {
+      "scenario": "scenario_05_gap_missing_capability",
+      "mission_id": "LIVE-GAP-MISS-CAP-001",
+      "status": "GAP_REPORT",
+      "ok": true,
+      "has_gaps": true,
+      "elapsed_ms": 1119771.7,
+      "llm_summary": {
+        "llm_succeeded": 6,
+        "llm_fell_back": 0,
+        "deterministic_only": 0,
+        "backend": "ollama",
+        "base_url": "http://localhost:11434"
+      },
+      "role_details": [
+        {
+          "role": "Intake",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-intake",
+          "llm_temperature": 0.0,
+          "llm_max_tokens": 1024,
+          "llm_retries": 2,
+          "llm_tokens_used": 1295,
+          "llm_latency_ms": 23081.923040997935,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Interpreter",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-interpreter",
+          "llm_temperature": 0.1,
+          "llm_max_tokens": 2048,
+          "llm_retries": 2,
+          "llm_tokens_used": 1987,
+          "llm_latency_ms": 139719.6598330047,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Decomposition",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-decomp",
+          "llm_temperature": 0.2,
+          "llm_max_tokens": 4096,
+          "llm_retries": 3,
+          "llm_tokens_used": 2149,
+          "llm_latency_ms": 152455.00108400302,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Procedure",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-procedure",
+          "llm_temperature": 0.1,
+          "llm_max_tokens": 4096,
+          "llm_retries": 3,
+          "llm_tokens_used": 990,
+          "llm_latency_ms": 13014.401666994672,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Binding",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-binding",
+          "llm_temperature": 0.1,
+          "llm_max_tokens": 2048,
+          "llm_retries": 2,
+          "llm_tokens_used": 1133,
+          "llm_latency_ms": 59668.580917001236,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Validation",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-validation",
+          "llm_temperature": 0.0,
+          "llm_max_tokens": 2048,
+          "llm_retries": 2,
+          "llm_tokens_used": 1773,
+          "llm_latency_ms": 83797.32308299572,
+          "llm_prompt_source": "inline"
+        }
+      ],
+      "summary": {
+        "ok": true,
+        "roles_executed": 6,
+        "roles_passed": 6,
+        "gaps": 5,
+        "errors": [],
+        "mandate_id": "123e4567-e89b-12d3-a456-426614174000",
+        "total_duration_ms": 1119771.717
+      },
+      "artifact": {
+        "anchor_hash": "33eb5e409d7b1bef1de0d7c59913fc795f7f5bcf95d3208144978830aff68562",
+        "num_coas": 1,
+        "trace_entries": 6,
+        "has_recommendation": true
+      },
+      "gap_reports": [
+        {
+          "gap_type": "UNDEFINED_MINIMUM",
+          "severity": "DEGRADING"
+        },
+        {
+          "gap_type": "UNDEFINED_TARGET",
+          "severity": "DEGRADING"
+        },
+        {
+          "gap_type": "UNASSESSABLE_RISK",
+          "severity": "DEGRADING"
+        },
+        {
+          "gap_type": "MISSING_CAPABILITY",
+          "severity": "DEGRADING"
+        },
+        {
+          "gap_type": "UNKNOWN_PATTERN",
+          "severity": "BLOCKING"
+        }
+      ]
+    },
+    {
+      "scenario": "scenario_06_gap_unassessable_risk",
+      "mission_id": "LIVE-GAP-UNASSESS-001",
+      "status": "GAP_REPORT",
+      "ok": true,
+      "has_gaps": true,
+      "elapsed_ms": 1556134.4,
+      "llm_summary": {
+        "llm_succeeded": 5,
+        "llm_fell_back": 1,
+        "deterministic_only": 0,
+        "backend": "ollama",
+        "base_url": "http://localhost:11434"
+      },
+      "role_details": [
+        {
+          "role": "Intake",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-intake",
+          "llm_temperature": 0.0,
+          "llm_max_tokens": 1024,
+          "llm_retries": 2,
+          "llm_tokens_used": 1421,
+          "llm_latency_ms": 24800.827749990276,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Interpreter",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-interpreter",
+          "llm_temperature": 0.1,
+          "llm_max_tokens": 2048,
+          "llm_retries": 2,
+          "llm_tokens_used": 2216,
+          "llm_latency_ms": 164133.65974999033,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Decomposition",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": true,
+          "llm_fallback_reason": "LLM response parsing failed after 4 attempt(s): schema validation failed: Additional properties are not allowed ('courses_of_action' was unexpected)",
+          "llm_model": "mandate-decomp",
+          "llm_temperature": 0.2,
+          "llm_max_tokens": 4096,
+          "llm_retries": 3
+        },
+        {
+          "role": "Procedure",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-procedure",
+          "llm_temperature": 0.1,
+          "llm_max_tokens": 4096,
+          "llm_retries": 3,
+          "llm_tokens_used": 1024,
+          "llm_latency_ms": 14108.134666996193,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Binding",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-binding",
+          "llm_temperature": 0.1,
+          "llm_max_tokens": 2048,
+          "llm_retries": 2,
+          "llm_tokens_used": 1443,
+          "llm_latency_ms": 84539.11854200123,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Validation",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-validation",
+          "llm_temperature": 0.0,
+          "llm_max_tokens": 2048,
+          "llm_retries": 2,
+          "llm_tokens_used": 1737,
+          "llm_latency_ms": 78405.67087499949,
+          "llm_prompt_source": "inline"
+        }
+      ],
+      "summary": {
+        "ok": true,
+        "roles_executed": 6,
+        "roles_passed": 6,
+        "gaps": 5,
+        "errors": [],
+        "mandate_id": "123e4567-e89b-12d3-a456-434614174000",
+        "total_duration_ms": 1556134.342
+      },
+      "artifact": {
+        "anchor_hash": "674c129b2c954f8a7d8f119194bc6e0402bfe14f716d794b23779468db72de03",
+        "num_coas": 1,
+        "trace_entries": 6,
+        "has_recommendation": true
+      },
+      "gap_reports": [
+        {
+          "gap_type": "UNDEFINED_MINIMUM",
+          "severity": "DEGRADING"
+        },
+        {
+          "gap_type": "UNDEFINED_TARGET",
+          "severity": "DEGRADING"
+        },
+        {
+          "gap_type": "UNASSESSABLE_RISK",
+          "severity": "DEGRADING"
+        },
+        {
+          "gap_type": "MISSING_CAPABILITY",
+          "severity": "DEGRADING"
+        },
+        {
+          "gap_type": "UNKNOWN_PATTERN",
+          "severity": "BLOCKING"
+        }
+      ]
+    },
+    {
+      "scenario": "scenario_07_multi_coa_ir",
+      "mission_id": "LIVE-MULTI-COA-IR-001",
+      "status": "SUCCESS",
+      "ok": true,
+      "has_gaps": false,
+      "elapsed_ms": 751799.6,
+      "llm_summary": {
+        "llm_succeeded": 4,
+        "llm_fell_back": 2,
+        "deterministic_only": 0,
+        "backend": "ollama",
+        "base_url": "http://localhost:11434"
+      },
+      "role_details": [
+        {
+          "role": "Intake",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": true,
+          "llm_fallback_reason": "Ollama backend failed after 3 attempt(s): Ollama response missing message content",
+          "llm_model": "mandate-intake",
+          "llm_temperature": 0.0,
+          "llm_max_tokens": 1024,
+          "llm_retries": 2
+        },
+        {
+          "role": "Interpreter",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-interpreter",
+          "llm_temperature": 0.1,
+          "llm_max_tokens": 2048,
+          "llm_retries": 2,
+          "llm_tokens_used": 1485,
+          "llm_latency_ms": 81433.9255829982,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Decomposition",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-decomp",
+          "llm_temperature": 0.2,
+          "llm_max_tokens": 4096,
+          "llm_retries": 3,
+          "llm_tokens_used": 1879,
+          "llm_latency_ms": 111222.24420800922,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Procedure",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-procedure",
+          "llm_temperature": 0.1,
+          "llm_max_tokens": 4096,
+          "llm_retries": 3,
+          "llm_tokens_used": 2481,
+          "llm_latency_ms": 44699.93295799941,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Binding",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-binding",
+          "llm_temperature": 0.1,
+          "llm_max_tokens": 2048,
+          "llm_retries": 2,
+          "llm_tokens_used": 1737,
+          "llm_latency_ms": 74206.64083400334,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Validation",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": true,
+          "llm_fallback_reason": "LLM response parsing failed after 3 attempt(s): schema validation failed: 'decision_summary' is a required property",
+          "llm_model": "mandate-validation",
+          "llm_temperature": 0.0,
+          "llm_max_tokens": 2048,
+          "llm_retries": 2
+        }
+      ],
+      "summary": {
+        "ok": true,
+        "roles_executed": 6,
+        "roles_passed": 6,
+        "gaps": 0,
+        "errors": [],
+        "mandate_id": "LIVE-MULTI-COA-IR-001",
+        "total_duration_ms": 751799.535
+      },
+      "artifact": {
+        "anchor_hash": "2744f72a1f8441858d9869df010b3e3fdafdbb0b1e0cc72cc66892481e6b8175",
+        "num_coas": 2,
+        "trace_entries": 6,
+        "has_recommendation": true
+      }
+    },
+    {
+      "scenario": "scenario_08_cross_domain_intel",
+      "mission_id": "LIVE-XDOMAIN-INTEL-001",
+      "status": "GAP_REPORT",
+      "ok": true,
+      "has_gaps": true,
+      "elapsed_ms": 1347101.3,
+      "llm_summary": {
+        "llm_succeeded": 5,
+        "llm_fell_back": 1,
+        "deterministic_only": 0,
+        "backend": "ollama",
+        "base_url": "http://localhost:11434"
+      },
+      "role_details": [
+        {
+          "role": "Intake",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-intake",
+          "llm_temperature": 0.0,
+          "llm_max_tokens": 1024,
+          "llm_retries": 2,
+          "llm_tokens_used": 1089,
+          "llm_latency_ms": 17268.643041010364,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Interpreter",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-interpreter",
+          "llm_temperature": 0.1,
+          "llm_max_tokens": 2048,
+          "llm_retries": 2,
+          "llm_tokens_used": 2086,
+          "llm_latency_ms": 150428.44533300376,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Decomposition",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-decomp",
+          "llm_temperature": 0.2,
+          "llm_max_tokens": 4096,
+          "llm_retries": 3,
+          "llm_tokens_used": 1290,
+          "llm_latency_ms": 62595.87408299558,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Procedure",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-procedure",
+          "llm_temperature": 0.1,
+          "llm_max_tokens": 4096,
+          "llm_retries": 3,
+          "llm_tokens_used": 1454,
+          "llm_latency_ms": 25455.157459000475,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Binding",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": false,
+          "llm_fallback_reason": "",
+          "llm_model": "mandate-binding",
+          "llm_temperature": 0.1,
+          "llm_max_tokens": 2048,
+          "llm_retries": 2,
+          "llm_tokens_used": 1192,
+          "llm_latency_ms": 65501.93862499145,
+          "llm_prompt_source": "inline"
+        },
+        {
+          "role": "Validation",
+          "ok": true,
+          "llm_used": true,
+          "llm_fallback": true,
+          "llm_fallback_reason": "LLM response parsing failed after 3 attempt(s): schema validation failed: 'decision_summary' is a required property",
+          "llm_model": "mandate-validation",
+          "llm_temperature": 0.0,
+          "llm_max_tokens": 2048,
+          "llm_retries": 2
+        }
+      ],
+      "summary": {
+        "ok": true,
+        "roles_executed": 6,
+        "roles_passed": 6,
+        "gaps": 4,
+        "errors": [],
+        "mandate_id": "INTAKE-001",
+        "total_duration_ms": 1347101.274
+      },
+      "artifact": {
+        "anchor_hash": "e096ff63ef11d7e2847159602b6fe8f636941b00f62bf35cc33ab673cedbe046",
+        "num_coas": 1,
+        "trace_entries": 6,
+        "has_recommendation": true
+      },
+      "gap_reports": [
+        {
+          "gap_type": "UNDEFINED_MINIMUM",
+          "severity": "DEGRADING"
+        },
+        {
+          "gap_type": "UNDEFINED_TARGET",
+          "severity": "DEGRADING"
+        },
+        {
+          "gap_type": "UNASSESSABLE_RISK",
+          "severity": "DEGRADING"
+        },
+        {
+          "gap_type": "MISSING_CAPABILITY",
+          "severity": "DEGRADING"
+        }
+      ]
+    }
+  ],
+  "comparison": {
+    "all_structural_properties_match": false,
+    "comparisons": [
+      {
+        "scenario": "scenario_01_ciso_report",
+        "status_match": true,
+        "anchor_hash_match": true,
+        "gap_types_match": true,
+        "coa_count_match": true,
+        "trace_count_match": true,
+        "llm_roles_succeeded": 4,
+        "llm_roles_fell_back": 2
+      },
+      {
+        "scenario": "scenario_02_gap_undefined_minimum",
+        "status_match": true,
+        "anchor_hash_match": false,
+        "gap_types_match": false,
+        "coa_count_match": true,
+        "trace_count_match": true,
+        "llm_roles_succeeded": 5,
+        "llm_roles_fell_back": 1
+      },
+      {
+        "scenario": "scenario_03_gap_undefined_target",
+        "status_match": true,
+        "anchor_hash_match": false,
+        "gap_types_match": false,
+        "coa_count_match": true,
+        "trace_count_match": true,
+        "llm_roles_succeeded": 5,
+        "llm_roles_fell_back": 1
+      },
+      {
+        "scenario": "scenario_04_gap_unknown_pattern",
+        "status_match": true,
+        "anchor_hash_match": false,
+        "gap_types_match": false,
+        "coa_count_match": true,
+        "trace_count_match": true,
+        "llm_roles_succeeded": 6,
+        "llm_roles_fell_back": 0
+      },
+      {
+        "scenario": "scenario_05_gap_missing_capability",
+        "status_match": true,
+        "anchor_hash_match": false,
+        "gap_types_match": false,
+        "coa_count_match": true,
+        "trace_count_match": true,
+        "llm_roles_succeeded": 6,
+        "llm_roles_fell_back": 0
+      },
+      {
+        "scenario": "scenario_06_gap_unassessable_risk",
+        "status_match": true,
+        "anchor_hash_match": false,
+        "gap_types_match": false,
+        "coa_count_match": true,
+        "trace_count_match": true,
+        "llm_roles_succeeded": 5,
+        "llm_roles_fell_back": 1
+      },
+      {
+        "scenario": "scenario_07_multi_coa_ir",
+        "status_match": true,
+        "anchor_hash_match": false,
+        "gap_types_match": true,
+        "coa_count_match": false,
+        "trace_count_match": true,
+        "llm_roles_succeeded": 4,
+        "llm_roles_fell_back": 2
+      },
+      {
+        "scenario": "scenario_08_cross_domain_intel",
+        "status_match": false,
+        "anchor_hash_match": false,
+        "gap_types_match": false,
+        "coa_count_match": false,
+        "trace_count_match": true,
+        "llm_roles_succeeded": 5,
+        "llm_roles_fell_back": 1
+      }
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.12, pytest-9.0.3, pluggy-1.6.0 -- /usr/bin/python
+cachedir: .pytest_cache
+rootdir: /sessions/intelligent-ecstatic-cerf/mnt/Desktop/AEGIS
+configfile: pyproject.toml
+collecting ... collected 37 items
+
+tests/mandate/test_gap_reports.py::TestFullySpecifiedNoGaps::test_no_gaps_with_emit PASSED [  2%]
+tests/mandate/test_gap_reports.py::TestFullySpecifiedNoGaps::test_normal_mission_example_no_gaps PASSED [  5%]
+tests/mandate/test_gap_reports.py::TestUnderspecifiedGaps::test_detects_undefined_minimum PASSED [  8%]
+tests/mandate/test_gap_reports.py::TestUnderspecifiedGaps::test_detects_undefined_target PASSED [ 10%]
+tests/mandate/test_gap_reports.py::TestUnderspecifiedGaps::test_detects_missing_capability PASSED [ 13%]
+tests/mandate/test_gap_reports.py::TestUnderspecifiedGaps::test_detects_unknown_pattern_no_scope PASSED [ 16%]
+tests/mandate/test_gap_reports.py::TestUnderspecifiedGaps::test_four_gaps_total PASSED [ 18%]
+tests/mandate/test_gap_reports.py::TestUnderspecifiedGaps::test_pipeline_still_succeeds PASSED [ 21%]
+tests/mandate/test_gap_reports.py::TestSpecificGapScenarios::test_missing_recon_tools PASSED [ 24%]
+tests/mandate/test_gap_reports.py::TestSpecificGapScenarios::test_unassessable_risk PASSED [ 27%]
+tests/mandate/test_gap_reports.py::TestSpecificGapScenarios::test_blocking_gap_for_no_scope PASSED [ 29%]
+tests/mandate/test_gap_reports.py::TestSpecificGapScenarios::test_gap_source_defaults_to_specification PASSED [ 32%]
+tests/mandate/test_gap_reports.py::TestGapReportSchemaCompliance::test_all_gap_reports_validate PASSED [ 35%]
+tests/mandate/test_gap_reports.py::TestGapReportSchemaCompliance::test_gap_report_has_required_fields PASSED [ 37%]
+tests/mandate/test_gap_reports.py::TestGapReportSchemaCompliance::test_gap_ids_are_unique PASSED [ 40%]
+tests/mandate/test_gap_reports.py::TestGapReportSchemaCompliance::test_trace_to_gap_is_valid_hash PASSED [ 43%]
+tests/mandate/test_gap_reports.py::TestGapReportSchemaCompliance::test_detected_by_matches_role_enum PASSED [ 45%]
+tests/mandate/test_gap_reports.py::TestGapReportSchemaCompliance::test_readiness_assessment_recommendation PASSED [ 48%]
+tests/mandate/test_gap_reports.py::TestEmitGapsDisabled::test_no_gap_reports_by_default PASSED [ 51%]
+tests/mandate/test_gap_reports.py::TestEmitGapsDisabled::test_pipeline_still_succeeds_without_emit PASSED [ 54%]
+tests/mandate/test_gap_reports.py::TestGapReportModule::test_gap_spec_to_artifact PASSED [ 56%]
+tests/mandate/test_gap_reports.py::TestGapReportModule::test_build_gap_reports_sequencing PASSED [ 59%]
+tests/mandate/test_gap_reports.py::TestGapReportModule::test_gap_spec_to_artifact_includes_supporting_sources PASSED [ 62%]
+tests/mandate/test_gap_reports.py::TestGapReportModule::test_validate_gap_reports_all_valid PASSED [ 64%]
+tests/mandate/test_gap_reports.py::TestRunAndSaveWithGaps::test_saves_gap_reports_to_gaps_dir PASSED [ 67%]
+tests/mandate/test_gap_reports.py::TestRunAndSaveWithGaps::test_saved_gap_reports_validate PASSED [ 70%]
+tests/mandate/test_gap_reports.py::TestRunAndSaveWithGaps::test_no_gaps_dir_when_no_gaps PASSED [ 72%]
+tests/mandate/test_gap_reports.py::TestPipelineResultSummary::test_summary_includes_gap_count PASSED [ 75%]
+tests/mandate/test_gap_reports.py::TestPipelineResultSummary::test_summary_zero_gaps_for_full_spec PASSED [ 78%]
+tests/mandate/test_gap_reports.py::TestCLIEmitGaps::test_emit_gaps_flag_accepted PASSED [ 81%]
+tests/mandate/test_gap_reports.py::TestCLIEmitGaps::test_emit_gaps_shows_gap_types PASSED [ 83%]
+tests/mandate/test_gap_reports.py::TestCLIEmitGaps::test_emit_gaps_with_output PASSED [ 86%]
+tests/mandate/test_gap_reports.py::TestCLIEmitGaps::test_no_gaps_without_flag PASSED [ 89%]
+tests/mandate/test_gap_reports.py::TestCLIEmitGaps::test_normal_mission_no_gaps_with_flag PASSED [ 91%]
+tests/mandate/test_gap_reports.py::TestUnderspecifiedExample::test_example_loads PASSED [ 94%]
+tests/mandate/test_gap_reports.py::TestUnderspecifiedExample::test_example_produces_valid_mandate PASSED [ 97%]
+tests/mandate/test_gap_reports.py::TestUnderspecifiedExample::test_example_produces_four_gaps PASSED [100%]
+
+============================== 37 passed in 0.27s ==============================

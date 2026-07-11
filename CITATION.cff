@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: >-
+  If you use this evaluation deposit, please cite it as below, by
+  repository URL and version.
+title: "MANDATE 2026Q2 Evaluation — Replication Package (mandate-eval-primary-2026q2)"
+type: dataset
+version: v2-closeout-2026-07-08
+date-released: "2026-07-08"
+authors:
+  - family-names: Calboreanu
+    given-names: Elias
+    affiliation: "Capitol Technology University"
+keywords:
+  - autonomous agents
+  - task specification
+  - LLM evaluation
+  - pre-registered evaluation
+  - governance
+  - MANDATE
+license: Apache-2.0
+license-url: "https://www.apache.org/licenses/LICENSE-2.0"
+notes: >-
+  Code is Apache-2.0; data (RunRecords, corpus, ground truth, grades) is
+  CC BY 4.0 (see LICENSE-DATA); pre-registration prompts and forms are CC0.
+  The evaluated framework implementation is mlt-stack 1.0.0rc1.
+references:
+  - type: article
+    title: "MANDATE: A Tolerance-Based Framework for Autonomous Agent Task Specification"
+    authors:
+      - family-names: Calboreanu
+        given-names: Elias
+    notes: "Manuscript under review (Frontiers in Artificial Intelligence ms 1802568 revision lineage). Cite the published version when available."

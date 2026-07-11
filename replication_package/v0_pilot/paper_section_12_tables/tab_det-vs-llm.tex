@@ -1,0 +1,29 @@
+\begin{table}[H]
+\caption{Structural Property Comparison: Deterministic vs.\ LLM Execution}
+\label{tab:det-vs-llm}
+\centering
+\small
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+\textbf{Scenario} & \textbf{Status} & \textbf{Hash} & \textbf{Gaps} & \textbf{COAs} & \textbf{Trace} \\
+\midrule
+01 CISO Report     & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+02 Undef.\ Min     & \checkmark & $\neq$\textsuperscript{a} & $\neq$\textsuperscript{b} & \checkmark & \checkmark \\
+03 Undef.\ Tgt     & \checkmark & $\neq$\textsuperscript{a} & $\neq$\textsuperscript{b} & \checkmark & \checkmark \\
+04 Unknown Pat     & \checkmark & $\neq$\textsuperscript{a} & $\neq$\textsuperscript{b} & \checkmark & \checkmark \\
+05 Missing Cap     & \checkmark & $\neq$\textsuperscript{a} & $\neq$\textsuperscript{b} & \checkmark & \checkmark \\
+06 Unassess.\ Risk & \checkmark & $\neq$\textsuperscript{a} & $\neq$\textsuperscript{b} & \checkmark & \checkmark \\
+07 Ransomware IR   & \checkmark & $\neq$\textsuperscript{a} & \checkmark & $\neq$\textsuperscript{c} & \checkmark \\
+08 OSINT Intel     & SUCCESS $\rightarrow$ GAP\_REPORT & $\neq$\textsuperscript{a} & $\neq$\textsuperscript{b} & $\neq$\textsuperscript{c} & \checkmark \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\begin{flushleft}
+\footnotesize
+\textsuperscript{a}Anchor hashes differ because LLM extracts richer content; Property~1 holds within each run. \\
+\textsuperscript{b}LLM detects additional gaps beyond deterministic baseline (more thorough analysis). \\
+\textsuperscript{c}LLM Decomposition makes different strategic COA judgments. \\
+\textbf{Key finding:} Trace completeness (P2) holds universally: 6-entry chains on every run regardless of execution mode.
+\end{flushleft}
+\end{table}

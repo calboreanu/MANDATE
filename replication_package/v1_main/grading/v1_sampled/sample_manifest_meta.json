@@ -1,0 +1,10 @@
+{
+  "seed": 20260618,
+  "n_per_system": 100,
+  "total_sample_size": 700,
+  "sampling_strategy": "stratified_random_without_replacement",
+  "strata": "system_id",
+  "source_mapping": "07_system_outputs/anonymization_mapping.json",
+  "created_date": "2026-06-18",
+  "protocol_deviation_ref": "D-08"
+}

@@ -1,0 +1,21 @@
+============================================================
+NIST AI RMF SUBCATEGORY MAPPING VERIFICATION
+============================================================
+
+Checked 7 mandate artifacts
+
+  [PASS   ] MAP 1.1         field=anchor.mission_intent                               found_in=1 artifacts
+  [PASS   ] MAP 1.5         field=anchor.minimum + anchor.target                      found_in=1 artifacts
+  [PASS   ] MAP 1.6         field=anchor.constraints                                  found_in=1 artifacts
+  [PASS   ] MAP 2.1         field=courses_of_action[].task_dag                        found_in=1 artifacts
+  [PASS   ] MAP 2.2         field=gap_report (any role)                               found_in=1 artifacts
+  [PASS   ] MAP 3.2         field=task_dag.nodes[].risk_factors                       found_in=1 artifacts
+  [PASS   ] MAP 5.1         field=risk_assessment.score + primary_factor              found_in=1 artifacts
+  [PASS   ] MEASURE 1.1     field=confidence bands (HIGH/MEDIUM/LOW)                  found_in=1 artifacts
+  [PASS   ] MEASURE 2.3     field=confidence_min + confidence_target per COA          found_in=1 artifacts
+  [PASS   ] MEASURE 2.8     field=trace chain (hash-linked)                           found_in=1 artifacts
+  [PASS   ] MEASURE 3.1     field=registry_reference                                  found_in=1 artifacts
+
+============================================================
+Subcategories covered: 11/11 (100%)
+Results written to eval_rmf_mapping_results.json

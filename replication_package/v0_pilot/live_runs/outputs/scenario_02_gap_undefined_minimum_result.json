@@ -1,0 +1,117 @@
+{
+  "scenario": "scenario_02_gap_undefined_minimum",
+  "mission_id": "LIVE-GAP-UNDEF-MIN-001",
+  "status": "GAP_REPORT",
+  "ok": true,
+  "has_gaps": true,
+  "elapsed_ms": 4.3,
+  "summary": {
+    "ok": true,
+    "roles_executed": 6,
+    "roles_passed": 6,
+    "gaps": 2,
+    "errors": [],
+    "mandate_id": "LIVE-GAP-UNDEF-MIN-001",
+    "total_duration_ms": 4.321
+  },
+  "metadata": {
+    "scenario": "Paper Section 11.7 Gap Variant - UNDEFINED_MINIMUM",
+    "domain": "business_reporting",
+    "paper_reference": "Section 11.7, Table 11 row 1",
+    "claim": "RQ3 - Gap detection: UNDEFINED_MINIMUM when patch compliance threshold is not specified",
+    "expected_outcome": "GAP REPORT with gap_type=UNDEFINED_MINIMUM, readiness_score ~83%"
+  },
+  "artifact": {
+    "has_anchor": true,
+    "anchor_hash": "8707143714afb4c11405472d1b496d0d302ebdd354edb92946ae5fb4cb1a55a3",
+    "num_coas": 1,
+    "has_trace": true,
+    "trace_entries": 6,
+    "has_registry_reference": true,
+    "has_risk_profile": false,
+    "recommendation": "COA-1"
+  },
+  "coas": [
+    {
+      "coa_id": "COA-1",
+      "num_tasks": 2,
+      "num_edges": 1,
+      "has_risk_assessment": true,
+      "risk_score": "LOW",
+      "confidence_min": "LOW"
+    }
+  ],
+  "trace_chain": {
+    "chain_hash": "898da1def1a06e7342702f0dd4a711c55b9b2a42ffb6ec341036b6fecb31e275",
+    "num_entries": 6,
+    "roles": [
+      "Intake",
+      "Interpreter",
+      "Decomposition",
+      "Procedure",
+      "Binding",
+      "Validation"
+    ],
+    "all_hashed": true
+  },
+  "gap_reports": [
+    {
+      "gap_type": "UNDEFINED_MINIMUM",
+      "detected_by": "Interpreter",
+      "severity": "DEGRADING",
+      "blocking": false,
+      "field_or_task": "",
+      "reason": "Mission input does not specify an explicit minimum outcome. A default was derived from mission intent.",
+      "readiness_score": {
+        "completion_percentage": 30,
+        "blocking": false,
+        "partial_spec_available": true
+      }
+    },
+    {
+      "gap_type": "MISSING_CAPABILITY",
+      "detected_by": "Decomposition",
+      "severity": "DEGRADING",
+      "blocking": false,
+      "field_or_task": "",
+      "reason": "No RECON-class tools available. Reconnaissance is typically required for target enumeration.",
+      "readiness_score": {
+        "completion_percentage": 50,
+        "blocking": false,
+        "partial_spec_available": true
+      }
+    }
+  ],
+  "role_results": [
+    {
+      "role": "Intake",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Interpreter",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Decomposition",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Procedure",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Binding",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Validation",
+      "ok": true,
+      "elapsed_ms": null
+    }
+  ]
+}

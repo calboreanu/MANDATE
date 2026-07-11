@@ -1,0 +1,20 @@
+============================================================
+TRACE CHAIN INTEGRITY VERIFICATION
+============================================================
+Found 7 mandate artifacts
+
+  [SKIP] defense_intel_mission.json
+  [SKIP] incident_response_mission.json
+  [SKIP] multi_coa_mission.json
+  [SKIP] normal_mission.json
+  [SKIP] quarterly_report_gap.json
+  [PASS] quarterly_report_mandate.json
+         entries=5  roles=5  chain_hash=valid
+  [SKIP] underspecified_mission.json
+
+============================================================
+Artifacts with traces:    1/7
+Traces passing integrity: 1/1
+Total trace entries:      5
+
+Results written to eval_trace_integrity_results.json

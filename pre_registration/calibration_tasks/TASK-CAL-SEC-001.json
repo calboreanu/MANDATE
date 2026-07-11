@@ -1,0 +1,31 @@
+{
+  "task_id": "TASK-CAL-SEC-001",
+  "domain": "security_operations",
+  "category": "calibration",
+  "author": "hand_authored_by_PI",
+  "purpose": "Calibration task with unambiguous thresholds. All systems should produce a complete anchor extraction. Failure indicates configuration issue, not a result.",
+  "stakeholder": "CIO",
+  "request_text": "Generate the weekly vulnerability scan compliance report for the CIO covering the past 7 days. The report must include: (1) total count of critical and high severity vulnerabilities from our Tenable Nessus scans, broken out by asset group; (2) percentage of critical vulnerabilities older than 30 days, with a minimum acceptable threshold of 95% remediated within that window; (3) trend chart comparing this week to the prior 4-week rolling average. Deliver as a PDF document, 5 to 8 pages, by Friday at 1700 hours. Use only data from our internal Tenable Nessus instance; do not include third-party threat feeds. Classification: UNCLASSIFIED.",
+  "expected_anchor": {
+    "mission_intent": "Provide CIO with weekly vulnerability compliance posture report covering past 7 days",
+    "minimum": [
+      {"dimension": "scan_data_coverage", "threshold": "all critical and high severity from Tenable Nessus", "rationale": "explicit in request"},
+      {"dimension": "report_sections", "threshold": "vulnerability count by asset group, aging percentage, trend chart", "rationale": "three required sections specified"},
+      {"dimension": "remediation_compliance", "threshold": "at least 95% of critical vulnerabilities remediated within 30 days", "rationale": "explicit numeric threshold"},
+      {"dimension": "data_currency", "threshold": "past 7 days", "rationale": "explicit time window"},
+      {"dimension": "format", "threshold": "PDF, 5 to 8 pages", "rationale": "explicit"},
+      {"dimension": "deadline", "threshold": "Friday 1700", "rationale": "explicit"}
+    ],
+    "target": [
+      {"objective": "trend_visualization_quality", "rationale": "implied by trend chart requirement"}
+    ],
+    "constraints": [
+      {"predicate": "data.source == 'tenable_nessus_internal'", "rationale": "explicit prohibition on third-party feeds"},
+      {"predicate": "classification == 'UNCLASSIFIED'", "rationale": "explicit"},
+      {"predicate": "page_count >= 5 AND page_count <= 8", "rationale": "explicit"}
+    ]
+  },
+  "expected_output_type": "MANDATE_AS_CODE",
+  "expected_gaps": [],
+  "notes_for_lead_analyst": "This task is intentionally over-specified. A correctly-configured MANDATE pipeline should extract all 6 minimum dimensions and 3 constraints. Baselines should do similarly well on extraction; differences will emerge in structured output format and trace completeness."
+}

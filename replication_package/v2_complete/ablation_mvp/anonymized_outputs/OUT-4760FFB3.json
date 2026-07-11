@@ -1,0 +1,594 @@
+{
+  "anon_id": "OUT-4760FFB3",
+  "task_id": "TASK-HOLDOUT-SES-027",
+  "output_type": "MANDATE_AS_CODE",
+  "output": {
+    "artifact": {
+      "mandate_id": "TASK-HOLDOUT-SES-027",
+      "version": "1.0",
+      "generated": "2026-06-29T17:50:16.042Z",
+      "anchor": {
+        "mission_intent": "We need the systems security engineering team to develop a comprehensive traceability matrix that maps every security-relevant life cycle process enhancement from our NIST SP 800-160 Vol. 1 alignment effort back to the corresponding ISO/IEC/IEEE 15288 base process outcomes, activities, and tasks. This matrix should cover all system life cycle processes described in Chapter Three of the publication, including both the original process definitions and our tailored security augmentations, and it must also incorporate cross-references to the supporting appendices for definitions, acronyms, and the security engineering activity summaries. The deliverable should address the full scope of security concepts\u2014protection needs, security relevance, security architecture, trustworthiness, and assurance\u2014as they apply across enabling systems, the system-of-interest, and other systems in the operational environment. We need this completed by end of next sprint, and the team should use best efforts to ensure the matrix is \"fully validated\" against actual project artifacts, though we recognize that several subsystems are still in early conceptual design and lack finalized security architecture documentation. Please coordinate with the architecture board to resolve any ambiguities around system boundary definitions and system-of-systems interactions.",
+        "minimum": {
+          "description": "Minimally satisfy: We need the systems security engineering team to develop a comprehensive traceability matrix that maps every security-re"
+        },
+        "constraints": [],
+        "anchor_hash": "252d0fc3f883d4ce58b6dfa130a9e426c2d344ac401676721ac9826145a46b48",
+        "target": {
+          "description": "Fully achieve: We need the systems security engineering team to develop a comprehensive traceability matrix that maps every security-re"
+        }
+      },
+      "courses_of_action": [
+        {
+          "coa_id": "COA-1",
+          "approach": "Minimal manual assessment approach",
+          "task_dag": {
+            "nodes": [
+              {
+                "id": "1",
+                "name": "Manual Assessment",
+                "description": "Manual assessment of target scope"
+              },
+              {
+                "id": "2",
+                "name": "Results Documentation",
+                "description": "Document assessment findings"
+              }
+            ],
+            "edges": [
+              {
+                "from": "1",
+                "to": "2"
+              }
+            ]
+          },
+          "risk_assessment": {
+            "score": "LOW",
+            "confidence_min": "LOW",
+            "confidence_target": "MEDIUM",
+            "primary_factor": "execution_uncertainty"
+          },
+          "off_nominal_triggers": [
+            "target.scope_violations > 0",
+            "execution.rate > 100"
+          ],
+          "procedures": [
+            "Step 1: Manual Assessment",
+            "Step 2: Results Documentation"
+          ]
+        }
+      ],
+      "recommendation": {
+        "primary_coa": "COA-1",
+        "fallback_sequence": [],
+        "rationale": "Single COA COA-1: Minimal manual assessment approach"
+      },
+      "trace": {
+        "chain_hash": "2c0f417834518b7a3cc6736504e891c03f5a249db1228917d11f18f51cd0e754",
+        "entry_count": 6,
+        "entries": [
+          {
+            "role": "Intake",
+            "decision_type": "intake_phase",
+            "timestamp": "2026-06-29T17:50:16.042Z",
+            "parent_hashes": [],
+            "search": {
+              "query": "Intake phase execution for mission TASK-HOLDOUT-SES-027",
+              "source": "pipeline_state",
+              "k": 5,
+              "total_results": 5
+            },
+            "results": [
+              {
+                "id": "mission_id",
+                "score": 1.0,
+                "summary": "mission_id=TASK-HOLDOUT-SES-027"
+              },
+              {
+                "id": "constraint_count",
+                "score": 1.0,
+                "summary": "constraint_count=0"
+              },
+              {
+                "id": "scope_count",
+                "score": 1.0,
+                "summary": "scope_count=0"
+              },
+              {
+                "id": "llm_used",
+                "score": 1.0,
+                "summary": "llm_used=False"
+              },
+              {
+                "id": "llm_fallback",
+                "score": 1.0,
+                "summary": "llm_fallback=False"
+              }
+            ],
+            "selected": "Intake",
+            "selection_criteria": "role completed without errors",
+            "confidence": "HIGH",
+            "selection": {
+              "selected": "Intake",
+              "criteria": "role completed without errors",
+              "confidence": "HIGH",
+              "rationale": "Intake complete: mission_id=TASK-HOLDOUT-SES-027"
+            },
+            "rationale": "Intake complete: mission_id=TASK-HOLDOUT-SES-027",
+            "mission_id": "TASK-HOLDOUT-SES-027",
+            "risk": {},
+            "search_trace_version": "1.0",
+            "metadata": {
+              "role_status": "success"
+            },
+            "hash": "f65473b13e50db7e0016363bb1bfa4ecc9bc56827161a522a60bdc3901e17eaf"
+          },
+          {
+            "role": "Interpreter",
+            "decision_type": "interpreter_phase",
+            "timestamp": "2026-06-29T17:50:16.042Z",
+            "parent_hashes": [
+              "f65473b13e50db7e0016363bb1bfa4ecc9bc56827161a522a60bdc3901e17eaf"
+            ],
+            "search": {
+              "query": "Interpreter phase execution for mission TASK-HOLDOUT-SES-027",
+              "source": "pipeline_state",
+              "k": 5,
+              "total_results": 5
+            },
+            "results": [
+              {
+                "id": "anchor_hash",
+                "score": 1.0,
+                "summary": "anchor_hash=252d0fc3f883d4ce58b6dfa130a9e426c2d344ac401676721ac9826145a46b48"
+              },
+              {
+                "id": "constraint_count",
+                "score": 1.0,
+                "summary": "constraint_count=0"
+              },
+              {
+                "id": "gaps_detected",
+                "score": 1.0,
+                "summary": "gaps_detected=3"
+              },
+              {
+                "id": "llm_used",
+                "score": 1.0,
+                "summary": "llm_used=False"
+              },
+              {
+                "id": "llm_fallback",
+                "score": 1.0,
+                "summary": "llm_fallback=False"
+              }
+            ],
+            "selected": "Interpreter",
+            "selection_criteria": "role completed without errors",
+            "confidence": "HIGH",
+            "selection": {
+              "selected": "Interpreter",
+              "criteria": "role completed without errors",
+              "confidence": "HIGH",
+              "rationale": "Anchor extracted: hash=252d0fc3f883d4ce... (3 gap(s) detected)"
+            },
+            "rationale": "Anchor extracted: hash=252d0fc3f883d4ce... (3 gap(s) detected)",
+            "mission_id": "TASK-HOLDOUT-SES-027",
+            "risk": {},
+            "search_trace_version": "1.0",
+            "metadata": {
+              "role_status": "success"
+            },
+            "hash": "a4c09d692317f6741f21e1e782d440088cc07f19f2d08fc7836406ff3f5f6a60"
+          },
+          {
+            "role": "Decomposition",
+            "decision_type": "decomposition_phase",
+            "timestamp": "2026-06-29T17:50:16.043Z",
+            "parent_hashes": [
+              "a4c09d692317f6741f21e1e782d440088cc07f19f2d08fc7836406ff3f5f6a60"
+            ],
+            "search": {
+              "query": "Decomposition phase execution for mission TASK-HOLDOUT-SES-027",
+              "source": "pipeline_state",
+              "k": 6,
+              "total_results": 6
+            },
+            "results": [
+              {
+                "id": "coa_count",
+                "score": 1.0,
+                "summary": "coa_count=1"
+              },
+              {
+                "id": "coa_ids",
+                "score": 1.0,
+                "summary": "coa_ids: 1 item(s)"
+              },
+              {
+                "id": "gaps_detected",
+                "score": 1.0,
+                "summary": "gaps_detected=2"
+              },
+              {
+                "id": "nist_map",
+                "score": 1.0,
+                "summary": "nist_map: 7 key(s)"
+              },
+              {
+                "id": "llm_used",
+                "score": 1.0,
+                "summary": "llm_used=False"
+              }
+            ],
+            "selected": "Decomposition",
+            "selection_criteria": "role completed without errors",
+            "confidence": "HIGH",
+            "selection": {
+              "selected": "Decomposition",
+              "criteria": "role completed without errors",
+              "confidence": "HIGH",
+              "rationale": "Generated 1 COA(s) (2 gap(s) detected)"
+            },
+            "rationale": "Generated 1 COA(s) (2 gap(s) detected)",
+            "mission_id": "TASK-HOLDOUT-SES-027",
+            "risk": {},
+            "search_trace_version": "1.0",
+            "metadata": {
+              "role_status": "success"
+            },
+            "hash": "44a89df39b7525a0d82f09cf1d5386d2ae9f661ff8cd0a1ea01baae7184df060"
+          },
+          {
+            "role": "Procedure",
+            "decision_type": "procedure_phase",
+            "timestamp": "2026-06-29T17:50:16.043Z",
+            "parent_hashes": [
+              "44a89df39b7525a0d82f09cf1d5386d2ae9f661ff8cd0a1ea01baae7184df060"
+            ],
+            "search": {
+              "query": "Procedure phase execution for mission TASK-HOLDOUT-SES-027",
+              "source": "pipeline_state",
+              "k": 7,
+              "total_results": 7
+            },
+            "results": [
+              {
+                "id": "procedure_count",
+                "score": 1.0,
+                "summary": "procedure_count=2"
+              },
+              {
+                "id": "trigger_count",
+                "score": 1.0,
+                "summary": "trigger_count=2"
+              },
+              {
+                "id": "missing_ttp_gaps",
+                "score": 1.0,
+                "summary": "missing_ttp_gaps=0"
+              },
+              {
+                "id": "missing_procedure_gaps",
+                "score": 1.0,
+                "summary": "missing_procedure_gaps=0"
+              },
+              {
+                "id": "gaps_detected",
+                "score": 1.0,
+                "summary": "gaps_detected=0"
+              }
+            ],
+            "selected": "Procedure",
+            "selection_criteria": "role completed without errors",
+            "confidence": "HIGH",
+            "selection": {
+              "selected": "Procedure",
+              "criteria": "role completed without errors",
+              "confidence": "HIGH",
+              "rationale": "Generated 2 procedures, 2 triggers across 1 COA(s)"
+            },
+            "rationale": "Generated 2 procedures, 2 triggers across 1 COA(s)",
+            "mission_id": "TASK-HOLDOUT-SES-027",
+            "risk": {},
+            "search_trace_version": "1.0",
+            "metadata": {
+              "role_status": "success"
+            },
+            "hash": "ea62b9a8ab39452bebc57410588c68f014be45a75fd01827f03f2eed0bc1a7a8"
+          },
+          {
+            "role": "Binding",
+            "decision_type": "binding_phase",
+            "timestamp": "2026-06-29T17:50:16.043Z",
+            "parent_hashes": [
+              "ea62b9a8ab39452bebc57410588c68f014be45a75fd01827f03f2eed0bc1a7a8"
+            ],
+            "search": {
+              "query": "Binding phase execution for mission TASK-HOLDOUT-SES-027",
+              "source": "pipeline_state",
+              "k": 4,
+              "total_results": 4
+            },
+            "results": [
+              {
+                "id": "primary_coa",
+                "score": 1.0,
+                "summary": "primary_coa=COA-1"
+              },
+              {
+                "id": "risk_scores",
+                "score": 1.0,
+                "summary": "risk_scores: 1 key(s)"
+              },
+              {
+                "id": "llm_used",
+                "score": 1.0,
+                "summary": "llm_used=False"
+              },
+              {
+                "id": "llm_fallback",
+                "score": 1.0,
+                "summary": "llm_fallback=False"
+              }
+            ],
+            "selected": "Binding",
+            "selection_criteria": "role completed without errors",
+            "confidence": "HIGH",
+            "selection": {
+              "selected": "Binding",
+              "criteria": "role completed without errors",
+              "confidence": "HIGH",
+              "rationale": "Risk assessed for 1 COA(s), recommended: COA-1"
+            },
+            "rationale": "Risk assessed for 1 COA(s), recommended: COA-1",
+            "mission_id": "TASK-HOLDOUT-SES-027",
+            "risk": {},
+            "search_trace_version": "1.0",
+            "metadata": {
+              "role_status": "success"
+            },
+            "hash": "88c0faf759809b59224641bf8c382d498f112a798a74348c48a86281c53fb779"
+          },
+          {
+            "role": "Validation",
+            "decision_type": "validation_phase",
+            "timestamp": "2026-06-29T17:50:16.043Z",
+            "parent_hashes": [
+              "88c0faf759809b59224641bf8c382d498f112a798a74348c48a86281c53fb779"
+            ],
+            "search": {
+              "query": "Validate artifact for mission TASK-HOLDOUT-SES-027",
+              "source": "validator",
+              "k": 1,
+              "total_results": 1
+            },
+            "results": [
+              {
+                "id": "validator.validate_artifact",
+                "score": 1.0,
+                "summary": "Schema/hash/constraint validation run"
+              }
+            ],
+            "selected": "validator.validate_artifact",
+            "selection_criteria": "final pipeline gate",
+            "confidence": "HIGH",
+            "selection": {
+              "selected": "validator.validate_artifact",
+              "criteria": "final pipeline gate",
+              "confidence": "HIGH",
+              "rationale": "Validation role assembled and validated final artifact"
+            },
+            "rationale": "Validation role assembled and validated final artifact",
+            "mission_id": "TASK-HOLDOUT-SES-027",
+            "risk": {},
+            "search_trace_version": "1.0",
+            "hash": "f3f7d85d3fedda925807bc71b506515c131814ad905f049798ebbf9e0d4e569b"
+          }
+        ]
+      },
+      "registry_reference": {
+        "similar_mandates": [],
+        "match_type": "NOVEL",
+        "similarity_description": "Success registry not configured."
+      },
+      "metadata": {
+        "sources_consulted": [
+          "mission_input",
+          "anchor",
+          "courses_of_action",
+          "constraints",
+          "validation_algorithm",
+          "trace_chain",
+          "local_pipeline_state"
+        ],
+        "input_hash": "857614c3253d15b39fee19d8310874dd5c1d1e3748eea45e6a9049d59fa16b80",
+        "output_hash": "cc2ee8495d1b72173ba88d55c7bb0f0a0f775d968a9b5e4dbae30b7921bd3eb3"
+      }
+    },
+    "gap_reports": [
+      {
+        "gap_id": "GAP-TASK-HOLDOUT-SES-027-001",
+        "gap_type": "UNDEFINED_MINIMUM",
+        "severity": "DEGRADING",
+        "gap_source": "SPECIFICATION_GAP",
+        "detected_by": "Interpreter",
+        "pipeline_stage": 2,
+        "location": {
+          "category": "anchor",
+          "input_reference": "mission_input",
+          "field_or_task": "minimum_outcome"
+        },
+        "evidence": {
+          "trace_entry_hashes": [
+            "0b37c60e2ee5ae05ce690d3b962c1b20808a3e0e9babd5fc90345dfdc7cccbfa"
+          ]
+        },
+        "reason": "Mission input does not specify an explicit minimum outcome. A default was derived from mission intent.",
+        "remediation": {
+          "action_required": "Define an explicit minimum_outcome field with quantifiable acceptance criteria.",
+          "responsible_party": "Mission Author",
+          "complexity": "LOW"
+        },
+        "readiness_score": {
+          "completion_percentage": 30,
+          "blocking": false,
+          "partial_spec_available": true
+        },
+        "readiness_assessment": {
+          "completeness_score": 0.14,
+          "readiness_percentage": 14,
+          "blocking_gap_count": 1,
+          "recommendation": "INSUFFICIENT_FOR_AUTOMATION"
+        },
+        "trace_to_gap": "0b37c60e2ee5ae05ce690d3b962c1b20808a3e0e9babd5fc90345dfdc7cccbfa"
+      },
+      {
+        "gap_id": "GAP-TASK-HOLDOUT-SES-027-002",
+        "gap_type": "UNDEFINED_TARGET",
+        "severity": "DEGRADING",
+        "gap_source": "SPECIFICATION_GAP",
+        "detected_by": "Interpreter",
+        "pipeline_stage": 2,
+        "location": {
+          "category": "anchor",
+          "input_reference": "mission_input",
+          "field_or_task": "target_outcome"
+        },
+        "evidence": {
+          "trace_entry_hashes": [
+            "9189c32ed30c3fbb6febd306460b74b42ed33f667ce312159abea4967322fb13"
+          ]
+        },
+        "reason": "Mission input does not specify an explicit target outcome. A default was derived from mission intent.",
+        "remediation": {
+          "action_required": "Define an explicit target_outcome field describing the ideal outcome with measurable criteria.",
+          "responsible_party": "Mission Author",
+          "complexity": "LOW"
+        },
+        "readiness_score": {
+          "completion_percentage": 30,
+          "blocking": false,
+          "partial_spec_available": true
+        },
+        "readiness_assessment": {
+          "completeness_score": 0.14,
+          "readiness_percentage": 14,
+          "blocking_gap_count": 1,
+          "recommendation": "INSUFFICIENT_FOR_AUTOMATION"
+        },
+        "trace_to_gap": "9189c32ed30c3fbb6febd306460b74b42ed33f667ce312159abea4967322fb13"
+      },
+      {
+        "gap_id": "GAP-TASK-HOLDOUT-SES-027-003",
+        "gap_type": "UNASSESSABLE_RISK",
+        "severity": "DEGRADING",
+        "gap_source": "SPECIFICATION_GAP",
+        "detected_by": "Interpreter",
+        "pipeline_stage": 2,
+        "location": {
+          "category": "risk",
+          "input_reference": "mission_input",
+          "field_or_task": "risk_tolerance"
+        },
+        "evidence": {
+          "trace_entry_hashes": [
+            "36ef5dc435f9b917b30059aa709c4c9a2fd19fa5ce2be9de60c85a184ae4e4f0"
+          ]
+        },
+        "reason": "Cannot determine risk tolerance. No explicit risk_tolerance was provided and no FORBIDS constraints exist to infer one.",
+        "remediation": {
+          "action_required": "Provide an explicit risk_tolerance field (LOW, MEDIUM, or HIGH) or add FORBIDS constraints to establish boundaries.",
+          "responsible_party": "Mission Author",
+          "complexity": "LOW"
+        },
+        "readiness_score": {
+          "completion_percentage": 0,
+          "blocking": false,
+          "partial_spec_available": false
+        },
+        "readiness_assessment": {
+          "completeness_score": 0.14,
+          "readiness_percentage": 14,
+          "blocking_gap_count": 1,
+          "recommendation": "INSUFFICIENT_FOR_AUTOMATION"
+        },
+        "trace_to_gap": "36ef5dc435f9b917b30059aa709c4c9a2fd19fa5ce2be9de60c85a184ae4e4f0"
+      },
+      {
+        "gap_id": "GAP-TASK-HOLDOUT-SES-027-004",
+        "gap_type": "MISSING_CAPABILITY",
+        "severity": "DEGRADING",
+        "gap_source": "SPECIFICATION_GAP",
+        "detected_by": "Decomposition",
+        "pipeline_stage": 3,
+        "location": {
+          "category": "capability",
+          "input_reference": "mission_input",
+          "field_or_task": "available_tools"
+        },
+        "evidence": {
+          "trace_entry_hashes": [
+            "c7875e0b3a65e5f6ad02692630031b7ebcd33939b165ed361f18aca62b381327"
+          ]
+        },
+        "reason": "No tools specified in mission input. COA generation limited to manual assessment approach.",
+        "remediation": {
+          "action_required": "Provide available_tools with tool_id, tool_class, and description for each available tool.",
+          "responsible_party": "Mission Author",
+          "complexity": "MEDIUM"
+        },
+        "readiness_score": {
+          "completion_percentage": 10,
+          "blocking": false,
+          "partial_spec_available": false
+        },
+        "readiness_assessment": {
+          "completeness_score": 0.14,
+          "readiness_percentage": 14,
+          "blocking_gap_count": 1,
+          "recommendation": "INSUFFICIENT_FOR_AUTOMATION"
+        },
+        "trace_to_gap": "c7875e0b3a65e5f6ad02692630031b7ebcd33939b165ed361f18aca62b381327"
+      },
+      {
+        "gap_id": "GAP-TASK-HOLDOUT-SES-027-005",
+        "gap_type": "UNKNOWN_PATTERN",
+        "severity": "BLOCKING",
+        "gap_source": "SPECIFICATION_GAP",
+        "detected_by": "Decomposition",
+        "pipeline_stage": 3,
+        "location": {
+          "category": "task_dag",
+          "input_reference": "mission_input",
+          "field_or_task": "scope"
+        },
+        "evidence": {
+          "trace_entry_hashes": [
+            "27e5efd6966ba83d3ad04c903f341b5f2ee3b60ee2cd238cda5a769d9ad6d0e7"
+          ]
+        },
+        "reason": "No target scope defined. Cannot generate targeted COAs without knowing the operational boundary.",
+        "remediation": {
+          "action_required": "Define scope as a list of target identifiers (IP ranges, hostnames, or asset references).",
+          "responsible_party": "Mission Author",
+          "complexity": "LOW"
+        },
+        "readiness_score": {
+          "completion_percentage": 0,
+          "blocking": true,
+          "partial_spec_available": false
+        },
+        "readiness_assessment": {
+          "completeness_score": 0.14,
+          "readiness_percentage": 14,
+          "blocking_gap_count": 1,
+          "recommendation": "INSUFFICIENT_FOR_AUTOMATION"
+        },
+        "trace_to_gap": "27e5efd6966ba83d3ad04c903f341b5f2ee3b60ee2cd238cda5a769d9ad6d0e7"
+      }
+    ],
+    "has_gaps": true
+  },
+  "ok": true
+}

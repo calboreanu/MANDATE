@@ -1,0 +1,4 @@
+  PID     ELAPSED  %CPU %MEM    RSS      VSZ STAT COMMAND
+ 5644 01-01:26:08   0.0  0.8 555600 435734768 S+   .venv/bin/python -u -m apparatus.run grade --anonymized 08_grading/anonymized_outputs --ground-truth 04_ground_truth/ground_truth.json --judges-config 08_grading/judges_config.json --out 08_grading --double-grade-pct 0.20 --double-grade-seed 20260616
+
+--- lsof 08_grading/tmp handles ---

@@ -1,0 +1,17 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.12, pytest-9.0.3, pluggy-1.6.0 -- /usr/bin/python
+cachedir: .pytest_cache
+rootdir: /sessions/intelligent-ecstatic-cerf/mnt/Desktop/AEGIS
+configfile: pyproject.toml
+collecting ... collected 8 items
+
+tests/mandate/test_nist_rmf.py::TestNistRmfModule::test_build_map_metadata PASSED [ 12%]
+tests/mandate/test_nist_rmf.py::TestNistRmfModule::test_build_measure_metadata_with_validation PASSED [ 25%]
+tests/mandate/test_nist_rmf.py::TestNistRmfModule::test_build_nist_rmf_metadata_shape PASSED [ 37%]
+tests/mandate/test_nist_rmf.py::TestNistRmfModule::test_build_govern_metadata_accountability PASSED [ 50%]
+tests/mandate/test_nist_rmf.py::TestNistRmfModule::test_build_manage_metadata_monitoring PASSED [ 62%]
+tests/mandate/test_nist_rmf.py::TestNistRmfModule::test_build_manage_metadata_with_validation PASSED [ 75%]
+tests/mandate/test_nist_rmf.py::TestNistRmfPipelineIntegration::test_decomposition_role_emits_map_metadata PASSED [ 87%]
+tests/mandate/test_nist_rmf.py::TestNistRmfPipelineIntegration::test_validation_artifact_contains_nist_metadata PASSED [100%]
+
+============================== 8 passed in 0.09s ===============================

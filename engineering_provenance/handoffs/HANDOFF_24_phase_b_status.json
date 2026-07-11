@@ -1,0 +1,97 @@
+{
+  "current_state": "parallel_gen_and_grade",
+  "generation": {
+    "baseline_1": {
+      "n_records": 3500,
+      "state": "complete",
+      "target": 3500
+    },
+    "baseline_2": {
+      "n_records": 3500,
+      "state": "complete",
+      "target": 3500
+    },
+    "baseline_3": {
+      "n_records": 3500,
+      "state": "complete",
+      "target": 3500
+    },
+    "baseline_4": {
+      "n_records": 2993,
+      "state": "running",
+      "target": 3500
+    },
+    "baseline_5": {
+      "n_records": 0,
+      "rationale": "multi-agent-shell class representative measured via baseline_4",
+      "scope_amendment": "HANDOFF_24c",
+      "state": "scoped_out",
+      "target": 3500
+    },
+    "baseline_6": {
+      "n_records": 0,
+      "rationale": "multi-agent-shell class representative measured via baseline_4",
+      "scope_amendment": "HANDOFF_24c",
+      "state": "scoped_out",
+      "target": 3500
+    }
+  },
+  "grading": {
+    "baseline_1_perturbations": {
+      "n_graded": 3498,
+      "state": "running",
+      "target": 3500
+    },
+    "baseline_2_perturbations": {
+      "n_graded": 3500,
+      "state": "complete",
+      "target": 3500
+    },
+    "baseline_3_perturbations": {
+      "n_graded": 3487,
+      "state": "running",
+      "target": 3500
+    },
+    "baseline_4_perturbations": {
+      "n_graded": 0,
+      "state": "waiting_for_generation",
+      "target": 3500
+    },
+    "baseline_5_perturbations": {
+      "n_graded": 0,
+      "rationale": "multi-agent-shell class representative measured via baseline_4",
+      "scope_amendment": "HANDOFF_24c",
+      "state": "scoped_out",
+      "target": 3500
+    },
+    "baseline_6_perturbations": {
+      "n_graded": 0,
+      "rationale": "multi-agent-shell class representative measured via baseline_4",
+      "scope_amendment": "HANDOFF_24c",
+      "state": "scoped_out",
+      "target": 3500
+    },
+    "cond_a_perturbations": {
+      "n_graded": 350,
+      "state": "complete",
+      "target": 350
+    },
+    "cond_b_perturbations": {
+      "n_graded": 350,
+      "state": "complete",
+      "target": 350
+    },
+    "mandate_primary_perturbations": {
+      "n_graded": 3500,
+      "state": "complete",
+      "target": 3500
+    }
+  },
+  "rate_limit_policy": {
+    "grader_max_workers_after_baseline_2_complete": 5,
+    "grader_max_workers_while_baseline_2_generating": 3
+  },
+  "scope_amendment": "HANDOFF_24c",
+  "scoped_grade_target": 18200,
+  "updated_at": "2026-07-08T12:27:54.273721+00:00"
+}

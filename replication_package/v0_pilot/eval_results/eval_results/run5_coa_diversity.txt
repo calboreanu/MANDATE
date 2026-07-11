@@ -1,0 +1,13 @@
+============================================================
+COA DIVERSITY METRICS
+============================================================
+
+  quarterly_report_mandate.json  (2 COAs)
+    COA-A     DAG=3n/2e  risk=MEDIUM  time=2h     procs=2  caps=1
+    COA-B     DAG=4n/3e  risk=LOW     time=8h     procs=1  caps=1
+    Diversity: dag_size_varies, risk_varies, time_varies, approach_differs
+
+============================================================
+Mandates with COAs: 1
+Total COAs analyzed: 2
+Results written to eval_coa_diversity_results.json
