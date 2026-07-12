@@ -37,6 +37,33 @@ aggressive). The recommendation selects COA-2 with fallback sequence
 | `output/audit_log.jsonl` | LATTICE audit log (12 ALLOW verdicts; bundle approvals) |
 | `keys/public_key.pem` | Public key for evidence-chain signature verification (private key intentionally excluded) |
 | `scenario/mission_definition.py` | The scenario definition: COA task DAGs and the tool-to-MITRE-ATT&CK-TTP bindings (T1595, T1046, T1190) |
+| `authority_dispositions.json` | Companion authorization-plane disposition matrix: 8 expected-vs-actual verdicts exercising the human-authority routing (see note below) |
+
+## Human-authority routing (the escalation evidence)
+
+The mission policy (`bundles/policy.json`) routes each action by
+confidence band (`thresholds: autonomous 85, hitl 65, escalate 45`) and
+by hard-safety rules (out-of-scope, missing prerequisite, irreversible).
+In this pen-test run every action scored in the autonomous band
+(confidence 100) and was auto-approved, so the human-in-the-loop and
+escalate paths did not fire here; the exhibit demonstrates that the
+human-authority boundary is explicit and policy-defined in the executed
+path, not that it fired in this low-risk demo.
+
+`authority_dispositions.json` is where those paths fire: 8 expected-vs-
+actual dispositions (2 ALLOW, 2 ESCALATE, 4 BLOCK), all matching
+expected, including ESCALATE on out-of-window and irreversible actions
+and BLOCK on out-of-scope, missing-prerequisite, and wrong-target
+actions. **Honest coverage note:** the file's `domains` array names three
+domains (offensive_security, electric_utility_switching,
+clinical_infusion), but the 8 result rows cover electric-utility (5) and
+clinical (3) only; there is no offensive-security disposition row.
+Offensive-security is the domain of the pen-test COA above (which ran in
+the autonomous band); the escalate/block dispositions are validated on
+the electric-utility and clinical scenarios. This is companion
+authorization-plane evidence from the same AEGIS reference
+implementation; it is included here so the routing claim is verifiable,
+not as a MANDATE-specific evaluation result.
 
 ## Artifact caveats (honest disclosure)
 
