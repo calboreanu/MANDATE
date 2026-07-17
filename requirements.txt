@@ -1,0 +1,88 @@
+# MANDATE 2026Q2 evaluation deposit — pinned Python dependencies for `code/`
+# (the apparatus package, `code/scripts/`, and `code/apparatus/verify_mandate_primary.py`).
+#
+# Added 2026-07-17 (pre-push fix D1). This file is the deposit's dependency
+# manifest; the `environment.yml` mentioned in older docs belongs to the
+# upstream eval-host tree and is NOT part of this deposit.
+#
+# ------------------------------------------------------------------------------
+# PYTHON VERSION — the "3.11 vs 3.12" wrinkle (docs/ENVIRONMENT.md,
+# docs/REPLICATION_INSTRUCTIONS.md "Environment"):
+#   The eval-host `environment.yml` pins `python>=3.11`, but the evaluation
+#   actually executed under Python 3.12.12 (pyenv-managed `.venv`). Use
+#   Python 3.12.12 for byte-faithful reproduction. Several pins below
+#   (numpy/scipy/pandas/scikit-learn) REQUIRE Python >= 3.11 and will not
+#   resolve on older interpreters.
+#
+# PIN PROVENANCE:
+#   Primary source: the attested eval-host freeze
+#   `pre_registration/provenance_pip_freeze.txt` (captured 2026-06-03, host
+#   lattice-ws01, Python 3.12.12 venv). Packages absent from that freeze
+#   (added to the apparatus after capture) are pinned to versions
+#   import-verified in the 2026-07-17 deposit-prep sandbox, or to a
+#   contemporaneous release where noted. Verification status per line:
+#     [freeze]          version exactly as attested in provenance_pip_freeze.txt
+#     [sandbox-import]  exact pin installed + import-verified in the
+#                       deposit-prep sandbox (Python 3.10; pins target 3.12.12)
+#     [pypi-only]       exact pin confirmed to exist on PyPI; not importable in
+#                       the Python 3.10 deposit-prep sandbox (requires >=3.11
+#                       or too heavy to install there)
+#
+# Tier 1 (read-only verification) needs NONE of these — it is stdlib-only.
+# ------------------------------------------------------------------------------
+
+# --- Core numeric / statistics (analysis, scoring, bootstrap contrasts) ---
+numpy==2.4.6            # [freeze] requires Python >=3.11 (sandbox import-verified only at 2.2.6 on py3.10)
+scipy==1.17.1           # [freeze] apparatus/analysis/power.py; requires Python >=3.11
+pandas==3.0.3           # [freeze] optional export path in apparatus/analysis/models.py; requires Python >=3.11
+
+# --- Grading / inter-rater reliability (Tier 2) ---
+scikit-learn==1.8.0     # [freeze] cohen_kappa_score in apparatus/grading/ensemble.py; requires Python >=3.11
+krippendorff==0.8.2     # [sandbox-import] [freeze] Krippendorff alpha in apparatus/grading/ensemble.py
+jsonschema==4.26.0      # [sandbox-import] [freeze] RunRecord/output schema checks in apparatus/baselines/schema.py
+
+# --- LLM provider SDKs (Tier 2 judges, Tier 3 baselines/conditions) ---
+anthropic==0.104.1      # [sandbox-import] [freeze]
+openai==2.38.0          # [sandbox-import] [freeze]
+google-genai==2.8.0     # [pypi-only] GeminiClient uses `from google import genai`
+                        # (code/apparatus/baselines/llm_client.py). NOT in the 2026-06-03
+                        # freeze — the freeze carries the older google-generativeai==0.8.6
+                        # SDK; the deposited client targets the google-genai SDK, whose
+                        # exact eval-time version was not captured. 2.8.0 is a mid-2026
+                        # release contemporaneous with the grading window; the client
+                        # isolates the call surface so minor SDK drift is contained.
+
+# --- Notebook execution (Tier 4 `run-analysis`; notebooks live in the upstream eval tree) ---
+nbformat==5.10.4        # [pypi-only] [freeze]
+nbconvert==7.17.1       # [pypi-only] [freeze]
+
+# --- Corpus-generation extras (apparatus/corpus/*; NOT needed for Tiers 1-4 replication,
+# --- only if you regenerate corpora from source documents) ---
+sentence-transformers==5.5.1   # [pypi-only] [freeze] optional semantic-dedup embeddings (apparatus/corpus/embeddings.py)
+pypdf==6.13.1           # [sandbox-import] not in freeze; PDF text extraction (apparatus/corpus/sources/fetch.py)
+python-docx==1.2.0      # [sandbox-import] not in freeze; DOCX extraction (fetch.py)
+python-pptx==1.0.2      # [sandbox-import] not in freeze; PPTX extraction (fetch.py)
+
+# --- Test suite ---
+pytest==9.0.3           # [pypi-only] [freeze] runs code/apparatus/**/tests
+
+# ------------------------------------------------------------------------------
+# NOT pip-installable / NOT vendored here:
+#
+# mlt-stack==1.0.0rc1   # the canonical MANDATE implementation under test
+#                       # (imported as `mlt.*` by apparatus/systems/mandate_canonical.py,
+#                       # apparatus/preprocess/extract_mission_input.py, and the
+#                       # ablation/xvendor scripts; transitively required by
+#                       # apparatus/verify_mandate_primary.py and Tiers 3-4).
+#                       # Proprietary Swift Group component, distributed on request
+#                       # for replication purposes — see docs/REPLICATION_INSTRUCTIONS.md,
+#                       # "Acquiring mlt-stack". Do not substitute a later stack
+#                       # release for byte-faithful re-execution (repo has advanced
+#                       # to v1.0.3; replicate against 1.0.0rc1).
+#
+# The `mandate` / `aegis` modules referenced by apparatus/systems/mandate_primary.py
+# and apparatus/corpus/ come from the frozen upstream AEGIS-eval tree (supplied at
+# runtime via the --aegis path argument; tag mandate-eval-primary-2026q2-v1,
+# commit 4f8af83). They are likewise proprietary and not on PyPI (see
+# replication_package/v0_pilot/README.md).
+# ------------------------------------------------------------------------------

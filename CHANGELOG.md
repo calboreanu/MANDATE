@@ -1,5 +1,53 @@
 # Changelog — MANDATE 2026Q2 Evaluation Deposit
 
+## v2-closeout+deposit-prep — 2026-07-17
+
+Pre-push metadata and replication fixes (D1–D8); no evidence files modified
+except the supplement PDF re-sync.
+
+- Dependency manifest added: root `requirements.txt` (pins derived from the
+  attested eval-host freeze `pre_registration/provenance_pip_freeze.txt`;
+  documents the Python "3.11 pin vs 3.12.12 actual" wrinkle; mlt-stack listed
+  commented-out as not-pip-installable).
+- `docs/REPLICATION_INSTRUCTIONS.md` rewritten against the actual deposit
+  layout (eval-host paths like `07_system_outputs/` replaced with
+  `replication_package/v1_main/...`); every Tier-1 command smoke-tested from a
+  fresh offline checkout (all pass, results recorded inline); new
+  "Environment", "Acquiring mlt-stack", and offline-runnability sections
+  (Tier 1 offline; Tier 2 needs judge SDKs/keys; Tiers 3–4 need
+  mlt-stack 1.0.0rc1).
+- `code/apparatus/verify_mandate_primary.py`: guarded import — if
+  `mlt.*` (mlt-stack 1.0.0rc1) is absent it now prints an acquisition
+  message and exits 3 instead of tracebacking; verification logic unchanged.
+- `docs/EXCLUSIONS.md` added (promised-but-absent paths with status:
+  strongest-baseline selection rule superseded by PROTOCOL_LOCK;
+  `v0_5_pilot/authorized_lab/` corpus and `ab_evaluation.py` not deposited
+  (proprietary upstream AEGIS tree, on request); `profile_aggregates.json`
+  deposited under `v1_main/findings_extracted/v1_pilot_cross_profile/`).
+- `docs/ERRATA.md` added (E-1: v1 Anthropic judge labeled "Opus" in
+  `judges_config.json`/judge IDs/claim-map row 5 but executed as
+  Claude Sonnet 4.6 per the per-judge `model` fields, Deviation D-08; v2
+  full coverage restored Opus per D-10). README links both new docs.
+- README: "Provenance note on absolute paths" (frozen evidence records
+  eval-host absolute paths as executed; inert, credential-free, deliberately
+  unmodified).
+- `CITATION.cff` version/date refreshed to this deposit-prep state.
+- `supplement_pdfs/Empirical Evidence Supplemental.pdf` re-synced
+  (2026-07-17) after supplement corrections.
+
+## v2-closeout+exhibits — 2026-07-11/12
+
+- Deposit doc fixes from AUDIT12 pass 8 (reproducibility audit) — README.
+- Governed-execution pilot exhibit added under
+  `replication_package/v0_pilot/governed_execution_exhibit/`
+  (offensive-security COA: policy/bundle JSONs, public key, audit log,
+  evidence chain).
+- Exhibit traceability fixes (re-audit C5): mission definition + caveats.
+- Deposit hygiene (C6 I-3): scenario exhibit made self-contained
+  (dataclass models added alongside the mission definition).
+- Human-authority routing evidence (`authority_dispositions.json`) added to
+  the governed-execution exhibit.
+
 ## v2-closeout+contrasts — 2026-07-10
 
 - Claim-to-data mapping pass: every §12 Tier-2 number recomputed from

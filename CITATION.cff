@@ -4,8 +4,8 @@ message: >-
   repository URL and version.
 title: "MANDATE 2026Q2 Evaluation — Replication Package (mandate-eval-primary-2026q2)"
 type: dataset
-version: v2-closeout-2026-07-08
-date-released: "2026-07-08"
+version: v2-closeout+deposit-prep-2026-07-17
+date-released: "2026-07-17"
 authors:
   - family-names: Calboreanu
     given-names: Elias

@@ -37,11 +37,34 @@ _PROJECT_ROOT = os.path.dirname(_HERE)
 if _PROJECT_ROOT not in sys.path:
     sys.path.insert(0, _PROJECT_ROOT)
 
-from apparatus.harness.ledger import RunLedger
-from apparatus.harness.runner import load_tasks, run_matrix
-from apparatus.harness.records import utc_now_iso
-from apparatus.systems.mandate_primary import (MandatePrimarySystem,
-                                               load_ollama_config)
+try:
+    from apparatus.harness.ledger import RunLedger
+    from apparatus.harness.runner import load_tasks, run_matrix
+    from apparatus.harness.records import utc_now_iso
+    from apparatus.systems.mandate_primary import (MandatePrimarySystem,
+                                                   load_ollama_config)
+except ImportError as _exc:
+    # Importing apparatus.systems initializes the package, which imports the
+    # canonical MANDATE implementation (`mlt.*`, mlt-stack 1.0.0rc1). That
+    # stack is deliberately not vendored in this deposit; without it this
+    # script cannot run. Verification logic below is unchanged.
+    _missing = getattr(_exc, "name", "") or ""
+    if _missing == "mlt" or _missing.startswith("mlt."):
+        sys.stderr.write(
+            "[MISSING DEPENDENCY] mlt-stack 1.0.0rc1 is not installed "
+            "(import of %r failed: %s).\n"
+            "mlt-stack is the canonical MANDATE implementation under test. "
+            "It is a proprietary Swift Group component and is not vendored "
+            "in this deposit; it is distributed on request for replication "
+            "purposes.\n"
+            "See docs/REPLICATION_INSTRUCTIONS.md, section 'Acquiring "
+            "mlt-stack (canonical MANDATE implementation)', for how to "
+            "obtain it. Byte-faithful re-execution requires exactly "
+            "1.0.0rc1 (the stack has since advanced past this release).\n"
+            "Tier 1 (read-only) verification does not need mlt-stack or "
+            "this script.\n" % (_missing, _exc))
+        sys.exit(3)
+    raise
 
 EXPECTED_ROLES = ["Intake", "Interpreter", "Decomposition",
                   "Procedure", "Binding", "Validation"]

@@ -31,6 +31,8 @@ contribution is the structural governance layer, not raw planning coverage.
 | Check the locked protocol + halt rules | `pre_registration/PROTOCOL_LOCK.md` |
 | See every protocol deviation | `pre_registration/DEVIATIONS.md` + supplement Deviation Table (13 rows) |
 | Know what cannot be replicated | `docs/KNOWN_GAPS.md` |
+| See which planned paths are intentionally absent (and why) | `docs/EXCLUSIONS.md` |
+| Check label errata in frozen artifacts (v1 judge "Opus"/Sonnet) | `docs/ERRATA.md` |
 
 ## Quickstart (read-only verification, no compute)
 
@@ -76,7 +78,10 @@ wc -l replication_package/v2_complete/perturbations_mandate/*.jsonl   # 3500 + 3
 - `engineering_provenance/` — full handoff chronology (119 files) + cost
   ledger with the closeout addendum. Reviewers can skip this directory.
 - `docs/` — replication instructions, environment spec, claim-to-data map,
-  partial-replication guide, known gaps.
+  partial-replication guide, known gaps, exclusions, errata.
+- `requirements.txt` — pinned dependency manifest for `code/` (Tier 1 needs
+  no installs; see the "Environment" section of
+  `docs/REPLICATION_INSTRUCTIONS.md`).
 
 ## Provenance
 
@@ -86,7 +91,18 @@ Frozen artifacts are pinned by git tags in the evaluation tree:
 apparatus tag `mandate-eval-primary-2026q2-v1` (commit `4f8af83`).
 The evaluation executed against `mlt-stack 1.0.0rc1` (canonical MANDATE
 implementation); artifacts verify against later stack releases, but
-byte-faithful re-execution should use 1.0.0rc1.
+byte-faithful re-execution should use 1.0.0rc1. mlt-stack is not vendored
+here; see `docs/REPLICATION_INSTRUCTIONS.md` ("Acquiring mlt-stack").
+
+**Provenance note on absolute paths.** Frozen evidence files in this
+repository (pilot run logs, handoff records, extracted findings, and other
+audit artifacts) record eval-host absolute paths exactly as executed — e.g.
+`/Users/ws01admin/...` and host `lattice-ws01` working-tree paths. These are
+inert provenance metadata: they identify where the runs happened, contain no
+credentials or secrets, and were deliberately preserved unmodified rather
+than rewritten, so that the frozen evidence remains byte-faithful to what the
+audits attested. No command in `docs/REPLICATION_INSTRUCTIONS.md` depends on
+them.
 
 ## Status disclosures (read before citing)
 
@@ -110,7 +126,9 @@ byte-faithful re-execution should use 1.0.0rc1.
   Sonnet substituted under deviation D-08 and v2 restored Opus under
   D-10. `pre_registration/DEVIATIONS.md` carries the four long-form
   deviation narratives; the complete 13-entry structured table is §9 of
-  the Empirical Evidence Supplemental in `supplement_pdfs/`.
+  the Empirical Evidence Supplemental in `supplement_pdfs/`; the precise
+  file-level erratum (which fields say Opus, which prove Sonnet) is
+  `docs/ERRATA.md`.
 - Cond-A receives pre-extracted structured input and is an upper-bound
   characterization, **not** an apples-to-apples comparator against baselines;
   the fair MANDATE comparator is Cond-B.
