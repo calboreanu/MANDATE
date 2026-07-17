@@ -14,7 +14,7 @@
 
 These per-vendor numbers reproduce the apparatus's own `HANDOFF_22_xvendor_status.json` metrics exactly for ok-rate, mean wall clock, trace completeness, and mean gap count — the cross-check that confirms the corrected field paths are the right ones. **COA count is the one metric where this analysis and the apparatus disagree: the apparatus reports 0.0 (a bug), the truth is ~2.3 (see COA note below).**
 
-**LLM fallback rate is the critical caveat.** On Llama 3.2 and Phi-3, the LLM-augmented Interpreter fails schema validation on 100% of records; the apparatus' deterministic fallback path produces the structural completeness on those vendors. On Mistral, fallback is 66.7% (all-domain aggregate). Only Qwen 2.5 has a low fallback rate (5.3%). The 1200/1200 structural completeness demonstrates **apparatus safety-chain invariance across LLM capability tiers**, not LLM-Interpreter invariance across all four vendors uniformly.
+**LLM fallback rate is the critical caveat.** On Llama 3.2 and Phi-3, the any-role LLM fallback union reaches 100% of records (Interpreter-only schema-validation failures: Llama 64%, Phi-3 20%; the remainder of the union comes from the other roles); the apparatus' deterministic fallback path produces the structural completeness on those records. On Mistral, fallback is 66.7% (all-domain aggregate). Only Qwen 2.5 has a low fallback rate (5.3%). The 1200/1200 structural completeness demonstrates **apparatus safety-chain invariance across LLM capability tiers**, not LLM-Interpreter invariance across all four vendors uniformly.
 
 Per-vendor per-domain fallback breakdown:
 
@@ -40,7 +40,7 @@ Per-vendor per-domain fallback breakdown:
 
 ## Bottom line
 
-**Structural completeness is verified across 4 LLM vendor families (Qwen 2.5 32B, Llama 3.2 3B, Mistral 7B, Phi-3 14B).** Every one of 1200 records is structurally valid: 100% ok-rate, 100% six-entry hash-chained trace completeness, COA emission on every record, and gap-report emission on every record. On 2 of 4 vendors (Llama and Phi-3), that structural completeness comes entirely from the apparatus' deterministic fallback path because the LLM-augmented Interpreter fails schema validation 100% of the time. The formal scaffold MANDATE imposes is therefore **apparatus-guaranteed** rather than LLM-provided on those two vendors: MANDATE's defense-in-depth chain (LLM attempts extraction; schema validator catches failures; deterministic fallback fires) produces the structural completeness across the full vendor mix.
+**Structural completeness is verified across 4 LLM vendor families (Qwen 2.5 32B, Llama 3.2 3B, Mistral 7B, Phi-3 14B).** Every one of 1200 records is structurally valid: 100% ok-rate, 100% six-entry hash-chained trace completeness, COA emission on every record, and gap-report emission on every record. On 2 of 4 vendors (Llama and Phi-3), that structural completeness relies on the apparatus' deterministic fallback path on every record, because at least one role's LLM path fails per record (any-role union 100%; Interpreter-only schema-validation failures are 64% and 20% respectively). The formal scaffold MANDATE imposes is therefore **apparatus-guaranteed** rather than LLM-provided on those two vendors: MANDATE's defense-in-depth chain (LLM attempts extraction; schema validator catches failures; deterministic fallback fires) produces the structural completeness across the full vendor mix.
 
 **Honest caveat — invariance is structural, not semantic.** The `anchor_hash` is *never* identical across vendors (0/300): different LLM families extract different `minimum`/`target`/`constraints` content for the same task, so the anchors differ even though their structure is uniform. This is the expected behaviour of an LLM-augmented interpreter and is **not** a structural-invariance failure — the invariant is the *form* (roles, trace chain, COA/gap discipline, validity), not the verbatim *content*. Gap-count also varies across vendors (mean variance 3.43), consistent with content-level differences in how many specification gaps each model surfaces.
 
@@ -69,3 +69,6 @@ Phi-3 (14B)    & phi3:14b    & 300 & 1.00 & 128.2 & 1.00 & 2.28 & 3.76 \\
 ```
 
 All four vendor rows are populated from `per_vendor_aggregates.json` (regenerated 2026-07-01). Supplement §1.2 Claim~3 carries the authoritative per-vendor per-domain fallback breakdown.
+
+
+*Correction 2026-07-17: fallback rates in this note are any-role union rates; earlier wording attributed them to Interpreter schema validation alone. See docs/ERRATA.md.*

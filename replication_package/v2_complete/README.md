@@ -7,11 +7,15 @@ abandoned (Deviations D-12/D-13).
 ## cross_vendor/ (1,200 records; complete)
 `cond_b_xvendor_{qwen,llama,mistral,phi}.jsonl` — 300 records each
 (stratified 100 × FIN/INT/SEC), all structurally valid. Read with the
-fallback disclosure: on Llama 3.2 (3B) and Phi-3 (14B) the LLM-augmented
-Interpreter fails schema validation on 100% of records and the deterministic
-fallback produces the valid output (per-record fields `any_llm_fallback`,
-`fallback_roles`). Cross-vendor structural completeness demonstrates the
-apparatus' defense-in-depth chain, **not** LLM-Interpreter invariance.
+fallback disclosure: on Llama 3.2 (3B) and Phi-3 (14B) the any-role LLM
+fallback union reaches 100% of records (Interpreter-only schema-validation
+failures are 64% and 20% respectively; the remainder of the union comes
+from the other roles) and the deterministic fallback produces the valid
+output (per-record fields `any_llm_fallback`, `fallback_roles`).
+Cross-vendor structural completeness demonstrates the apparatus'
+defense-in-depth chain, **not** LLM-role invariance. (Corrected
+2026-07-17: an earlier revision of this note attributed the 100% union
+rate to Interpreter schema validation alone.)
 
 ## perturbations_mandate/ (4,200 records; Phase A complete 2026-07-01)
 - `mandate_primary_perturbations.jsonl` — 3,500 (350 perturbations × 10 seeds).
