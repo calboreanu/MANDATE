@@ -58,3 +58,7 @@ narratives are in `pre_registration/DEVIATIONS.md` and the 13-row structured
 deviation table is §9 of the Empirical Evidence Supplemental
 (`supplement_pdfs/`). Anyone re-grading v1 for comparison should judge with
 Claude Sonnet 4.6, not Opus, to match the v1 artifacts.
+
+## E-2: Stale pilot gap-detection artifact at the prominent path
+
+`replication_package/v0_pilot/eval_results/eval_gap_detection_results.json` (tp=27, precision 96.4%, total_examples=125) is a stale pre-correction copy. The canonical artifact is the nested copy `replication_package/v0_pilot/eval_results/eval_results/eval_gap_detection_results.json` (tp=30, fp=1, fn=33, precision 96.8%, total_examples=128), byte-identical to the copy inside the frozen `aegis_eval_results.tar.gz` (2026-04-08). The tp bump 27→30 is documented in `PROGRESS_LOG.md` (three UNDEFINED_CONSTRAINTS examples added with the final eval correction, growing the evaluated corpus from 125 to 128 with 63 gap-producing examples). Manuscript and supplement report the canonical values: precision 96.8% (30/31); recall 47.6% raw (30/63), 100% (30/30) on resolvable cases. The stale copy is preserved unmodified as provenance; note also `paper_section_12_tables/tab_static-eval.tex` was updated 2026-07-17 to the corrected recall row to match the revised manuscript.
