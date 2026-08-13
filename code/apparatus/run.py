@@ -28,6 +28,7 @@ import sys
 import time
 import traceback
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from pathlib import Path
 from typing import Callable, Optional
 
 
@@ -63,6 +64,57 @@ def _write_json(path, obj):
     os.makedirs(os.path.dirname(os.path.abspath(path)) or ".", exist_ok=True)
     with open(path, "w") as f:
         json.dump(obj, f, indent=2, default=str, ensure_ascii=False)
+
+
+def _make_cost_ledger(args):
+    path = getattr(args, "cost_ledger", "") or ""
+    budget = getattr(args, "campaign_budget_usd", None)
+    if not path and budget is None:
+        return None
+    if not path or budget is None:
+        raise ValueError("--cost-ledger and --campaign-budget-usd must be supplied together")
+    from .harness.ledger import CampaignCostLedger
+
+    return CampaignCostLedger(path, float(budget))
+
+
+def _requires_pre_call_gate(args) -> bool:
+    return bool(
+        getattr(args, "cost_ledger", "")
+        or getattr(args, "campaign_budget_usd", None) is not None
+        or getattr(args, "preflight_manifest", None)
+        or getattr(args, "expected_mlt_commit", "")
+        or getattr(args, "expected_apparatus_commit", "")
+        or getattr(args, "require_clean_worktree", False)
+    )
+
+
+def _run_pre_call_gate(args, *, condition: str, model: str, llm_backend: str = "") -> int:
+    if not _requires_pre_call_gate(args):
+        return 0
+    from .preflight import PreflightGateError, validate_pre_call_gate
+
+    try:
+        validate_pre_call_gate(
+            manifest_path=getattr(args, "preflight_manifest", None),
+            expected_mlt_commit=getattr(args, "expected_mlt_commit", ""),
+            expected_apparatus_commit=getattr(args, "expected_apparatus_commit", ""),
+            require_clean_worktree=bool(getattr(args, "require_clean_worktree", False)),
+            cost_ledger=getattr(args, "cost_ledger", ""),
+            campaign_budget_usd=getattr(args, "campaign_budget_usd", None),
+            condition=condition,
+            tasks_path=Path(args.tasks),
+            model=model,
+            seed=int(args.seed),
+            runs_per_task=int(args.runs_per_task),
+            domain_profile_mode=getattr(args, "domain_profile_mode", "default"),
+            llm_backend=llm_backend,
+        )
+    except PreflightGateError as exc:
+        for issue in exc.issues:
+            _stderr("pre-call gate failed: " + issue)
+        return 2
+    return 0
 
 
 def _load_dotenv_from_root(path=".env"):
@@ -230,7 +282,8 @@ def _run_condition_matrix_parallel(
                 try:
                     with open(out_path) as fh:
                         rec = RunRecord.from_dict(json.load(fh))
-                    ledger.append(rec)
+                    if not ledger.has_run_id(rec.run_id):
+                        ledger.append(rec)
                     records.append((ordinal, rec))
                     n_skipped += 1
                     if verbose:
@@ -297,10 +350,20 @@ def cmd_run_cond_a(args) -> int:
 
     _load_dotenv_from_root()
     tasks = _selected_condition_tasks(args)
+    gate_rc = _run_pre_call_gate(
+        args,
+        condition="cond_a",
+        model=args.extraction_model,
+    )
+    if gate_rc:
+        return gate_rc
     out_dir = args.out or os.path.join("07_system_outputs", "cond_a")
     os.makedirs(out_dir, exist_ok=True)
     ledger = RunLedger(os.path.join(out_dir, "ledger.jsonl"))
+    cost_ledger = _make_cost_ledger(args)
     max_workers = max(1, int(args.max_workers or 1))
+    if cost_ledger is not None and max_workers != 1:
+        raise ValueError("budget-capped condition runs require --max-workers 1")
     domain_profile_mode = getattr(args, "domain_profile_mode", "default")
     print("running Cond-A over %d tasks at %d runs each -> %s"
           % (len(tasks), args.runs_per_task, out_dir))
@@ -308,11 +371,13 @@ def cmd_run_cond_a(args) -> int:
         system = CondASystem(
             extraction_model=args.extraction_model,
             domain_profile_mode=domain_profile_mode,
+            cost_ledger=cost_ledger,
         )
         records = run_matrix(system, tasks, n_runs=args.runs_per_task,
                              ledger=ledger, output_dir=out_dir,
                              seed_base=args.seed, verbose=not args.quiet,
-                             skip_existing=args.skip_existing)
+                             skip_existing=args.skip_existing,
+                             cost_ledger=cost_ledger)
     else:
         records = _run_condition_matrix_parallel(
             lambda: CondASystem(
@@ -341,21 +406,34 @@ def cmd_run_cond_b(args) -> int:
 
     _load_dotenv_from_root()
     tasks = _selected_condition_tasks(args)
+    gate_rc = _run_pre_call_gate(
+        args,
+        condition="cond_b",
+        model=args.llm_model,
+        llm_backend=args.llm_backend,
+    )
+    if gate_rc:
+        return gate_rc
     out_dir = args.out or os.path.join("07_system_outputs", "cond_b")
     os.makedirs(out_dir, exist_ok=True)
     ledger = RunLedger(os.path.join(out_dir, "ledger.jsonl"))
+    cost_ledger = _make_cost_ledger(args)
     max_workers = max(1, int(args.max_workers or 1))
+    if cost_ledger is not None and max_workers != 1:
+        raise ValueError("budget-capped condition runs require --max-workers 1")
     domain_profile_mode = getattr(args, "domain_profile_mode", "default")
     print("running Cond-B over %d tasks at %d runs each -> %s"
           % (len(tasks), args.runs_per_task, out_dir))
     if max_workers == 1:
         system = CondBSystem(llm_backend=args.llm_backend,
                              llm_model=args.llm_model,
-                             domain_profile_mode=domain_profile_mode)
+                             domain_profile_mode=domain_profile_mode,
+                             cost_ledger=cost_ledger)
         records = run_matrix(system, tasks, n_runs=args.runs_per_task,
                              ledger=ledger, output_dir=out_dir,
                              seed_base=args.seed, verbose=not args.quiet,
-                             skip_existing=args.skip_existing)
+                             skip_existing=args.skip_existing,
+                             cost_ledger=cost_ledger)
     else:
         records = _run_condition_matrix_parallel(
             lambda: CondBSystem(llm_backend=args.llm_backend,
@@ -694,6 +772,18 @@ def build_parser() -> argparse.ArgumentParser:
     ca.add_argument("--checkpoint-every", type=int, default=0,
                     help="Accepted for handoff compatibility; records are "
                          "checkpointed individually.")
+    ca.add_argument("--cost-ledger", default="",
+                    help="Shared JSONL campaign cost ledger for budget cutoff.")
+    ca.add_argument("--campaign-budget-usd", type=float, default=None,
+                    help="User-approved total campaign spend cap in USD.")
+    ca.add_argument("--preflight-manifest", type=Path,
+                    help="Local preflight manifest authorizing paid execution.")
+    ca.add_argument("--expected-mlt-commit", default="",
+                    help="Expected local MLT commit for fail-closed paid runs.")
+    ca.add_argument("--expected-apparatus-commit", default="",
+                    help="Expected local apparatus commit for fail-closed paid runs.")
+    ca.add_argument("--require-clean-worktree", action="store_true",
+                    help="Fail before paid execution if tracked source is dirty.")
     ca.add_argument("--max-workers", type=int, default=1,
                     help="Run up to N Cond-A records concurrently while "
                          "checkpointing each completed record individually.")
@@ -728,6 +818,18 @@ def build_parser() -> argparse.ArgumentParser:
     cb.add_argument("--checkpoint-every", type=int, default=0,
                     help="Accepted for handoff compatibility; records are "
                          "checkpointed individually.")
+    cb.add_argument("--cost-ledger", default="",
+                    help="Shared JSONL campaign cost ledger for budget cutoff.")
+    cb.add_argument("--campaign-budget-usd", type=float, default=None,
+                    help="User-approved total campaign spend cap in USD.")
+    cb.add_argument("--preflight-manifest", type=Path,
+                    help="Local preflight manifest authorizing paid execution.")
+    cb.add_argument("--expected-mlt-commit", default="",
+                    help="Expected local MLT commit for fail-closed paid runs.")
+    cb.add_argument("--expected-apparatus-commit", default="",
+                    help="Expected local apparatus commit for fail-closed paid runs.")
+    cb.add_argument("--require-clean-worktree", action="store_true",
+                    help="Fail before paid execution if tracked source is dirty.")
     cb.add_argument("--max-workers", type=int, default=1,
                     help="Run up to N Cond-B records concurrently while "
                          "checkpointing each completed record individually.")

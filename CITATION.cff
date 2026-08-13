@@ -4,8 +4,8 @@ message: >-
   repository URL and version.
 title: "MANDATE 2026Q2 Evaluation — Replication Package (mandate-eval-primary-2026q2)"
 type: dataset
-version: v2-closeout+deposit-prep-2026-07-17
-date-released: "2026-07-17"
+version: v3-corrected-routing-validation-2026-08-12
+date-released: "2026-08-12"
 authors:
   - family-names: Calboreanu
     given-names: Elias
@@ -22,7 +22,8 @@ license-url: "https://www.apache.org/licenses/LICENSE-2.0"
 notes: >-
   Code is Apache-2.0; data (RunRecords, corpus, ground truth, grades) is
   CC BY 4.0 (see LICENSE-DATA); pre-registration prompts and forms are CC0.
-  The evaluated framework implementation is mlt-stack 1.0.0rc1.
+  The original comparative evaluation used mlt-stack 1.0.0rc1. The deposited
+  corrective-routing validation used a committed 1.0.3-derived prompt stack.
 references:
   - type: article
     title: "MANDATE: A Tolerance-Based Framework for Autonomous Agent Task Specification"

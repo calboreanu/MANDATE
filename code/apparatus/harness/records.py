@@ -17,7 +17,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Any, Optional
 
-HARNESS_VERSION = "0.1.0"
+HARNESS_VERSION = "0.2.0"
 
 # Output-type vocabulary (PROTOCOL_LOCK Section 4, PROMPTS Section 4).
 OUTPUT_MANDATE_AS_CODE = "MANDATE_AS_CODE"
@@ -99,6 +99,8 @@ class RunRecord:
     # --- output ---
     output_type: str = ""
     output: Any = None
+    execution_state: str = ""
+    contract_schema_version: str = ""
 
     # --- status ---
     ok: bool = False
@@ -139,6 +141,8 @@ class RunRecord:
             "harness_version": self.harness_version,
             "output_type": self.output_type,
             "output": self.output,
+            "execution_state": self.execution_state,
+            "contract_schema_version": self.contract_schema_version,
             "ok": self.ok,
             "errors": self.errors,
             # derived fields, included for downstream convenience and audit:
@@ -165,6 +169,8 @@ class RunRecord:
             harness_version=d.get("harness_version", ""),
             output_type=d.get("output_type", ""),
             output=d.get("output"),
+            execution_state=d.get("execution_state", ""),
+            contract_schema_version=d.get("contract_schema_version", ""),
             ok=bool(d.get("ok", False)),
             errors=list(d.get("errors", [])),
         )
@@ -175,5 +181,10 @@ class RunRecord:
     def save(self, path: str) -> None:
         parent = os.path.dirname(os.path.abspath(path))
         os.makedirs(parent, exist_ok=True)
-        with open(path, "w") as f:
+        tmp = f"{path}.tmp.{os.getpid()}"
+        with open(tmp, "w") as f:
             f.write(self.to_json())
+            f.write("\n")
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(tmp, path)

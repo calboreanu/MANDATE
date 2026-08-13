@@ -1,0 +1,95 @@
+{
+  "by_condition": {
+    "cond_a": {
+      "api_cost_usd": 0.025089,
+      "fallback_records": 0,
+      "records": 1,
+      "splits": {
+        "main": 1
+      },
+      "states": {
+        "NON_EXECUTABLE_GAPS": 1
+      }
+    },
+    "cond_b": {
+      "api_cost_usd": 0.083769,
+      "fallback_records": 0,
+      "records": 1,
+      "splits": {
+        "main": 1
+      },
+      "states": {
+        "NON_EXECUTABLE_GAPS": 1
+      }
+    }
+  },
+  "corpus_hashes": {
+    "holdout_tasks.jsonl": "d92b7e3b68f15e3abfe54a2cff7c81a1b7f0959b03a7a7597c8e52501504f9ae",
+    "main_tasks.jsonl": "a6fb48501ebd58088452a0e68a329f0bf7b1df6b623e9abb940f7a8094b65dbb"
+  },
+  "cost_accounting": {
+    "conservative_settlement_count": 0,
+    "extra_attempt_cost_usd": 0,
+    "ledger_path": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/work/v3_corrected_routing_smoke_local_20260806T225913Z/api_cost_ledger.jsonl",
+    "mode": "exact",
+    "record_summary_count": 2,
+    "record_summary_total_usd": 0.108858,
+    "reservation_count": 7,
+    "settled_total_usd": 0.108858,
+    "settlement_count": 7
+  },
+  "executable_with_blocking_count": 0,
+  "executable_with_blocking_rate": 0.0,
+  "fallback_outcomes": {
+    "cond_a": {
+      "false": {
+        "records": 1,
+        "states": {
+          "NON_EXECUTABLE_GAPS": 1
+        }
+      },
+      "true": {
+        "records": 0,
+        "states": {}
+      }
+    },
+    "cond_b": {
+      "false": {
+        "records": 1,
+        "states": {
+          "NON_EXECUTABLE_GAPS": 1
+        }
+      },
+      "true": {
+        "records": 0,
+        "states": {}
+      }
+    }
+  },
+  "issues": [],
+  "ok": true,
+  "preflight_manifest": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/work/v3_preflight_local/preflight_manifest.json",
+  "primary_denominator_N": 2,
+  "retry_cost_report": {
+    "budget_cost_accounting": {
+      "exact": 7
+    },
+    "provider_call_count": 7,
+    "retry_error_count": 0,
+    "retry_final_status": {
+      "success": 7
+    }
+  },
+  "smoke": true,
+  "state_distribution": {
+    "NON_EXECUTABLE_GAPS": 2
+  },
+  "total_records": 2,
+  "trace_integrity_report": {
+    "records_with_artifact": 2,
+    "records_with_chain_hash": 2,
+    "trace_entry_total": 12,
+    "validated_by": "mlt.mandate.validator.validate_obj"
+  },
+  "zero_event_upper_95": 0.7763932022500211
+}

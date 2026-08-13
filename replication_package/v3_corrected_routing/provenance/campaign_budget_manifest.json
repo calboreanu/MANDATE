@@ -1,0 +1,43 @@
+{
+  "apparatus_commit": "74c62b02856254656905269d2bff9851dbfb1800",
+  "authorization_usd": {
+    "failed_invalid_key_smoke_conservative": {
+      "basis": "conservative_settled_bound",
+      "root": "work/v3_corrected_routing_smoke_local_20260806T225847Z",
+      "usd": 0.517674
+    },
+    "full_campaign_cap": 299.250033,
+    "pre_campaign_spend_total": 0.749967,
+    "prior_recorded_smoke_probe": 0.123435,
+    "replacement_paid_smoke_exact": {
+      "basis": "exact_authoritative_response",
+      "root": "work/v3_corrected_routing_smoke_local_20260806T225913Z",
+      "usd": 0.108858
+    },
+    "total_authorized": 300.0
+  },
+  "campaign_root": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z",
+  "created_utc": "2026-08-06T23:11:17Z",
+  "mlt_commit": "c0b58fb38b3c72ab6ece72f7576425892234976c",
+  "preflight_manifest": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/work/v3_preflight_local/preflight_manifest.json",
+  "preflight_manifest_sha256": "09425f3d725d6f7192aa13a5bf3287b75e8eb0afc56d062074d432c5bc6d0067",
+  "run_parameters": {
+    "max_workers": 1,
+    "model": "claude-sonnet-4-6",
+    "recorded_seeds": [
+      20260624,
+      20260625,
+      20260626,
+      20260627,
+      20260628,
+      20260629,
+      20260630,
+      20260631,
+      20260632,
+      20260633
+    ],
+    "runs_per_task": 10,
+    "seed_base": 20260623,
+    "shared_cost_ledger": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z/api_cost_ledger.jsonl"
+  }
+}

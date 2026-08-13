@@ -1,7 +1,8 @@
 import sys
 from pathlib import Path
 
-MLT_SRC = Path.home() / "Desktop" / "MLT-Governance-Stack" / "src"
+import os
+MLT_SRC = (Path(os.environ["MLT_ROOT"]) if os.environ.get("MLT_ROOT") else Path.home() / "Desktop" / "MLT-Governance-Stack") / "src"
 if str(MLT_SRC) not in sys.path:
     sys.path.insert(0, str(MLT_SRC))
 
@@ -52,7 +53,17 @@ class FakeMLTAdapter(LLMAdapter):
                 output["candidate_coa_count"] = 1
             if "selected_reference_ids" in props:
                 output["selected_reference_ids"] = []
-        return LLMResponse(output=output, tokens_used=7, latency_ms=1.0)
+        return LLMResponse(
+            output=output,
+            tokens_used=7,
+            latency_ms=1.0,
+            raw_response={
+                "input_tokens": 4,
+                "output_tokens": 3,
+                "cost_usd": 0.000057,
+                "text": "{}",
+            },
+        )
 
     def generate_with_trace(self, prompt, schema):
         response = self.generate(prompt, schema)
@@ -101,6 +112,14 @@ def test_run_cond_a_returns_runrecord_dict():
     assert d["decoding_params"]["domain_profile_name"] is None
     assert d["output"]["domain_profile_mode"] == "default"
     assert d["output"]["domain_profile_name"] is None
+    assert d["execution_state"] in {
+        "EXECUTABLE",
+        "NON_EXECUTABLE_GAPS",
+        "NON_EXECUTABLE_VALIDATION",
+        "FAILED",
+    }
+    assert d["contract_schema_version"] == "mandate-result-envelope.v1"
+    assert d["output"]["result_envelope"]["execution_state"] == d["execution_state"]
 
 
 def test_resolve_domain_profile_default_mode_returns_none():
@@ -152,7 +171,8 @@ def test_cond_a_system_uses_injected_extractor():
         "request", run_id="cond_a__TASK-X__r01",
         task_id="TASK-X", run_number=1, seed=10)
     assert rec.system_id == "cond_a"
-    assert rec.ok is True
+    assert rec.ok is False
+    assert rec.execution_state == "NON_EXECUTABLE_GAPS"
     assert rec.role_timings[0].role_name == "PreExtractor"
 
 
@@ -170,6 +190,19 @@ def test_run_cond_b_with_fake_adapter_runs_pipeline():
     assert d["task_id"] == "TASK-X"
     assert d["output"]["artifact"]["anchor"]["mission_intent"]
     assert len(d["role_timings"]) == 6
+    assert d["api_cost_usd"] is not None
+    assert d["api_cost_usd"] >= 0.0
+    assert d["output"]["provider_response_count"] == len(d["output"]["provider_responses"])
+    assert d["output"]["provider_responses"]
+    assert d["output"]["provider_responses"][0]["role"]
+    assert d["output"]["provider_responses"][0]["raw_response"]["retry"]["attempts"] == 1
+    assert d["output"]["provider_responses"][0]["raw_response"]["retry"]["final_status"] == "success"
+    assert d["execution_state"] in {
+        "EXECUTABLE",
+        "NON_EXECUTABLE_GAPS",
+        "NON_EXECUTABLE_VALIDATION",
+        "FAILED",
+    }
 
 
 def extraction_gap_reports(record):
@@ -203,7 +236,8 @@ def test_cond_b_wrapper_passes_through_valid_constraints():
     ])
     d = run_cond_b("TASK-X", "Assess the mission.", adapter, seed=2)
     anchor = d["output"]["artifact"]["anchor"]
-    assert d["ok"] is True
+    assert d["ok"] is False
+    assert d["execution_state"] == "NON_EXECUTABLE_GAPS"
     assert anchor["constraints"] == ["FORBIDS exfil", "target.scope IN ['system_a']"]
     assert extraction_gap_reports(d) == []
     assert d["output"]["metadata"]["extraction_failed_constraints"] == 0

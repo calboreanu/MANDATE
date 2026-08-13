@@ -18,3 +18,10 @@ replicate the results; it exists for engineering transparency.
 Additional working audits and review documents that predate the deposit's
 curated audit set are archived outside the repository (see
 DEPOSIT_MAPPING.md consolidation addendum).
+
+The 2026-08-12 corrected-routing campaign has a self-contained provenance
+surface at `replication_package/v3_corrected_routing/provenance/`. It includes
+the preflight manifest, source-verification report, apparatus and external
+mlt-stack patches, test evidence, repair audits, cost authorization, and final
+status. The complete return package is preserved byte-for-byte in the adjacent
+`archive/` directory.

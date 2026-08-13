@@ -67,7 +67,7 @@ def test_a2_record_collapses_tolerance_bands():
     rec = _run("A2")
     assert rec["ok"] is True
     assert rec["system_id"] == "ablation_a2"
-    assert rec["code_ref"] == "mlt-stack-1.0.0rc1"
+    assert rec["code_ref"].startswith("mlt-stack-1.0.3+mandate-result-envelope.v1@")
     assert "target" not in rec["output"]["artifact"]["anchor"]
 
 
@@ -81,7 +81,8 @@ def test_a4_record_omits_validation_signal():
 
 def test_a6_record_suppresses_trace():
     rec = _run("A6")
-    assert rec["ok"] is True
+    assert rec["ok"] is False
+    assert rec["execution_state"] == "NON_EXECUTABLE_VALIDATION"
     assert rec["output"]["artifact"]["trace"]["entry_count"] == 0
     assert rec["output"]["artifact"]["trace"]["entries"] == []
 
@@ -127,7 +128,8 @@ def test_a1_single_pass_with_stub_adapter():
             )
 
     rec = _run("A1", llm_adapter=_Stub())
-    assert rec["ok"] is True
+    assert rec["ok"] is False
+    assert rec["execution_state"] == "NON_EXECUTABLE_VALIDATION"
     assert rec["system_id"] == "ablation_a1"
     assert rec["output"]["artifact"]["metadata"]["ablation"] == "A1_role_separation_single_pass"
 

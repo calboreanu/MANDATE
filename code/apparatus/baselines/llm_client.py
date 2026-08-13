@@ -11,6 +11,7 @@ indicative and must be confirmed and pinned at the pre-registration deposit.
 from __future__ import annotations
 
 import os
+import re
 from dataclasses import dataclass
 
 # Indicative USD per million tokens, (input, output). CONFIRM AND PIN at
@@ -56,6 +57,216 @@ class LLMClient:
     def generate(self, *, system: str, user: str, model: str,
                  temperature: float = 0.0, max_tokens: int = 4096) -> LLMResponse:
         raise NotImplementedError
+
+
+_SECRET_RE = re.compile(
+    r"(sk-ant-[A-Za-z0-9_-]+|Bearer\s+[A-Za-z0-9._-]+|x-api-key[:=]\s*[A-Za-z0-9._-]+)",
+    re.IGNORECASE,
+)
+
+
+class BudgetedLLMClient(LLMClient):
+    """Provider client wrapper that reserves and settles campaign API budget."""
+
+    def __init__(
+        self,
+        inner: LLMClient,
+        *,
+        cost_ledger,
+        run_id: str,
+        system_id: str,
+        task_id: str,
+        run_number: int,
+        role: str,
+    ):
+        self.inner = inner
+        self.cost_ledger = cost_ledger
+        self.run_id = run_id
+        self.system_id = system_id
+        self.task_id = task_id
+        self.run_number = int(run_number)
+        self.role = role
+        self.provider = getattr(inner, "provider", "")
+        self.attempts: list[dict] = []
+
+    def _reserved_cost(self, *, system: str, user: str, model: str, max_tokens: int) -> float:
+        # Bytes are a conservative token upper bound for UTF-8 text. Add fixed
+        # chat framing slack so the reservation remains safely above actual usage.
+        input_bound = len((system or "").encode("utf-8")) + len((user or "").encode("utf-8")) + 1000
+        reserve = estimate_cost(model, input_bound, int(max_tokens or 0))
+        if reserve is None:
+            raise ValueError(f"no pinned price table entry for model {model!r}")
+        return float(reserve)
+
+    @staticmethod
+    def _safe_error(exc: BaseException) -> str:
+        return _SECRET_RE.sub("[REDACTED]", str(exc))[:500]
+
+    @staticmethod
+    def _get_attr_or_key(obj, name: str):
+        if isinstance(obj, dict):
+            return obj.get(name)
+        return getattr(obj, name, None)
+
+    @classmethod
+    def _usage_cost_from_exception(cls, exc: BaseException, model: str):
+        candidates = [exc]
+        for name in ("response", "body", "error", "usage", "usage_metadata"):
+            value = getattr(exc, name, None)
+            if value is not None:
+                candidates.append(value)
+        for obj in list(candidates):
+            for name in ("usage", "usage_metadata"):
+                value = cls._get_attr_or_key(obj, name)
+                if value is not None:
+                    candidates.append(value)
+        cost = None
+        input_tokens = None
+        output_tokens = None
+        for obj in candidates:
+            for key in ("cost_usd", "actual_cost_usd"):
+                value = cls._get_attr_or_key(obj, key)
+                if value is not None:
+                    cost = float(value)
+            for key in ("input_tokens", "prompt_tokens", "prompt_token_count"):
+                value = cls._get_attr_or_key(obj, key)
+                if value is not None:
+                    input_tokens = int(value)
+            for key in ("output_tokens", "completion_tokens", "candidates_token_count"):
+                value = cls._get_attr_or_key(obj, key)
+                if value is not None:
+                    output_tokens = int(value)
+        if cost is None and input_tokens is not None and output_tokens is not None:
+            cost = estimate_cost(model, input_tokens, output_tokens)
+        if cost is None:
+            return None
+        return {
+            "actual_cost_usd": float(cost),
+            "input_tokens": int(input_tokens or 0),
+            "output_tokens": int(output_tokens or 0),
+        }
+
+    def _append_attempt(self, row: dict) -> None:
+        self.attempts.append(dict(row))
+
+    def generate(self, *, system: str, user: str, model: str,
+                 temperature: float = 0.0, max_tokens: int = 4096) -> LLMResponse:
+        reserved_cost_usd = self._reserved_cost(
+            system=system,
+            user=user,
+            model=model,
+            max_tokens=max_tokens,
+        )
+        reservation_id = self.cost_ledger.reserve_call(
+            run_id=self.run_id,
+            system_id=self.system_id,
+            task_id=self.task_id,
+            run_number=self.run_number,
+            role=self.role,
+            model=model,
+            reserved_cost_usd=reserved_cost_usd,
+            metadata={
+                "provider": self.provider,
+                "temperature": temperature,
+                "max_tokens": max_tokens,
+            },
+        )
+        try:
+            self.cost_ledger.mark_dispatch_started(reservation_id)
+            resp = self.inner.generate(
+                system=system,
+                user=user,
+                model=model,
+                temperature=temperature,
+                max_tokens=max_tokens,
+            )
+        except Exception as exc:
+            usage = self._usage_cost_from_exception(exc, model)
+            if usage is not None:
+                actual = float(usage["actual_cost_usd"])
+                input_tokens = int(usage["input_tokens"])
+                output_tokens = int(usage["output_tokens"])
+                status = "failed_authoritative_exception"
+                cost_basis = "authoritative_exception"
+                self.cost_ledger.mark_response_received(
+                    reservation_id,
+                    actual_cost_usd=actual,
+                    input_tokens=input_tokens,
+                    output_tokens=output_tokens,
+                    metadata={"exception": type(exc).__name__},
+                )
+            else:
+                actual = float(reserved_cost_usd)
+                input_tokens = 0
+                output_tokens = 0
+                status = "failed_dispatch_uncertain_reserved_bound"
+                cost_basis = "reserved_bound_conservative"
+            self.cost_ledger.settle_call(
+                reservation_id,
+                actual_cost_usd=actual,
+                input_tokens=input_tokens,
+                output_tokens=output_tokens,
+                status=status,
+                cost_basis=cost_basis,
+                error=self._safe_error(exc),
+            )
+            self._append_attempt({
+                "budget_reservation_id": reservation_id,
+                "status": status,
+                "cost_usd": round(actual, 6),
+                "cost_basis": cost_basis,
+                "input_tokens": input_tokens,
+                "output_tokens": output_tokens,
+            })
+            raise
+
+        actual = resp.cost_usd
+        if actual is None:
+            actual = estimate_cost(model, resp.input_tokens, resp.output_tokens)
+        if actual is None:
+            raise ValueError(f"no actual cost available for model {model!r}")
+        self.cost_ledger.mark_response_received(
+            reservation_id,
+            actual_cost_usd=float(actual),
+            input_tokens=int(resp.input_tokens or 0),
+            output_tokens=int(resp.output_tokens or 0),
+        )
+        self.cost_ledger.settle_call(
+            reservation_id,
+            actual_cost_usd=float(actual),
+            input_tokens=int(resp.input_tokens or 0),
+            output_tokens=int(resp.output_tokens or 0),
+            status="success",
+            cost_basis="authoritative_response",
+        )
+        self._append_attempt({
+            "budget_reservation_id": reservation_id,
+            "status": "success",
+            "cost_usd": round(float(actual), 6),
+            "cost_basis": "authoritative_response",
+            "input_tokens": int(resp.input_tokens or 0),
+            "output_tokens": int(resp.output_tokens or 0),
+        })
+        raw = getattr(resp, "raw_response", None)
+        if not isinstance(raw, dict):
+            raw = {}
+            setattr(resp, "raw_response", raw)
+        raw["budget_reservation_id"] = reservation_id
+        raw["budget_attempts"] = list(self.attempts)
+        raw["budget_total_cost_usd"] = round(
+            sum(float(a.get("cost_usd") or 0.0) for a in self.attempts),
+            6,
+        )
+        raw["budget_cost_accounting"] = (
+            "exact"
+            if all(
+                str(a.get("cost_basis", "")).startswith("authoritative")
+                or str(a.get("cost_basis", "")) == "undispatched_zero"
+                for a in self.attempts
+            )
+            else "conservative_upper_bound"
+        )
+        return resp
 
 
 class AnthropicClient(LLMClient):

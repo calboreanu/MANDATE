@@ -1,5 +1,21 @@
 # Changelog — MANDATE 2026Q2 Evaluation Deposit
 
+## v3-corrected-routing-validation — 2026-08-12
+
+- Added the generation-only 3,000-record Cond-A/Cond-B corrective validation
+  on the committed 1.0.3-derived prompt stack.
+- Independently verified the primary contract result: 2,999 records carried
+  blocking or insufficient-for-automation signals; all 2,999 routed to
+  `NON_EXECUTABLE_GAPS`; zero were executable.
+- Added explicit execution-state/schema gating apparatus, campaign analysis,
+  trace-integrity evidence, attempt/cost ledger, code patches, and the
+  byte-exact originator archive.
+- Corrected documentation that previously allowed V1 `ok=true` to be read as
+  executability. V1 data remain unchanged and continue to support the
+  original comparative grading results.
+- Disclosed the one executable record with nonblocking gaps and the boundary
+  that V3 is not an exact same-prompt rc1 replay.
+
 ## v2-closeout+deposit-prep — 2026-07-17
 
 Pre-push metadata and replication fixes (D1–D8); no evidence files modified

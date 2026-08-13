@@ -1,0 +1,19 @@
+{
+  "checked_corpus_hashes": 2,
+  "checked_source_hashes": {
+    "apparatus": 10,
+    "mlt": 4
+  },
+  "checked_v1_hashes": 4,
+  "issues": [],
+  "manifest": "work/v3_preflight_local/preflight_manifest.json",
+  "ok": true,
+  "provider_schema_roles": [
+    "Binding",
+    "Decomposition",
+    "Intake",
+    "Interpreter",
+    "Procedure",
+    "Validation"
+  ]
+}

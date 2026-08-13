@@ -18,7 +18,8 @@ comprehensive sweep of `~/Desktop`, `~/Desktop - lattice-ws01`,
 `~/Documents`, the Mandate Data deposit folder, and the 2026Q2
 apparatus tree. Entries are organized by evidence tier (T0 prior
 published paper → T5 v2, closed out 2026-07-08 under Deviations
-D-12/D-13) and then by artifact.
+D-12/D-13 → T6 corrected routing, completed 2026-08-12) and then by
+artifact.
 
 **Cross-document consistency.** This catalog is authoritative.
 `GITHUB_DEPOSIT_PLAN.md` (Zenodo package directory structure) and
@@ -60,6 +61,24 @@ for the full accounting. Effects on this catalog:
 | T3   | Apr 26 | AEGIS/logs/ cross-profile pilot           | v0.5 multi-config pilot       | Already in supplement §6.7; GH data      |
 | T4   | 2026Q2 | Mandate Data/ main matrix (v1 frozen)     | v1 headline corpus            | Both: full data in GH, findings in SUPP  |
 | T5   | 2026Q2 | v2 records + apparatus patches            | v2 closed out (Cond-X/A/B)    | Both: Stage 4 landed 2026-07-01; Phase B grading paused at 80.7% under D-13 (D-12 scoped b5/b6 out) |
+| T6   | Aug 26 | Corrected Cond-A/Cond-B routing validation | 3,000-record corrective run   | GH evidence + paper correction           |
+
+---
+
+## T6 — Corrected-Routing Validation (2026-08-12)
+
+| Artifact | Destination | Rationale |
+|---|---|---|
+| `replication_package/v3_corrected_routing/outputs/cond_{a,b}_rerun.jsonl.gz` | GH | Primary 3,000-record evidence for the repaired execution-state contract. |
+| `replication_package/v3_corrected_routing/analysis/` | BOTH | Machine analyses in GH; paper cites the 2,999/2,999 and zero-violation result. |
+| `replication_package/v3_corrected_routing/provenance/` | GH | Preflight, source verification, patches, tests, repair audits, budget, and status. |
+| `replication_package/v3_corrected_routing/archive/` | GH | Byte-exact split of the complete originator return, retained for future audit. |
+| `docs/CORRECTED_ROUTING_VALIDATION_20260812.md` | BOTH | Canonical claim wording, accounting corrections, and prompt-identity boundary. |
+
+T6 is generation-only: no baselines, judges, grading, perturbations, or
+ablations were rerun. It uses the frozen corpus and ten-run seed schedule on a
+committed 1.0.3-derived prompt stack. It must not be described as an exact
+same-prompt replay of `1.0.0rc1`.
 
 ---
 
@@ -382,5 +401,4 @@ The catalog above will need updates at these points:
 
 ---
 
-*Last updated: 2026-06-24. Maintained alongside the three supplement
-PDFs in `~/Desktop/Mandate Data/`.*
+*Last updated: 2026-08-12. Maintained in the GitHub replication package.*

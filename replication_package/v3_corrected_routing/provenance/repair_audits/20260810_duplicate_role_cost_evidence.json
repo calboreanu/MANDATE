@@ -1,0 +1,16 @@
+{
+  "backup": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z/provenance/repairs/20260810_duplicate_role_cost_evidence/cond_b__TASK-MAIN-INT-007__r04.pre_repair.json",
+  "changes": [
+    {
+      "kept_cost_usd": 0.009663,
+      "kept_reservation_id": "c9ec597df88b4f7baf90f22f7b4648ab",
+      "removed_attempt_count": 1,
+      "response_index": 4,
+      "role": "Binding"
+    }
+  ],
+  "post_repair_sha256": "f3edc213d2a33d04b665302f1f058091c34135a2157b909ec01eed37b484e58d",
+  "pre_repair_sha256": "ea374662ae671c374d8d3f17ae400f3971592ae78a15e89be49d84ed2ad61ac2",
+  "reason": "Resume skip-existing enrichment grouped duplicate-role Binding settlements by role, duplicating one Binding settlement in provider response cost evidence.",
+  "record": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z/cond_b_main/cond_b__TASK-MAIN-INT-007__r04.json"
+}

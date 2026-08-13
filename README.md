@@ -13,12 +13,15 @@ cross-vendor execution (4 LLM families), a 350-perturbation adversarial suite,
 and ablations. Every deviation from the pre-registered protocol is documented
 (13 entries, D-01–D-13).
 
-**The headline claim, stated the way the data supports it:** canonical MANDATE
-produces schema-valid, fully hash-traced, refusal-capable mandate-as-code at
-scale — across domains, LLM vendor families, and adversarial perturbation —
-with semantic coverage competitive with (not superior to) the strongest
-agentic baseline under identical raw-text input. MANDATE's measured
-contribution is the structural governance layer, not raw planning coverage.
+**The headline claim, stated the way the data supports it:** the original V1
+campaign produced schema-valid, fully hash-traced mandate artifacts at scale,
+but its `ok` field did not enforce executability: blocking gap signals could
+coexist with `ok=true`. A generation-only corrective validation on the
+committed 1.0.3-derived prompt stack repaired that contract, routing all 2,999
+records with blocking or insufficient-for-automation signals to explicit
+non-executable states, with zero contract violations. Comparative semantic
+coverage remains competitive with (not superior to) the strongest agentic
+baseline under identical raw-text input.
 
 ## Read this first
 
@@ -26,6 +29,7 @@ contribution is the structural governance layer, not raw planning coverage.
 |---|---|
 | Read the results | `supplement_pdfs/Empirical Evidence Supplemental.pdf` |
 | Verify a specific claim against data | `docs/CLAIM_TO_DATA_MAP.md` |
+| Verify the corrected routing contract | `replication_package/v3_corrected_routing/README.md` |
 | Replicate (tiered, from free to cluster) | `docs/REPLICATION_INSTRUCTIONS.md` + `docs/PARTIAL_REPLICATION.md` |
 | See what routed where and why | `DEPOSIT_MAPPING.md` |
 | Check the locked protocol + halt rules | `pre_registration/PROTOCOL_LOCK.md` |
@@ -47,7 +51,7 @@ wc -l replication_package/v1_main/system_outputs/*.jsonl
 # Full-coverage v2 grades (the comparative table's source):
 wc -l replication_package/v1_main/grading/v2_full_coverage/ensemble_scores.jsonl   # 12000
 
-# Structural validity of canonical MANDATE (Claim 1):
+# Historical V1 pipeline/schema completion (not executability):
 python3 -c "
 import json
 ok=sum(json.loads(l)['ok'] for l in open('replication_package/v1_main/system_outputs/cond_a_main.jsonl'))
@@ -55,6 +59,11 @@ print('cond_a main ok:', ok, '/ 1200')"
 
 # Phase A adversarial results (100% prompt-injection structural pass):
 wc -l replication_package/v2_complete/perturbations_mandate/*.jsonl   # 3500 + 350 + 350
+
+# Corrected-routing validation (stdlib only; no keys or network):
+python3 code/scripts/verify_v3_corrected_routing.py
+# -> ok: true; records: 3000; primary_denominator_N: 2999;
+#    executable_with_blocking: 0
 ```
 
 ## Package layout
@@ -73,6 +82,10 @@ wc -l replication_package/v2_complete/perturbations_mandate/*.jsonl   # 3500 + 3
   perturbation records (4,200), A3/A5 ablations (3,000), the all-ablations MVP
   (1,200; auxiliary), partial Phase B perturbation grades (14,685; paused at
   80.7% under Deviation D-13), Phase A structural-invariance report.
+- `replication_package/v3_corrected_routing/` — the 3,000-record,
+  generation-only corrective validation on the 1.0.3-derived contract,
+  including consolidated outputs, ledger, analyses, patches, provenance, and
+  a byte-exact split of the complete originator return archive.
 - `code/` — apparatus snapshot (7-role pipeline, judges, baselines,
   perturbation generator) + run scripts.
 - `engineering_provenance/` — full handoff chronology (119 files) + cost
@@ -93,6 +106,15 @@ The evaluation executed against `mlt-stack 1.0.0rc1` (canonical MANDATE
 implementation); artifacts verify against later stack releases, but
 byte-faithful re-execution should use 1.0.0rc1. mlt-stack is not vendored
 here; see `docs/REPLICATION_INSTRUCTIONS.md` ("Acquiring mlt-stack").
+
+The corrective-validation apparatus is reproduced by the patch series in
+`replication_package/v3_corrected_routing/provenance/`, based on apparatus
+commit `ab64056c9464f9ab294696698423c4167a703071` and ending at campaign
+apparatus commit `74c62b02856254656905269d2bff9851dbfb1800`; its external
+mlt-stack patch and campaign commit
+`c0b58fb38b3c72ab6ece72f7576425892234976c` are preserved as provenance. This V3 run used a committed
+1.0.3-derived prompt stack, not a recovered hash-identical copy of the rc1
+prompts.
 
 **Provenance note on absolute paths.** Frozen evidence files in this
 repository (pilot run logs, handoff records, extracted findings, and other
@@ -132,6 +154,10 @@ them.
 - Cond-A receives pre-extracted structured input and is an upper-bound
   characterization, **not** an apples-to-apples comparator against baselines;
   the fair MANDATE comparator is Cond-B.
+- In the frozen V1 Cond-A/B files, `ok=true` establishes schema/pipeline
+  completion only; it must not be cited as evidence that the output was safe
+  to execute. The corrected V3 contract adds explicit execution states and a
+  fail-closed gate. See `docs/CORRECTED_ROUTING_VALIDATION_20260812.md`.
 
 ## Citation
 

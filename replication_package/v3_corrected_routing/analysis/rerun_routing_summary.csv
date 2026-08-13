@@ -1,0 +1,3 @@
+condition,records,fallback_records,api_cost_usd,states
+cond_a,1500,0,40.28697,"{""NON_EXECUTABLE_GAPS"": 1500}"
+cond_b,1500,157,151.101477,"{""EXECUTABLE"": 1, ""NON_EXECUTABLE_GAPS"": 1499}"

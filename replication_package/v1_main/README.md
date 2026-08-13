@@ -33,6 +33,13 @@ Tag: `corpus_freeze_v1`.
 | baseline_2..6_main.jsonl | 1,206 each | GPT-4o single-prompt; ReAct; AutoGen/CrewAI/LangGraph pattern shells |
 | anonymization_mapping.json | — | maps anonymized grading IDs to systems |
 
+**Important contract clarification.** For the frozen V1 Cond-A/B records,
+`ok=true` means the artifact completed the then-current pipeline/schema
+checks. It does not mean the artifact was executable: the evaluated build
+could emit `ok=true` alongside blocking gap signals. The repaired contract and
+3,000-record corrective validation are deposited under
+`../v3_corrected_routing/`; V1 files remain byte-faithful and unchanged.
+
 Baseline `*_main.jsonl` files contain 1,200 `TASK-MAIN-*` records plus 6
 `TASK-CAL-*` calibration records; the graded main-matrix n is 1,200 per
 baseline (plus 300 hold-out for baseline_1). Cond-B RunRecords carry

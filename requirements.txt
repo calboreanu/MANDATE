@@ -86,3 +86,4 @@ pytest==9.0.3           # [pypi-only] [freeze] runs code/apparatus/**/tests
 # commit 4f8af83). They are likewise proprietary and not on PyPI (see
 # replication_package/v0_pilot/README.md).
 # ------------------------------------------------------------------------------
+statsmodels==0.14.6  # used by code/apparatus/analysis/{models,power}.py; was missing (audit 2026-08-05)

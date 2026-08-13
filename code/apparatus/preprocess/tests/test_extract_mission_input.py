@@ -104,6 +104,10 @@ def test_extractor_retries_on_anthropic_overload():
     )
     assert mi.mission_id == "M-1"
     assert len(client.calls) == 3
+    retry = mi.metadata["raw_provider_response"]["retry"]
+    assert retry["attempts"] == 3
+    assert retry["final_status"] == "success"
+    assert len(retry["errors"]) == 2
 
 
 def test_extract_normalizes_unknown_tool_class_to_analysis():

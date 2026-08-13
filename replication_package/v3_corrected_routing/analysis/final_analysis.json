@@ -1,0 +1,113 @@
+{
+  "by_condition": {
+    "cond_a": {
+      "api_cost_usd": 40.28697,
+      "fallback_records": 0,
+      "records": 1500,
+      "splits": {
+        "holdout": 300,
+        "main": 1200
+      },
+      "states": {
+        "NON_EXECUTABLE_GAPS": 1500
+      }
+    },
+    "cond_b": {
+      "api_cost_usd": 151.101477,
+      "fallback_records": 157,
+      "records": 1500,
+      "splits": {
+        "holdout": 300,
+        "main": 1200
+      },
+      "states": {
+        "EXECUTABLE": 1,
+        "NON_EXECUTABLE_GAPS": 1499
+      }
+    }
+  },
+  "corpus_hashes": {
+    "holdout_tasks.jsonl": "d92b7e3b68f15e3abfe54a2cff7c81a1b7f0959b03a7a7597c8e52501504f9ae",
+    "main_tasks.jsonl": "a6fb48501ebd58088452a0e68a329f0bf7b1df6b623e9abb940f7a8094b65dbb"
+  },
+  "cost_accounting": {
+    "conservative_settlement_count": 3,
+    "extra_attempt_cost_usd": 0,
+    "ledger_path": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z/api_cost_ledger.jsonl",
+    "mode": "conservative_upper_bound",
+    "record_summary_count": 3000,
+    "record_summary_total_usd": 191.388447,
+    "reservation_count": 10513,
+    "settled_total_usd": 191.388447,
+    "settlement_count": 10513
+  },
+  "executable_with_blocking_count": 0,
+  "executable_with_blocking_rate": 0.0,
+  "fallback_outcomes": {
+    "cond_a": {
+      "false": {
+        "records": 1500,
+        "states": {
+          "NON_EXECUTABLE_GAPS": 1500
+        }
+      },
+      "true": {
+        "records": 0,
+        "states": {}
+      }
+    },
+    "cond_b": {
+      "false": {
+        "records": 1343,
+        "states": {
+          "EXECUTABLE": 1,
+          "NON_EXECUTABLE_GAPS": 1342
+        }
+      },
+      "true": {
+        "records": 157,
+        "states": {
+          "NON_EXECUTABLE_GAPS": 157
+        }
+      }
+    }
+  },
+  "issues": [],
+  "ok": true,
+  "preflight_manifest": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/work/v3_preflight_local/preflight_manifest.json",
+  "primary_denominator_N": 2999,
+  "retry_cost_report": {
+    "budget_cost_accounting": {
+      "conservative_upper_bound": 3,
+      "exact": 10500
+    },
+    "provider_call_count": 10503,
+    "retry_error_count": 0,
+    "retry_final_status": {
+      "success": 10503
+    }
+  },
+  "smoke": false,
+  "state_distribution": {
+    "EXECUTABLE": 1,
+    "NON_EXECUTABLE_GAPS": 2999
+  },
+  "total_records": 3000,
+  "trace_integrity_report": {
+    "records_with_artifact": 3000,
+    "records_with_chain_hash": 3000,
+    "trace_entry_total": 18000,
+    "validated_by": "mlt.mandate.validator.validate_obj"
+  },
+  "v1": {
+    "blocking_or_insufficient": 3000,
+    "ok": {
+      "True": 3000
+    },
+    "output_type": {
+      "MANDATE_AS_CODE": 3000
+    },
+    "records": 3000
+  },
+  "zero_event_upper_95": 0.0009984116497422368
+}

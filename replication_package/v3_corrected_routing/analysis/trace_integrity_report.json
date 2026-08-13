@@ -1,0 +1,6 @@
+{
+  "records_with_artifact": 3000,
+  "records_with_chain_hash": 3000,
+  "trace_entry_total": 18000,
+  "validated_by": "mlt.mandate.validator.validate_obj"
+}

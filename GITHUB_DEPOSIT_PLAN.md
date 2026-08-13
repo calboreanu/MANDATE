@@ -165,6 +165,12 @@ mandate-eval-primary-2026q2/
 │   │   │   ├── grades_opus.jsonl
 │   │   │   ├── grades_gemini.jsonl
 │   │   │   └── agreement_statistics.json   # κ values, PROTOCOL_LOCK §8 halt evidence
+│   │
+│   ├── v3_corrected_routing/            # T6: corrected execution-state contract
+│   │   ├── outputs/                     # Cond-A/B outputs + cost ledger (gzip)
+│   │   ├── analysis/                    # routing, trace, fallback, and cost reports
+│   │   ├── provenance/                  # commits, patches, preflight, tests, audits
+│   │   └── archive/                     # byte-exact originator ZIP split <100 MB
 │   │   ├── findings_extracted/          # Mirror of `standalone data results/`
 │   │   │   ├── finding_1_decomposition/
 │   │   │   ├── finding_2_interpreter/
@@ -331,7 +337,7 @@ These were considered and excluded for the rationale shown:
 
 ---
 
-## v2 update checklist
+## Deposit update checklist
 
 When the v2 deposit close arrives, perform the following:
 
@@ -346,7 +352,11 @@ When the v2 deposit close arrives, perform the following:
       as included with dates).
 - [ ] Run the supplement build to regenerate the three PDFs.
 - [ ] Push v2 tag to GitHub; trigger Zenodo archive.
+- [x] Add `v3_corrected_routing/` and offline verifier (2026-08-12).
+- [x] Correct V1 `ok=true` language so it is not read as executability.
+- [ ] Review and commit the local V3 integration branch.
+- [ ] Push only after the PI explicitly authorizes publication.
 
 ---
 
-*Last updated: 2026-06-24. Maintained alongside `DEPOSIT_MAPPING.md`.*
+*Last updated: 2026-08-12. Maintained alongside `DEPOSIT_MAPPING.md`.*

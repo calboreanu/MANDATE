@@ -1,0 +1,57 @@
+{
+  "copied_failed_reports": [
+    {
+      "dest": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z/provenance/repairs/20260812_invalid_key_holdout_quarantine/analysis__cond_b_holdout_shard_check.json.invalid_key_copy",
+      "sha256": "001d16ac1805fe259076b8b64891665bf77224be2be470c4f9c03ecf32a1856b",
+      "src": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z/analysis/cond_b_holdout_shard_check.json"
+    },
+    {
+      "dest": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z/provenance/repairs/20260812_invalid_key_holdout_quarantine/logs__cond_b_holdout_shard_check.log.invalid_key_copy",
+      "sha256": "f480df0212df7e12ea3be7b4f5403cae5a58f9cd9d6f5229339e76611946f6c1",
+      "src": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z/logs/cond_b_holdout_shard_check.log"
+    },
+    {
+      "dest": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z/provenance/repairs/20260812_invalid_key_holdout_quarantine/logs__cond_b_holdout_resume_20260812T112939Z.log.invalid_key_copy",
+      "sha256": "bf3d787e809da511340e21186c07780bf39ea07cc71523fa7223ee9cffde34f3",
+      "src": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z/logs/cond_b_holdout_resume_20260812T112939Z.log"
+    }
+  ],
+  "created_at_utc": "2026-08-12T13:24:04.263796+00:00",
+  "failed_holdout_dir": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z/provenance/repairs/20260812_invalid_key_holdout_quarantine/failed_cond_b_holdout",
+  "moved_holdout_files_count": 300,
+  "post_active_ledger": {
+    "path": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z/api_cost_ledger.jsonl",
+    "rows": 37549,
+    "sha256": "af520853548d1b114bbc394558a6ab22426375a234859e6be82ea5517f4e6a18"
+  },
+  "pre_ledger": {
+    "path": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z/provenance/repairs/20260812_invalid_key_holdout_quarantine/api_cost_ledger.pre_invalid_holdout_quarantine.jsonl",
+    "rows": 43249,
+    "sha256": "56f92a85ca006eead8f6f8c5251c400ec57cb4fc0b8aaf682597851685457245"
+  },
+  "reason": "Cond-B holdout was run with an invalid Anthropic API key; all 1800 provider attempts failed with authentication_error and were conservatively settled at reserved bounds. Quarantined invalid holdout checkpoints and removed only their ledger rows so the holdout can be rerun with a valid key.",
+  "remaining_active_ledger": {
+    "row_types": {
+      "attempt_state": 17423,
+      "record_summary": 2700,
+      "reservation": 8713,
+      "settlement": 8713
+    },
+    "settled_total_usd": "161.366409"
+  },
+  "removed_ledger_rows": {
+    "path": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z/provenance/repairs/20260812_invalid_key_holdout_quarantine/removed_invalid_holdout_ledger_rows.jsonl",
+    "removed_settled_total_usd": "131.578020",
+    "row_types": {
+      "attempt_state": 1800,
+      "record_summary": 300,
+      "reservation": 1800,
+      "settlement": 1800
+    },
+    "rows": 5700,
+    "settlement_status_counts": {
+      "failed_dispatch_uncertain_reserved_bound": 1800
+    },
+    "sha256": "1ebfebe1fa04b5ffa9f7800e280b9c70b1adef1adfd12df32461a0882f2a6674"
+  }
+}

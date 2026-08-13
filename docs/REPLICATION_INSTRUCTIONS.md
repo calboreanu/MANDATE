@@ -48,13 +48,13 @@ Every Tier-1 command below was executed from a clean checkout of this repository
 
 The supplement makes five affirmative claims (§1.2). They rest on structural counts and verbatim model outputs that are *on disk* — the frozen RunRecords are themselves the evidence, so the strongest verification path requires no re-execution at all.
 
-- **Claim 1** — MANDATE produces structurally valid mandate-as-code end-to-end at scale (Cond-A 1500/1500, Cond-B 1500/1500, MANDATE-primary 1480/1500 with 20 documented Intake-tripwire deltas).
+- **Claim 1** — The original campaign produced pipeline/schema-complete mandate artifacts at scale (Cond-A 1500/1500, Cond-B 1500/1500, MANDATE-primary 1480/1500 with 20 documented Intake-tripwire deltas). V1 `ok=true` was not an executability guarantee; the V3 corrected-routing tier supplies the repaired-contract evidence.
 - **Claim 2** — High-precision/recall specification-defect detection (96.8%/96.8% on the structurally-complete subset; 47.6% whole-corpus recall, transparently disclosed).
 - **Claim 3** — Structural invariants hold across execution modes *and* LLM vendor families (the cross-vendor Cond-B pilot is the strongest single piece of evidence).
 - **Claim 4** — MANDATE surfaces consequential governance signals (AEGIS 51-defect convergence, Binding refusal cascade, Intake tripwire, Decomposition single-COA prior).
 - **Claim 5** — Cross-domain generalization (3 in-domain corpora + a 30-task out-of-domain hold-out).
 
-The empirical-tier chain is v0 (paper §12 pilot) → v0.5 (April cross-profile pilot, supplement §6.7) → v1 (the 2026Q2 main matrix, frozen) → v2 (full-coverage grading + multi-vendor Cond-B).
+The empirical-tier chain is v0 (paper §12 pilot) → v0.5 (April cross-profile pilot, supplement §6.7) → v1 (the 2026Q2 main matrix, frozen) → v2 (full-coverage grading + multi-vendor Cond-B) → v3 (corrected-routing validation).
 
 ---
 
@@ -75,6 +75,18 @@ Most reviewers should stop at Tier 1; it verifies the affirmative case directly.
 
 No keys, no environment, no network. Run plain shell/Python over the JSONL from the repository root. *(Smoke-tested 2026-07-17: every command below reproduced its expected output exactly.)*
 
+### 1.0 Corrected-routing contract (V3)
+
+```bash
+python3 code/scripts/verify_v3_corrected_routing.py
+```
+
+Expected: JSON with `"ok": true`, `"records": 3000`,
+`"primary_denominator_N": 2999`, and
+`"executable_with_blocking": 0`. The verifier uses the frozen V1 corpus and
+comparison records, deterministic-gzip V3 outputs, campaign ledger, trace
+artifacts, and archive hashes. It requires only the Python standard library.
+
 ### 1.1 System record counts
 
 ```bash
@@ -93,7 +105,7 @@ done
 
 The authoritative inventory is `replication_package/v1_main/findings_extracted/dataset_inventory/record_counts.md`. Note the "1500" figures in the supplement are **1200 main + 300 hold-out** per system; the baselines are 1206 main each (1,200 `TASK-MAIN-*` records + 6 `TASK-CAL-*` calibration records; graded main-matrix n = 1200 per baseline).
 
-### 1.2 Claim 1 — structural validity (the headline ok-rate)
+### 1.2 Original V1 pipeline/schema completion (`ok` rate)
 
 ```bash
 # MANDATE-primary: expect 1180 / 1200 ok on main (the 20 deltas are the Intake tripwire)
@@ -106,7 +118,7 @@ for s in ["mandate_primary", "cond_a", "cond_b"]:
 PY
 ```
 
-Expected: `mandate_primary 1180/1200`, `cond_a 1200/1200`, `cond_b 1200/1200`. (The consolidated JSONL files contain RunRecords only — non-record metadata files such as `_handoff_22_task_selection.json` were excluded at consolidation; see `replication_package/v1_main/README.md`.) Adding the 300 all-valid hold-out records per system yields the supplement's `1480/1500` (MANDATE-primary) and `1500/1500` (Cond-A, Cond-B). A successful reproduction is matching these counts exactly.
+Expected: `mandate_primary 1180/1200`, `cond_a 1200/1200`, `cond_b 1200/1200`. (The consolidated JSONL files contain RunRecords only — non-record metadata files such as `_handoff_22_task_selection.json` were excluded at consolidation; see `replication_package/v1_main/README.md`.) Adding the 300 all-valid hold-out records per system yields the supplement's `1480/1500` (MANDATE-primary) and `1500/1500` (Cond-A, Cond-B). A successful reproduction is matching these counts exactly. These counts establish historical pipeline/schema completion, not executability; run §1.0 for the repaired execution-state contract.
 
 *Smoke result 2026-07-17:* `1180/1200`, `1200/1200`, `1200/1200`. ✔
 

@@ -7,16 +7,18 @@ does the planning work.
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import sys
 from pathlib import Path
 from typing import Any, Optional
 
 from apparatus.baselines.base import extract_json
-from apparatus.baselines.llm_client import AnthropicClient
+from apparatus.baselines.llm_client import AnthropicClient, BudgetedLLMClient
 from apparatus.llm_retry import DEFAULT_RETRY_BACKOFF_SEC, call_with_retry
 
-MLT_ROOT = Path.home() / "Desktop" / "MLT-Governance-Stack"
+import os
+MLT_ROOT = Path(os.environ["MLT_ROOT"]) if os.environ.get("MLT_ROOT") else Path.home() / "Desktop" / "MLT-Governance-Stack"
 MLT_SRC = MLT_ROOT / "src"
 if str(MLT_SRC) not in sys.path:
     sys.path.insert(0, str(MLT_SRC))
@@ -150,9 +152,22 @@ def extract(
     model: str = "claude-sonnet-4-6",
     client: Optional[Any] = None,
     retry_backoff_sec=DEFAULT_RETRY_BACKOFF_SEC,
+    cost_ledger=None,
+    run_id: str = "",
+    run_number: int = 1,
 ) -> MissionInput:
     """Run the extraction model and return a canonical MLT MissionInput."""
     llm = client or AnthropicClient()
+    if cost_ledger is not None and client is None:
+        llm = BudgetedLLMClient(
+            llm,
+            cost_ledger=cost_ledger,
+            run_id=run_id or f"cond_a__{task_id}__r{int(run_number):02d}",
+            system_id="cond_a",
+            task_id=task_id,
+            run_number=run_number,
+            role="PreExtractor",
+        )
     prompt = EXTRACTION_PROMPT.replace("{task_text}", task_text)
     resp = call_with_retry(
         llm.generate,
@@ -176,12 +191,32 @@ def extract(
         risk_tolerance = None
 
     valid_constraints, failed_constraints = _split_constraints(parsed.get("constraints"))
+    raw_response = dict(getattr(resp, "raw_response", {}) or {})
+    retry_metadata = raw_response.get("retry") or {}
+    response_cost = resp.cost_usd or 0.0
+    budget_total_cost = raw_response.get("budget_total_cost_usd", response_cost)
     metadata = {
         "source_task_id": task_id,
         "extraction_model": model,
-        "extraction_cost_usd": resp.cost_usd or 0.0,
+        "extraction_prompt_template_sha256": hashlib.sha256(EXTRACTION_PROMPT.encode("utf-8")).hexdigest(),
+        "extraction_prompt_sha256": hashlib.sha256(prompt.encode("utf-8")).hexdigest(),
+        "extraction_cost_usd": budget_total_cost,
         "input_tokens": int(getattr(resp, "input_tokens", 0) or 0),
         "output_tokens": int(getattr(resp, "output_tokens", 0) or 0),
+        "raw_provider_response": {
+            "provider": getattr(llm, "provider", ""),
+            "model": model,
+            "input_tokens": int(getattr(resp, "input_tokens", 0) or 0),
+            "output_tokens": int(getattr(resp, "output_tokens", 0) or 0),
+            "cost_usd": budget_total_cost,
+            "response_cost_usd": response_cost,
+            "budget_reservation_id": raw_response.get("budget_reservation_id"),
+            "budget_attempts": list(raw_response.get("budget_attempts") or []),
+            "budget_total_cost_usd": budget_total_cost,
+            "budget_cost_accounting": raw_response.get("budget_cost_accounting", "exact"),
+            "retry": retry_metadata,
+            "text": resp.text,
+        },
         "raw_extraction_json": json.dumps(parsed, default=str),
         "extraction_failed_constraints": failed_constraints,
         "constraints_extracted": len(valid_constraints),

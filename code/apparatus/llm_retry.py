@@ -36,12 +36,61 @@ RETRYABLE_PATTERNS = (
     r"service.?unavailable",
 )
 _RETRYABLE_RE = re.compile("|".join(RETRYABLE_PATTERNS), re.IGNORECASE)
+_SECRET_RE = re.compile(
+    r"(sk-ant-[A-Za-z0-9_-]+|Bearer\s+[A-Za-z0-9._-]+|x-api-key[:=]\s*[A-Za-z0-9._-]+)",
+    re.IGNORECASE,
+)
 
 
 def is_retryable_error(exc: BaseException) -> bool:
     """True if an exception looks like a transient provider error."""
     rendered = "%r %s" % (exc, exc)
     return bool(_RETRYABLE_RE.search(rendered))
+
+
+def _safe_error(exc: BaseException, *, attempt: int, retryable: bool) -> dict[str, Any]:
+    message = _SECRET_RE.sub("[REDACTED]", str(exc))[:500]
+    return {
+        "attempt": attempt,
+        "type": type(exc).__name__,
+        "message": message,
+        "retryable": bool(retryable),
+    }
+
+
+def _metadata(
+    *,
+    attempts: int,
+    max_attempts: int,
+    retry_backoff_sec: Sequence[float],
+    errors: list[dict[str, Any]],
+    final_status: str,
+) -> dict[str, Any]:
+    return {
+        "attempts": int(attempts),
+        "max_attempts": int(max_attempts),
+        "retry_backoff_sec": [float(x) for x in retry_backoff_sec],
+        "errors": list(errors),
+        "final_status": final_status,
+    }
+
+
+def _attach_retry_metadata(result: Any, metadata: dict[str, Any]) -> None:
+    try:
+        raw = getattr(result, "raw_response", None)
+        if isinstance(raw, dict):
+            raw["retry"] = metadata
+            return
+        setattr(result, "raw_response", {"retry": metadata})
+    except Exception:
+        return
+
+
+def _attach_exception_metadata(exc: BaseException, metadata: dict[str, Any]) -> None:
+    try:
+        setattr(exc, "retry_metadata", metadata)
+    except Exception:
+        return
 
 
 def call_with_retry(
@@ -53,15 +102,49 @@ def call_with_retry(
 ) -> Any:
     """Call ``fn`` with retry+backoff on transient provider errors."""
     attempts = 1 + len(retry_backoff_sec)
+    errors: list[dict[str, Any]] = []
     last_exc: BaseException | None = None
     for i in range(attempts):
         try:
-            return fn(*args, **kwargs)
+            result = fn(*args, **kwargs)
+            _attach_retry_metadata(
+                result,
+                _metadata(
+                    attempts=i + 1,
+                    max_attempts=attempts,
+                    retry_backoff_sec=retry_backoff_sec,
+                    errors=errors,
+                    final_status="success",
+                ),
+            )
+            return result
         except Exception as exc:
             last_exc = exc
+            retryable = is_retryable_error(exc)
+            errors.append(_safe_error(exc, attempt=i + 1, retryable=retryable))
             if i >= len(retry_backoff_sec):
+                _attach_exception_metadata(
+                    exc,
+                    _metadata(
+                        attempts=i + 1,
+                        max_attempts=attempts,
+                        retry_backoff_sec=retry_backoff_sec,
+                        errors=errors,
+                        final_status="failed_exhausted",
+                    ),
+                )
                 raise
-            if not is_retryable_error(exc):
+            if not retryable:
+                _attach_exception_metadata(
+                    exc,
+                    _metadata(
+                        attempts=i + 1,
+                        max_attempts=attempts,
+                        retry_backoff_sec=retry_backoff_sec,
+                        errors=errors,
+                        final_status="failed_non_retryable",
+                    ),
+                )
                 raise
             sleep_fn(float(retry_backoff_sec[i]))
     if last_exc is not None:  # pragma: no cover
