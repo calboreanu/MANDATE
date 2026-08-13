@@ -1,0 +1,64 @@
+{
+  "mission_id": "MANDATE-EVAL-MAX-001",
+  "intent": "Perform comprehensive security assessment of multi-tier web application with database backend, API gateway, and microservices architecture",
+  "scope": [
+    "10.0.0.0/16",
+    "api.target.example.com",
+    "web.target.example.com",
+    "db.target.example.com",
+    "10.0.1.0/24",
+    "10.0.2.0/24"
+  ],
+  "time_limit": "PT12H",
+  "minimum_outcome": "Complete enumeration of all external and internal services with vulnerability classification",
+  "target_outcome": "Achieve authenticated access to application tier and demonstrate lateral movement potential to database tier",
+  "constraints": [
+    "target.scope IN ['10.0.0.0/16', 'api.target.example.com', 'web.target.example.com', 'db.target.example.com']",
+    "execution.duration <= PT12H",
+    "FORBIDS data_exfiltration",
+    "FORBIDS destructive_action",
+    "FORBIDS denial_of_service",
+    "REQUIRES change_control_approval",
+    "risk.tolerance <= MEDIUM",
+    "execution.concurrency <= 3"
+  ],
+  "risk_tolerance": "MEDIUM",
+  "available_tools": [
+    {
+      "tool_id": "nmap",
+      "tool_class": "RECON",
+      "description": "Network mapper for host discovery and service enumeration",
+      "parameters": {"scan_type": "SYN", "timing": "T3"}
+    },
+    {
+      "tool_id": "masscan",
+      "tool_class": "RECON",
+      "description": "High-speed port scanner for large network ranges",
+      "parameters": {"rate": 10000}
+    },
+    {
+      "tool_id": "nuclei",
+      "tool_class": "SCAN",
+      "description": "Fast vulnerability scanner using community templates",
+      "parameters": {"severity": "critical,high,medium", "rate_limit": 100}
+    },
+    {
+      "tool_id": "burpsuite",
+      "tool_class": "SCAN",
+      "description": "Web application security testing platform",
+      "parameters": {"mode": "active_scan", "scope_only": true}
+    },
+    {
+      "tool_id": "metasploit",
+      "tool_class": "EXPLOIT",
+      "description": "Exploitation framework for confirmed vulnerabilities",
+      "parameters": {"payload_type": "reverse_shell", "auto_check": true}
+    }
+  ],
+  "metadata": {
+    "authorization_ref": "AUTH-2026-0999",
+    "roe_version": "3.0",
+    "scenario": "Maximum Complexity Evaluation",
+    "compliance_frameworks": ["PCI-DSS", "SOC2", "ISO27001"]
+  }
+}

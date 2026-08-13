@@ -1,0 +1,85 @@
+{
+  "mission_id": "MANDATE-MC-001",
+  "intent": "Assess security posture of cloud infrastructure spanning multiple availability zones and recommend remediation priorities",
+  "scope": [
+    "aws-us-east-1",
+    "aws-us-west-2",
+    "gcp-us-central1",
+    "azure-eastus"
+  ],
+  "time_limit": "PT12H",
+  "minimum_outcome": "Complete asset inventory and identification of critical misconfigurations across all cloud providers",
+  "target_outcome": "Comprehensive security assessment with exploitability validation, risk-ranked findings, and remediation roadmap",
+  "constraints": [
+    "target.scope IN ['aws-us-east-1', 'aws-us-west-2', 'gcp-us-central1', 'azure-eastus']",
+    "execution.duration <= PT12H",
+    "FORBIDS data_exfiltration",
+    "FORBIDS service_disruption",
+    "FORBIDS production_modification",
+    "REQUIRES cloud_read_access"
+  ],
+  "risk_tolerance": "LOW",
+  "available_tools": [
+    {
+      "tool_id": "prowler",
+      "tool_class": "RECON",
+      "description": "Cloud security posture management tool for AWS, Azure, and GCP",
+      "parameters": {
+        "providers": ["aws", "gcp", "azure"],
+        "compliance_frameworks": ["CIS", "SOC2", "PCI-DSS"]
+      }
+    },
+    {
+      "tool_id": "scout_suite",
+      "tool_class": "RECON",
+      "description": "Multi-cloud security auditing tool for configuration review",
+      "parameters": {
+        "providers": ["aws", "gcp", "azure"],
+        "rules": "all"
+      }
+    },
+    {
+      "tool_id": "trivy",
+      "tool_class": "SCAN",
+      "description": "Vulnerability scanner for containers, filesystems, and cloud infrastructure",
+      "parameters": {
+        "scan_type": "config,vuln",
+        "severity": "CRITICAL,HIGH"
+      }
+    },
+    {
+      "tool_id": "nuclei_cloud",
+      "tool_class": "SCAN",
+      "description": "Cloud-targeted vulnerability scanner with custom templates",
+      "parameters": {
+        "templates": "cloud,misconfiguration",
+        "rate_limit": 50
+      }
+    },
+    {
+      "tool_id": "pacu",
+      "tool_class": "EXPLOIT",
+      "description": "AWS exploitation framework for privilege escalation validation",
+      "parameters": {
+        "modules": ["iam__enum_permissions", "iam__privesc_scan"],
+        "dry_run": true
+      }
+    },
+    {
+      "tool_id": "cloudmapper",
+      "tool_class": "ANALYSIS",
+      "description": "Cloud infrastructure visualization and analysis tool",
+      "parameters": {
+        "output": "network_diagram",
+        "providers": ["aws"]
+      }
+    }
+  ],
+  "metadata": {
+    "authorization_ref": "AUTH-2026-CLOUD-003",
+    "scenario": "Multi-COA Cloud Assessment",
+    "domain": "pentest",
+    "engagement_type": "cloud_security_assessment",
+    "compliance_scope": ["SOC2", "PCI-DSS", "CIS"]
+  }
+}

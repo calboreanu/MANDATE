@@ -1,0 +1,171 @@
+{
+ "contract": "JCS (RFC 8785) with ES6 numbers; entry=SHA256(JCS(entry-minus-hash)); chain=SHA256(JCS([hashes])); anchor=SHA256(JCS(anchor-minus-anchor_hash))",
+ "source": "mandate-eval-primary-2026q2 deposited records, extracted 2026-08-05",
+ "vectors": [
+  {
+   "description": "deposited record 0 (cond_a_main)",
+   "entry": {
+    "role": "Intake",
+    "decision_type": "intake_phase",
+    "timestamp": "2026-06-23T15:49:17.846Z",
+    "parent_hashes": [],
+    "search": {
+     "query": "Intake phase execution for mission FIN-RMF-SPEC-001",
+     "source": "pipeline_state",
+     "k": 5,
+     "total_results": 5
+    },
+    "results": [
+     {
+      "id": "mission_id",
+      "score": 1.0,
+      "summary": "mission_id=FIN-RMF-SPEC-001"
+     },
+     {
+      "id": "constraint_count",
+      "score": 1.0,
+      "summary": "constraint_count=7"
+     },
+     {
+      "id": "scope_count",
+      "score": 1.0,
+      "summary": "scope_count=10"
+     },
+     {
+      "id": "llm_used",
+      "score": 1.0,
+      "summary": "llm_used=False"
+     },
+     {
+      "id": "llm_fallback",
+      "score": 1.0,
+      "summary": "llm_fallback=False"
+     }
+    ],
+    "selected": "Intake",
+    "selection_criteria": "role completed without errors",
+    "confidence": "HIGH",
+    "selection": {
+     "selected": "Intake",
+     "criteria": "role completed without errors",
+     "confidence": "HIGH",
+     "rationale": "Intake complete: mission_id=FIN-RMF-SPEC-001"
+    },
+    "rationale": "Intake complete: mission_id=FIN-RMF-SPEC-001",
+    "mission_id": "FIN-RMF-SPEC-001",
+    "risk": {},
+    "search_trace_version": "1.0",
+    "metadata": {
+     "role_status": "success"
+    },
+    "hash": "b93961cae2a02bd7bafef2e50801cfb684e406d1eec222f4d57496a8e93f6b87"
+   },
+   "expected_entry_hash": "b93961cae2a02bd7bafef2e50801cfb684e406d1eec222f4d57496a8e93f6b87",
+   "entry_hashes": [
+    "b93961cae2a02bd7bafef2e50801cfb684e406d1eec222f4d57496a8e93f6b87",
+    "872ee0f03863e0d3d2bb88e1e9422b6df833c0fa75283d9834359d94d8e84694",
+    "a1541a9cd7a509dc16036b245666c1f5b6f0eebad730017635a81a38b2159e99",
+    "338218e169192176a180872d37fc84251d1b278125d660e34b72daef96df65cc",
+    "6feeed20a96799af0d0a4c644b3c2136b933035909de31c19becf7a18358f62f",
+    "7b94b5f6fcc1ef00aa34f9c4ebf68337baae56269ec8bf2de637d0c6b4ecc43d"
+   ],
+   "expected_chain_hash": "45b1008cf3626bd02f9dc1d01dbac61db640ba16ca24e53113452465acd9fbf4"
+  },
+  {
+   "description": "deposited record 1 (cond_a_main)",
+   "entry": {
+    "role": "Intake",
+    "decision_type": "intake_phase",
+    "timestamp": "2026-06-23T16:09:56.055Z",
+    "parent_hashes": [],
+    "search": {
+     "query": "Intake phase execution for mission FIN-RMF-SPEC-001",
+     "source": "pipeline_state",
+     "k": 5,
+     "total_results": 5
+    },
+    "results": [
+     {
+      "id": "mission_id",
+      "score": 1.0,
+      "summary": "mission_id=FIN-RMF-SPEC-001"
+     },
+     {
+      "id": "constraint_count",
+      "score": 1.0,
+      "summary": "constraint_count=10"
+     },
+     {
+      "id": "scope_count",
+      "score": 1.0,
+      "summary": "scope_count=9"
+     },
+     {
+      "id": "llm_used",
+      "score": 1.0,
+      "summary": "llm_used=False"
+     },
+     {
+      "id": "llm_fallback",
+      "score": 1.0,
+      "summary": "llm_fallback=False"
+     }
+    ],
+    "selected": "Intake",
+    "selection_criteria": "role completed without errors",
+    "confidence": "HIGH",
+    "selection": {
+     "selected": "Intake",
+     "criteria": "role completed without errors",
+     "confidence": "HIGH",
+     "rationale": "Intake complete: mission_id=FIN-RMF-SPEC-001"
+    },
+    "rationale": "Intake complete: mission_id=FIN-RMF-SPEC-001",
+    "mission_id": "FIN-RMF-SPEC-001",
+    "risk": {},
+    "search_trace_version": "1.0",
+    "metadata": {
+     "role_status": "success"
+    },
+    "hash": "ed57ec1126f66280860db5b085a79f01470d2caacb04347fbe853c7e7a4db661"
+   },
+   "expected_entry_hash": "ed57ec1126f66280860db5b085a79f01470d2caacb04347fbe853c7e7a4db661",
+   "entry_hashes": [
+    "ed57ec1126f66280860db5b085a79f01470d2caacb04347fbe853c7e7a4db661",
+    "506bfca418f5075acd2664ce6e2cf7f862505f7faeed29bd00f0ffc4e1f91d06",
+    "0633fe574f53c40e206ce197080ca77b29c8c8fd9a750545bc5e8a383b336004",
+    "b1bda2c6a6034c47c1db4ceff5f6e4ae5c06c70a2cb93cbef57303aadfa6e503",
+    "c60d305211dc389d3fe1058619a1fea717b97cabb4245cd01bb6106446a82955",
+    "17af0b4f0139a20d9cb4d881c695a345c5dd6fa74cfc8be55bbe0b59296d6491"
+   ],
+   "expected_chain_hash": "0435edc864791a08c9dd435bc5138f9b0e5f6bed4424c92741bfd0d16d3ff5d0"
+  },
+  {
+   "description": "deposited anchor (cond_a_main record 0)",
+   "anchor": {
+    "mission_intent": "Produce a comprehensive specification document that aligns the financial reporting infrastructure with NIST SP 800-37 Rev. 2 Risk Management Framework requirements. The document must address data provenance tracking, NIST CSF Protect function controls, reciprocity agreements, federal records management obligations, and privacy posture documentation for all financial reporting systems. The deliverable must be routed through the CISO's office and delivered in time to support FY25 audit preparation.",
+    "minimum": {
+     "description": "The specification document must define a complete data provenance framework covering the full chronology of origin, development, ownership, location, and modifications to all financial reporting system components and associated data, including personnel and processes involved. It must detail controls aligned with the NIST Cybersecurity Framework Protect function, specifically addressing data integrity and access controls for critical financial reporting services. The document must formalize reciprocity agreement procedures enabling mutual acceptance of security assessments and sharing of assessed security postures across partner entities without duplicating audit work. It must incorporate records management obligations under 44 USC 3301, ensuring all recorded information related to financial reporting decisions, procedures, and operations is preserved as federal records regardless of form or format. Privacy posture documentation requirements must be defined for each in-scope financial reporting system. The document must be reviewed and approved through the CISO's office prior to delivery."
+    },
+    "constraints": [
+     "REQUIRES ciso_approval",
+     "REQUIRES nist_800_37_alignment",
+     "target.completion_deadline <= '2025Q4_end'",
+     "REQUIRES federal_records_preservation",
+     "REQUIRES privacy_posture_documentation",
+     "REQUIRES reciprocity_agreement_formalization",
+     "FORBIDS production_modification"
+    ],
+    "anchor_hash": "94efc68841db714efb0528dd518ab2f819d2af55a05c80cd8f396a0872f65764",
+    "target": {
+     "description": "Beyond the minimum, the specification should provide actionable implementation guidance for each RMF step as applied to the financial reporting environment, including tailored control baselines and system-specific overlays. It should include a repeatable reciprocity workflow with standardized templates for exchanging security assessment packages with partner entities. The provenance framework should be machine-readable and integrate with existing audit logging infrastructure. Privacy posture documentation should map to applicable privacy control families and support automated compliance reporting. The final document should be structured to serve as a living artifact that can be updated incrementally throughout the FY25 audit preparation cycle and beyond."
+    },
+    "risk_tolerance": {
+     "max_autonomous_score": "LOW",
+     "escalate_above": "MEDIUM"
+    }
+   },
+   "expected_anchor_hash": "94efc68841db714efb0528dd518ab2f819d2af55a05c80cd8f396a0872f65764"
+  }
+ ]
+}

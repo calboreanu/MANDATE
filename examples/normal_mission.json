@@ -1,0 +1,53 @@
+{
+  "mission_id": "MANDATE-NM-001",
+  "intent": "Identify exploitable vulnerabilities in external-facing services of the target network",
+  "scope": [
+    "10.0.1.0/24",
+    "acme.example.com",
+    "10.0.1.5"
+  ],
+  "time_limit": "PT4H",
+  "minimum_outcome": "Enumerate external services and identify potential vulnerabilities",
+  "target_outcome": "Achieve initial access via confirmed exploitable vulnerability",
+  "constraints": [
+    "target.scope IN ['10.0.1.0/24', 'acme.example.com']",
+    "execution.duration <= PT4H",
+    "FORBIDS data_exfiltration",
+    "FORBIDS destructive_action"
+  ],
+  "risk_tolerance": "LOW",
+  "available_tools": [
+    {
+      "tool_id": "nmap",
+      "tool_class": "RECON",
+      "description": "Network mapper for host discovery and service enumeration",
+      "parameters": {
+        "scan_type": "SYN",
+        "timing": "T3"
+      }
+    },
+    {
+      "tool_id": "nuclei",
+      "tool_class": "SCAN",
+      "description": "Fast vulnerability scanner using community templates",
+      "parameters": {
+        "severity": "critical,high,medium",
+        "rate_limit": 100
+      }
+    },
+    {
+      "tool_id": "metasploit",
+      "tool_class": "EXPLOIT",
+      "description": "Exploitation framework for confirmed vulnerabilities",
+      "parameters": {
+        "payload_type": "reverse_shell",
+        "auto_check": true
+      }
+    }
+  ],
+  "metadata": {
+    "authorization_ref": "AUTH-2026-0142",
+    "roe_version": "2.1",
+    "scenario": "Normal Mission"
+  }
+}

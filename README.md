@@ -8,8 +8,9 @@ It produces governance-ready specification artifacts that separate:
 - **How to achieve it** (multiple **Courses of Action**, COAs),
 - With **Search→Select→Trace** provenance and optional **Gap Analysis** output when intent cannot be fully specified.
 
-> This repository is an implementation scaffold for the MANDATE paper (v1.0). It focuses on:
-> 1) JSON Schemas for mandate artifacts, 2) hashing + trace integrity utilities, and 3) a small CLI for validation.
+> This repository is the public reference implementation for the MANDATE artifact,
+> provenance, gap-reporting, and fail-closed execution-state contracts. It is not the
+> proprietary model-serving stack used to regenerate the paper's campaign records.
 
 ## What’s in here
 
@@ -21,6 +22,11 @@ It produces governance-ready specification artifacts that separate:
   - `mandate validate examples/quarterly_report_mandate.json`
 - `examples/` — example artifacts (mandate + gap report) and trace entries
 - `docs/` — short specs and implementation notes
+
+Pipeline results expose both an artifact representation and an execution state.
+`ok=true` is reserved for `EXECUTABLE`; any blocking or
+insufficient-for-automation signal routes to `NON_EXECUTABLE_GAPS` and `ok=false`,
+even when a mandate-shaped partial artifact is retained for review.
 
 ## Quickstart (local)
 
@@ -47,6 +53,9 @@ mandate hash-trace <path/to/trace_entry.json>
 mandate check-constraint "status == 'active' AND priority > 5"
 mandate validate-constraints <path/to/mandate.json>
 ```
+
+The `pipeline` command exits `0` for `EXECUTABLE`, `3` for a retained partial
+artifact routed to `NON_EXECUTABLE_GAPS`, and `2` for a hard pipeline failure.
 
 ## Status / non-goals
 

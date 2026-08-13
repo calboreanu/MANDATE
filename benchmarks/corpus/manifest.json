@@ -1,0 +1,147 @@
+{
+  "corpus_version": "2.0.0",
+  "description": "MANDATE evaluation corpus — mission inputs with expected pipeline outcomes",
+  "cases": [
+    {
+      "case_id": "EVAL-001",
+      "name": "Standard Pentest — Normal Mission",
+      "mission_file": "../../examples/normal_mission.json",
+      "domain": "pentest",
+      "expected": {
+        "pipeline_ok": true,
+        "min_coas": 2,
+        "max_coas": 3,
+        "required_tool_classes_in_coas": ["RECON", "SCAN"],
+        "recommendation_has_primary": true,
+        "recommendation_has_fallback": true,
+        "artifact_has_anchor_hash": true,
+        "artifact_has_trace": true,
+        "constraints_count": 4,
+        "gaps_expected": false
+      },
+      "tags": ["pentest", "standard", "3-tools"]
+    },
+    {
+      "case_id": "EVAL-002",
+      "name": "Incident Response — Ransomware",
+      "mission_file": "../../examples/incident_response_mission.json",
+      "domain": "incident_response",
+      "domain_profile": "incident_response",
+      "expected": {
+        "pipeline_ok": true,
+        "min_coas": 2,
+        "max_coas": 3,
+        "required_tool_classes_in_coas": ["DETECT", "CONTAIN"],
+        "recommendation_has_primary": true,
+        "recommendation_has_fallback": true,
+        "artifact_has_anchor_hash": true,
+        "artifact_has_trace": true,
+        "constraints_count": 5,
+        "gaps_expected": false
+      },
+      "tags": ["incident_response", "ransomware", "5-tools"]
+    },
+    {
+      "case_id": "EVAL-003",
+      "name": "Defense Intelligence — SIGINT Collection",
+      "mission_file": "../../examples/defense_intel_mission.json",
+      "domain": "defense_intel",
+      "domain_profile": "defense_intel",
+      "expected": {
+        "pipeline_ok": true,
+        "min_coas": 2,
+        "max_coas": 3,
+        "required_tool_classes_in_coas": ["COLLECT", "PROCESS"],
+        "recommendation_has_primary": true,
+        "recommendation_has_fallback": true,
+        "artifact_has_anchor_hash": true,
+        "artifact_has_trace": true,
+        "constraints_count": 6,
+        "gaps_expected": false
+      },
+      "tags": ["defense_intel", "sigint", "5-tools"]
+    },
+    {
+      "case_id": "EVAL-004",
+      "name": "Multi-Cloud Security Assessment",
+      "mission_file": "../../examples/multi_coa_mission.json",
+      "domain": "pentest",
+      "expected": {
+        "pipeline_ok": true,
+        "min_coas": 2,
+        "max_coas": 3,
+        "required_tool_classes_in_coas": ["RECON", "SCAN"],
+        "recommendation_has_primary": true,
+        "recommendation_has_fallback": true,
+        "artifact_has_anchor_hash": true,
+        "artifact_has_trace": true,
+        "constraints_count": 6,
+        "gaps_expected": false
+      },
+      "tags": ["pentest", "multi-cloud", "6-tools"]
+    },
+    {
+      "case_id": "EVAL-005",
+      "name": "Underspecified Mission — Gap Detection",
+      "mission_file": "../../examples/underspecified_mission.json",
+      "domain": "pentest",
+      "expected": {
+        "pipeline_ok": false,
+        "min_coas": 1,
+        "max_coas": 3,
+        "recommendation_has_primary": true,
+        "artifact_has_anchor_hash": true,
+        "artifact_has_trace": true,
+        "gaps_expected": true,
+        "min_gaps": 1
+      },
+      "tags": ["pentest", "underspecified", "gap-detection"]
+    },
+    {
+      "case_id": "EVAL-006",
+      "name": "Minimal Valid — Bare Minimum Input",
+      "mission_file": "minimal_valid.json",
+      "domain": "pentest",
+      "expected": {
+        "pipeline_ok": false,
+        "min_coas": 1,
+        "recommendation_has_primary": true,
+        "artifact_has_anchor_hash": true,
+        "artifact_has_trace": true,
+        "gaps_expected": true,
+        "min_gaps": 2
+      },
+      "tags": ["pentest", "minimal", "edge-case"]
+    },
+    {
+      "case_id": "EVAL-007",
+      "name": "Maximum Complexity — Many Constraints and Tools",
+      "mission_file": "max_complexity.json",
+      "domain": "pentest",
+      "expected": {
+        "pipeline_ok": true,
+        "min_coas": 2,
+        "max_coas": 3,
+        "required_tool_classes_in_coas": ["RECON", "SCAN", "EXPLOIT"],
+        "recommendation_has_primary": true,
+        "recommendation_has_fallback": true,
+        "artifact_has_anchor_hash": true,
+        "artifact_has_trace": true,
+        "constraints_count": 8,
+        "gaps_expected": false
+      },
+      "tags": ["pentest", "complex", "8-constraints", "5-tools"]
+    },
+    {
+      "case_id": "EVAL-008",
+      "name": "Invalid Input — Missing Required Fields",
+      "mission_file": "invalid_missing_fields.json",
+      "domain": "pentest",
+      "expected": {
+        "pipeline_ok": false,
+        "expected_error_role": "Intake"
+      },
+      "tags": ["negative", "invalid-input"]
+    }
+  ]
+}
