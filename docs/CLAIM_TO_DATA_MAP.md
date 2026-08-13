@@ -1,14 +1,14 @@
 # Claim-to-Data Map
 
-Every load-bearing claim in the paper §12 Tier 2 and the Empirical Evidence
+Every load-bearing claim in the paper §12 and the Empirical Evidence
 Supplemental, mapped to the exact in-repo file(s) that back it. Paths are
 relative to the repository root. "Supp." = Empirical Evidence Supplemental.
 
 | # | Claim (as stated) | Data | How to check |
 |---|---|---|---|
-| 1 | Original V1 pipeline/schema completion: Cond-A 1,500/1,500 and Cond-B 1,500/1,500 had `ok=true`; this was not an executability guarantee because blocking gaps could coexist with `ok=true` | `replication_package/v1_main/system_outputs/cond_{a,b}_{main,holdout}.jsonl`; contract correction in `docs/CORRECTED_ROUTING_VALIDATION_20260812.md` | sum V1 `ok`, then keep this claim separate from row 19 |
+| 1 | Evaluated-build pipeline/schema completion: Cond-A 1,500/1,500 and Cond-B 1,500/1,500 had `ok=true`; this was not an executability guarantee because blocking gaps could coexist with `ok=true` | `replication_package/v1_main/system_outputs/cond_{a,b}_{main,holdout}.jsonl`; successor contract check in `docs/CORRECTED_ROUTING_VALIDATION_20260812.md` | sum evaluated-build `ok`, then interpret it with row 19 |
 | 2 | MANDATE-primary 1,480/1,500 (98.7%) with 20 reproducible Intake-tripwire failures on 2 tasks × 10 seeds | `v1_main/system_outputs/mandate_primary_{main,holdout}.jsonl`; verbatim failures in `v1_main/findings_extracted/finding_5_intake/` | count ok=false; confirm task IDs TASK-MAIN-SEC-038/040 |
-| 3 | v2 comparative table (9 systems × 6 outcomes; Cond-B 0.864 min-cov vs ReAct 0.968; trace 2.000 vs 0.384) | `v1_main/grading/v2_full_coverage/ensemble_scores.jsonl` + `anonymization_mapping_full.json` | group by system, mean per outcome |
+| 3 | Full-coverage comparative table (9 systems × 6 outcomes; Cond-B 0.864 min-cov vs ReAct 0.968; trace 2.000 vs 0.384) | `v1_main/grading/v2_full_coverage/ensemble_scores.jsonl` + `anonymization_mapping_full.json`; raw per-judge streams under `retained_study_data/` | group by system, mean per outcome |
 | 4 | Cond-A = structured-input upper bound (0.981 min-cov), not apples-to-apples | same as #3; input-condition documented in Supp. §2.5 and per-record `output` provenance | — |
 | 5 | v1 κ halt: min pairwise κ 0.296 < 0.40 → pre-registered v2 supersession | `v1_main/grading/v1_sampled/v1_irr_report.json` (canonical IRR artifact, staged 2026-07-10); halt rule in `pre_registration/PROTOCOL_LOCK.md` §8 | read `min_pairwise_kappa` (0.2964, mission_intent_match, opus\|gemini) |
 | 6 | Subjective-outcome reliability caveat (α: trace 0.194, fabrication 0.216; objective: gap 0.701, min-cov 0.612) | `v1_main/grading/v1_sampled/double_grade/pass{1,2}_scores.jsonl` (per-judge, staged 2026-07-10) + `v1_irr_report.json` | recompute α per outcome from pass1 `judge_scores` (verified: gap/min-cov/fab exact; trace 0.203 interval-metric vs 0.194 reported, metric-choice sensitivity) |
@@ -25,7 +25,7 @@ relative to the repository root. "Supp." = Empirical Evidence Supplemental.
 | 17 | Freeze-tag provenance chain | evaluation tree git tags (listed in README §Provenance); apparatus snapshot in `code/` | `git tag -l` in the source tree |
 
 | 18 | Pairwise contrast CIs + Holm-corrected paired tests (paper Table v2-contrasts; e.g. Cond-B vs B3 min-cov Δ −0.112 [−0.129, −0.095]) | `analysis/bootstrap_contrasts_results.json` + `analysis/bootstrap_contrasts_table.md` | rerun `code/scripts/bootstrap_contrasts.py` (seed 20260710, B=10,000; ~4s) |
-| 19 | Corrected routing contract: all 2,999 records carrying blocking or insufficient-for-automation signals were `NON_EXECUTABLE_GAPS`; zero were executable (3,000-record Cond-A/B corrective validation) | `replication_package/v3_corrected_routing/outputs/cond_{a,b}_rerun.jsonl.gz`; analysis and ledger under the same tier | run `python3 code/scripts/verify_v3_corrected_routing.py` |
+| 19 | Successor routing-contract check: all 2,999 records carrying blocking or insufficient-for-automation signals were `NON_EXECUTABLE_GAPS`; zero were executable (3,000-record Cond-A/B focused check) | `replication_package/v3_corrected_routing/outputs/cond_{a,b}_rerun.jsonl.gz`; analysis and ledger in that historical source path | run `python3 code/scripts/verify_study_release.py` |
 
 **What is deliberately NOT claimable from this repo:** cross-system semantic
 adversarial-resistance rankings (Phase B partial, #14); substantive

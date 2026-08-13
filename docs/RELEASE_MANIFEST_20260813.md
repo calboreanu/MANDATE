@@ -1,4 +1,8 @@
-# Release manifest — 2026-08-13
+# MANDATE study release manifest — 2026.08.13
+
+This is one study result and one release. Historical path and tag names remain
+unchanged for provenance and hash continuity; they do not denote separately
+published results.
 
 ## Pinned state
 
@@ -20,13 +24,15 @@ cd replication_package/v3_corrected_routing
 sha256sum -c EVIDENCE_SHA256SUMS.txt
 ```
 
-Expected V3 result: 3,000 records, a measured denominator of 2,999
-signal-carrying records, zero executable-with-blocking violations, 18,000 trace
-entries, and USD 191.388447 ledger-settled cost.
+The focused routing-purpose test contains 3,000 records. Its measured denominator
+is 2,999 signal-carrying records, with zero executable-with-blocking violations,
+18,000 trace entries, and USD 191.388447 ledger-settled cost. The test determines
+whether the successor implementation routes blocking or insufficient
+specifications to non-executable states; it is not a second comparative study.
 
 ## Upload shape
 
-- 3,007 evidence-commit files before these release-hygiene additions.
+- 3,007 evidence-commit files before release-hygiene and retained-source additions.
 - Evidence tree size: 656,640,977 bytes (626.22 MiB uncompressed).
 - Simulated Git pack: approximately 198 MiB.
 - No tracked blob is 100 MB or larger.

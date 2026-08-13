@@ -1,11 +1,16 @@
-# Corrected-Routing Validation — 2026-08-12
+# Successor implementation routing-contract check — 2026-08-12
+
+This is a focused component of study release `2026.08.13`, not a separate
+result or release. Historical source paths and identifiers are retained below
+where necessary for exact provenance.
 
 ## Decision
 
-The 3,000-record corrective validation passes the scientific and contract
-requirements. It is suitable for the paper when described as a validation on
-the committed `1.0.3`-derived prompt stack. It is not evidence of an exact
-same-prompt replay of the original `1.0.0rc1` campaign.
+The 3,000-record focused check passes its contract requirements. Its purpose is
+to determine whether the committed `1.0.3`-derived successor implementation
+routes blocking or insufficient-for-automation specifications to explicit
+non-executable states. It is not evidence of an exact same-prompt replay of the
+evaluated `1.0.0rc1` implementation.
 
 ## Independent validation
 
@@ -55,15 +60,14 @@ denominator, cost debit, or record.
 
 ## Claim boundary
 
-Use:
+Purpose-bounded reporting language:
 
-> In a generation-only corrective validation on the committed 1.0.3-derived
-> prompt stack, using the frozen 150-task corpus and original 10-run seed
-> schedule, the repaired contract routed all 2,999 records carrying unresolved
-> blocking or insufficient-for-automation signals to explicit non-executable
-> states; zero such records were marked executable.
+> In a generation-only contract-conformance check of the committed
+> 1.0.3-derived successor implementation, using the frozen 150-task corpus and
+> original recorded 10-run schedule, all 2,999 records carrying unresolved
+> blocking or insufficient-for-automation signals routed to explicit
+> non-executable states; zero such records were marked executable.
 
 Do not say that every record with any gap was non-executable, that all 3,000
 records were non-executable, or that the run used a recovered and hash-matched
 copy of the original rc1 prompts.
-

@@ -1,7 +1,8 @@
-# MANDATE 2026Q2 Evaluation — Replication Package
+# MANDATE 2026Q2 Study — Complete Evidence and Replication Package
 
-**Repository:** `calboreanu/mandate-eval-primary-2026q2` (the public deposit named
-in the manuscript; prepared locally at tag `v3_validation_20260812`).
+**Study-release version:** `2026.08.13`
+
+**Repository:** `calboreanu/mandate-eval-primary-2026q2`
 
 This repository is the evidence and replication package for the pre-registered
 2026Q2 comparative evaluation of **MANDATE** (Multi-Agent Nominal Decomposition
@@ -15,18 +16,24 @@ cross-vendor execution (4 LLM families), a 350-perturbation adversarial suite,
 and ablations. Every deviation from the pre-registered protocol is documented
 (13 entries, D-01–D-13).
 
-**The headline claim, stated the way the data supports it:** the original V1
-campaign produced schema-valid, fully hash-traced mandate artifacts at scale,
-but its `ok` field did not enforce executability: blocking gap signals could
-coexist with `ok=true`. The successor 1.0.3-derived stack implements a
-fail-closed state contract. In a generation-only, post-hoc corpus-scale
-contract-conformance check, all 2,999 records with blocking or
-insufficient-for-automation signals routed to explicit non-executable states;
-zero routing-contract violations were observed. This check does not establish
+**The study result, stated as one result:** MANDATE produced schema-valid,
+fully hash-traced specification artifacts at scale and remained semantically
+competitive with, but not superior to, the strongest agentic comparator under
+identical raw-text input. The audit trail also exposed a result-state defect in
+the evaluated `1.0.0rc1` implementation: blocking or insufficient
+specifications could coexist with `ok=true`. The successor `1.0.3`-derived
+implementation therefore underwent a focused, generation-only contract check
+on the frozen canonical conditions. Its purpose was to determine whether every
+record carrying a blocking or insufficient-for-automation signal was routed to
+an explicit non-executable state. All 2,999 such records were non-executable;
+zero routing-contract violations were observed. This post-hoc check establishes
+conformance of that routing rule on the study corpus; it does not establish
 gap-detection accuracy, executable-state specificity, downstream operational
-fitness, or a controlled causal effect of the code change. Comparative semantic
-coverage remains competitive with (not superior to) the strongest agentic
-baseline under identical raw-text input.
+fitness, or a controlled causal effect of the code change.
+
+The repository is one study deposit. Historical directory labels remain only
+to preserve the executed chronology, immutable hashes, and citation anchors;
+they are not separate study results or separate releases.
 
 ## Read this first
 
@@ -34,7 +41,9 @@ baseline under identical raw-text input.
 |---|---|
 | Read the results | `supplement_pdfs/Empirical Evidence Supplemental.pdf` |
 | Verify a specific claim against data | `docs/CLAIM_TO_DATA_MAP.md` |
-| Verify the corrected routing contract | `replication_package/v3_corrected_routing/README.md` |
+| Verify the complete study release | `python3 code/scripts/verify_study_release.py` |
+| Understand the routing-purpose test | `docs/CORRECTED_ROUTING_VALIDATION_20260812.md` |
+| Inspect retained raw grading depth | `replication_package/retained_study_data/` |
 | Replicate (tiered, from free to cluster) | `docs/REPLICATION_INSTRUCTIONS.md` + `docs/PARTIAL_REPLICATION.md` |
 | See what routed where and why | `DEPOSIT_MAPPING.md` |
 | Check the locked protocol + halt rules | `pre_registration/PROTOCOL_LOCK.md` |
@@ -65,10 +74,8 @@ print('cond_a main ok:', ok, '/ 1200')"
 # Phase A adversarial results (100% prompt-injection structural pass):
 wc -l replication_package/v2_complete/perturbations_mandate/*.jsonl   # 3500 + 350 + 350
 
-# Corrected-routing validation (stdlib only; no keys or network):
-python3 code/scripts/verify_v3_corrected_routing.py
-# -> ok: true; records: 3000; primary_denominator_N: 2999;
-#    executable_with_blocking: 0
+# Complete release verification (stdlib only; no keys or network):
+python3 code/scripts/verify_study_release.py
 ```
 
 ## Package layout
@@ -77,20 +84,27 @@ python3 code/scripts/verify_v3_corrected_routing.py
   Supplemental, v2 Protocol Amendment, Engineering and Operational Provenance).
 - `pre_registration/` — the locked protocol package: PROTOCOL_LOCK.md (κ≥0.40
   halt rule), analysis plan, prompts, forms, calibration tasks, DEVIATIONS.md.
-- `replication_package/v0_pilot/`, `v0_5_pilot/` — the April 2026 pilot tiers
+- `replication_package/v0_pilot/`, `v0_5_pilot/` — historical pilot evidence
   backing the paper's §12 pilot tables.
-- `replication_package/v1_main/` — the 2026Q2 main matrix: frozen corpus,
+- `replication_package/v1_main/` — the frozen comparative campaign: corpus,
   ground truth, perturbation suite, per-system RunRecords (consolidated JSONL),
   v1 sampled grading (700) and v2 full-coverage grading (12,000), per-finding
   extracts, RunRecord schema.
-- `replication_package/v2_complete/` — cross-vendor runs (1,200), MANDATE-side
+- `replication_package/v2_complete/` — additional cross-vendor runs (1,200), MANDATE-side
   perturbation records (4,200), A3/A5 ablations (3,000), the all-ablations MVP
   (1,200; auxiliary), partial Phase B perturbation grades (14,685; paused at
   80.7% under Deviation D-13), Phase A structural-invariance report.
-- `replication_package/v3_corrected_routing/` — the 3,000-record,
-  generation-only corrective validation on the 1.0.3-derived contract,
+- `replication_package/v3_corrected_routing/` — the focused 3,000-record,
+  generation-only routing-contract check on the 1.0.3-derived implementation,
   including consolidated outputs, ledger, analyses, patches, provenance, and
-  a byte-exact split of the complete originator return archive.
+  a byte-exact split of the complete originator return archive. Its historical
+  path label is retained for provenance; it is part of this study release.
+- `replication_package/retained_study_data/` — deterministic, checksummed
+  consolidation of the retained raw per-judge streams, including all 36,000
+  records behind the 12,000 full-coverage ensemble results and 44,055 partial
+  perturbation-judge records. Additional directory-backed retained material is
+  inventoried by the included packager and will be appended after cloud
+  materialization.
 - `code/` — apparatus snapshot (7-role pipeline, judges, baselines,
   perturbation generator) + run scripts.
 - `engineering_provenance/` — full handoff chronology (119 files) + cost
@@ -112,12 +126,12 @@ implementation); artifacts verify against later stack releases, but
 byte-faithful re-execution should use 1.0.0rc1. mlt-stack is not vendored
 here; see `docs/REPLICATION_INSTRUCTIONS.md` ("Acquiring mlt-stack").
 
-The corrective-validation apparatus is reproduced by the patch series in
+The focused routing-check apparatus is reproduced by the patch series in
 `replication_package/v3_corrected_routing/provenance/`, based on apparatus
 commit `ab64056c9464f9ab294696698423c4167a703071` and ending at campaign
 apparatus commit `74c62b02856254656905269d2bff9851dbfb1800`; its external
 mlt-stack patch and campaign commit
-`c0b58fb38b3c72ab6ece72f7576425892234976c` are preserved as provenance. This V3 run used a committed
+`c0b58fb38b3c72ab6ece72f7576425892234976c` are preserved as provenance. This focused check used a committed
 1.0.3-derived prompt stack, not a recovered hash-identical copy of the rc1
 prompts.
 
@@ -159,9 +173,9 @@ them.
 - Cond-A receives pre-extracted structured input and is an upper-bound
   characterization, **not** an apples-to-apples comparator against baselines;
   the fair MANDATE comparator is Cond-B.
-- In the frozen V1 Cond-A/B files, `ok=true` establishes schema/pipeline
+- In the evaluated Cond-A/B campaign files, `ok=true` establishes schema/pipeline
   completion only; it must not be cited as evidence that the output was safe
-  to execute. The corrected V3 contract adds explicit execution states and a
+  to execute. The successor contract adds explicit execution states and a
   fail-closed gate. See `docs/CORRECTED_ROUTING_VALIDATION_20260812.md`.
 
 ## Citation

@@ -9,12 +9,12 @@ permissions:
   contents: read
 
 jobs:
-  tier-1:
+  verify-study-release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: python3 code/scripts/verify_v3_corrected_routing.py
+      - run: python3 code/scripts/verify_study_release.py
       - run: cd replication_package/v3_corrected_routing && sha256sum -c EVIDENCE_SHA256SUMS.txt

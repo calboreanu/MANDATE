@@ -2,10 +2,10 @@ cff-version: 1.2.0
 message: >-
   If you use this evaluation deposit, please cite it as below, by
   repository URL and version.
-title: "MANDATE 2026Q2 Evaluation — Replication Package (mandate-eval-primary-2026q2)"
+title: "MANDATE 2026Q2 Study — Evidence and Replication Package"
 type: dataset
-version: v3-corrected-routing-validation-2026-08-12
-date-released: "2026-08-12"
+version: "2026.08.13"
+date-released: "2026-08-13"
 authors:
   - family-names: Calboreanu
     given-names: Elias
@@ -24,8 +24,11 @@ url: "https://github.com/calboreanu/mandate-eval-primary-2026q2"
 notes: >-
   Code is Apache-2.0; data (RunRecords, corpus, ground truth, grades) is
   CC BY 4.0 (see LICENSE-DATA); pre-registration prompts and forms are CC0.
-  The original comparative evaluation used mlt-stack 1.0.0rc1. The deposited
-  corrective-routing validation used a committed 1.0.3-derived prompt stack.
+  This is one versioned study release. The comparative campaign evaluated
+  mlt-stack 1.0.0rc1. After its audit exposed a fail-open result-state defect,
+  the study checked the successor 1.0.3-derived implementation on the frozen
+  canonical conditions to determine whether blocking or insufficient
+  specifications route to non-executable states.
 references:
   - type: article
     title: "MANDATE: Tolerance-Based Task Specification with Tamper-Evident Provenance for LLM Agents, and What Its Own Audit Trail Revealed"

@@ -48,15 +48,16 @@ supplement (Deviation Table and/or Threats to Validity) and summarized here.
 
 9. **Original V1 Cond-B generation cost is unlogged** (`api_cost_usd = null`
    by design on all 1,500 records); the original cost ledger carries this as a
-   flagged estimate. The V3 corrective campaign is separately ledgered at
+   flagged estimate. The focused successor-routing check is ledgered at
    USD 191.388447 (USD 192.138414 cumulative including prior smoke/probes).
 
 10. **Provider temporal drift.** Judge and baseline model versions are pinned
     by identifier, but hosted-model behavior drifts; byte-identical re-grades
     are not expected (temporal-validity threat).
 
-11. **The corrective validation is not an exact same-prompt replay.** The
+11. **The successor routing-contract check is not an exact same-prompt replay.** The
     original `1.0.0rc1` prompt implementation was not recovered and
-    hash-matched. V3 uses the same frozen 150 tasks, ten-run seed schedule,
-    and two canonical conditions on a committed 1.0.3-derived prompt stack.
-    It supports a repaired-contract claim, not prompt-level identity.
+    hash-matched. The focused check uses the same frozen 150 tasks, recorded
+    ten-run schedule, and two canonical conditions on a committed
+    1.0.3-derived prompt stack. It establishes observed routing conformance on
+    this corpus, not prompt-level identity or causal isolation.
