@@ -6,20 +6,25 @@ published results.
 
 ## Pinned state
 
-- Deposit commit: `f5019da050bfa87e8f72005820f059eee465aeb8` plus the release-hygiene commit prepared after it.
-- Evidence tag: `v3_validation_20260812` (points to the frozen evidence commit above).
+- Release identifier: `2026.08.13`; the published Git tag is
+  `study-release-2026.08.13`.
+- Frozen focused-check evidence commit:
+  `f5019da050bfa87e8f72005820f059eee465aeb8` (historical evidence tag
+  `v3_validation_20260812`).
+- Unified retained-judge reconciliation commit:
+  `e02f88cffbe80af3a62e51488e7e9b18199a6cd4`.
 - Corrected-core campaign commit: `c0b58fb38b3c72ab6ece72f7576425892234976c`.
-- Corrected-core private reviewer bundle SHA-256:
-  `54c3979904a5378cdcd4eb606e14b9f8619593602a04261e6373758b8e20d3e1`.
-- Evaluation integration delta bundle SHA-256:
-  `fabf71df41224c261b830ebcbb8fc2dda25850c111879675f616003e656e2113`.
+
+Private reviewer and local recovery bundles are deliberately excluded from the
+public repository. Their hashes belong in the private handoff inventory, not
+in this public data manifest.
 
 ## Release gates
 
 From a full checkout (not a sparse worktree):
 
 ```bash
-python3 code/scripts/verify_v3_corrected_routing.py
+python3 code/scripts/verify_study_release.py
 cd replication_package/v3_corrected_routing
 sha256sum -c EVIDENCE_SHA256SUMS.txt
 ```
@@ -32,17 +37,17 @@ specifications to non-executable states; it is not a second comparative study.
 
 ## Upload shape
 
-- 3,007 evidence-commit files before release-hygiene and retained-source additions.
-- Evidence tree size: 656,640,977 bytes (626.22 MiB uncompressed).
-- Simulated Git pack: approximately 198 MiB.
+- 3,023 tracked files in the prepared release.
+- Checkout size: approximately 682 MiB before GitHub-side packing.
+- The retained-stream component contains 82,155 grading records in nine
+  deterministic gzip streams, including all 36,000 per-judge records behind
+  the 12,000 full-coverage ensemble results.
 - No tracked blob is 100 MB or larger.
 - One tracked blob is larger than GitHub's 50 MB warning threshold:
   `replication_package/v2_complete/perturbations_mandate/mandate_primary_perturbations.jsonl`
   at 61,511,310 bytes. It remains ordinary Git content so a standard clone is
   self-contained; no Git LFS dependency is introduced.
 
-The public evaluation repository did not yet exist when this manifest was
-prepared. Create it as an empty repository, push the prepared release branch,
-run CI, then make `main` public only after the private reviewer/package boundary
-has been checked. Do not upload the private corrected-core bundle to the public
-data repository.
+The release is designed for a standard GitHub checkout with no Git LFS
+dependency. Do not upload private corrected-core or local recovery bundles to
+the public data repository.

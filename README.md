@@ -62,16 +62,16 @@ wc -l replication_package/v1_main/system_outputs/*.jsonl
 #   (each baseline file = 1200 TASK-MAIN-* + 6 TASK-CAL-* calibration records;
 #    graded main-matrix n = 1200 per baseline, +300 hold-out for baseline_1)
 
-# Full-coverage v2 grades (the comparative table's source):
+# Full-coverage ensemble grades (the comparative table's source):
 wc -l replication_package/v1_main/grading/v2_full_coverage/ensemble_scores.jsonl   # 12000
 
-# Historical V1 pipeline/schema completion (not executability):
+# Evaluated-build pipeline/schema completion (not executability):
 python3 -c "
 import json
 ok=sum(json.loads(l)['ok'] for l in open('replication_package/v1_main/system_outputs/cond_a_main.jsonl'))
 print('cond_a main ok:', ok, '/ 1200')"
 
-# Phase A adversarial results (100% prompt-injection structural pass):
+# Adversarial structural results (100% prompt-injection structural pass):
 wc -l replication_package/v2_complete/perturbations_mandate/*.jsonl   # 3500 + 350 + 350
 
 # Complete release verification (stdlib only; no keys or network):
@@ -86,15 +86,17 @@ python3 code/scripts/verify_study_release.py
   halt rule), analysis plan, prompts, forms, calibration tasks, DEVIATIONS.md.
 - `replication_package/v0_pilot/`, `v0_5_pilot/` — historical pilot evidence
   backing the paper's §12 pilot tables.
-- `replication_package/v1_main/` — the frozen comparative campaign: corpus,
-  ground truth, perturbation suite, per-system RunRecords (consolidated JSONL),
-  v1 sampled grading (700) and v2 full-coverage grading (12,000), per-finding
-  extracts, RunRecord schema.
-- `replication_package/v2_complete/` — additional cross-vendor runs (1,200), MANDATE-side
+- `replication_package/v1_main/` — the frozen comparative-campaign component:
+  corpus, ground truth, perturbation suite, per-system RunRecords (consolidated
+  JSONL), sampled grading (700), full-coverage grading (12,000), per-finding
+  extracts, and the RunRecord schema. The directory name is historical.
+- `replication_package/v2_complete/` — the historical path for additional
+  cross-vendor runs (1,200), MANDATE-side
   perturbation records (4,200), A3/A5 ablations (3,000), the all-ablations MVP
   (1,200; auxiliary), partial Phase B perturbation grades (14,685; paused at
   80.7% under Deviation D-13), Phase A structural-invariance report.
-- `replication_package/v3_corrected_routing/` — the focused 3,000-record,
+- `replication_package/v3_corrected_routing/` — the historical path for the
+  focused 3,000-record,
   generation-only routing-contract check on the 1.0.3-derived implementation,
   including consolidated outputs, ledger, analyses, patches, provenance, and
   a byte-exact split of the complete originator return archive. Its historical

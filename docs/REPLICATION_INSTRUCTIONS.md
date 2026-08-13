@@ -59,7 +59,11 @@ The supplement makes five affirmative claims (§1.2). They rest on structural co
 - **Claim 4** — MANDATE surfaces consequential governance signals (AEGIS 51-defect convergence, Binding refusal cascade, Intake tripwire, Decomposition single-COA prior).
 - **Claim 5** — Cross-domain generalization (3 in-domain corpora + a 30-task out-of-domain hold-out).
 
-The empirical-tier chain is v0 (paper §12 pilot) → v0.5 (April cross-profile pilot, supplement §6.7) → v1 (the 2026Q2 main matrix, frozen) → v2 (full-coverage grading + multi-vendor Cond-B) → v3 (corrected-routing validation).
+This repository publishes one versioned study result. The historical `v0`,
+`v0.5`, `v1`, `v2`, and `v3` strings remain only in frozen paths and tags that
+preserve execution chronology and hashes. The components are the pilot,
+comparative campaign, full-coverage grading and cross-vendor evidence, and the
+focused successor routing-contract check.
 
 ---
 
@@ -80,7 +84,7 @@ Most reviewers should stop at Tier 1; it verifies the affirmative case directly.
 
 No keys, no environment, no network. Run plain shell/Python over the JSONL from the repository root. *(Smoke-tested 2026-07-17: every command below reproduced its expected output exactly.)*
 
-### 1.0 Corrected-routing contract (V3)
+### 1.0 Successor routing contract
 
 ```bash
 python3 code/scripts/verify_v3_corrected_routing.py
@@ -110,7 +114,7 @@ done
 
 The authoritative inventory is `replication_package/v1_main/findings_extracted/dataset_inventory/record_counts.md`. Note the "1500" figures in the supplement are **1200 main + 300 hold-out** per system; the baselines are 1206 main each (1,200 `TASK-MAIN-*` records + 6 `TASK-CAL-*` calibration records; graded main-matrix n = 1200 per baseline).
 
-### 1.2 Original V1 pipeline/schema completion (`ok` rate)
+### 1.2 Evaluated-build pipeline/schema completion (`ok` rate)
 
 ```bash
 # MANDATE-primary: expect 1180 / 1200 ok on main (the 20 deltas are the Intake tripwire)

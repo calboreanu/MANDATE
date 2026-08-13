@@ -25,7 +25,7 @@ supplement (Deviation Table and/or Threats to Validity) and summarized here.
    on-disk record inspection instead. Treat those two grade columns as
    descriptive.
 
-5. **Phase B semantic adversarial comparison: partial (80.7%).** Grading
+5. **Cross-system semantic adversarial comparison: partial (80.7%).** Grading
    paused under budget Deviation D-13; baseline_4 generation halted at
    86.3% (3,021/3,500 on the frozen evaluation tree; the closeout status
    JSON snapshot reads 2,993 because it was written while the generator
@@ -46,7 +46,7 @@ supplement (Deviation Table and/or Threats to Validity) and summarized here.
    (anonymization, three-vendor ensemble, shape-neutral rubric) are
    documented in the supplement's Threats section.
 
-9. **Original V1 Cond-B generation cost is unlogged** (`api_cost_usd = null`
+9. **Evaluated-build Cond-B generation cost is unlogged** (`api_cost_usd = null`
    by design on all 1,500 records); the original cost ledger carries this as a
    flagged estimate. The focused successor-routing check is ledgered at
    USD 191.388447 (USD 192.138414 cumulative including prior smoke/probes).

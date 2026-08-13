@@ -15,12 +15,13 @@ evaluated `1.0.0rc1` implementation.
 ## Independent validation
 
 The originator return ZIP tested clean, and all 3,495 entries in its package
-checksum manifest verified. The six original corpus/V1 files already in this
+checksum manifest verified. The six evaluated-build corpus files already in this
 repository match the preflight hashes exactly. Independent inspection then
 confirmed:
 
 - exactly 1,200 main and 300 holdout records per condition;
-- exact V1/V3 task, run-number, and seed identity;
+- exact task, run-number, and recorded schedule identity between the evaluated
+  build and the successor check;
 - runs 1–10 and seeds `20260624`–`20260633` for every task;
 - 2,999 raw gap sets carrying a blocking or insufficient signal;
 - zero executable observations among those 2,999 records;
