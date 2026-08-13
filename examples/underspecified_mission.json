@@ -1,0 +1,11 @@
+{
+  "mission_id": "MANDATE-UNDERSPEC-001",
+  "intent": "Assess the security posture of the target environment",
+  "constraints": [
+    "FORBIDS destructive_action"
+  ],
+  "metadata": {
+    "scenario": "Underspecified Mission — triggers gap reports",
+    "notes": "Missing: minimum_outcome, target_outcome, scope, risk_tolerance, available_tools"
+  }
+}

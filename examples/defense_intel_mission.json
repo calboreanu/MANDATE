@@ -1,0 +1,77 @@
+{
+  "mission_id": "MANDATE-DI-001",
+  "intent": "Collect and analyze signals intelligence on designated communication channels within the area of operations",
+  "scope": [
+    "AO-NORTH-SECTOR-7",
+    "FREQ-RANGE-225.0-400.0-MHZ",
+    "SATCOM-BAND-X"
+  ],
+  "time_limit": "PT24H",
+  "minimum_outcome": "Identify and catalog active communication emitters within the designated frequency ranges",
+  "target_outcome": "Produce actionable intelligence product with pattern-of-life analysis, emitter characterization, and network mapping",
+  "constraints": [
+    "target.scope IN ['AO-NORTH-SECTOR-7', 'FREQ-RANGE-225.0-400.0-MHZ', 'SATCOM-BAND-X']",
+    "execution.duration <= PT24H",
+    "FORBIDS active_transmission",
+    "FORBIDS ally_frequency_interference",
+    "FORBIDS classification_spillage",
+    "REQUIRES sigint_authorization"
+  ],
+  "risk_tolerance": "LOW",
+  "available_tools": [
+    {
+      "tool_id": "elint_receiver",
+      "tool_class": "COLLECT",
+      "description": "Electronic intelligence receiver for signal detection and characterization",
+      "parameters": {
+        "frequency_range": "225.0-400.0 MHz",
+        "sensitivity": "high",
+        "mode": "passive"
+      }
+    },
+    {
+      "tool_id": "comint_processor",
+      "tool_class": "COLLECT",
+      "description": "Communications intelligence processor for traffic analysis",
+      "parameters": {
+        "protocols": ["SATCOM", "HF", "VHF"],
+        "mode": "intercept"
+      }
+    },
+    {
+      "tool_id": "sigint_processor",
+      "tool_class": "PROCESS",
+      "description": "Signal processing suite for demodulation, decryption, and normalization",
+      "parameters": {
+        "output_format": "standardized",
+        "classification_level": "SECRET"
+      }
+    },
+    {
+      "tool_id": "palantir_gotham",
+      "tool_class": "ANALYZE",
+      "description": "Intelligence analysis platform for pattern recognition and link analysis",
+      "parameters": {
+        "workspace": "AO-NORTH",
+        "classification_level": "SECRET"
+      }
+    },
+    {
+      "tool_id": "intel_dissem_system",
+      "tool_class": "DISSEMINATE",
+      "description": "Secure intelligence dissemination system for report distribution",
+      "parameters": {
+        "distribution": "NOFORN",
+        "priority": "ROUTINE"
+      }
+    }
+  ],
+  "metadata": {
+    "authorization_ref": "OPORD-2026-NORTH-047",
+    "classification": "[REDACTED]",
+    "scenario": "Defense/Intelligence Operations",
+    "domain": "defense_intel",
+    "collection_authority": "[REDACTED]",
+    "oversight_reference": "[REDACTED]"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "mission_id": "MANDATE-IR-001",
+  "intent": "Contain and eradicate ransomware infection affecting corporate file servers",
+  "scope": [
+    "fileserver-01.corp.local",
+    "fileserver-02.corp.local",
+    "dc-01.corp.local",
+    "172.16.10.0/24"
+  ],
+  "time_limit": "PT8H",
+  "minimum_outcome": "Contain the ransomware spread and prevent further encryption of corporate data",
+  "target_outcome": "Full eradication of ransomware, restoration of affected systems from clean backups, and root cause identification",
+  "constraints": [
+    "target.scope IN ['fileserver-01.corp.local', 'fileserver-02.corp.local', 'dc-01.corp.local', '172.16.10.0/24']",
+    "execution.duration <= PT8H",
+    "FORBIDS data_destruction",
+    "FORBIDS unauthorized_system_shutdown",
+    "REQUIRES incident_commander_approval"
+  ],
+  "risk_tolerance": "MEDIUM",
+  "available_tools": [
+    {
+      "tool_id": "crowdstrike_falcon",
+      "tool_class": "DETECT",
+      "description": "EDR platform for threat detection, investigation, and response",
+      "parameters": {
+        "mode": "real_time",
+        "severity_filter": "critical,high"
+      }
+    },
+    {
+      "tool_id": "splunk_enterprise",
+      "tool_class": "DETECT",
+      "description": "SIEM platform for log aggregation, correlation, and alerting",
+      "parameters": {
+        "index": "security",
+        "time_range": "-24h"
+      }
+    },
+    {
+      "tool_id": "palo_alto_firewall",
+      "tool_class": "CONTAIN",
+      "description": "Next-gen firewall for network segmentation and traffic control",
+      "parameters": {
+        "action": "isolate_segment",
+        "logging": true
+      }
+    },
+    {
+      "tool_id": "crowdstrike_rtr",
+      "tool_class": "ERADICATE",
+      "description": "Real Time Response for remote remediation of compromised endpoints",
+      "parameters": {
+        "mode": "active_response",
+        "require_approval": true
+      }
+    },
+    {
+      "tool_id": "veeam_backup",
+      "tool_class": "RECOVER",
+      "description": "Enterprise backup and recovery solution for system restoration",
+      "parameters": {
+        "restore_type": "instant_vm_recovery",
+        "verify_integrity": true
+      }
+    }
+  ],
+  "metadata": {
+    "authorization_ref": "INC-2026-0847",
+    "severity": "P1",
+    "scenario": "Incident Response",
+    "domain": "incident_response",
+    "compliance_frameworks": ["NIST_SP_800-61", "SOC2"]
+  }
+}

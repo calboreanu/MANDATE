@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:mandate:schema:mandate-result-envelope.schema.json",
+  "title": "MANDATE result execution envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_schema_version", "ok", "execution_state", "output_representation",
+    "artifact_present", "schema_valid", "gap_report_count",
+    "has_blocking_or_insufficient_signal", "errors_present", "missing_result"
+  ],
+  "properties": {
+    "contract_schema_version": {"const": "mandate-result-envelope.v1"},
+    "ok": {"type": "boolean"},
+    "execution_state": {"enum": ["EXECUTABLE", "NON_EXECUTABLE_GAPS", "NON_EXECUTABLE_VALIDATION", "FAILED"]},
+    "output_representation": {"enum": ["MANDATE_AS_CODE", "GAP_REPORT", "NONE"]},
+    "artifact_present": {"type": "boolean"},
+    "schema_valid": {"type": ["boolean", "null"]},
+    "gap_report_count": {"type": "integer", "minimum": 0},
+    "has_blocking_or_insufficient_signal": {"type": "boolean"},
+    "errors_present": {"type": "boolean"},
+    "missing_result": {"type": "boolean"}
+  },
+  "allOf": [
+    {"if": {"properties": {"execution_state": {"const": "EXECUTABLE"}}}, "then": {"properties": {
+      "ok": {"const": true}, "artifact_present": {"const": true}, "schema_valid": {"const": true},
+      "has_blocking_or_insufficient_signal": {"const": false}, "errors_present": {"const": false},
+      "missing_result": {"const": false}
+    }}},
+    {"if": {"properties": {"execution_state": {"const": "NON_EXECUTABLE_GAPS"}}}, "then": {"properties": {
+      "ok": {"const": false}, "has_blocking_or_insufficient_signal": {"const": true},
+      "missing_result": {"const": false}
+    }}},
+    {"if": {"properties": {"execution_state": {"const": "NON_EXECUTABLE_VALIDATION"}}}, "then": {"properties": {
+      "ok": {"const": false}, "has_blocking_or_insufficient_signal": {"const": false},
+      "schema_valid": {"const": false}, "missing_result": {"const": false}
+    }}},
+    {"if": {"properties": {"execution_state": {"const": "FAILED"}}}, "then": {"properties": {"ok": {"const": false}}}}
+  ]
+}
