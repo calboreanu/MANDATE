@@ -19,6 +19,8 @@ keywords:
   - MANDATE
 license: Apache-2.0
 license-url: "https://www.apache.org/licenses/LICENSE-2.0"
+repository-code: "https://github.com/calboreanu/mandate-eval-primary-2026q2"
+url: "https://github.com/calboreanu/mandate-eval-primary-2026q2"
 notes: >-
   Code is Apache-2.0; data (RunRecords, corpus, ground truth, grades) is
   CC BY 4.0 (see LICENSE-DATA); pre-registration prompts and forms are CC0.
@@ -26,8 +28,8 @@ notes: >-
   corrective-routing validation used a committed 1.0.3-derived prompt stack.
 references:
   - type: article
-    title: "MANDATE: A Tolerance-Based Framework for Autonomous Agent Task Specification"
+    title: "MANDATE: Tolerance-Based Task Specification with Tamper-Evident Provenance for LLM Agents, and What Its Own Audit Trail Revealed"
     authors:
       - family-names: Calboreanu
         given-names: Elias
-    notes: "Manuscript under review (Frontiers in Artificial Intelligence ms 1802568 revision lineage). Cite the published version when available."
+    notes: "Manuscript prepared for Automated Software Engineering; it supersedes the earlier Frontiers/SSRN manuscript lineage. Cite the published version when available."

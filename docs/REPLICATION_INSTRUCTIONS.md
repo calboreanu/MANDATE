@@ -10,7 +10,12 @@ This document tells a reviewer how to reproduce every empirical claim in the MAN
 
 ## Environment
 
-- **Python:** the evaluation executed under **Python 3.12.12** (pyenv-managed venv on the eval host). Note the known pin wrinkle: the eval-host `environment.yml` pins `python>=3.11`, but the venv that produced the attested results was 3.12.12 — **use Python 3.12.12** for byte-faithful reproduction. `environment.yml` is not part of this deposit.
+- **Python:** the evaluation executed under **Python 3.12.12** (pyenv-managed
+  venv on the eval host). The historical host manifest admitted Python 3.11 or
+  newer, but the venv that produced the attested results was 3.12.12 — **use
+  Python 3.12.12** for byte-faithful reproduction. The historical host manifest
+  is not part of this deposit; the repository-root `requirements.txt` is the
+  released dependency manifest.
 - **Dependencies:** install from the repo-root **`requirements.txt`** (added 2026-07-17; pins derive from the attested eval-host freeze `pre_registration/provenance_pip_freeze.txt`, with per-line verification notes):
 
 ```bash
@@ -328,7 +333,11 @@ These are honest, documented boundaries of what can be replicated:
 - **Ablations.** A3 (no_gap_analysis) and A5 (no_registry) are reproducible from the shipped corpus; A1/A2/A4/A6/A7 are upstream-blocked and are described rather than re-runnable (see `replication_package/v2_complete/ablation_mvp/` for the 150-task all-ablations demonstration).
 - **Phi-3 cross-vendor row completed 2026-06-26** at 300/300 structurally valid (1,200/1,200 across all four vendor families). The supplement's cross-vendor fallback table (§1.2 Claim 3) carries the per-vendor deterministic-fallback rates: on Llama 3.2 (3B) and Phi-3 (14B) the LLM-augmented Interpreter fails schema validation on 100% of records and the deterministic fallback produces the valid output.
 - **Phase B perturbation grading is partial (D-13).** Semantic v2 grading of the 18,200-record scoped perturbation set was paused 2026-07-08 at 14,685 main-pass grades (80.7%); double-grade IRR pass 1 at 816/3,640, pass 2 not started. Baseline_5/6 perturbation runs were scoped out under D-12 (baseline_4 is the multi-agent-shell class representative). Resume with `grade-v2 ... --skip-existing` against the frozen records; no regeneration required. Phase A structural results are complete and independent of grading (`replication_package/v2_complete/`).
-- **Environment pin drift:** the eval-host `environment.yml` pins Python 3.11 while the evaluation venv is 3.12.12; pin to 3.12.12 for byte-faithful reproduction. This deposit's manifest is the repo-root `requirements.txt` (see the "Environment" section above and `docs/ENVIRONMENT.md`).
+- **Environment pin drift:** the historical eval-host manifest admitted Python
+  3.11 or newer while the evaluation venv was 3.12.12; pin to 3.12.12 for
+  byte-faithful reproduction. This deposit's released manifest is the
+  repository-root `requirements.txt` (see the "Environment" section above and
+  `docs/ENVIRONMENT.md`).
 - **Promised-but-excluded artifacts** are enumerated with status in `docs/EXCLUSIONS.md`; frozen-artifact label discrepancies in `docs/ERRATA.md`.
 
 ---

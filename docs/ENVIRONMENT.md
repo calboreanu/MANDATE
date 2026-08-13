@@ -30,15 +30,14 @@ horizontal scaling.
 | Python interpreter | Python 3.12.12 |
 | Manager | pyenv (or any equivalent installer) |
 | Virtual environment | `.venv/` at the apparatus root, created via `python -m venv` |
-| Package list | `environment.yml` at the apparatus root |
+| Package list | Repository-root `requirements.txt` |
 
 The on-disk `.venv/bin/python` is a symlink to a pyenv-managed 3.12.12.
-The `environment.yml` currently pins `python>=3.11`; reviewers should
-match `3.12.12` exactly to reproduce the v1 attested results. Pip
-package versions in `environment.yml` use `>=` ranges for the LLM SDKs
-(`anthropic`, `openai`, `google-generativeai`); the audit-attested
-versions are documented in
-`engineering_provenance/cost_log/cost_ledger.md` source-references.
+The evaluation host used Python 3.12.12; reviewers should match it for
+byte-faithful reproduction. This deposit intentionally does not ship the
+stale host `environment.yml`. Install the pinned, annotated dependencies from
+the repository-root `requirements.txt`; the underlying host freeze is retained
+at `pre_registration/provenance_pip_freeze.txt`.
 
 Setup:
 ```bash
@@ -121,10 +120,10 @@ infrastructure above plus the MLX-LM toolchain on Apple Silicon.
 
 | Tier | Disk | Wall clock | API spend |
 |---|---|---|---|
-| Tier 1 — read-only | ~50 GB (deposit + frozen RunRecords) | minutes | $0 |
-| Tier 2 — re-grade | ~50 GB + grade outputs | 24–36 hours (full coverage; ~100 grades/hr at the recorded daemon throughput) | ~$7,700 |
-| Tier 3 — re-baselines | ~70 GB | 1–2 days per baseline (varies by API rate-limit) | ~$200–$2,000 per baseline |
-| Tier 4 — re-MANDATE | ~80 GB | Multi-day (fine-tune + 1500-record generation) | $0 (local Ollama only) |
+| Tier 1 — read-only | ~0.7 GB checkout | minutes | $0 |
+| Tier 2 — re-grade | ~1 GB plus new grade outputs | 24–36 hours (full coverage; ~100 grades/hr at the recorded daemon throughput) | ~$7,700 |
+| Tier 3 — re-baselines | Several GB plus generated outputs/model caches | 1–2 days per baseline (varies by API rate-limit) | ~$200–$2,000 per baseline |
+| Tier 4 — re-MANDATE | Model/fine-tune storage dominates; budget tens of GB | Multi-day (fine-tune + 1500-record generation) | $0 (local Ollama only) |
 
 ## Non-default environment variables used
 

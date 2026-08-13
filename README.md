@@ -1,12 +1,14 @@
 # MANDATE 2026Q2 Evaluation — Replication Package
 
-**Proposed repository name:** `mandate-eval-primary-2026q2` (matches the apparatus freeze tag).
+**Repository:** `calboreanu/mandate-eval-primary-2026q2` (the public deposit named
+in the manuscript; prepared locally at tag `v3_validation_20260812`).
 
 This repository is the evidence and replication package for the pre-registered
 2026Q2 comparative evaluation of **MANDATE** (Multi-Agent Nominal Decomposition
 for Autonomous Task Execution), a tolerance-based task-specification framework
 for autonomous agents. The evaluation measured three MANDATE conditions against
-six baseline systems on a frozen three-domain corpus (120 tasks × 10 seeds)
+six baseline systems on a frozen three-domain corpus (120 tasks × a recorded
+10-run schedule)
 plus a 30-task out-of-domain hold-out, graded 12,000 records at full coverage
 under a three-judge ensemble (Claude Opus, GPT-4o, Gemini 2.5 Pro), and added
 cross-vendor execution (4 LLM families), a 350-perturbation adversarial suite,
@@ -16,10 +18,13 @@ and ablations. Every deviation from the pre-registered protocol is documented
 **The headline claim, stated the way the data supports it:** the original V1
 campaign produced schema-valid, fully hash-traced mandate artifacts at scale,
 but its `ok` field did not enforce executability: blocking gap signals could
-coexist with `ok=true`. A generation-only corrective validation on the
-committed 1.0.3-derived prompt stack repaired that contract, routing all 2,999
-records with blocking or insufficient-for-automation signals to explicit
-non-executable states, with zero contract violations. Comparative semantic
+coexist with `ok=true`. The successor 1.0.3-derived stack implements a
+fail-closed state contract. In a generation-only, post-hoc corpus-scale
+contract-conformance check, all 2,999 records with blocking or
+insufficient-for-automation signals routed to explicit non-executable states;
+zero routing-contract violations were observed. This check does not establish
+gap-detection accuracy, executable-state specificity, downstream operational
+fitness, or a controlled causal effect of the code change. Comparative semantic
 coverage remains competitive with (not superior to) the strongest agentic
 baseline under identical raw-text input.
 
