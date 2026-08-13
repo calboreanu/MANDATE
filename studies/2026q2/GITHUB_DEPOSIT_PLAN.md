@@ -1,5 +1,10 @@
 # GitHub / Zenodo Replication-Package Plan
 
+> **Historical planning document.** The plan below predates consolidation.
+> The canonical public location is now `calboreanu/MANDATE` at tag
+> `study-release-2026.08.13`, under `studies/2026q2/`. Proposed standalone
+> repository names below are retained only as historical planning evidence.
+
 **Purpose.** Concrete directory structure for the deposit that
 reviewers download to reproduce every numerical claim in the
 manuscript + the three supplement PDFs. Pairs with `DEPOSIT_MAPPING.md`

@@ -2,9 +2,9 @@
 
 **Study-release version:** `2026.08.13`
 
-**Repository:** `calboreanu/mandate-eval-primary-2026q2`
+**Repository and path:** `calboreanu/MANDATE`, `studies/2026q2/`
 
-This repository is the evidence and replication package for the pre-registered
+This directory is the evidence and replication package for the pre-registered
 2026Q2 comparative evaluation of **MANDATE** (Multi-Agent Nominal Decomposition
 for Autonomous Task Execution), a tolerance-based task-specification framework
 for autonomous agents. The evaluation measured three MANDATE conditions against
@@ -31,7 +31,8 @@ conformance of that routing rule on the study corpus; it does not establish
 gap-detection accuracy, executable-state specificity, downstream operational
 fitness, or a controlled causal effect of the code change.
 
-The repository is one study deposit. Historical directory labels remain only
+This directory is one study deposit within the public MANDATE repository.
+Historical directory labels remain only
 to preserve the executed chronology, immutable hashes, and citation anchors;
 they are not separate study results or separate releases.
 
@@ -55,6 +56,11 @@ they are not separate study results or separate releases.
 ## Quickstart (read-only verification, no compute)
 
 ```bash
+git clone https://github.com/calboreanu/MANDATE.git
+cd MANDATE
+git checkout study-release-2026.08.13
+cd studies/2026q2
+
 # Record counts match the supplement:
 wc -l replication_package/v1_main/system_outputs/*.jsonl
 # → mandate_primary 1200+300, cond_a 1200+300, cond_b 1200+300,
@@ -108,7 +114,8 @@ python3 code/scripts/verify_study_release.py
   inventoried by the included packager and will be appended after cloud
   materialization.
 - `code/` — apparatus snapshot (7-role pipeline, judges, baselines,
-  perturbation generator) + run scripts.
+  perturbation generator), run scripts, and the figure-data extraction and
+  plotting scripts used by the manuscript.
 - `engineering_provenance/` — full handoff chronology (119 files) + cost
   ledger with the closeout addendum. Reviewers can skip this directory.
 - `docs/` — replication instructions, environment spec, claim-to-data map,

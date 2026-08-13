@@ -1,0 +1,58 @@
+{
+  "_provenance": "Constants transcribed from the MANDATE study component frozen at historical evidence commit 0078fcfcf3cae25ff7b76e5ff48d49e4d05dcf7b and published in calboreanu/MANDATE at tag study-release-2026.08.13 under studies/2026q2. Contrasts: analysis/bootstrap_contrasts_table.md (task-clustered 95% CIs, Holm p). Routing: replication_package/v3_corrected_routing/analysis/final_analysis.json. Reliability: v1_main/grading/v1_sampled/v1_irr_report.json as reported in the manuscript. Fallback: v2_complete/cross_vendor per-vendor any_llm_fallback rates (claim map row 7).",
+  "contrasts_task_clustered": {
+    "minimum_coverage": {
+      "B1 single-prompt (Sonnet)": [-0.026, -0.044, -0.009],
+      "B2 single-prompt (GPT-4o)": [0.524, 0.5, 0.546],
+      "B3 ReAct pattern": [-0.112, -0.129, -0.095],
+      "B4 planner-reviewer shell": [-0.022, -0.039, -0.005],
+      "B5 seq. analyst-reviewer shell": [0.032, 0.012, 0.055],
+      "B6 revision-graph shell": [-0.026, -0.043, -0.009]
+    },
+    "target_coverage": {
+      "B1 single-prompt (Sonnet)": [-0.037, -0.062, -0.011],
+      "B2 single-prompt (GPT-4o)": [0.431, 0.402, 0.461],
+      "B3 ReAct pattern": [-0.106, -0.132, -0.081],
+      "B4 planner-reviewer shell": [-0.034, -0.06, -0.009],
+      "B5 seq. analyst-reviewer shell": [-0.038, -0.064, -0.012],
+      "B6 revision-graph shell": [-0.034, -0.058, -0.009]
+    },
+    "constraint_coverage": {
+      "B1 single-prompt (Sonnet)": [0.028, 0.016, 0.039],
+      "B2 single-prompt (GPT-4o)": [0.605, 0.583, 0.627],
+      "B3 ReAct pattern": [-0.032, -0.045, -0.015],
+      "B4 planner-reviewer shell": [0.029, 0.018, 0.041],
+      "B5 seq. analyst-reviewer shell": [0.03, 0.014, 0.051],
+      "B6 revision-graph shell": [0.031, 0.019, 0.043]
+    }
+  },
+  "routing": {
+    "v1": {"records": 3000, "signal": 3000, "ok_true": 3000, "violations": 3000},
+    "check": {"records": 3000, "signal": 2999, "non_executable_gaps": 2999, "violations": 0, "executable_no_signal": 1}
+  },
+  "reliability": {
+    "floor": 0.667,
+    "outcomes": [
+      {"name": "Gap classification", "lo": 0.597, "hi": 0.701, "note": "pass-1 / main-pass"},
+      {"name": "Minimum coverage", "lo": 0.612, "hi": 0.697, "note": "pass-1 / main-pass"},
+      {"name": "Constraint coverage", "lo": 0.529, "hi": 0.656, "note": ""},
+      {"name": "Target coverage", "lo": 0.541, "hi": 0.583, "note": ""},
+      {"name": "Mission-intent match", "lo": 0.299, "hi": 0.464, "note": ""},
+      {"name": "Fabrication count", "lo": 0.216, "hi": 0.228, "note": ""},
+      {"name": "Judged trace completeness", "lo": 0.194, "hi": 0.281, "note": ""}
+    ]
+  },
+  "xvendor": {
+    "vendors": ["Qwen 2.5 32B", "Mistral 7B", "Llama 3.2 3B", "Phi-3 14B"],
+    "llm_path_pct": [94.7, 33.3, 0.0, 0.0],
+    "valid_after_fallback_pct": [100.0, 100.0, 100.0, 100.0]
+  },
+  "pipeline_counts": {
+    "tasks": "150 frozen tasks (120 main + 30 hold-out)",
+    "outputs": "9 systems x recorded 10-run schedule = 12,000 graded outputs",
+    "judges": "3 independent judges x 12,000 = 36,000 retained judge records",
+    "aggregates": "12,000 ensemble aggregates (0 reconciliation mismatches)",
+    "contrasts": "120 task means -> 24 task-clustered contrasts",
+    "trace": "34,080 campaign + 18,000 conformance-check trace entries, all hashes recomputed"
+  }
+}

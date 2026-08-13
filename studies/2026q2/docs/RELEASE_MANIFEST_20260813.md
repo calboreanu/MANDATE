@@ -7,7 +7,8 @@ published results.
 ## Pinned state
 
 - Release identifier: `2026.08.13`; the published Git tag is
-  `study-release-2026.08.13`.
+  `study-release-2026.08.13` in `calboreanu/MANDATE`, with this package at
+  `studies/2026q2/`.
 - Frozen focused-check evidence commit:
   `f5019da050bfa87e8f72005820f059eee465aeb8` (historical evidence tag
   `v3_validation_20260812`).
@@ -24,6 +25,7 @@ in this public data manifest.
 From a full checkout (not a sparse worktree):
 
 ```bash
+cd studies/2026q2
 python3 code/scripts/verify_study_release.py
 cd replication_package/v3_corrected_routing
 sha256sum -c EVIDENCE_SHA256SUMS.txt
@@ -37,7 +39,7 @@ specifications to non-executable states; it is not a second comparative study.
 
 ## Upload shape
 
-- 3,023 tracked files in the prepared release.
+- 3,031 tracked files in the prepared release.
 - Checkout size: approximately 682 MiB before GitHub-side packing.
 - The retained-stream component contains 82,155 grading records in nine
   deterministic gzip streams, including all 36,000 per-judge records behind

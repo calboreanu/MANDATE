@@ -19,8 +19,8 @@ keywords:
   - MANDATE
 license: Apache-2.0
 license-url: "https://www.apache.org/licenses/LICENSE-2.0"
-repository-code: "https://github.com/calboreanu/mandate-eval-primary-2026q2"
-url: "https://github.com/calboreanu/mandate-eval-primary-2026q2"
+repository-code: "https://github.com/calboreanu/MANDATE"
+url: "https://github.com/calboreanu/MANDATE/tree/study-release-2026.08.13/studies/2026q2"
 notes: >-
   Code is Apache-2.0; data (RunRecords, corpus, ground truth, grades) is
   CC BY 4.0 (see LICENSE-DATA); pre-registration prompts and forms are CC0.
