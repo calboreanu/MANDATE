@@ -1,0 +1,33 @@
+{
+  "condition": "cond_b",
+  "cost_accounting": {
+    "conservative_settlement_count": 3,
+    "extra_attempt_cost_usd": 40.397244,
+    "ledger_path": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z/api_cost_ledger.jsonl",
+    "mode": "conservative_upper_bound",
+    "record_summary_count": 2701,
+    "record_summary_total_usd": 161.476683,
+    "reservation_count": 8719,
+    "settled_total_usd": 161.476683,
+    "settlement_count": 8719
+  },
+  "expected_records": 1200,
+  "issue_count": 0,
+  "issues": [],
+  "label": "cond_b_main",
+  "ledger_totals": {
+    "active_reservation_count": 0,
+    "active_reserved_usd": 0,
+    "remaining_reservable_capacity_usd": 137.77335,
+    "settled_total_usd": 161.476683
+  },
+  "ok": true,
+  "records": 1200,
+  "retry_status_counts": {
+    "success": 7203
+  },
+  "state_counts": {
+    "EXECUTABLE": 1,
+    "NON_EXECUTABLE_GAPS": 1199
+  }
+}

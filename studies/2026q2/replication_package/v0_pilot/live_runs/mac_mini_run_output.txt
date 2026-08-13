@@ -1,0 +1,112 @@
+======================================================================
+MANDATE PIPELINE — PRODUCTION LLM CONFIG
+Backend: ollama
+Base URL: http://localhost:11434
+Fallback: True
+Role models: {
+  "Intake": "mandate-intake",
+  "Interpreter": "mandate-interpreter",
+  "Decomposition": "mandate-decomp",
+  "Procedure": "mandate-procedure",
+  "Binding": "mandate-binding",
+  "Validation": "mandate-validation"
+}
+======================================================================
+
+  scenario_01_ciso_report: SUCCESS
+    LLM: 4/6 succeeded, 2/6 fell back, 0/6 deterministic-only
+      Intake          [FALLBACK     ] model=mandate-intake — Ollama backend failed after 3 attempt(s): Ollama r
+      Interpreter     [LLM          ] model=mandate-interpreter
+      Decomposition   [LLM          ] model=mandate-decomp
+      Procedure       [LLM          ] model=mandate-procedure
+      Binding         [LLM          ] model=mandate-binding
+      Validation      [FALLBACK     ] model=mandate-validation — LLM response parsing failed after 3 attempt(s): sc
+
+  scenario_02_gap_undefined_minimum: GAP_REPORT
+    LLM: 5/6 succeeded, 1/6 fell back, 0/6 deterministic-only
+      Intake          [LLM          ] model=mandate-intake
+      Interpreter     [LLM          ] model=mandate-interpreter
+      Decomposition   [LLM          ] model=mandate-decomp
+      Procedure       [LLM          ] model=mandate-procedure
+      Binding         [LLM          ] model=mandate-binding
+      Validation      [FALLBACK     ] model=mandate-validation — LLM response parsing failed after 3 attempt(s): sc
+
+  scenario_03_gap_undefined_target: GAP_REPORT
+    LLM: 5/6 succeeded, 1/6 fell back, 0/6 deterministic-only
+      Intake          [LLM          ] model=mandate-intake
+      Interpreter     [FALLBACK     ] model=mandate-interpreter — Ollama backend failed after 3 attempt(s): Ollama r
+      Decomposition   [LLM          ] model=mandate-decomp
+      Procedure       [LLM          ] model=mandate-procedure
+      Binding         [LLM          ] model=mandate-binding
+      Validation      [LLM          ] model=mandate-validation
+
+  scenario_04_gap_unknown_pattern: GAP_REPORT
+    LLM: 6/6 succeeded, 0/6 fell back, 0/6 deterministic-only
+      Intake          [LLM          ] model=mandate-intake
+      Interpreter     [LLM          ] model=mandate-interpreter
+      Decomposition   [LLM          ] model=mandate-decomp
+      Procedure       [LLM          ] model=mandate-procedure
+      Binding         [LLM          ] model=mandate-binding
+      Validation      [LLM          ] model=mandate-validation
+
+  scenario_05_gap_missing_capability: GAP_REPORT
+    LLM: 6/6 succeeded, 0/6 fell back, 0/6 deterministic-only
+      Intake          [LLM          ] model=mandate-intake
+      Interpreter     [LLM          ] model=mandate-interpreter
+      Decomposition   [LLM          ] model=mandate-decomp
+      Procedure       [LLM          ] model=mandate-procedure
+      Binding         [LLM          ] model=mandate-binding
+      Validation      [LLM          ] model=mandate-validation
+
+  scenario_06_gap_unassessable_risk: GAP_REPORT
+    LLM: 5/6 succeeded, 1/6 fell back, 0/6 deterministic-only
+      Intake          [LLM          ] model=mandate-intake
+      Interpreter     [LLM          ] model=mandate-interpreter
+      Decomposition   [FALLBACK     ] model=mandate-decomp — LLM response parsing failed after 4 attempt(s): sc
+      Procedure       [LLM          ] model=mandate-procedure
+      Binding         [LLM          ] model=mandate-binding
+      Validation      [LLM          ] model=mandate-validation
+
+  scenario_07_multi_coa_ir: SUCCESS
+    LLM: 4/6 succeeded, 2/6 fell back, 0/6 deterministic-only
+      Intake          [FALLBACK     ] model=mandate-intake — Ollama backend failed after 3 attempt(s): Ollama r
+      Interpreter     [LLM          ] model=mandate-interpreter
+      Decomposition   [LLM          ] model=mandate-decomp
+      Procedure       [LLM          ] model=mandate-procedure
+      Binding         [LLM          ] model=mandate-binding
+      Validation      [FALLBACK     ] model=mandate-validation — LLM response parsing failed after 3 attempt(s): sc
+
+  scenario_08_cross_domain_intel: GAP_REPORT
+    LLM: 5/6 succeeded, 1/6 fell back, 0/6 deterministic-only
+      Intake          [LLM          ] model=mandate-intake
+      Interpreter     [LLM          ] model=mandate-interpreter
+      Decomposition   [LLM          ] model=mandate-decomp
+      Procedure       [LLM          ] model=mandate-procedure
+      Binding         [LLM          ] model=mandate-binding
+      Validation      [FALLBACK     ] model=mandate-validation — LLM response parsing failed after 3 attempt(s): sc
+
+======================================================================
+SUMMARY
+======================================================================
+Scenarios: 8
+Total roles: 48
+  LLM succeeded: 40/48
+  LLM fell back: 8/48
+  Deterministic: 0/48
+Total time: 8341011.3ms
+
+======================================================================
+STRUCTURAL COMPARISON vs DETERMINISTIC BASELINE
+======================================================================
+  scenario_01_ciso_report: MATCH on [status, hash, gaps, coas, trace] (LLM=4/6)
+  scenario_02_gap_undefined_minimum: MATCH on [status, coas, trace] (LLM=5/6)
+  scenario_03_gap_undefined_target: MATCH on [status, coas, trace] (LLM=5/6)
+  scenario_04_gap_unknown_pattern: MATCH on [status, coas, trace] (LLM=6/6)
+  scenario_05_gap_missing_capability: MATCH on [status, coas, trace] (LLM=6/6)
+  scenario_06_gap_unassessable_risk: MATCH on [status, coas, trace] (LLM=5/6)
+  scenario_07_multi_coa_ir: MATCH on [status, gaps, trace] (LLM=4/6)
+  scenario_08_cross_domain_intel: MATCH on [trace] (LLM=5/6)
+
+  All structural properties identical: NO
+
+Saved: /Users/ws01admin/Desktop/mandate/live_runs/outputs_production_config/production_config_results.json

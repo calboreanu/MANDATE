@@ -1,0 +1,60 @@
+{
+  "policy_id": "AEGIS_POLICY",
+  "version": "v1.0-normal",
+  "allowed_targets": [
+    "acme.example.com",
+    "10.0.1.0/24",
+    "10.0.1.5"
+  ],
+  "permitted_tools": {
+    "RECON": [
+      "nmap"
+    ],
+    "SCAN": [
+      "nmap",
+      "nuclei"
+    ],
+    "EXPLOIT": [
+      "metasploit"
+    ],
+    "DEFAULT": [
+      "nmap",
+      "nuclei"
+    ]
+  },
+  "thresholds": {
+    "autonomous": 85,
+    "hitl": 65,
+    "escalate": 45
+  },
+  "rules": [
+    {
+      "id": "R1_SCOPE_TARGET",
+      "description": "Action target must be in allowed_targets",
+      "action": "ENFORCE"
+    },
+    {
+      "id": "R2_TOOL_ALLOWED",
+      "description": "Tool must be in permitted_tools for its class",
+      "action": "ENFORCE"
+    },
+    {
+      "id": "R3_DENY_DOS_CLASS",
+      "description": "Deny denial-of-service class actions",
+      "action": "BLOCK"
+    },
+    {
+      "id": "R4_DEFAULT",
+      "description": "Default rule: ALLOW if no other rules apply",
+      "action": "ALLOW"
+    }
+  ],
+  "scope_limits": {
+    "max_rate_per_minute": 100,
+    "max_ports": 1024
+  },
+  "signature": {
+    "type": "stub",
+    "note": "Replace with real signing in production."
+  }
+}

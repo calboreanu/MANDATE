@@ -1,0 +1,52 @@
+{
+  "changes": [
+    {
+      "backup": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z/provenance/repairs/20260812_duplicate_role_cost_evidence_main_shard/cond_b__TASK-MAIN-SEC-010__r03.pre_repair.json",
+      "before_attempts": [
+        {
+          "cost_usd": 0.067305,
+          "reservation_id": "3fe15b1c1db14739a02e0c5636a2c920"
+        },
+        {
+          "cost_usd": 0.02502,
+          "reservation_id": "9cd7b670deb94ef583cc6e17d8c574e4"
+        }
+      ],
+      "kept_cost_usd": 0.067305,
+      "kept_reservation_id": "3fe15b1c1db14739a02e0c5636a2c920",
+      "post_repair_sha256": "fcb019d1700525aa6d37b944db13a486b536507ef38fdc1e5aaee61ea8cf3315",
+      "pre_repair_sha256": "be972d2844c35861e0cfd4d6ddf5c9d864068924b2a0dddbf08b662816e5c692",
+      "record": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z/cond_b_main/cond_b__TASK-MAIN-SEC-010__r03.json",
+      "removed_cost_usd": 0.02502,
+      "removed_reservation_id": "9cd7b670deb94ef583cc6e17d8c574e4",
+      "response_index": 2,
+      "role": "Decomposition",
+      "run_id": "cond_b__TASK-MAIN-SEC-010__r03"
+    },
+    {
+      "backup": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z/provenance/repairs/20260812_duplicate_role_cost_evidence_main_shard/cond_b__TASK-MAIN-SEC-022__r10.pre_repair.json",
+      "before_attempts": [
+        {
+          "cost_usd": 0.017643,
+          "reservation_id": "d6fea42519a34375a4374d65579d2330"
+        },
+        {
+          "cost_usd": 0.020328,
+          "reservation_id": "d4dcd89b94dd454ab21ce69c8a10ea78"
+        }
+      ],
+      "kept_cost_usd": 0.017643,
+      "kept_reservation_id": "d6fea42519a34375a4374d65579d2330",
+      "post_repair_sha256": "0b5e7f6a3d7f4164a821ca41f42d1358b63a0fba2d75737d1e5c80634ec6d305",
+      "pre_repair_sha256": "2f773f02660acabf73210c1b68edfd04c6325e84cc0220a7f2facadaf2fa0bba",
+      "record": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z/cond_b_main/cond_b__TASK-MAIN-SEC-022__r10.json",
+      "removed_cost_usd": 0.020328,
+      "removed_reservation_id": "d4dcd89b94dd454ab21ce69c8a10ea78",
+      "response_index": 1,
+      "role": "Interpreter",
+      "run_id": "cond_b__TASK-MAIN-SEC-022__r10"
+    }
+  ],
+  "created_at_utc": "2026-08-12T10:51:27.474789+00:00",
+  "reason": "Cond-B main shard check found duplicate-role cost evidence attached to both duplicate-role responses; removed the duplicated attempt from the earlier response while preserving ledger-backed top-level record cost."
+}

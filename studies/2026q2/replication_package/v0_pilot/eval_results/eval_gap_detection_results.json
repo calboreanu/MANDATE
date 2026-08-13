@@ -1,0 +1,248 @@
+{
+  "total_examples": 125,
+  "gap_producing": 60,
+  "non_gap_producing": 65,
+  "gap_types": {
+    "UNSPECIFIED": 37,
+    "UNDEFINED_MINIMUM": 5,
+    "TIMELINE_INFEASIBLE": 1,
+    "AMBIGUOUS_CONSTRAINT": 1,
+    "MISSING_TTP": 1,
+    "MISSING_CAPABILITY": 1,
+    "RESOURCE_UNAVAILABLE": 1,
+    "UNKNOWN_PATTERN": 1,
+    "UNASSESSABLE_RISK": 2,
+    "MISSING_PRECONDITION": 5,
+    "AMBIGUOUS_SCOPE": 5
+  },
+  "gap_by_category": {
+    "source_to_anchor": 25,
+    "anchor_to_dag": 3,
+    "gap_report": 23,
+    "end_to_end": 5,
+    "task_to_procedure": 2,
+    "registry": 2
+  },
+  "nongap_by_category": {
+    "source_to_anchor": 19,
+    "anchor_to_dag": 18,
+    "task_to_procedure": 9,
+    "end_to_end": 11,
+    "registry": 8
+  },
+  "classification": {
+    "tp": 27,
+    "fp": 1,
+    "tn": 64,
+    "fn": 33,
+    "precision": 0.9643,
+    "recall": 0.45,
+    "f1": 0.6136
+  },
+  "misclassified": [
+    {
+      "seed_id": "CONV-INTA-006",
+      "type": "FALSE_POSITIVE",
+      "expected": "non-gap",
+      "got": "REQUIRES_CLARIFICATION"
+    },
+    {
+      "seed_id": "CONV-INTA-016",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "extract_anchor"
+    },
+    {
+      "seed_id": "CONV-INTA-017",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "extract_anchor"
+    },
+    {
+      "seed_id": "CONV-INTA-018",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "extract_anchor"
+    },
+    {
+      "seed_id": "CONV-INTE-001",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "anchor_extraction"
+    },
+    {
+      "seed_id": "CONV-INTE-002",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "anchor_extraction"
+    },
+    {
+      "seed_id": "CONV-INTE-003",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "anchor_extraction"
+    },
+    {
+      "seed_id": "CONV-INTE-004",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "anchor_extraction"
+    },
+    {
+      "seed_id": "CONV-INTE-005",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "anchor_extraction"
+    },
+    {
+      "seed_id": "CONV-INTE-006",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "anchor_extraction"
+    },
+    {
+      "seed_id": "CONV-INTE-007",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "anchor_extraction"
+    },
+    {
+      "seed_id": "CONV-INTE-008",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "anchor_extraction"
+    },
+    {
+      "seed_id": "CONV-INTE-009",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "anchor_extraction"
+    },
+    {
+      "seed_id": "CONV-INTE-010",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "anchor_extraction"
+    },
+    {
+      "seed_id": "CONV-INTE-011",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "anchor_extraction"
+    },
+    {
+      "seed_id": "CONV-INTE-012",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "anchor_extraction"
+    },
+    {
+      "seed_id": "CONV-INTE-013",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "anchor_extraction"
+    },
+    {
+      "seed_id": "CONV-INTE-014",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "anchor_extraction"
+    },
+    {
+      "seed_id": "CONV-INTE-015",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "anchor_extraction"
+    },
+    {
+      "seed_id": "CONV-INTE-016",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "anchor_extraction"
+    },
+    {
+      "seed_id": "CONV-DECO-007",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "decompose_anchor"
+    },
+    {
+      "seed_id": "CONV-E2E-002",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "UNKNOWN"
+    },
+    {
+      "seed_id": "CONV-E2E-003",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "UNKNOWN"
+    },
+    {
+      "seed_id": "CONV-E2E-005",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "UNKNOWN"
+    },
+    {
+      "seed_id": "SEED-C1-04",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "extract_anchor"
+    },
+    {
+      "seed_id": "SEED-C1-08",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "extract_anchor"
+    },
+    {
+      "seed_id": "SEED-C2-04",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "build_dag"
+    },
+    {
+      "seed_id": "SEED-C2-08",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "build_dag"
+    },
+    {
+      "seed_id": "SEED-C3-04",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "select_procedure"
+    },
+    {
+      "seed_id": "SEED-C3-08",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "select_procedure"
+    },
+    {
+      "seed_id": "SEED-C5-04",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "UNKNOWN"
+    },
+    {
+      "seed_id": "SEED-C5-08",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "UNKNOWN"
+    },
+    {
+      "seed_id": "SEED-C6-04",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "UNKNOWN"
+    },
+    {
+      "seed_id": "SEED-C6-08",
+      "type": "FALSE_NEGATIVE",
+      "expected": "gap",
+      "got": "UNKNOWN"
+    }
+  ]
+}

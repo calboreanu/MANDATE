@@ -1,0 +1,99 @@
+{
+  "issue_count": 0,
+  "issues": [],
+  "ledger": {
+    "active_reservation_count": 0,
+    "active_reservations": [],
+    "active_reserved_usd": "0",
+    "latest_rows_for_active": [],
+    "remaining_capacity_after_active_usd": "137.773350",
+    "reservations": 8719,
+    "rows": 37574,
+    "settled_total_usd": "161.476683",
+    "settlements": 8719
+  },
+  "ok": true,
+  "resume_root": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z",
+  "shards": {
+    "cond_a_holdout": {
+      "complete_10_run_tasks": 30,
+      "duplicate_role_record_count": 0,
+      "duplicate_role_records_sample": [],
+      "expected_max_records": 300,
+      "partial_tasks": {},
+      "records": 300,
+      "retry_status_counts": {
+        "success": 300
+      },
+      "state_counts": {
+        "NON_EXECUTABLE_GAPS": 300
+      }
+    },
+    "cond_a_main": {
+      "complete_10_run_tasks": 120,
+      "duplicate_role_record_count": 0,
+      "duplicate_role_records_sample": [],
+      "expected_max_records": 1200,
+      "partial_tasks": {},
+      "records": 1200,
+      "retry_status_counts": {
+        "success": 1200
+      },
+      "state_counts": {
+        "NON_EXECUTABLE_GAPS": 1200
+      }
+    },
+    "cond_b_holdout": {
+      "complete_10_run_tasks": 0,
+      "duplicate_role_record_count": 0,
+      "duplicate_role_records_sample": [],
+      "expected_max_records": 300,
+      "partial_tasks": {
+        "TASK-HOLDOUT-SES-001": [
+          1
+        ]
+      },
+      "records": 1,
+      "retry_status_counts": {
+        "success": 6
+      },
+      "state_counts": {
+        "NON_EXECUTABLE_GAPS": 1
+      }
+    },
+    "cond_b_main": {
+      "complete_10_run_tasks": 120,
+      "duplicate_role_record_count": 3,
+      "duplicate_role_records_sample": [
+        {
+          "roles": {
+            "Binding": 2
+          },
+          "run_id": "cond_b__TASK-MAIN-INT-007__r04"
+        },
+        {
+          "roles": {
+            "Decomposition": 2
+          },
+          "run_id": "cond_b__TASK-MAIN-SEC-010__r03"
+        },
+        {
+          "roles": {
+            "Interpreter": 2
+          },
+          "run_id": "cond_b__TASK-MAIN-SEC-022__r10"
+        }
+      ],
+      "expected_max_records": 1200,
+      "partial_tasks": {},
+      "records": 1200,
+      "retry_status_counts": {
+        "success": 7203
+      },
+      "state_counts": {
+        "EXECUTABLE": 1,
+        "NON_EXECUTABLE_GAPS": 1199
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+[
+  {
+    "file": "defense_intel_mission.json",
+    "status": "NO_TRACE",
+    "entries": 0
+  },
+  {
+    "file": "incident_response_mission.json",
+    "status": "NO_TRACE",
+    "entries": 0
+  },
+  {
+    "file": "multi_coa_mission.json",
+    "status": "NO_TRACE",
+    "entries": 0
+  },
+  {
+    "file": "normal_mission.json",
+    "status": "NO_TRACE",
+    "entries": 0
+  },
+  {
+    "file": "quarterly_report_gap.json",
+    "status": "NO_TRACE",
+    "entries": 0
+  },
+  {
+    "file": "quarterly_report_mandate.json",
+    "entry_count": 5,
+    "chain_hash_present": true,
+    "chain_hash_valid_format": true,
+    "all_hashes_valid": true,
+    "dag_valid": true,
+    "roles_covered": [
+      "Binding",
+      "Decomposition",
+      "Interpreter",
+      "Procedure",
+      "Validation"
+    ],
+    "decision_types": [
+      "anchor_extraction",
+      "task_decomposition",
+      "procedure_assignment",
+      "capability_binding",
+      "validate_coas"
+    ],
+    "confidence_levels": [
+      "HIGH",
+      "MEDIUM",
+      "HIGH",
+      "HIGH",
+      "MEDIUM"
+    ],
+    "issues": [],
+    "role_count": 5,
+    "status": "PASS"
+  },
+  {
+    "file": "underspecified_mission.json",
+    "status": "NO_TRACE",
+    "entries": 0
+  }
+]

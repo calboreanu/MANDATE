@@ -1,0 +1,82 @@
+{
+  "a3": {
+    "artifact_field_presence": {
+      "anchor": 1500,
+      "courses_of_action": 1500,
+      "generated": 1500,
+      "mandate_id": 1500,
+      "metadata": 1500,
+      "recommendation": 1500,
+      "registry_reference": 1500,
+      "trace": 1500,
+      "version": 1500
+    },
+    "gap_report_status_records": 0,
+    "gap_report_violation_count": 0,
+    "gap_report_violations": [],
+    "mandate_as_code_records": 1500,
+    "mean_coa_count": 0.0,
+    "mean_trace_chain_length": 6.0,
+    "mean_wall_clock_ms": 3.6015993999999996,
+    "nonempty_gap_report_records": 0,
+    "nonempty_registry_reference_records": 1500,
+    "ok_rate": 1.0,
+    "ok_records": 1500,
+    "output_type_counts": {
+      "MANDATE_AS_CODE": 1500
+    },
+    "total_records": 1500
+  },
+  "a5": {
+    "artifact_field_presence": {
+      "anchor": 1500,
+      "courses_of_action": 1500,
+      "generated": 1500,
+      "mandate_id": 1500,
+      "metadata": 1500,
+      "recommendation": 1500,
+      "registry_reference": 1500,
+      "trace": 1500,
+      "version": 1500
+    },
+    "gap_report_status_records": 0,
+    "mandate_as_code_records": 1500,
+    "mean_coa_count": 0.0,
+    "mean_trace_chain_length": 6.0,
+    "mean_wall_clock_ms": 3.6119288666666667,
+    "nonempty_gap_report_records": 0,
+    "nonempty_registry_reference_records": 1500,
+    "ok_rate": 1.0,
+    "ok_records": 1500,
+    "output_type_counts": {
+      "MANDATE_AS_CODE": 1500
+    },
+    "registry_reference_violation_count": 1500,
+    "registry_reference_violations": [
+      "07_system_outputs/ablations/a5_no_registry/ablation_a5__TASK-MAIN-FIN-001__r01.json",
+      "07_system_outputs/ablations/a5_no_registry/ablation_a5__TASK-MAIN-FIN-001__r02.json",
+      "07_system_outputs/ablations/a5_no_registry/ablation_a5__TASK-MAIN-FIN-001__r03.json",
+      "07_system_outputs/ablations/a5_no_registry/ablation_a5__TASK-MAIN-FIN-001__r04.json",
+      "07_system_outputs/ablations/a5_no_registry/ablation_a5__TASK-MAIN-FIN-001__r05.json",
+      "07_system_outputs/ablations/a5_no_registry/ablation_a5__TASK-MAIN-FIN-001__r06.json",
+      "07_system_outputs/ablations/a5_no_registry/ablation_a5__TASK-MAIN-FIN-001__r07.json",
+      "07_system_outputs/ablations/a5_no_registry/ablation_a5__TASK-MAIN-FIN-001__r08.json",
+      "07_system_outputs/ablations/a5_no_registry/ablation_a5__TASK-MAIN-FIN-001__r09.json",
+      "07_system_outputs/ablations/a5_no_registry/ablation_a5__TASK-MAIN-FIN-001__r10.json",
+      "07_system_outputs/ablations/a5_no_registry/ablation_a5__TASK-MAIN-FIN-002__r01.json",
+      "07_system_outputs/ablations/a5_no_registry/ablation_a5__TASK-MAIN-FIN-002__r02.json",
+      "07_system_outputs/ablations/a5_no_registry/ablation_a5__TASK-MAIN-FIN-002__r03.json",
+      "07_system_outputs/ablations/a5_no_registry/ablation_a5__TASK-MAIN-FIN-002__r04.json",
+      "07_system_outputs/ablations/a5_no_registry/ablation_a5__TASK-MAIN-FIN-002__r05.json",
+      "07_system_outputs/ablations/a5_no_registry/ablation_a5__TASK-MAIN-FIN-002__r06.json",
+      "07_system_outputs/ablations/a5_no_registry/ablation_a5__TASK-MAIN-FIN-002__r07.json",
+      "07_system_outputs/ablations/a5_no_registry/ablation_a5__TASK-MAIN-FIN-002__r08.json",
+      "07_system_outputs/ablations/a5_no_registry/ablation_a5__TASK-MAIN-FIN-002__r09.json",
+      "07_system_outputs/ablations/a5_no_registry/ablation_a5__TASK-MAIN-FIN-002__r10.json"
+    ],
+    "total_records": 1500
+  },
+  "stage": "complete",
+  "updated_at": "2026-06-26T02:44:20.015779+00:00",
+  "verdict": "HALT-FAIL"
+}

@@ -1,0 +1,35 @@
+{
+  "mission_id": "LIVE-GAP-UNDEF-TGT-001",
+  "intent": "Conduct a network security assessment of the perimeter infrastructure",
+  "scope": ["10.0.1.0/24", "firewall.corp.local"],
+  "time_limit": "PT6H",
+  "constraints": [
+    "scope.target IN ['10.0.1.0/24', 'firewall.corp.local']",
+    "FORBIDS destructive_action",
+    "FORBIDS service_disruption"
+  ],
+  "minimum_outcome": "Identify all open ports and services on perimeter hosts",
+  "target_outcome": "",
+  "available_tools": [
+    {
+      "tool_id": "nmap",
+      "tool_class": "RECON",
+      "description": "Network port scanner and service identifier",
+      "parameters": {"scan_type": "SYN", "timing": "T3"}
+    },
+    {
+      "tool_id": "nessus",
+      "tool_class": "SCAN",
+      "description": "Vulnerability scanner",
+      "parameters": {"policy": "network_perimeter"}
+    }
+  ],
+  "risk_tolerance": "LOW",
+  "metadata": {
+    "scenario": "Gap trigger - UNDEFINED_TARGET",
+    "domain": "pentest",
+    "paper_reference": "Table 11 row 2",
+    "claim": "RQ3 - Gap detection: UNDEFINED_TARGET when target outcome not specified",
+    "expected_outcome": "GAP REPORT or degraded mandate with UNDEFINED_TARGET gap"
+  }
+}

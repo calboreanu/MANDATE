@@ -1,0 +1,10 @@
+============================================================
+READINESS SCORE VALIDATION
+============================================================
+
+Artifact gap reports with readiness_score: 0/0
+
+Corpus gap examples with readiness_score: 0/60
+
+All readiness scores consistent with roles_unblocked/6 formula
+Results written to eval_readiness_score_results.json

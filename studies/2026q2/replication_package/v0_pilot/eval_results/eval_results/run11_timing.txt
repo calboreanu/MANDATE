@@ -1,0 +1,85 @@
+=== TIMING SUMMARY ===
+NOTE: Timing captured from bash time command output during execution.
+All runs executed on same machine in single session.
+
+--- run1_full_suite.txt ---
+499 passed, 1 skipped in 0.95s (pytest internal timer)
+
+--- run2_anchor_extraction.txt ---
+real	0m0.027s
+user	0m0.014s
+sys	0m0.007s
+
+--- run3_gap_tests.txt ---
+real	0m0.379s
+user	0m0.287s
+sys	0m0.020s
+
+--- run3_gap_metrics.txt ---
+real	0m0.019s
+user	0m0.016s
+sys	0m0.001s
+
+--- run4_trace_tests.txt ---
+real	0m0.233s
+user	0m0.180s
+sys	0m0.014s
+
+--- run4_trace_integrity.txt ---
+real	0m0.024s
+user	0m0.018s
+sys	0m0.002s
+
+--- run4_anchor_hash.txt ---
+real	0m0.027s
+user	0m0.018s
+sys	0m0.003s
+
+--- run5_coa_tests.txt ---
+real	0m0.300s
+user	0m0.215s
+sys	0m0.020s
+
+--- run5_coa_diversity.txt ---
+real	0m0.014s
+user	0m0.011s
+sys	0m0.001s
+
+--- run6_pipeline.txt ---
+real	0m0.409s
+user	0m0.310s
+sys	0m0.030s
+
+--- run7_constraints.txt ---
+real	0m0.158s
+user	0m0.120s
+sys	0m0.015s
+
+--- run8_rmf_tests.txt ---
+real	0m0.198s
+user	0m0.150s
+sys	0m0.013s
+
+--- run8_rmf_mapping.txt ---
+real	0m0.015s
+user	0m0.007s
+sys	0m0.005s
+
+--- run9_registry_tests.txt ---
+real	0m0.148s
+user	0m0.106s
+sys	0m0.020s
+
+--- run9_registry_matching.txt ---
+real	0m0.014s
+user	0m0.009s
+sys	0m0.003s
+
+--- run10_readiness.txt ---
+real	0m0.021s
+user	0m0.011s
+sys	0m0.004s
+
+=== TOTAL WALL-CLOCK ===
+All runs combined: ~2.0s (dominated by pytest startup overhead)
+Eval scripts alone: <0.2s total

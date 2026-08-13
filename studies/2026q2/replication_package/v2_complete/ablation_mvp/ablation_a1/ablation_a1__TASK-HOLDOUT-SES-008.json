@@ -1,0 +1,108 @@
+{
+  "run_id": "ablation_a1__TASK-HOLDOUT-SES-008__r01",
+  "task_id": "TASK-HOLDOUT-SES-008",
+  "system_id": "ablation_a1",
+  "system_label": "Ablation A1 (canonical MLT v1.0.0rc1)",
+  "run_number": 1,
+  "seed": 20260629,
+  "started_at": "2026-06-29T17:50:15Z",
+  "wall_clock_ms": 0.1633,
+  "role_timings": [
+    {
+      "role_name": "Combined",
+      "status": "success",
+      "duration_ms": 0.0,
+      "llm_used": true,
+      "llm_fallback": false,
+      "llm_fallback_reason": ""
+    }
+  ],
+  "api_cost_usd": null,
+  "local_compute_ms": 0.1633,
+  "model_versions": {
+    "mlt": "mlt-stack-1.0.0rc1",
+    "ablation": "A1"
+  },
+  "decoding_params": {
+    "condition": "ablation_a1",
+    "ablation_id": "A1",
+    "config_overrides": {
+      "ablate_role_separation": true
+    },
+    "domain_profile_mode": "default",
+    "domain_profile_name": null
+  },
+  "code_ref": "mlt-stack-1.0.0rc1",
+  "harness_version": "0.1.0",
+  "output_type": "MANDATE_AS_CODE",
+  "output": {
+    "artifact": {
+      "mandate_id": "TASK-HOLDOUT-SES-008",
+      "version": "1.0",
+      "generated": "2026-06-29T17:50:15.307Z",
+      "anchor": {
+        "mission_intent": "single-pass combined intent",
+        "minimum": {
+          "description": "minimum acceptable outcome"
+        },
+        "target": {
+          "description": "target outcome"
+        },
+        "constraints": [],
+        "anchor_hash": "b92a6e7da45bbdc3d5f1b2f99a2bd75083840c9e99026c00bc41aa961a076bb2"
+      },
+      "courses_of_action": [
+        {
+          "coa_id": "COA-1",
+          "approach": "single combined approach",
+          "task_dag": {
+            "nodes": [],
+            "edges": []
+          }
+        }
+      ],
+      "recommendation": {
+        "primary_coa": "COA-1",
+        "fallback_sequence": [],
+        "rationale": "single combined pass"
+      },
+      "trace": {
+        "chain_hash": "4c2800246f48147ddb9a6bc268b90ac09074b9ec1d6622dacc17c335f9df578b",
+        "entry_count": 1,
+        "entries": [
+          {
+            "role": "Combined",
+            "decision_type": "single_pass",
+            "mission_id": "TASK-HOLDOUT-SES-008",
+            "parent_hashes": [],
+            "hash": "10e1c6c1dea78bf8103922dbaea585111cb2c0c408284e68ce896c4155f060a1"
+          }
+        ]
+      },
+      "registry_reference": {
+        "resolved": false,
+        "source": "ablation_a1_single_pass",
+        "matches": []
+      },
+      "metadata": {
+        "sources_consulted": [
+          "mission_input",
+          "single_pass_llm"
+        ],
+        "ablation": "A1_role_separation_single_pass",
+        "input_hash": "215b81aff429d5634c128b34098bb56e6782d2b279fdca0e7ef3a4b3693a4813",
+        "output_hash": "7c49eb5321a645ccd06020fdbcded3d2d53573e789f67d4965974dcc0493fe85"
+      }
+    },
+    "gap_reports": [],
+    "has_gaps": false,
+    "ablation_id": "A1"
+  },
+  "ok": true,
+  "errors": [],
+  "any_llm_fallback": false,
+  "fallback_roles": [],
+  "llm_roles_used": [
+    "Combined"
+  ]
+}

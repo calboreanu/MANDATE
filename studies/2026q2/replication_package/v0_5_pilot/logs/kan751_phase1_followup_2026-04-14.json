@@ -1,0 +1,102 @@
+{
+  "generated_at": "2026-04-14T13:54:30Z",
+  "project_root": "/Users/ws01admin/Desktop/AEGIS",
+  "report_path": "/Users/ws01admin/Desktop/AEGIS/logs/kan751_phase1_followup_2026-04-14.json",
+  "overall_status": "PASS",
+  "criteria": {
+    "ac1_all_6_roles_through_fine_tuned_models": {
+      "status": "PASS",
+      "evidence": {
+        "preflight": "PASS",
+        "llm_smoke": "PASS",
+        "readiness_e2e": "SKIPPED",
+        "standalone_e2e": "PASS",
+        "effective_e2e": "PASS"
+      }
+    },
+    "ac2_all_6_adapters_registered_and_responding": {
+      "status": "PASS",
+      "evidence": {
+        "register_adapters": "PASS",
+        "llm_smoke": "PASS"
+      }
+    },
+    "ac3_valid_mandate_artifacts_from_example_missions": {
+      "status": "PASS",
+      "evidence": {
+        "readiness_e2e": "SKIPPED",
+        "standalone_e2e": "PASS",
+        "effective_e2e": "PASS"
+      }
+    },
+    "ac4_gap_reports_correct_for_underspecified_mission": {
+      "status": "PASS",
+      "evidence": {
+        "readiness_e2e": "SKIPPED",
+        "standalone_e2e": "PASS",
+        "effective_e2e": "PASS",
+        "deterministic_gap_check": "PASS"
+      }
+    },
+    "ac5_fallback_to_deterministic_when_ollama_unavailable": {
+      "status": "PASS",
+      "evidence": {
+        "fallback_regression_check": "PASS"
+      }
+    }
+  },
+  "stages": {
+    "readiness_gate": {
+      "status": "PASS",
+      "reason": "overall_status=PASS",
+      "source": "/Users/ws01admin/Desktop/AEGIS/logs/readiness_gate_smoke_followup_2026-04-14.json"
+    },
+    "fallback_regression": {
+      "status": "PASS",
+      "reason": "pytest_passed",
+      "command": "/Users/ws01admin/Desktop/AEGIS/.venv/bin/python -m pytest tests/aegis/test_hybrid_pipeline_fallback.py -q",
+      "returncode": 0,
+      "timed_out": false,
+      "stdout_tail": [
+        ".........                                                                [100%]",
+        "9 passed in 0.08s"
+      ],
+      "stderr_tail": []
+    },
+    "e2e_regression": {
+      "status": "PASS",
+      "reason": "pytest_passed",
+      "command": "/Users/ws01admin/Desktop/AEGIS/.venv/bin/python -m pytest tests/test_e2e_pipeline.py -q",
+      "returncode": 0,
+      "timed_out": false,
+      "stdout_tail": [
+        "........................................................................ [ 92%]",
+        "......                                                                   [100%]",
+        "78 passed in 0.45s"
+      ],
+      "stderr_tail": []
+    },
+    "deterministic_gap_check": {
+      "status": "PASS",
+      "reason": "pytest_passed",
+      "command": "/Users/ws01admin/Desktop/AEGIS/.venv/bin/python -m pytest tests/test_e2e_pipeline.py -q -k gap",
+      "returncode": 0,
+      "timed_out": false,
+      "stdout_tail": [
+        "..                                                                       [100%]",
+        "2 passed, 76 deselected in 0.05s"
+      ],
+      "stderr_tail": []
+    },
+    "ab_evaluation": {
+      "status": "SKIPPED",
+      "reason": "not_requested"
+    }
+  },
+  "artifacts": {
+    "readiness_json": "",
+    "ab_report": ""
+  },
+  "ab_profile_summaries": [],
+  "blockers": []
+}

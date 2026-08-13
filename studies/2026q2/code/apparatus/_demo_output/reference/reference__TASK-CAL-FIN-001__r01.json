@@ -1,0 +1,39 @@
+{
+  "run_id": "reference__TASK-CAL-FIN-001__r01",
+  "task_id": "TASK-CAL-FIN-001",
+  "system_id": "reference",
+  "system_label": "Reference (harness self-test)",
+  "run_number": 1,
+  "seed": 1001,
+  "started_at": "2026-06-03T11:10:22Z",
+  "wall_clock_ms": 0.1228,
+  "role_timings": [
+    {
+      "role_name": "reference",
+      "status": "success",
+      "duration_ms": 0.1228,
+      "llm_used": false,
+      "llm_fallback": false,
+      "llm_fallback_reason": ""
+    }
+  ],
+  "api_cost_usd": 0.0,
+  "local_compute_ms": 0.1228,
+  "model_versions": {
+    "mode": "deterministic-reference"
+  },
+  "decoding_params": {},
+  "code_ref": "",
+  "harness_version": "0.1.0",
+  "output_type": "BASELINE_SCHEMA:reference",
+  "output": {
+    "echo_chars": 590,
+    "word_count": 86,
+    "note": "reference system, not a study comparator"
+  },
+  "ok": true,
+  "errors": [],
+  "any_llm_fallback": false,
+  "fallback_roles": [],
+  "llm_roles_used": []
+}

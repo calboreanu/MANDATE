@@ -1,0 +1,97 @@
+{
+  "scenario": "scenario_08_cross_domain_intel",
+  "mission_id": "LIVE-XDOMAIN-INTEL-001",
+  "status": "SUCCESS",
+  "ok": true,
+  "has_gaps": false,
+  "elapsed_ms": 4.9,
+  "summary": {
+    "ok": true,
+    "roles_executed": 6,
+    "roles_passed": 6,
+    "gaps": 0,
+    "errors": [],
+    "mandate_id": "LIVE-XDOMAIN-INTEL-001",
+    "total_duration_ms": 4.888
+  },
+  "metadata": {
+    "scenario": "Cross-domain Intelligence - OSINT Collection",
+    "domain": "defense_intel",
+    "paper_reference": "Cross-domain (INTEL) + RQ1",
+    "claim": "Cross-domain execution with full anchor extraction in intelligence domain",
+    "expected_outcome": "SUCCESS with mandate-as-code, 2 COAs (Conservative/Moderate)"
+  },
+  "artifact": {
+    "has_anchor": true,
+    "anchor_hash": "e11a3b1e177623529b839fc76751ee7e19dea6f66dc1c3cfefefe11ad2cf32c5",
+    "num_coas": 2,
+    "has_trace": true,
+    "trace_entries": 6,
+    "has_registry_reference": true,
+    "has_risk_profile": false,
+    "recommendation": "COA-3"
+  },
+  "coas": [
+    {
+      "coa_id": "COA-1",
+      "num_tasks": 3,
+      "num_edges": 3,
+      "has_risk_assessment": true,
+      "risk_score": "LOW",
+      "confidence_min": "MEDIUM"
+    },
+    {
+      "coa_id": "COA-3",
+      "num_tasks": 4,
+      "num_edges": 3,
+      "has_risk_assessment": true,
+      "risk_score": "MEDIUM",
+      "confidence_min": "LOW"
+    }
+  ],
+  "trace_chain": {
+    "chain_hash": "53b47ea1c817a32fd14137578d0bbe47f20b1113de5a964222d10c3e56733df4",
+    "num_entries": 6,
+    "roles": [
+      "Intake",
+      "Interpreter",
+      "Decomposition",
+      "Procedure",
+      "Binding",
+      "Validation"
+    ],
+    "all_hashed": true
+  },
+  "role_results": [
+    {
+      "role": "Intake",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Interpreter",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Decomposition",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Procedure",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Binding",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Validation",
+      "ok": true,
+      "elapsed_ms": null
+    }
+  ]
+}

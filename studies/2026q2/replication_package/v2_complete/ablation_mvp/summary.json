@@ -1,0 +1,98 @@
+{
+  "canonical": {
+    "n": 150,
+    "ok": 150,
+    "trace_entry_count_dist": {
+      "6": 150
+    },
+    "has_target_band": 150,
+    "has_nist_rmf": 150,
+    "has_registry_reference": 150,
+    "coa_bands_collapsed": 0,
+    "mean_wall_clock_ms": 4.792
+  },
+  "A2": {
+    "n": 150,
+    "ok": 150,
+    "trace_entry_count_dist": {
+      "6": 150
+    },
+    "has_target_band": 0,
+    "has_nist_rmf": 150,
+    "has_registry_reference": 150,
+    "coa_bands_collapsed": 150,
+    "mean_wall_clock_ms": 4.697
+  },
+  "A3": {
+    "n": 150,
+    "ok": 150,
+    "trace_entry_count_dist": {
+      "6": 150
+    },
+    "has_target_band": 150,
+    "has_nist_rmf": 150,
+    "has_registry_reference": 150,
+    "coa_bands_collapsed": 0,
+    "mean_wall_clock_ms": 4.684
+  },
+  "A4": {
+    "n": 150,
+    "ok": 150,
+    "trace_entry_count_dist": {
+      "5": 150
+    },
+    "has_target_band": 150,
+    "has_nist_rmf": 150,
+    "has_registry_reference": 150,
+    "coa_bands_collapsed": 0,
+    "mean_wall_clock_ms": 1.206
+  },
+  "A5": {
+    "n": 150,
+    "ok": 150,
+    "trace_entry_count_dist": {
+      "6": 150
+    },
+    "has_target_band": 150,
+    "has_nist_rmf": 150,
+    "has_registry_reference": 150,
+    "coa_bands_collapsed": 0,
+    "mean_wall_clock_ms": 4.93
+  },
+  "A6": {
+    "n": 150,
+    "ok": 150,
+    "trace_entry_count_dist": {
+      "0": 150
+    },
+    "has_target_band": 150,
+    "has_nist_rmf": 150,
+    "has_registry_reference": 150,
+    "coa_bands_collapsed": 0,
+    "mean_wall_clock_ms": 2.458
+  },
+  "A7": {
+    "n": 150,
+    "ok": 150,
+    "trace_entry_count_dist": {
+      "6": 150
+    },
+    "has_target_band": 150,
+    "has_nist_rmf": 0,
+    "has_registry_reference": 150,
+    "coa_bands_collapsed": 0,
+    "mean_wall_clock_ms": 4.489
+  },
+  "A1": {
+    "n": 150,
+    "ok": 150,
+    "trace_entry_count_dist": {
+      "1": 150
+    },
+    "has_target_band": 150,
+    "has_nist_rmf": 0,
+    "has_registry_reference": 150,
+    "coa_bands_collapsed": 150,
+    "mean_wall_clock_ms": 0.192
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "mission_id": "LIVE-MULTI-COA-IR-001",
+  "intent": "Respond to active ransomware incident affecting finance department file servers with lateral movement indicators toward domain controllers",
+  "scope": ["fs-finance-01.corp.local", "fs-finance-02.corp.local", "dc-01.corp.local", "dc-02.corp.local", "172.16.20.0/24"],
+  "time_limit": "PT6H",
+  "constraints": [
+    "execution.duration <= PT6H",
+    "FORBIDS data_destruction",
+    "FORBIDS unauthorized_system_shutdown",
+    "FORBIDS evidence_tampering"
+  ],
+  "minimum_outcome": "Ransomware spread contained, affected systems isolated, no further encryption of file servers or domain controllers",
+  "target_outcome": "Full eradication of ransomware, restoration of affected systems from verified clean backups, root cause analysis with initial attack vector identified, IOCs extracted for threat intelligence",
+  "available_tools": [
+    {
+      "tool_id": "crowdstrike_falcon",
+      "tool_class": "RECON",
+      "description": "EDR platform for threat detection, IOC hunting, and forensic investigation",
+      "parameters": {"api_version": "v2", "capabilities": ["real_time_response", "ioc_search"]}
+    },
+    {
+      "tool_id": "nessus_ir",
+      "tool_class": "SCAN",
+      "description": "Vulnerability scanner for identifying exploitable attack surface on affected hosts",
+      "parameters": {"policy": "incident_response", "scan_type": "targeted"}
+    },
+    {
+      "tool_id": "metasploit_validate",
+      "tool_class": "EXPLOIT",
+      "description": "Exploitation framework for validating attack vector and reproducing initial compromise",
+      "parameters": {"mode": "validation_only", "restricted": true}
+    },
+    {
+      "tool_id": "splunk_enterprise",
+      "tool_class": "ANALYSIS",
+      "description": "SIEM for log analysis, timeline correlation, and IOC extraction",
+      "parameters": {"index": "security", "sourcetypes": ["wineventlog", "sysmon"]}
+    },
+    {
+      "tool_id": "palo_alto_firewall",
+      "tool_class": "CONTAIN",
+      "description": "Next-gen firewall for network segmentation and isolation",
+      "parameters": {"management_ip": "10.0.0.1", "api": "XML"}
+    },
+    {
+      "tool_id": "veeam_backup",
+      "tool_class": "RECOVER",
+      "description": "Enterprise backup and restoration platform",
+      "parameters": {"repository": "backup-nas-01", "encryption": true}
+    }
+  ],
+  "risk_tolerance": "MEDIUM",
+  "metadata": {
+    "scenario": "Multi-COA Incident Response - Active Ransomware",
+    "domain": "incident_response",
+    "paper_reference": "RQ2 + Cross-domain (IR)",
+    "claim": "RQ2 - Multiple valid COAs with structural variation; Cross-domain IR",
+    "severity": "P1",
+    "expected_outcome": "SUCCESS with 2-3 COAs (Conservative/Moderate/Aggressive) showing different approaches"
+  }
+}

@@ -1,0 +1,999 @@
+From c0b58fb38b3c72ab6ece72f7576425892234976c Mon Sep 17 00:00:00 2001
+From: Elias Calboreanu <240303335+ecalboreanu@users.noreply.github.com>
+Date: Thu, 6 Aug 2026 09:37:23 -0400
+Subject: [PATCH] Add fail-closed MANDATE result envelope contract
+
+---
+ src/mlt/MANIFEST.sha256                       |   4 +-
+ src/mlt/mandate/execution_contract.py         | 274 ++++++++++++++++++
+ src/mlt/mandate/pipeline.py                   |  61 +++-
+ .../mandate-result-envelope.schema.json       | 223 ++++++++++++++
+ tests/mandate/test_ablation_a1.py             |   8 +-
+ tests/mandate/test_ablations.py               |   4 +-
+ tests/mandate/test_execution_contract.py      | 253 ++++++++++++++++
+ tests/mandate/test_schema_valid.py            |  22 +-
+ 8 files changed, 830 insertions(+), 19 deletions(-)
+ create mode 100644 src/mlt/mandate/execution_contract.py
+ create mode 100644 src/mlt/schemas/mandate-result-envelope.schema.json
+ create mode 100644 tests/mandate/test_execution_contract.py
+
+diff --git a/src/mlt/MANIFEST.sha256 b/src/mlt/MANIFEST.sha256
+index e736405..041dbf4 100644
+--- a/src/mlt/MANIFEST.sha256
++++ b/src/mlt/MANIFEST.sha256
+@@ -41,13 +41,14 @@ d2ef2a548538cc816342fd5042f763ff4ce4ec13861eca13e56a1d32481b0ee4  mandate/cli.py
+ c606878137e00dba9afb69cbd48a9dc364e2079365b69c15c81dbc57c1bad71a  mandate/constraints.py
+ d6bbc8d2144bccbb804d7f6362e53b515d0a60212eca2592dc3c280d550d2133  mandate/domain.py
+ aad8209314b7340e19d9fdf4ca8145ecbf13fd03c81c37edc3ff58795d03006e  mandate/evaluation.py
++5e2e3bea954d7a621cd8171553631a4f35afc5ca052fb312c22c7736eaad9399  mandate/execution_contract.py
+ 4f7043e5ad0efe7778b07173855adf19acdc55b45052729fabc9e60f615b97e9  mandate/gap_report.py
+ 67d8ca08b0b762c0bf4c0d1146e0a0d46070463a141c0070c7dbed2a0dcaee56  mandate/hashing.py
+ dc436e2a26bc7ce335589ecc25da0bbfbc32aeede47bc41e446c162a2c959a5c  mandate/llm_support.py
+ 2dc2bce33de20ede6dde15e29338cc7ec3d8bc959ff1f37a8b2cb2ce175612e0  mandate/metrics.py
+ bcaf22685ab8bc310657bd53c7d1d2d3106cebcc663bc9832d0a64777c6eedff  mandate/models.py
+ a955a5747777f8bbf582fe263daa287b65384106adc383ed06a9ef9cfeaf39e3  mandate/nist_rmf.py
+-4e0928f9abb792a68cc199d0cc82b42a5590cf0b2969ff924b0a564f7f9388c2  mandate/pipeline.py
++6ede70b3b4efcabec5e8beb2acc901f0289e1aa58518d9f8c3b5276bbffa37f7  mandate/pipeline.py
+ 079bc6eb2a0909b77ab9b842c6c523dc2efc271dacb8400759046e295d463375  mandate/properties.py
+ 8cdbcff37292c26f3c4afb151e8fdab5994fdd7a2bb1c7976558a05bf1b6caf4  mandate/registry.py
+ f0666cbc1fa8ab0ac4513f629f7ff828f5fa80c0f9cbaf2b6ccc6cd34aaa13e9  mandate/roles/__init__.py
+@@ -90,6 +91,7 @@ e23a953b73ec6aea74524ab0750e3f38894a89fcf76a8b7823931dbe06f3f6a4  schemas/extern
+ 23c4893b11b9d4dcd84c651b2c336fef1a9c4d5dde646c6a36c5ea8732d2de1c  schemas/gap-report.schema.json
+ c1d8b0ed12ec17f2672a013f810a72942948c662fbe82833ae6da8ef40d393f0  schemas/gap-report.v1.schema.json
+ 21cf8f79aca56beed26548ff3bc6a1b8005f54bc8ccc56f18db5e9a3dce5f2ce  schemas/mandate-as-code.schema.json
++a86a510880b91f24fabe907c82ed90c03ad02b46927e437c7014f21a14c0edcc  schemas/mandate-result-envelope.schema.json
+ 4d6137aaabb7951c552b329b810fcd4b5f3741fb4c621a10d98aa4303228e993  schemas/policy_bundle.schema.json
+ f145005995905eb9685b51e997df0f2f28616299e0ace3fadbf051ec91eb820d  schemas/signed_approved_bundle.schema.json
+ 433b7d0bca678e26954946bb68097b9517d239664cf6370f81dc2b16bda2ff95  schemas/trace-entry.schema.json
+diff --git a/src/mlt/mandate/execution_contract.py b/src/mlt/mandate/execution_contract.py
+new file mode 100644
+index 0000000..b719102
+--- /dev/null
++++ b/src/mlt/mandate/execution_contract.py
+@@ -0,0 +1,274 @@
++"""Explicit execution-state contract for MANDATE pipeline results."""
++from __future__ import annotations
++
++from enum import Enum
++from functools import lru_cache
++from typing import Any, Mapping, Sequence
++
++from jsonschema import Draft202012Validator
++
++from .schema import load_schema
++
++
++CONTRACT_SCHEMA_VERSION = "mandate-result-envelope.v1"
++RESULT_ENVELOPE_SCHEMA_NAME = "mandate-result-envelope.schema.json"
++OUTPUT_MANDATE_AS_CODE = "MANDATE_AS_CODE"
++OUTPUT_GAP_REPORT = "GAP_REPORT"
++OUTPUT_NONE = "NONE"
++
++
++class ExecutionState(str, Enum):
++    EXECUTABLE = "EXECUTABLE"
++    NON_EXECUTABLE_GAPS = "NON_EXECUTABLE_GAPS"
++    NON_EXECUTABLE_VALIDATION = "NON_EXECUTABLE_VALIDATION"
++    FAILED = "FAILED"
++
++
++def _enum_value(value: Any) -> str:
++    raw = getattr(value, "value", value)
++    return str(raw or "").upper()
++
++
++def is_blocking_or_insufficient_gap(gap: Mapping[str, Any]) -> bool:
++    """Return True when a gap carries a blocking or insufficient signal."""
++    if not isinstance(gap, Mapping):
++        return False
++    if _enum_value(gap.get("severity")) == "BLOCKING":
++        return True
++    if gap.get("blocking") is True:
++        return True
++
++    readiness_score = gap.get("readiness_score")
++    if isinstance(readiness_score, Mapping) and readiness_score.get("blocking") is True:
++        return True
++
++    readiness = gap.get("readiness_assessment")
++    if isinstance(readiness, Mapping):
++        if int(readiness.get("blocking_gap_count") or 0) > 0:
++            return True
++        if _enum_value(readiness.get("recommendation")) == "INSUFFICIENT_FOR_AUTOMATION":
++            return True
++
++    state = _enum_value(gap.get("execution_state"))
++    return state in {ExecutionState.NON_EXECUTABLE_GAPS.value, "INSUFFICIENT_FOR_AUTOMATION"}
++
++
++def has_blocking_or_insufficient_signal(gap_reports: Sequence[Mapping[str, Any]]) -> bool:
++    return any(is_blocking_or_insufficient_gap(gap) for gap in list(gap_reports or []))
++
++
++def validation_gate_failed(validation: Mapping[str, Any] | None) -> bool:
++    """Return True for minimum-satisfaction or constraint-compliance failure."""
++    if not isinstance(validation, Mapping):
++        return False
++    for key in ("minimum_satisfaction", "constraint_compliance"):
++        step = validation.get(key)
++        if isinstance(step, Mapping) and step.get("passed") is False:
++            return True
++    return False
++
++
++def derive_execution_state(
++    *,
++    ok: bool,
++    artifact: Mapping[str, Any] | None,
++    gap_reports: Sequence[Mapping[str, Any]] | None,
++    schema_valid: bool | None,
++    errors: Sequence[Any] | None = None,
++    validation: Mapping[str, Any] | None = None,
++) -> ExecutionState:
++    """Derive the closed execution state with fail-closed precedence.
++
++    Precedence is deterministic:
++    1. no artifact and no gap report is a failed/missing result;
++    2. blocking or insufficient-for-automation gap signals are non-executable gaps;
++    3. minimum, constraint, or artifact-schema failures are non-executable validation;
++    4. only ok=True plus a schema-valid artifact is executable;
++    5. everything else is failed.
++    """
++    gaps = list(gap_reports or [])
++    if artifact is None and not gaps:
++        return ExecutionState.FAILED
++    if has_blocking_or_insufficient_signal(gaps):
++        return ExecutionState.NON_EXECUTABLE_GAPS
++    if validation_gate_failed(validation) or schema_valid is False:
++        return ExecutionState.NON_EXECUTABLE_VALIDATION
++    if ok and artifact is not None and schema_valid is True:
++        return ExecutionState.EXECUTABLE
++    if errors:
++        return ExecutionState.FAILED
++    return ExecutionState.NON_EXECUTABLE_VALIDATION if artifact is not None else ExecutionState.FAILED
++
++
++def output_representation(
++    artifact: Mapping[str, Any] | None,
++    gap_reports: Sequence[Mapping[str, Any]] | None,
++) -> str:
++    if artifact is not None:
++        return OUTPUT_MANDATE_AS_CODE
++    if gap_reports:
++        return OUTPUT_GAP_REPORT
++    return OUTPUT_NONE
++
++
++def build_result_envelope(
++    *,
++    ok: bool,
++    artifact: Mapping[str, Any] | None,
++    gap_reports: Sequence[Mapping[str, Any]] | None,
++    schema_valid: bool | None,
++    errors: Sequence[Any] | None = None,
++    validation: Mapping[str, Any] | None = None,
++    execution_state: ExecutionState | str | None = None,
++) -> dict[str, Any]:
++    gaps = list(gap_reports or [])
++    validation_failed = validation_gate_failed(validation) or schema_valid is False
++    missing_result = artifact is None and not gaps
++    state = (
++        execution_state
++        if isinstance(execution_state, ExecutionState)
++        else ExecutionState(str(execution_state))
++        if execution_state is not None
++        else derive_execution_state(
++            ok=ok,
++            artifact=artifact,
++            gap_reports=gaps,
++            schema_valid=schema_valid,
++            errors=errors,
++            validation=validation,
++        )
++    )
++    contract_ok = bool(ok) and state is ExecutionState.EXECUTABLE
++    return {
++        "contract_schema_version": CONTRACT_SCHEMA_VERSION,
++        "ok": contract_ok,
++        "execution_state": state.value,
++        "output_representation": output_representation(artifact, gaps),
++        "artifact_present": artifact is not None,
++        "schema_valid": schema_valid,
++        "gap_report_count": len(gaps),
++        "has_blocking_or_insufficient_signal": has_blocking_or_insufficient_signal(gaps),
++        "validation_failure_present": validation_failed,
++        "errors_present": bool(errors),
++        "missing_result": missing_result,
++    }
++
++
++@lru_cache(maxsize=1)
++def _result_envelope_validator() -> Draft202012Validator:
++    return Draft202012Validator(load_schema(RESULT_ENVELOPE_SCHEMA_NAME))
++
++
++def validate_result_envelope(
++    envelope: Mapping[str, Any],
++    *,
++    artifact: Mapping[str, Any] | None = None,
++    gap_reports: Sequence[Mapping[str, Any]] | None = None,
++    schema_valid: bool | None = None,
++    errors: Sequence[Any] | None = None,
++    validation: Mapping[str, Any] | None = None,
++) -> list[str]:
++    """Validate a result envelope and semantic execution-state invariants."""
++    issues: list[str] = []
++    for err in sorted(_result_envelope_validator().iter_errors(dict(envelope)), key=str):
++        path = "/".join(str(p) for p in err.absolute_path)
++        issues.append(f"{path}: {err.message}" if path else err.message)
++    if "execution_state" not in envelope:
++        return issues
++
++    try:
++        state = ExecutionState(str(envelope["execution_state"]))
++    except Exception:
++        return issues
++    ok = bool(envelope.get("ok"))
++    envelope_schema_valid = envelope.get("schema_valid")
++    artifact_present = bool(envelope.get("artifact_present"))
++    gaps = list(gap_reports or [])
++    actual_schema_valid = envelope_schema_valid if schema_valid is None else schema_valid
++    expected_blocking = has_blocking_or_insufficient_signal(gaps)
++    expected_missing = artifact is None and not gaps
++    expected_errors = bool(errors) if errors is not None else bool(envelope.get("errors_present"))
++    expected_validation_failed = (
++        validation_gate_failed(validation) or actual_schema_valid is False
++    )
++
++    if ok != (state is ExecutionState.EXECUTABLE):
++        issues.append(f"{state.value} requires ok={'true' if state is ExecutionState.EXECUTABLE else 'false'}")
++
++    if state is ExecutionState.EXECUTABLE:
++        if not artifact_present or artifact is None:
++            issues.append("EXECUTABLE requires an artifact")
++        if envelope_schema_valid is not True or actual_schema_valid is not True:
++            issues.append("EXECUTABLE requires schema_valid=true")
++        if expected_blocking:
++            issues.append("EXECUTABLE cannot coexist with blocking or insufficient gap signals")
++        if expected_validation_failed:
++            issues.append("EXECUTABLE cannot coexist with validation failure")
++        if expected_errors:
++            issues.append("EXECUTABLE cannot coexist with errors")
++        if expected_missing:
++            issues.append("EXECUTABLE cannot be a missing result")
++
++    if state is ExecutionState.NON_EXECUTABLE_GAPS:
++        if ok:
++            issues.append("NON_EXECUTABLE_GAPS requires ok=false")
++        if not expected_blocking:
++            issues.append("NON_EXECUTABLE_GAPS requires a blocking or insufficient gap signal")
++
++    if state is ExecutionState.NON_EXECUTABLE_VALIDATION:
++        if ok:
++            issues.append("NON_EXECUTABLE_VALIDATION requires ok=false")
++        if expected_blocking:
++            issues.append("NON_EXECUTABLE_VALIDATION cannot hide blocking or insufficient gap signals")
++        if not expected_validation_failed:
++            issues.append("NON_EXECUTABLE_VALIDATION requires a validation or schema failure")
++
++    if state is ExecutionState.FAILED:
++        if ok:
++            issues.append("FAILED requires ok=false")
++        if not (expected_errors or expected_missing):
++            issues.append("FAILED requires errors or a missing-result condition")
++
++    if envelope.get("contract_schema_version") != CONTRACT_SCHEMA_VERSION:
++        issues.append("contract_schema_version does not match this validator")
++
++    if envelope.get("has_blocking_or_insufficient_signal") != expected_blocking:
++        issues.append(
++            "has_blocking_or_insufficient_signal mismatch: "
++            f"{envelope.get('has_blocking_or_insufficient_signal')} != {expected_blocking}"
++        )
++    if envelope.get("gap_report_count") != len(gaps):
++        issues.append(f"gap_report_count mismatch: {envelope.get('gap_report_count')} != {len(gaps)}")
++    if artifact_present != (artifact is not None):
++        issues.append(f"artifact_present mismatch: {artifact_present} != {artifact is not None}")
++    if envelope_schema_valid != actual_schema_valid:
++        issues.append(f"schema_valid mismatch: {envelope_schema_valid} != {actual_schema_valid}")
++    if envelope.get("validation_failure_present") != expected_validation_failed:
++        issues.append(
++            "validation_failure_present mismatch: "
++            f"{envelope.get('validation_failure_present')} != {expected_validation_failed}"
++        )
++    if envelope.get("errors_present") != expected_errors:
++        issues.append(f"errors_present mismatch: {envelope.get('errors_present')} != {expected_errors}")
++    if envelope.get("missing_result") != expected_missing:
++        issues.append(f"missing_result mismatch: {envelope.get('missing_result')} != {expected_missing}")
++
++    expected_representation = output_representation(artifact, gaps)
++    if envelope.get("output_representation") != expected_representation:
++        issues.append(
++            "output_representation mismatch: "
++            f"{envelope.get('output_representation')} != {expected_representation}"
++        )
++    return issues
++
++
++__all__ = [
++    "CONTRACT_SCHEMA_VERSION",
++    "ExecutionState",
++    "build_result_envelope",
++    "derive_execution_state",
++    "has_blocking_or_insufficient_signal",
++    "is_blocking_or_insufficient_gap",
++    "output_representation",
++    "validate_result_envelope",
++]
+diff --git a/src/mlt/mandate/pipeline.py b/src/mlt/mandate/pipeline.py
+index 57a3790..59139a6 100644
+--- a/src/mlt/mandate/pipeline.py
++++ b/src/mlt/mandate/pipeline.py
+@@ -83,6 +83,12 @@ from .roles import (
+     ValidationRole,
+ )
+ from .roles.base import Role
++from .execution_contract import (
++    CONTRACT_SCHEMA_VERSION,
++    ExecutionState,
++    build_result_envelope,
++    validate_result_envelope,
++)
+ 
+ 
+ @dataclass
+@@ -99,6 +105,44 @@ class PipelineResult:
+     # yet be intentionally schema-invalid. Consumers/graders should check this
+     # rather than overloading `ok`.
+     schema_valid: Optional[bool] = None
++    execution_state: str = ""
++    contract_schema_version: str = CONTRACT_SCHEMA_VERSION
++    result_envelope: Dict[str, Any] = field(default_factory=dict)
++
++    def __post_init__(self) -> None:
++        validation = None
++        for role_result in reversed(self.role_results or []):
++            artifacts = getattr(role_result, "artifacts", {}) or {}
++            if isinstance(artifacts.get("validation"), dict):
++                validation = artifacts["validation"]
++                break
++        state = (
++            ExecutionState(self.execution_state)
++            if self.execution_state
++            else None
++        )
++        self.result_envelope = build_result_envelope(
++            ok=self.ok,
++            artifact=self.artifact,
++            gap_reports=self.gap_reports,
++            schema_valid=self.schema_valid,
++            errors=self.errors,
++            validation=validation,
++            execution_state=state,
++        )
++        self.execution_state = str(self.result_envelope["execution_state"])
++        self.contract_schema_version = str(self.result_envelope["contract_schema_version"])
++        self.ok = bool(self.result_envelope["ok"])
++        issues = validate_result_envelope(
++            self.result_envelope,
++            artifact=self.artifact,
++            gap_reports=self.gap_reports,
++            schema_valid=self.schema_valid,
++            errors=self.errors,
++            validation=validation,
++        )
++        if issues:
++            raise ValueError("invalid MANDATE result envelope: " + "; ".join(issues))
+ 
+     @property
+     def has_gaps(self) -> bool:
+@@ -127,6 +171,7 @@ class PipelineResult:
+             "roles_executed": len(self.role_results),
+             "roles_passed": sum(1 for r in self.role_results if r.ok),
+             "gaps": len(self.gap_reports),
++            "execution_state": self.execution_state,
+             "errors": self.errors[:5],
+             "mandate_id": self.artifact.get("mandate_id") if self.artifact else None,
+         }
+@@ -439,11 +484,17 @@ class Pipeline:
+ 
+         # LLM path: attempt the adapter call but fall back to deterministic execution
+         # if it fails, capturing which path actually produced the result.
+-        result, fallback_meta = execute_with_fallback(
+-            llm_callable=lambda: role.execute_with_llm(state, adapter),
+-            deterministic_callable=lambda: role.execute(state),
+-            fallback_enabled=self.config.llm_fallback_enabled,
+-        )
++        if hasattr(adapter, "set_current_role"):
++            adapter.set_current_role(role.ROLE_NAME)
++        try:
++            result, fallback_meta = execute_with_fallback(
++                llm_callable=lambda: role.execute_with_llm(state, adapter),
++                deterministic_callable=lambda: role.execute(state),
++                fallback_enabled=self.config.llm_fallback_enabled,
++            )
++        finally:
++            if hasattr(adapter, "set_current_role"):
++                adapter.set_current_role(None)
+         result.artifacts["llm_used"] = fallback_meta.used_llm
+         result.artifacts["llm_fallback"] = fallback_meta.fell_back
+         if fallback_meta.reason:
+diff --git a/src/mlt/schemas/mandate-result-envelope.schema.json b/src/mlt/schemas/mandate-result-envelope.schema.json
+new file mode 100644
+index 0000000..7da282b
+--- /dev/null
++++ b/src/mlt/schemas/mandate-result-envelope.schema.json
+@@ -0,0 +1,223 @@
++{
++  "$schema": "https://json-schema.org/draft/2020-12/schema",
++  "$id": "urn:mandate:schema:mandate-result-envelope.schema.json",
++  "title": "MANDATE result execution envelope",
++  "type": "object",
++  "additionalProperties": false,
++  "required": [
++    "contract_schema_version",
++    "ok",
++    "execution_state",
++    "output_representation",
++    "artifact_present",
++    "schema_valid",
++    "gap_report_count",
++    "has_blocking_or_insufficient_signal",
++    "validation_failure_present",
++    "errors_present",
++    "missing_result"
++  ],
++  "properties": {
++    "contract_schema_version": {
++      "type": "string",
++      "const": "mandate-result-envelope.v1"
++    },
++    "ok": {
++      "type": "boolean"
++    },
++    "execution_state": {
++      "type": "string",
++      "enum": [
++        "EXECUTABLE",
++        "NON_EXECUTABLE_GAPS",
++        "NON_EXECUTABLE_VALIDATION",
++        "FAILED"
++      ]
++    },
++    "output_representation": {
++      "type": "string",
++      "enum": [
++        "MANDATE_AS_CODE",
++        "GAP_REPORT",
++        "NONE"
++      ]
++    },
++    "artifact_present": {
++      "type": "boolean"
++    },
++    "schema_valid": {
++      "type": [
++        "boolean",
++        "null"
++      ]
++    },
++    "gap_report_count": {
++      "type": "integer",
++      "minimum": 0
++    },
++    "has_blocking_or_insufficient_signal": {
++      "type": "boolean"
++    },
++    "validation_failure_present": {
++      "type": "boolean"
++    },
++    "errors_present": {
++      "type": "boolean"
++    },
++    "missing_result": {
++      "type": "boolean"
++    }
++  },
++  "allOf": [
++    {
++      "if": {
++        "properties": {
++          "execution_state": {
++            "const": "EXECUTABLE"
++          }
++        },
++        "required": [
++          "execution_state"
++        ]
++      },
++      "then": {
++        "properties": {
++          "ok": {
++            "const": true
++          },
++          "artifact_present": {
++            "const": true
++          },
++          "schema_valid": {
++            "const": true
++          },
++          "has_blocking_or_insufficient_signal": {
++            "const": false
++          },
++          "validation_failure_present": {
++            "const": false
++          },
++          "errors_present": {
++            "const": false
++          },
++          "missing_result": {
++            "const": false
++          }
++        }
++      }
++    },
++    {
++      "if": {
++        "properties": {
++          "execution_state": {
++            "const": "NON_EXECUTABLE_GAPS"
++          }
++        },
++        "required": [
++          "execution_state"
++        ]
++      },
++      "then": {
++        "properties": {
++          "ok": {
++            "const": false
++          },
++          "has_blocking_or_insufficient_signal": {
++            "const": true
++          },
++          "missing_result": {
++            "const": false
++          }
++        }
++      }
++    },
++    {
++      "if": {
++        "properties": {
++          "execution_state": {
++            "const": "NON_EXECUTABLE_VALIDATION"
++          }
++        },
++        "required": [
++          "execution_state"
++        ]
++      },
++      "then": {
++        "properties": {
++          "ok": {
++            "const": false
++          },
++          "has_blocking_or_insufficient_signal": {
++            "const": false
++          },
++          "validation_failure_present": {
++            "const": true
++          },
++          "missing_result": {
++            "const": false
++          }
++        }
++      }
++    },
++    {
++      "if": {
++        "properties": {
++          "execution_state": {
++            "const": "FAILED"
++          }
++        },
++        "required": [
++          "execution_state"
++        ]
++      },
++      "then": {
++        "properties": {
++          "ok": {
++            "const": false
++          }
++        },
++        "anyOf": [
++          {
++            "properties": {
++              "errors_present": {
++                "const": true
++              }
++            }
++          },
++          {
++            "properties": {
++              "missing_result": {
++                "const": true
++              }
++            }
++          }
++        ]
++      }
++    },
++    {
++      "if": {
++        "properties": {
++          "missing_result": {
++            "const": true
++          }
++        },
++        "required": [
++          "missing_result"
++        ]
++      },
++      "then": {
++        "properties": {
++          "artifact_present": {
++            "const": false
++          },
++          "gap_report_count": {
++            "const": 0
++          },
++          "output_representation": {
++            "const": "NONE"
++          }
++        }
++      }
++    }
++  ]
++}
+diff --git a/tests/mandate/test_ablation_a1.py b/tests/mandate/test_ablation_a1.py
+index 14ac6a8..62b4614 100644
+--- a/tests/mandate/test_ablation_a1.py
++++ b/tests/mandate/test_ablation_a1.py
+@@ -66,7 +66,9 @@ def test_a1_single_pass_uses_one_call_no_role_separation():
+         PipelineConfig(ablate_role_separation=True, llm_adapter=stub)
+     ).run(_mission())
+ 
+-    assert res.ok
++    assert res.ok is False
++    assert res.schema_valid is False
++    assert res.result_envelope["execution_state"] == "NON_EXECUTABLE_VALIDATION"
+     assert stub.calls == 1                       # exactly one combined call
+     assert len(res.role_results) == 1            # no 1+6 separation
+     assert res.role_results[0].role_name == "Combined"
+@@ -116,6 +118,8 @@ def test_a1_composes_with_a6_trace_suppression():
+             llm_adapter=stub,
+         )
+     ).run(_mission())
+-    assert res.ok
++    assert res.ok is False
++    assert res.schema_valid is False
++    assert res.result_envelope["execution_state"] == "NON_EXECUTABLE_VALIDATION"
+     assert res.artifact["trace"]["entry_count"] == 0
+     assert res.artifact["trace"]["entries"] == []
+diff --git a/tests/mandate/test_ablations.py b/tests/mandate/test_ablations.py
+index 593760d..8a6d7ff 100644
+--- a/tests/mandate/test_ablations.py
++++ b/tests/mandate/test_ablations.py
+@@ -99,7 +99,9 @@ def test_a4_off_runs_validation():
+ 
+ def test_a6_suppresses_trace_chain():
+     res = _run(PipelineConfig(ablate_search_trace=True))
+-    assert res.ok  # artifact still emitted (ablation-aware validate)
++    assert res.ok is False  # artifact still emitted for ablation measurement
++    assert res.schema_valid is False
++    assert res.result_envelope["execution_state"] == "NON_EXECUTABLE_VALIDATION"
+     trace = res.artifact["trace"]
+     assert trace["entry_count"] == 0
+     assert trace["entries"] == []
+diff --git a/tests/mandate/test_execution_contract.py b/tests/mandate/test_execution_contract.py
+new file mode 100644
+index 0000000..528a08c
+--- /dev/null
++++ b/tests/mandate/test_execution_contract.py
+@@ -0,0 +1,253 @@
++from __future__ import annotations
++
++from mlt.mandate.execution_contract import (
++    CONTRACT_SCHEMA_VERSION,
++    ExecutionState,
++    build_result_envelope,
++    derive_execution_state,
++    validate_result_envelope,
++)
++
++
++ARTIFACT = {"mandate_id": "M-1"}
++VALIDATION_FAIL = {"minimum_satisfaction": {"passed": False}}
++
++
++def _gap(**overrides):
++    gap = {
++        "severity": "DEGRADING",
++        "readiness_score": {"blocking": False},
++        "readiness_assessment": {
++            "blocking_gap_count": 0,
++            "recommendation": "PROCEED_WITH_CAVEATS",
++        },
++    }
++    gap.update(overrides)
++    return gap
++
++
++def _state(**kwargs) -> ExecutionState:
++    defaults = {
++        "ok": False,
++        "artifact": ARTIFACT,
++        "gap_reports": [],
++        "schema_valid": True,
++        "errors": [],
++        "validation": None,
++    }
++    defaults.update(kwargs)
++    return derive_execution_state(**defaults)
++
++
++def _envelope(**overrides):
++    envelope = {
++        "contract_schema_version": CONTRACT_SCHEMA_VERSION,
++        "ok": False,
++        "execution_state": "NON_EXECUTABLE_GAPS",
++        "output_representation": "MANDATE_AS_CODE",
++        "artifact_present": True,
++        "schema_valid": True,
++        "gap_report_count": 1,
++        "has_blocking_or_insufficient_signal": True,
++        "validation_failure_present": False,
++        "errors_present": False,
++        "missing_result": False,
++    }
++    envelope.update(overrides)
++    return envelope
++
++
++def _issues(envelope, *, artifact=ARTIFACT, gap_reports=None, schema_valid=True, errors=None, validation=None):
++    return validate_result_envelope(
++        envelope,
++        artifact=artifact,
++        gap_reports=[_gap(severity="BLOCKING")] if gap_reports is None else gap_reports,
++        schema_valid=schema_valid,
++        errors=[] if errors is None else errors,
++        validation=validation,
++    )
++
++
++def test_blocking_severity_routes_to_non_executable_gaps():
++    assert _state(gap_reports=[_gap(severity="BLOCKING")]) is ExecutionState.NON_EXECUTABLE_GAPS
++
++
++def test_blocking_true_routes_to_non_executable_gaps():
++    assert _state(gap_reports=[_gap(blocking=True)]) is ExecutionState.NON_EXECUTABLE_GAPS
++
++
++def test_insufficient_readiness_routes_to_non_executable_gaps():
++    gap = _gap(
++        readiness_assessment={
++            "blocking_gap_count": 0,
++            "recommendation": "INSUFFICIENT_FOR_AUTOMATION",
++        }
++    )
++    assert _state(gap_reports=[gap]) is ExecutionState.NON_EXECUTABLE_GAPS
++
++
++def test_minimum_satisfaction_failure_routes_to_non_executable_validation():
++    validation = {"minimum_satisfaction": {"passed": False}}
++    assert _state(validation=validation) is ExecutionState.NON_EXECUTABLE_VALIDATION
++
++
++def test_constraint_compliance_failure_routes_to_non_executable_validation():
++    validation = {"constraint_compliance": {"passed": False}}
++    assert _state(validation=validation) is ExecutionState.NON_EXECUTABLE_VALIDATION
++
++
++def test_artifact_schema_failure_routes_to_non_executable_validation():
++    assert _state(ok=True, schema_valid=False) is ExecutionState.NON_EXECUTABLE_VALIDATION
++
++
++def test_clean_schema_valid_success_routes_to_executable():
++    assert _state(ok=True, schema_valid=True) is ExecutionState.EXECUTABLE
++
++
++def test_schema_rejects_executable_with_ok_false():
++    envelope = _envelope(
++        execution_state="EXECUTABLE",
++        ok=False,
++        gap_report_count=0,
++        has_blocking_or_insufficient_signal=False,
++    )
++    assert _issues(envelope, gap_reports=[])
++
++
++def test_schema_rejects_executable_with_unresolved_blocking_gap():
++    gap = _gap(severity="BLOCKING")
++    envelope = _envelope(execution_state="EXECUTABLE", ok=True)
++    issues = _issues(envelope, gap_reports=[gap])
++    assert issues
++
++
++def test_schema_rejects_missing_execution_state():
++    envelope = build_result_envelope(
++        ok=True,
++        artifact=ARTIFACT,
++        gap_reports=[],
++        schema_valid=True,
++    )
++    envelope.pop("execution_state")
++    assert validate_result_envelope(envelope, artifact=ARTIFACT, gap_reports=[])
++
++
++def test_build_normalizes_non_executable_gap_ok_false():
++    envelope = build_result_envelope(
++        ok=True,
++        artifact=ARTIFACT,
++        gap_reports=[_gap(severity="BLOCKING")],
++        schema_valid=True,
++    )
++    assert envelope["execution_state"] == "NON_EXECUTABLE_GAPS"
++    assert envelope["ok"] is False
++
++
++def test_schema_rejects_non_executable_gaps_with_ok_true():
++    assert _issues(_envelope(ok=True))
++
++
++def test_schema_rejects_non_executable_validation_with_ok_true():
++    envelope = _envelope(
++        ok=True,
++        execution_state="NON_EXECUTABLE_VALIDATION",
++        schema_valid=False,
++        has_blocking_or_insufficient_signal=False,
++        gap_report_count=0,
++        validation_failure_present=True,
++    )
++    assert _issues(envelope, gap_reports=[], schema_valid=False)
++
++
++def test_schema_rejects_failed_with_ok_true():
++    envelope = _envelope(
++        ok=True,
++        execution_state="FAILED",
++        output_representation="NONE",
++        artifact_present=False,
++        schema_valid=None,
++        gap_report_count=0,
++        has_blocking_or_insufficient_signal=False,
++        errors_present=True,
++        missing_result=True,
++    )
++    assert _issues(envelope, artifact=None, gap_reports=[], schema_valid=None, errors=["boom"])
++
++
++def test_executable_rejects_blocking_true():
++    gap = _gap(blocking=True)
++    envelope = _envelope(execution_state="EXECUTABLE", ok=True)
++    assert _issues(envelope, gap_reports=[gap])
++
++
++def test_executable_rejects_readiness_score_blocking():
++    gap = _gap(readiness_score={"blocking": True})
++    envelope = _envelope(execution_state="EXECUTABLE", ok=True)
++    assert _issues(envelope, gap_reports=[gap])
++
++
++def test_executable_rejects_blocking_gap_count():
++    gap = _gap(readiness_assessment={"blocking_gap_count": 1, "recommendation": "PROCEED_WITH_CAVEATS"})
++    envelope = _envelope(execution_state="EXECUTABLE", ok=True)
++    assert _issues(envelope, gap_reports=[gap])
++
++
++def test_executable_rejects_insufficient_for_automation():
++    gap = _gap(readiness_assessment={"blocking_gap_count": 0, "recommendation": "INSUFFICIENT_FOR_AUTOMATION"})
++    envelope = _envelope(execution_state="EXECUTABLE", ok=True)
++    assert _issues(envelope, gap_reports=[gap])
++
++
++def test_schema_rejects_missing_required_envelope_field():
++    envelope = build_result_envelope(
++        ok=False,
++        artifact=ARTIFACT,
++        gap_reports=[_gap(severity="BLOCKING")],
++        schema_valid=True,
++    )
++    envelope.pop("validation_failure_present")
++    assert _issues(envelope)
++
++
++def test_schema_rejects_unknown_contract_version():
++    envelope = build_result_envelope(
++        ok=False,
++        artifact=ARTIFACT,
++        gap_reports=[_gap(severity="BLOCKING")],
++        schema_valid=True,
++    )
++    envelope["contract_schema_version"] = "bogus.v999"
++    assert _issues(envelope)
++
++
++def test_non_executable_validation_requires_validation_evidence():
++    envelope = _envelope(
++        execution_state="NON_EXECUTABLE_VALIDATION",
++        ok=False,
++        gap_report_count=0,
++        has_blocking_or_insufficient_signal=False,
++        validation_failure_present=False,
++    )
++    assert _issues(envelope, gap_reports=[])
++
++
++def test_non_executable_validation_accepts_schema_failure():
++    envelope = build_result_envelope(
++        ok=True,
++        artifact=ARTIFACT,
++        gap_reports=[],
++        schema_valid=False,
++    )
++    assert envelope["execution_state"] == "NON_EXECUTABLE_VALIDATION"
++    assert not _issues(envelope, gap_reports=[], schema_valid=False)
++
++
++def test_failed_accepts_missing_result():
++    envelope = build_result_envelope(
++        ok=False,
++        artifact=None,
++        gap_reports=[],
++        schema_valid=None,
++    )
++    assert envelope["execution_state"] == "FAILED"
++    assert not _issues(envelope, artifact=None, gap_reports=[], schema_valid=None)
+diff --git a/tests/mandate/test_schema_valid.py b/tests/mandate/test_schema_valid.py
+index 1a42cb3..1028083 100644
+--- a/tests/mandate/test_schema_valid.py
++++ b/tests/mandate/test_schema_valid.py
+@@ -1,8 +1,8 @@
+ """Audit fix (P0 #3): `ok` must not hide schema-invalid ablation output.
+ 
+-`PipelineResult.schema_valid` is a separate verdict from `ok`. Under an ablation
+-an artifact may be emitted (ok=True) yet be intentionally schema-invalid; this
+-must be reported honestly so consumers/graders filter on schema_valid, not ok.
++`PipelineResult.schema_valid` is a separate verdict from emitted artifacts. Under
++an ablation an artifact may be emitted yet be intentionally schema-invalid; this
++must be reported honestly so consumers/graders reject it as not executable.
+ """
+ import json
+ from pathlib import Path
+@@ -43,11 +43,12 @@ def test_a2_emits_schema_valid():        # collapsed bands + recomputed hash sti
+     assert res.ok is True and res.schema_valid is True
+ 
+ 
+-def test_a6_ok_but_schema_invalid():
+-    """A6 empties the trace (chain_hash="") — emitted but NOT schema-valid."""
++def test_a6_emits_artifact_but_is_non_executable_validation():
++    """A6 empties the trace (chain_hash="") and is not schema-valid."""
+     res = _run(ablate_search_trace=True)
+-    assert res.ok is True            # artifact still emitted (ablation gate)
+-    assert res.schema_valid is False  # honestly flagged invalid, not hidden by ok
++    assert res.ok is False
++    assert res.schema_valid is False
++    assert res.result_envelope["execution_state"] == "NON_EXECUTABLE_VALIDATION"
+ 
+ 
+ class _StubCfg:
+@@ -73,10 +74,11 @@ class _Stub:
+         )
+ 
+ 
+-def test_a1_single_pass_ok_but_schema_invalid():
+-    """A1 single-pass emits an intentionally light artifact — ok=True, schema_valid=False."""
++def test_a1_single_pass_emits_artifact_but_is_non_executable_validation():
++    """A1 single-pass emits a light artifact and is not schema-valid."""
+     res = Pipeline(
+         PipelineConfig(ablate_role_separation=True, llm_adapter=_Stub())
+     ).run(_mission())
+-    assert res.ok is True
++    assert res.ok is False
+     assert res.schema_valid is False
++    assert res.result_envelope["execution_state"] == "NON_EXECUTABLE_VALIDATION"
+-- 
+2.53.0
+

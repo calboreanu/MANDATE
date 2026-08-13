@@ -1,0 +1,29 @@
+{
+  "task_id": "TASK-CAL-INT-002",
+  "domain": "intelligence_collection",
+  "category": "calibration",
+  "author": "hand_authored_by_PI",
+  "purpose": "Calibration task for intelligence target profiling.",
+  "stakeholder": "Operations Lead",
+  "request_text": "Develop a target profile package on geographic region RG-NORTH-7 for the operations lead. Required content: at least 10 verified entities (organizations or individuals) with attributed roles; timeline of observable activity over the past 90 days; source citations for every factual claim with publication date. Use only authorized open sources from the standing OSINT collection plan. Deliver as a structured PDF document, 8 to 12 pages, within 5 business days of tasking. Classification: UNCLASSIFIED. Distribution: operations lead and immediate chain of command only.",
+  "expected_anchor": {
+    "mission_intent": "Provide operations lead with structured target profile for geographic region RG-NORTH-7",
+    "minimum": [
+      {"dimension": "entity_count", "threshold": "at least 10 verified entities", "rationale": "explicit numeric floor"},
+      {"dimension": "entity_attribution", "threshold": "role attributed per entity", "rationale": "explicit"},
+      {"dimension": "timeline_window", "threshold": "past 90 days", "rationale": "explicit"},
+      {"dimension": "citation_completeness", "threshold": "source citation per factual claim with publication date", "rationale": "explicit"},
+      {"dimension": "format", "threshold": "structured PDF, 8 to 12 pages", "rationale": "explicit"},
+      {"dimension": "deadline", "threshold": "5 business days from tasking", "rationale": "explicit"}
+    ],
+    "target": [],
+    "constraints": [
+      {"predicate": "data.source IN authorized_osint_collection_plan", "rationale": "explicit"},
+      {"predicate": "classification == 'UNCLASSIFIED'", "rationale": "explicit"},
+      {"predicate": "distribution.list == ['operations_lead', 'immediate_chain']", "rationale": "explicit"}
+    ]
+  },
+  "expected_output_type": "MANDATE_AS_CODE",
+  "expected_gaps": [],
+  "notes_for_lead_analyst": "Tests longer narrative deliverable and citation completeness extraction."
+}

@@ -1,0 +1,14 @@
+{
+  "artifact_results": [
+    {
+      "file": "quarterly_report_gap.json",
+      "has_readiness_score": true,
+      "percentage": 17,
+      "blocking": true,
+      "has_partial_spec": false
+    }
+  ],
+  "corpus_gap_count": 60,
+  "corpus_with_readiness": 0,
+  "invalid_percentages": 0
+}

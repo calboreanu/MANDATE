@@ -1,0 +1,23 @@
+name: Verify deposit
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-study-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python3 code/scripts/verify_study_release.py
+      - name: Verify immutable focused-check evidence
+        run: |
+          cd replication_package/v3_corrected_routing
+          sha256sum -c EVIDENCE_SHA256SUMS.txt

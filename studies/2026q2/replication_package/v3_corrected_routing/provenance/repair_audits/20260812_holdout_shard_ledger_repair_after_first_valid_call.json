@@ -1,0 +1,70 @@
+{
+  "active_holdout_json_count": 1,
+  "active_holdout_run_ids": [
+    "cond_b__TASK-HOLDOUT-SES-001__r01"
+  ],
+  "cause": "stale cond_b_holdout/ledger.jsonl from quarantined invalid-key holdout conflicted with first valid resumed checkpoint",
+  "cost_ledger_summary_repair": {
+    "path": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z/api_cost_ledger.jsonl",
+    "record_summary_count_after": 2701,
+    "reservation_count_after": 8719,
+    "row_count_after": 37574,
+    "settled_total_usd_after": 161.476683,
+    "settlement_count_after": 8719,
+    "settlement_total_before": {
+      "cond_b__TASK-HOLDOUT-SES-001__r01": 0.110274
+    },
+    "sha256_after": "9d0dd3d537f6457539f493f42ae2a01172439e8e352a2ea54e389b570359e67d",
+    "summary_after": {
+      "cond_b__TASK-HOLDOUT-SES-001__r01": true
+    },
+    "summary_before": {
+      "cond_b__TASK-HOLDOUT-SES-001__r01": false
+    }
+  },
+  "repair": "holdout_shard_ledger_repair_after_first_valid_call",
+  "root": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z",
+  "shard_ledger_after": {
+    "path": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z/cond_b_holdout/ledger.jsonl",
+    "row_count": 1,
+    "run_ids": [
+      "cond_b__TASK-HOLDOUT-SES-001__r01"
+    ],
+    "sha256": "16fd4160accefb96d9b34302e87173140a619ca039af6db00ccf66f47ffab27f"
+  },
+  "shard_ledger_before": {
+    "backup_path": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z/provenance/repairs/20260812_holdout_shard_ledger_repair_after_first_valid_call/cond_b_holdout.ledger.stale_pre_repair.jsonl",
+    "extra_run_id_count_vs_active_json": 299,
+    "extra_run_ids_sample": [
+      "cond_b__TASK-HOLDOUT-SES-001__r02",
+      "cond_b__TASK-HOLDOUT-SES-001__r03",
+      "cond_b__TASK-HOLDOUT-SES-001__r04",
+      "cond_b__TASK-HOLDOUT-SES-001__r05",
+      "cond_b__TASK-HOLDOUT-SES-001__r06",
+      "cond_b__TASK-HOLDOUT-SES-001__r07",
+      "cond_b__TASK-HOLDOUT-SES-001__r08",
+      "cond_b__TASK-HOLDOUT-SES-001__r09",
+      "cond_b__TASK-HOLDOUT-SES-001__r10",
+      "cond_b__TASK-HOLDOUT-SES-002__r01",
+      "cond_b__TASK-HOLDOUT-SES-002__r02",
+      "cond_b__TASK-HOLDOUT-SES-002__r03",
+      "cond_b__TASK-HOLDOUT-SES-002__r04",
+      "cond_b__TASK-HOLDOUT-SES-002__r05",
+      "cond_b__TASK-HOLDOUT-SES-002__r06",
+      "cond_b__TASK-HOLDOUT-SES-002__r07",
+      "cond_b__TASK-HOLDOUT-SES-002__r08",
+      "cond_b__TASK-HOLDOUT-SES-002__r09",
+      "cond_b__TASK-HOLDOUT-SES-002__r10",
+      "cond_b__TASK-HOLDOUT-SES-003__r01"
+    ],
+    "matched_run_ids_with_different_record_content": [
+      "cond_b__TASK-HOLDOUT-SES-001__r01"
+    ],
+    "missing_run_ids_vs_active_json": [],
+    "path": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z/cond_b_holdout/ledger.jsonl",
+    "row_count": 300,
+    "sha256": "dfe4d68aae922ac5ac23ae62840960063d6b8dba116565a8b1c0f140650b3db5",
+    "unique_run_id_count": 300
+  },
+  "timestamp_utc": "2026-08-12T13:32:08Z"
+}

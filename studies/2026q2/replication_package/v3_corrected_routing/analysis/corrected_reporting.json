@@ -1,0 +1,34 @@
+{
+  "archive_sha256": "9193189e58b99e8e7655448fbebfc3da5021bca69dc4d43330f051a8040ba0ef",
+  "cost_accounting": {
+    "authorization_cap_usd": 300.0,
+    "campaign_settled_usd": 191.388447,
+    "cumulative_authorized_spend_usd": 192.138414,
+    "pre_campaign_smoke_probe_usd": 0.749967,
+    "remaining_authorization_usd": 107.861586
+  },
+  "experiment_label": "Corrective validation on the mlt-stack 1.0.3-derived prompt stack",
+  "paper_result": {
+    "cond_a_records": 1500,
+    "cond_b_records": 1500,
+    "executable_with_blocking_count": 0,
+    "primary_denominator_N": 2999,
+    "total_records": 3000,
+    "zero_event_upper_95": 0.0009984116497422368
+  },
+  "provider_attempt_accounting": {
+    "authoritative_attempts_beyond_nominal": 10,
+    "authoritative_attempts_beyond_nominal_cost_usd": 0.177549,
+    "conservative_dispatch_uncertain_attempts": 3,
+    "conservative_dispatch_uncertain_cost_usd": 0.243927,
+    "nominal_logical_role_calls": 10500,
+    "provider_response_objects": 10503,
+    "reservations_and_settlements": 10513,
+    "response_received_attempts": 10510,
+    "total_attempts_beyond_nominal": 13,
+    "total_attempts_beyond_nominal_cost_usd": 0.421476
+  },
+  "reporting_note": "The as-received final analyzer's provider_call_count counts response objects, not ledger attempts. This correction changes reporting labels only; records, states, hashes, and costs are unchanged.",
+  "validation_date": "2026-08-12"
+}
+

@@ -1,0 +1,26 @@
+phase,sub_phase,handoff_id,provider,cost_usd,basis,source_path
+Phase 1 Pilot,pilot smoke 7x6,HANDOFF_11a,Anthropic,1.51,"attested (escalation boundary was $25, not the spend)",standalone data results/handoff_costs/attested_cost_table.md; handoffs/HANDOFF_11a_report_2026-06-05.md
+Phase 3 Corpus,corpus pilot,HANDOFF_02,Anthropic,0.09,actual,handoffs/HANDOFF_02_report_2026-06-03.md
+Phase 3 Corpus,main corpus (120),HANDOFF_03,Anthropic,2.78,actual,handoffs/HANDOFF_03_report_2026-06-03_resume.md
+Phase 3 Corpus,realism/aux,HANDOFF_07,Anthropic,2.3,actual,handoffs/HANDOFF_07_report_2026-06-03.md
+Phase 3 Corpus,realism/aux,HANDOFF_07c,Anthropic,0.76,actual,handoffs/HANDOFF_07c_report_2026-06-03.md
+Phase 3 Corpus,hold-out corpus,HANDOFF_08b,Anthropic,3.0,attested,standalone data results/handoff_costs/attested_cost_table.md
+Phase 4 GroundTruth,pilot scaffolds,HANDOFF_06c,Anthropic,1.0,attested,standalone data results/handoff_costs/attested_cost_table.md
+Phase 4 GroundTruth,main scaffolds (120),HANDOFF_09,Anthropic,12.0,attested,standalone data results/handoff_costs/attested_cost_table.md
+Phase 4 GroundTruth,hold-out scaffolds (30),HANDOFF_20gt,Anthropic,4.0,attested,standalone data results/handoff_costs/attested_cost_table.md
+Phase 5 Baselines,B1-B3 calibration,HANDOFF_04b,Anthropic+OpenAI,0.296314,actual,handoffs/HANDOFF_04b_report_2026-06-04.md
+Phase 5 Baselines,B3 calibration resume,HANDOFF_04c,Anthropic,0.196533,actual,handoffs/HANDOFF_04c_report_2026-06-04.md
+Phase 5 Baselines,B4-B6 calibration,HANDOFF_04,Anthropic,0.87,attested,standalone data results/handoff_costs/attested_cost_table.md
+Phase 6 Perturbations,perturbation generation (350),HANDOFF_10,Anthropic,3.089172,actual,handoffs/HANDOFF_10_report_2026-06-04.md
+Phase 6 Generation,mandate_primary (1500 rec),HANDOFF_11b-i,Ollama (local),0.0,actual (record-sum api_cost_usd; local = $0),07_system_outputs/mandate_primary/ (+holdout)
+Phase 6 Generation,cond_a (1500 rec),HANDOFF_19/Stage3,Anthropic,40.375,actual (record-sum api_cost_usd; main-only $32.14 matches audit),07_system_outputs/cond_a/ (+holdout)
+Phase 6 Generation,cond_b (1500 rec),HANDOFF_19/Stage3,Anthropic (UNLOGGED),0.0,FLAG: api_cost_usd=null on all 1500 records (cost not logged by design); true spend unknown,07_system_outputs/cond_b/ (+holdout)
+Phase 6 Generation,baseline_1 (1506 rec),HANDOFF_11b-ii,Anthropic,50.2238,actual (record-sum api_cost_usd),07_system_outputs/baseline_1/ (+holdout)
+Phase 6 Generation,baseline_2 (1206 rec),HANDOFF_11b-ii,OpenAI (GPT),6.8725,actual (record-sum api_cost_usd),07_system_outputs/baseline_2/
+Phase 6 Generation,baseline_3 (1206 rec),HANDOFF_11b-ii,Anthropic (ReAct),93.3476,actual (record-sum api_cost_usd),07_system_outputs/baseline_3/
+Phase 6 Generation,baseline_4 (1206 rec),HANDOFF_11b-ii,Anthropic (AutoGen),88.1655,actual (record-sum api_cost_usd),07_system_outputs/baseline_4/
+Phase 6 Generation,baseline_5 (1206 rec),HANDOFF_11b-ii,Anthropic (CrewAI),52.5183,actual (record-sum api_cost_usd),07_system_outputs/baseline_5/
+Phase 6 Generation,baseline_6 (1206 rec),HANDOFF_11b-ii,Anthropic (LangGraph),49.1819,actual (record-sum api_cost_usd),07_system_outputs/baseline_6/
+Phase 8 v1 Grading,D-08 sampled three-judge (N=700),HANDOFF_13b/13d/13e,GPT-4o+Opus/Sonnet+Gemini,1750.0,"projected midpoint of $1,500-2,000; a killed run cost ~$500; no clean cumulative attestation",handoffs/HANDOFF_13b_phase8_grading_corrected.md
+Stage 4 v2 Grading,"full-coverage 3-judge (~12,000 rec)",HANDOFF_20,GPT-4o+Opus+Gemini,7700.0,PROJECTION (Sonnet-priced ~$0.21/rec basis; D-10 Opus restoration raised per-grade cost ~5x); COMPLETE 12000/12000 on 2026-07-01; no per-record grade cost on disk — provider dashboards authoritative for actuals; see cost_ledger.md closeout addendum + supplement D-13,HANDOFF_20_stage4_full_coverage_v2_grading.md; 08_grading_v2/by_record/
+Stage 6 Perturbations,O5 adversarial / perturbation runs + Phase B grading,HANDOFF_24/24b/24c,mixed,7350.0,PROJECTION (Sonnet-priced); closeout 2026-07-08: generation record-sum actuals $648.29 logged final (b4 halted at 3021/3500; cond_b unlogged; MP local $0); b5/b6 scoped out under D-12 (~$4200 avoided); semantic grading paused 14685/18200 (80.7%) under D-13 — grading actual on provider dashboards; see cost_ledger.md closeout addendum,v2 Protocol Amendment; DEPOSIT_MAPPING.md T5; supplement Deviation Table D-12/D-13

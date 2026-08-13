@@ -1,0 +1,1376 @@
+From 15a7cca4651e43c22d3b765f334105884b47947e Mon Sep 17 00:00:00 2001
+From: Elias Calboreanu <ecalboreanu@gmail.com>
+Date: Thu, 6 Aug 2026 11:24:30 -0400
+Subject: [PATCH 4/5] Fix paid retry and recovered cost evidence
+
+---
+ code/apparatus/baselines/llm_client.py      |   6 +-
+ code/apparatus/harness/ledger.py            |  28 ++
+ code/apparatus/harness/runner.py            | 196 ++++++++-
+ code/apparatus/rerun_analysis.py            | 229 +++++++++-
+ code/apparatus/systems/mandate_canonical.py | 131 +++++-
+ code/apparatus/tests/test_harness.py        |  25 +-
+ code/apparatus/tests/test_rerun_analysis.py | 464 +++++++++++++++++++-
+ 7 files changed, 1038 insertions(+), 41 deletions(-)
+
+diff --git a/code/apparatus/baselines/llm_client.py b/code/apparatus/baselines/llm_client.py
+index b067f21..76617ea 100644
+--- a/code/apparatus/baselines/llm_client.py
++++ b/code/apparatus/baselines/llm_client.py
+@@ -259,7 +259,11 @@ class BudgetedLLMClient(LLMClient):
+         )
+         raw["budget_cost_accounting"] = (
+             "exact"
+-            if all(str(a.get("cost_basis", "")).startswith("authoritative") for a in self.attempts)
++            if all(
++                str(a.get("cost_basis", "")).startswith("authoritative")
++                or str(a.get("cost_basis", "")) == "undispatched_zero"
++                for a in self.attempts
++            )
+             else "conservative_upper_bound"
+         )
+         return resp
+diff --git a/code/apparatus/harness/ledger.py b/code/apparatus/harness/ledger.py
+index 020a5bd..71f1413 100644
+--- a/code/apparatus/harness/ledger.py
++++ b/code/apparatus/harness/ledger.py
+@@ -219,6 +219,34 @@ class CampaignCostLedger:
+     def run_settlement_total(self, run_id: str) -> float:
+         return self._run_settlement_total(self.entries(), run_id)
+ 
++    def settlements_for_run(self, run_id: str) -> list[dict]:
++        return [
++            dict(row)
++            for row in self.entries()
++            if row.get("row_type") == "settlement"
++            and row.get("run_id") == run_id
++        ]
++
++    def settlement_attempts_for_run(self, run_id: str) -> list[dict]:
++        attempts: list[dict] = []
++        for row in self.settlements_for_run(run_id):
++            reservation_id = str(row.get("reservation_id") or "")
++            cost = round(float(row.get("actual_cost_usd") or 0.0), 6)
++            attempts.append({
++                "budget_reservation_id": reservation_id,
++                "reservation_id": reservation_id,
++                "role": str(row.get("role") or ""),
++                "status": str(row.get("status") or ""),
++                "cost_usd": cost,
++                "debit_usd": cost,
++                "cost_basis": str(row.get("cost_basis") or ""),
++                "input_tokens": int(row.get("input_tokens") or 0),
++                "output_tokens": int(row.get("output_tokens") or 0),
++                "recovered": bool(row.get("recovery")),
++                "model": row.get("model"),
++            })
++        return attempts
++
+     def reservation_bound(self, reservation_id: str) -> float:
+         return self._reservation_bound(self.entries(), reservation_id)
+ 
+diff --git a/code/apparatus/harness/runner.py b/code/apparatus/harness/runner.py
+index 0a9430c..5bf9d65 100644
+--- a/code/apparatus/harness/runner.py
++++ b/code/apparatus/harness/runner.py
+@@ -14,7 +14,8 @@ import os
+ import time
+ import traceback
+ from dataclasses import dataclass
+-from typing import Callable, Optional
++from collections import defaultdict
++from typing import Any, Callable, Optional
+ 
+ from .records import RunRecord, utc_now_iso
+ from .ledger import RunLedger
+@@ -54,6 +55,195 @@ def load_tasks(directory: str) -> list:
+     return tasks
+ 
+ 
++def _budget_attempt_id(attempt: dict[str, Any]) -> str:
++    return str(
++        attempt.get("budget_reservation_id")
++        or attempt.get("reservation_id")
++        or ""
++    )
++
++
++def _budget_attempt_total(attempts: list[dict[str, Any]]) -> float:
++    return round(sum(float(a.get("cost_usd") or 0.0) for a in attempts), 6)
++
++
++def _budget_cost_accounting(attempts: list[dict[str, Any]]) -> str:
++    if all(
++        str(a.get("cost_basis") or "").startswith("authoritative")
++        or str(a.get("cost_basis") or "") == "undispatched_zero"
++        for a in attempts
++    ):
++        return "exact"
++    return "conservative_upper_bound"
++
++
++def _normalize_budget_attempt(
++    attempt: dict[str, Any],
++    *,
++    role: str = "",
++) -> dict[str, Any]:
++    row = dict(attempt)
++    rid = _budget_attempt_id(row)
++    if rid:
++        row["budget_reservation_id"] = rid
++        row.setdefault("reservation_id", rid)
++    if role and not row.get("role"):
++        row["role"] = role
++    if row.get("cost_usd") is not None:
++        cost = round(float(row.get("cost_usd") or 0.0), 6)
++        row["cost_usd"] = cost
++        row.setdefault("debit_usd", cost)
++    elif row.get("debit_usd") is not None:
++        cost = round(float(row.get("debit_usd") or 0.0), 6)
++        row["cost_usd"] = cost
++        row["debit_usd"] = cost
++    return row
++
++
++def _merge_budget_attempts(
++    existing: list[dict[str, Any]],
++    ledger_attempts: list[dict[str, Any]],
++    *,
++    role: str = "",
++) -> list[dict[str, Any]]:
++    order: list[str] = []
++    by_id: dict[str, dict[str, Any]] = {}
++    extras: list[dict[str, Any]] = []
++    for attempt in existing or []:
++        if not isinstance(attempt, dict):
++            continue
++        row = _normalize_budget_attempt(attempt, role=role)
++        rid = _budget_attempt_id(row)
++        if not rid:
++            if not ledger_attempts:
++                extras.append(row)
++            continue
++        if rid not in by_id:
++            order.append(rid)
++        by_id[rid] = row
++    for attempt in ledger_attempts or []:
++        if not isinstance(attempt, dict):
++            continue
++        row = _normalize_budget_attempt(attempt, role=role)
++        rid = _budget_attempt_id(row)
++        if not rid:
++            continue
++        if rid not in by_id:
++            order.append(rid)
++            by_id[rid] = row
++        else:
++            merged = dict(by_id[rid])
++            merged.update(row)
++            by_id[rid] = merged
++    return extras + [by_id[rid] for rid in order]
++
++
++def _apply_budget_raw(
++    raw: dict[str, Any],
++    attempts: list[dict[str, Any]],
++    *,
++    preserve_response_cost: bool = True,
++) -> None:
++    if not attempts:
++        return
++    if preserve_response_cost and raw.get("response_cost_usd") is None:
++        raw["response_cost_usd"] = raw.get("cost_usd")
++    raw["budget_attempts"] = list(attempts)
++    raw["budget_total_cost_usd"] = _budget_attempt_total(attempts)
++    raw["budget_cost_accounting"] = _budget_cost_accounting(attempts)
++    raw["budget_reservation_id"] = _budget_attempt_id(attempts[-1])
++
++
++def _enrich_record_cost_evidence(record: RunRecord, cost_ledger) -> bool:
++    if cost_ledger is None or not hasattr(cost_ledger, "settlement_attempts_for_run"):
++        return False
++    settlement_attempts = cost_ledger.settlement_attempts_for_run(record.run_id)
++    if not settlement_attempts:
++        return False
++
++    before = json.dumps(record.to_dict(), sort_keys=True, default=str)
++    ledger_total = _budget_attempt_total(settlement_attempts)
++    output = record.output if isinstance(record.output, dict) else {}
++    condition = record.system_id
++
++    if condition == "cond_a":
++        meta = output.get("mission_input_metadata")
++        if isinstance(meta, dict):
++            raw = meta.get("raw_provider_response")
++            if not isinstance(raw, dict):
++                raw = {}
++                meta["raw_provider_response"] = raw
++            attempts = _merge_budget_attempts(
++                list(raw.get("budget_attempts") or []),
++                settlement_attempts,
++                role="PreExtractor",
++            )
++            _apply_budget_raw(raw, attempts)
++            raw["cost_usd"] = _budget_attempt_total(attempts)
++            meta["extraction_cost_usd"] = raw["cost_usd"]
++    elif condition == "cond_b":
++        attempts_by_role: dict[str, list[dict[str, Any]]] = defaultdict(list)
++        for attempt in settlement_attempts:
++            attempts_by_role[str(attempt.get("role") or "UNKNOWN_ROLE")].append(attempt)
++        attached: set[str] = set()
++        responses = output.get("provider_responses")
++        if isinstance(responses, list):
++            claimed_roles: set[str] = set()
++            for response in responses:
++                if not isinstance(response, dict):
++                    continue
++                role = str(response.get("role") or "UNKNOWN_ROLE")
++                raw = response.get("raw_response")
++                if not isinstance(raw, dict):
++                    raw = {}
++                    response["raw_response"] = raw
++                role_attempts = (
++                    attempts_by_role.get(role, [])
++                    if role not in claimed_roles
++                    else []
++                )
++                if not role_attempts and not raw.get("budget_attempts"):
++                    continue
++                attempts = _merge_budget_attempts(
++                    list(raw.get("budget_attempts") or []),
++                    role_attempts,
++                    role=role,
++                )
++                _apply_budget_raw(raw, attempts)
++                if attempts:
++                    if response.get("response_cost_usd") is None:
++                        response["response_cost_usd"] = (
++                            raw.get("response_cost_usd")
++                            if raw.get("response_cost_usd") is not None
++                            else raw.get("cost_usd")
++                        )
++                    response["cost_usd"] = _budget_attempt_total(attempts)
++                    attached.update(
++                        _budget_attempt_id(attempt)
++                        for attempt in attempts
++                        if _budget_attempt_id(attempt)
++                    )
++                claimed_roles.add(role)
++            output["provider_response_count"] = len([
++                response for response in responses if isinstance(response, dict)
++            ])
++        unassigned = [
++            attempt
++            for attempt in settlement_attempts
++            if _budget_attempt_id(attempt) not in attached
++        ]
++        if unassigned:
++            output["recovered_budget_attempts"] = _merge_budget_attempts(
++                list(output.get("recovered_budget_attempts") or []),
++                unassigned,
++            )
++        else:
++            output.pop("recovered_budget_attempts", None)
++
++    record.api_cost_usd = ledger_total
++    return json.dumps(record.to_dict(), sort_keys=True, default=str) != before
++
++
+ def run_matrix(system: System, tasks: list, *, n_runs: int,
+                ledger: RunLedger, output_dir: str,
+                seed_base: int = 1000, verbose: bool = True,
+@@ -97,6 +287,8 @@ def run_matrix(system: System, tasks: list, *, n_runs: int,
+                               f"({e!r}); re-running")
+                 if rec is not None:
+                     if cost_ledger is not None:
++                        if _enrich_record_cost_evidence(rec, cost_ledger):
++                            rec.save(out_path)
+                         cost_ledger.ensure_record_summary(rec)
+                     if not ledger.has_run_id(rec.run_id):
+                         ledger.append(rec)
+@@ -132,6 +324,8 @@ def run_matrix(system: System, tasks: list, *, n_runs: int,
+                     errors=[f"unhandled exception in system.run: {e!r}",
+                             traceback.format_exc()],
+                 )
++            if cost_ledger is not None:
++                _enrich_record_cost_evidence(rec, cost_ledger)
+             rec.save(out_path)
+             ledger.append(rec)
+             if cost_ledger is not None and not cost_ledger.has_record_summary(rec.run_id):
+diff --git a/code/apparatus/rerun_analysis.py b/code/apparatus/rerun_analysis.py
+index b741861..917ddb6 100644
+--- a/code/apparatus/rerun_analysis.py
++++ b/code/apparatus/rerun_analysis.py
+@@ -170,18 +170,73 @@ def _cond_a_raw_response(record: dict[str, Any]) -> dict[str, Any]:
+     return raw if isinstance(raw, dict) else {}
+ 
+ 
+-def provider_cost_sum(record: dict[str, Any]) -> float | None:
++def _budget_attempt_id(attempt: dict[str, Any]) -> str:
++    return str(
++        attempt.get("budget_reservation_id")
++        or attempt.get("reservation_id")
++        or ""
++    )
++
++
++def _normalize_budget_attempt(attempt: dict[str, Any], *, role: str = "") -> dict[str, Any]:
++    row = dict(attempt)
++    rid = _budget_attempt_id(row)
++    if rid:
++        row["budget_reservation_id"] = rid
++        row.setdefault("reservation_id", rid)
++    if role and not row.get("role"):
++        row["role"] = role
++    if row.get("cost_usd") is not None:
++        cost = round(float(row.get("cost_usd") or 0.0), 6)
++        row["cost_usd"] = cost
++        row.setdefault("debit_usd", cost)
++    elif row.get("debit_usd") is not None:
++        cost = round(float(row.get("debit_usd") or 0.0), 6)
++        row["cost_usd"] = cost
++        row["debit_usd"] = cost
++    return row
++
++
++def _record_budget_attempts(record: dict[str, Any]) -> list[dict[str, Any]]:
++    attempts: list[dict[str, Any]] = []
+     condition = _condition(record)
+-    if condition == "cond_b":
+-        responses = _provider_responses(record)
+-        if not responses:
+-            return None
+-        return round(sum(float(r.get("cost_usd") or 0.0) for r in responses), 6)
+     if condition == "cond_a":
+         raw = _cond_a_raw_response(record)
+-        if not raw:
+-            return None
+-        return round(float(raw.get("cost_usd") or 0.0), 6)
++        for attempt in list(raw.get("budget_attempts") or []):
++            if isinstance(attempt, dict):
++                attempts.append(_normalize_budget_attempt(attempt, role="PreExtractor"))
++    elif condition == "cond_b":
++        for response in _provider_responses(record):
++            role = str(response.get("role") or "")
++            raw = response.get("raw_response") if isinstance(response.get("raw_response"), dict) else {}
++            for attempt in list(raw.get("budget_attempts") or []):
++                if isinstance(attempt, dict):
++                    attempts.append(_normalize_budget_attempt(attempt, role=role))
++    out = _output(record)
++    for attempt in list(out.get("recovered_budget_attempts") or []):
++        if isinstance(attempt, dict):
++            attempts.append(_normalize_budget_attempt(attempt))
++    return attempts
++
++
++def _attempt_cost_total(attempts: list[dict[str, Any]]) -> float:
++    return round(sum(float(a.get("cost_usd") or 0.0) for a in attempts), 6)
++
++
++def _attempt_accounting_mode(attempts: list[dict[str, Any]]) -> str:
++    if all(
++        str(a.get("cost_basis") or "").startswith("authoritative")
++        or str(a.get("cost_basis") or "") == "undispatched_zero"
++        for a in attempts
++    ):
++        return "exact"
++    return "conservative_upper_bound"
++
++
++def provider_cost_sum(record: dict[str, Any]) -> float | None:
++    attempts = _record_budget_attempts(record)
++    if attempts:
++        return _attempt_cost_total(attempts)
+     return None
+ 
+ 
+@@ -372,6 +427,25 @@ def _validate_prompt_and_schema_evidence(
+             if isinstance(manifest.get("provider_schema_sha256_by_role"), dict)
+             else {}
+         )
++        prompt_by_task_role = (
++            manifest.get("provider_prompt_sha256_by_task_role")
++            if isinstance(manifest.get("provider_prompt_sha256_by_task_role"), dict)
++            else {}
++        )
++        prompt_by_run_role = (
++            manifest.get("provider_prompt_sha256_by_run_role")
++            if isinstance(manifest.get("provider_prompt_sha256_by_run_role"), dict)
++            else {}
++        )
++        prompt_by_role = (
++            manifest.get("provider_prompt_sha256_by_role")
++            if isinstance(manifest.get("provider_prompt_sha256_by_role"), dict)
++            else {}
++        )
++        if not expected_schema_by_role:
++            issues.append(f"{rid}: preflight manifest missing provider schema hash expectations")
++        if not (prompt_by_task_role or prompt_by_run_role or prompt_by_role):
++            issues.append(f"{rid}: preflight manifest missing provider prompt hash expectations")
+         for response in _provider_responses(record):
+             role = str(response.get("role") or "")
+             if not _hex64(response.get("prompt_sha256")):
+@@ -379,8 +453,76 @@ def _validate_prompt_and_schema_evidence(
+             if not _hex64(response.get("schema_sha256")):
+                 issues.append(f"{rid}: provider response {role} schema hash invalid")
+             expected_schema = expected_schema_by_role.get(role)
+-            if expected_schema and response.get("schema_sha256") != expected_schema:
++            if expected_schema is None:
++                issues.append(f"{rid}: preflight manifest missing provider schema hash for role {role}")
++            elif response.get("schema_sha256") != expected_schema:
+                 issues.append(f"{rid}: provider response {role} schema hash mismatch")
++            prompt_key = f"{record.get('task_id')}|{role}"
++            run_prompt_key = f"{record.get('run_id')}|{role}"
++            expected_prompt = (
++                prompt_by_task_role.get(prompt_key)
++                or prompt_by_run_role.get(run_prompt_key)
++                or prompt_by_role.get(role)
++            )
++            if expected_prompt is None:
++                issues.append(f"{rid}: preflight manifest missing provider prompt hash for role {role}")
++            elif response.get("prompt_sha256") != expected_prompt:
++                issues.append(f"{rid}: provider response {role} prompt hash mismatch")
++    return issues
++
++
++def _validate_budget_attempts(
++    *,
++    rid: str,
++    label: str,
++    raw: dict[str, Any],
++    parent_cost_usd: Any = None,
++) -> list[str]:
++    issues: list[str] = []
++    required = {"budget_attempts", "budget_total_cost_usd", "budget_cost_accounting"}
++    missing = sorted(k for k in required if raw.get(k) in (None, ""))
++    if missing:
++        issues.append(f"{rid}: {label} missing budget fields: {', '.join(missing)}")
++        return issues
++    attempts = raw.get("budget_attempts")
++    if not isinstance(attempts, list) or not attempts:
++        issues.append(f"{rid}: {label} budget_attempts must be a non-empty list")
++        return issues
++    normalized: list[dict[str, Any]] = []
++    ids: list[str] = []
++    for i, attempt in enumerate(attempts):
++        if not isinstance(attempt, dict):
++            issues.append(f"{rid}: {label} budget attempt {i} must be an object")
++            continue
++        row = _normalize_budget_attempt(attempt)
++        normalized.append(row)
++        attempt_id = _budget_attempt_id(row)
++        if not attempt_id:
++            issues.append(f"{rid}: {label} budget attempt {i} missing reservation ID")
++        else:
++            ids.append(attempt_id)
++        for key in ("status", "cost_basis", "cost_usd"):
++            if row.get(key) in (None, ""):
++                issues.append(f"{rid}: {label} budget attempt {i} missing {key}")
++    duplicates = sorted(item for item, count in Counter(ids).items() if count > 1)
++    if duplicates:
++        issues.append(f"{rid}: {label} duplicate budget attempt IDs: {', '.join(duplicates)}")
++    try:
++        total = _attempt_cost_total(normalized)
++    except Exception as exc:
++        issues.append(f"{rid}: {label} invalid budget attempt cost: {exc}")
++        return issues
++    if abs(total - round(float(raw.get("budget_total_cost_usd") or 0.0), 6)) > 0.000001:
++        issues.append(f"{rid}: {label} budget attempt total mismatch")
++    if parent_cost_usd is not None and abs(total - round(float(parent_cost_usd or 0.0), 6)) > 0.000001:
++        issues.append(f"{rid}: {label} role cost mismatch")
++    mode = raw.get("budget_cost_accounting")
++    if mode not in ("exact", "conservative_upper_bound"):
++        issues.append(f"{rid}: {label} invalid budget cost accounting status")
++    else:
++        expected_mode = _attempt_accounting_mode(normalized)
++        if mode == "exact" and expected_mode != "exact":
++            issues.append(f"{rid}: {label} budget accounting understates conservative cost")
+     return issues
+ 
+ 
+@@ -393,15 +535,23 @@ def _validate_provider_evidence(record: dict[str, Any]) -> list[str]:
+     condition = _condition(record)
+     if condition == "cond_a":
+         raw = _cond_a_raw_response(record)
+-        required = {"provider", "model", "input_tokens", "output_tokens", "cost_usd", "text", "retry"}
++        required = {
++            "provider", "model", "input_tokens", "output_tokens", "cost_usd",
++            "text", "retry", "budget_attempts", "budget_total_cost_usd",
++            "budget_cost_accounting",
++        }
+         missing = sorted(k for k in required if raw.get(k) in (None, ""))
+         if missing:
+             issues.append(f"{rid}: missing Cond-A provider provenance fields: {', '.join(missing)}")
+         retry = raw.get("retry") if isinstance(raw.get("retry"), dict) else {}
+         if retry.get("final_status") != "success":
+             issues.append(f"{rid}: unresolved retry/provider errors")
+-        if raw.get("budget_cost_accounting") not in (None, "exact", "conservative_upper_bound"):
+-            issues.append(f"{rid}: invalid budget cost accounting status")
++        issues.extend(_validate_budget_attempts(
++            rid=rid,
++            label="Cond-A provider response",
++            raw=raw,
++            parent_cost_usd=raw.get("cost_usd"),
++        ))
+         meta = _output(record).get("mission_input_metadata") or {}
+         for key in ("extraction_prompt_sha256", "extraction_prompt_template_sha256"):
+             if not isinstance(meta, dict) or not meta.get(key):
+@@ -427,8 +577,12 @@ def _validate_provider_evidence(record: dict[str, Any]) -> list[str]:
+                 issues.append(f"{rid}: provider response {i} missing retry metadata")
+             elif raw["retry"].get("final_status") != "success":
+                 issues.append(f"{rid}: unresolved retry/provider errors")
+-            if raw.get("budget_cost_accounting") not in (None, "exact", "conservative_upper_bound"):
+-                issues.append(f"{rid}: provider response {i} invalid budget cost accounting status")
++            issues.extend(_validate_budget_attempts(
++                rid=rid,
++                label=f"provider response {i}",
++                raw=raw,
++                parent_cost_usd=response.get("cost_usd"),
++            ))
+     else:
+         issues.append(f"{rid}: unknown condition for provider provenance")
+ 
+@@ -616,6 +770,51 @@ def _validate_cost_ledger(records: list[dict[str, Any]], ledger_path: Path | Non
+         if run_id in settlement_by_run:
+             if abs(round(settlement_by_run[run_id], 6) - round(float(rec.get("api_cost_usd") or 0.0), 6)) > 0.000001:
+                 issues.append(f"{run_id}: campaign ledger cost mismatch")
++    settlements_by_run = defaultdict(list)
++    for row in settlements:
++        settlements_by_run[row.get("run_id")].append(row)
++    for run_id, rec in records_by_run.items():
++        run_settlements = settlements_by_run.get(run_id, [])
++        if not run_settlements:
++            continue
++        attempt_by_id = defaultdict(list)
++        for attempt in _record_budget_attempts(rec):
++            attempt_id = _budget_attempt_id(attempt)
++            if attempt_id:
++                attempt_by_id[attempt_id].append(attempt)
++        settlement_ids_for_run = {
++            str(row.get("reservation_id") or "")
++            for row in run_settlements
++            if row.get("reservation_id")
++        }
++        for row in run_settlements:
++            reservation_id = str(row.get("reservation_id") or "")
++            matches = attempt_by_id.get(reservation_id, [])
++            if len(matches) != 1:
++                issues.append(
++                    f"{run_id}: ledger settlement {reservation_id} appears "
++                    f"{len(matches)} times in record attempt evidence"
++                )
++                continue
++            attempt = matches[0]
++            attempt_cost = round(float(attempt.get("cost_usd") or 0.0), 6)
++            settlement_cost = round(float(row.get("actual_cost_usd") or 0.0), 6)
++            if abs(attempt_cost - settlement_cost) > 0.000001:
++                issues.append(f"{run_id}: ledger settlement {reservation_id} cost mismatch")
++            if str(attempt.get("status") or "") != str(row.get("status") or ""):
++                issues.append(f"{run_id}: ledger settlement {reservation_id} status mismatch")
++            if str(attempt.get("cost_basis") or "") != str(row.get("cost_basis") or ""):
++                issues.append(f"{run_id}: ledger settlement {reservation_id} cost basis mismatch")
++        extra_ids = sorted(
++            attempt_id
++            for attempt_id in attempt_by_id
++            if attempt_id not in settlement_ids_for_run
++        )
++        if extra_ids:
++            issues.append(
++                f"{run_id}: record attempt evidence absent from cost ledger: "
++                + ", ".join(extra_ids)
++            )
+     return issues
+ 
+ 
+diff --git a/code/apparatus/systems/mandate_canonical.py b/code/apparatus/systems/mandate_canonical.py
+index 1b7ba6f..7c7716f 100644
+--- a/code/apparatus/systems/mandate_canonical.py
++++ b/code/apparatus/systems/mandate_canonical.py
+@@ -101,6 +101,47 @@ def _sha256_text(text: str) -> str:
+     return hashlib.sha256(text.encode("utf-8")).hexdigest()
+ 
+ 
++def _budget_attempt_id(attempt: dict) -> str:
++    return str(
++        attempt.get("budget_reservation_id")
++        or attempt.get("reservation_id")
++        or ""
++    )
++
++
++def _budget_attempt_total(attempts: list[dict]) -> float:
++    return round(sum(float(a.get("cost_usd") or 0.0) for a in attempts), 6)
++
++
++def _budget_cost_accounting(attempts: list[dict]) -> str:
++    if all(
++        str(a.get("cost_basis") or "").startswith("authoritative")
++        or str(a.get("cost_basis") or "") == "undispatched_zero"
++        for a in attempts
++    ):
++        return "exact"
++    return "conservative_upper_bound"
++
++
++def _merge_budget_attempts(*groups: list[dict]) -> list[dict]:
++    merged: list[dict] = []
++    seen: set[str] = set()
++    for group in groups:
++        for attempt in group or []:
++            if not isinstance(attempt, dict):
++                continue
++            row = dict(attempt)
++            rid = _budget_attempt_id(row)
++            if rid:
++                row["budget_reservation_id"] = rid
++                row.setdefault("reservation_id", rid)
++                if rid in seen:
++                    continue
++                seen.add(rid)
++            merged.append(row)
++    return merged
++
++
+ MLT_GIT_COMMIT = _git_commit(MLT_ROOT)
+ APPARATUS_GIT_COMMIT = _git_commit(APPARATUS_ROOT)
+ MLT_GIT_DIRTY = _git_dirty(MLT_ROOT)
+@@ -190,23 +231,38 @@ class AnthropicMLTAdapter(LLMAdapter):
+             "task_id": "",
+             "run_number": 1,
+         }
++        self._pending_budget_attempts: dict[tuple[str, str], list[dict]] = {}
+ 
+     def set_current_role(self, role_name: Optional[str]) -> None:
+         self._current_role = str(role_name or "")
+ 
+     def set_budget_context(self, *, run_id: str, system_id: str, task_id: str, run_number: int) -> None:
++        previous_run_id = self._budget_context.get("run_id")
+         self._budget_context = {
+             "run_id": run_id,
+             "system_id": system_id,
+             "task_id": task_id,
+             "run_number": int(run_number),
+         }
++        if previous_run_id and previous_run_id != run_id:
++            self._pending_budget_attempts = {
++                key: attempts
++                for key, attempts in self._pending_budget_attempts.items()
++                if key[0] == run_id
++            }
++
++    def _budget_key(self) -> tuple[str, str]:
++        return (
++            str(self._budget_context.get("run_id") or ""),
++            self._current_role or "UNKNOWN_ROLE",
++        )
+ 
+     def generate(self, prompt: str, schema: dict) -> LLMResponse:
+         t0 = time.time()
+         client = self.client
++        budgeted_client = None
+         if self.cost_ledger is not None:
+-            client = BudgetedLLMClient(
++            budgeted_client = BudgetedLLMClient(
+                 self.client,
+                 cost_ledger=self.cost_ledger,
+                 run_id=self._budget_context["run_id"],
+@@ -215,29 +271,65 @@ class AnthropicMLTAdapter(LLMAdapter):
+                 run_number=int(self._budget_context["run_number"]),
+                 role=self._current_role or "UNKNOWN_ROLE",
+             )
+-        resp = client.generate(
+-            system=("You are a schema-constrained MANDATE role assistant. "
+-                    "Return JSON only."),
+-            user=prompt,
+-            model=self.model,
+-            temperature=self.config.temperature,
+-            max_tokens=self.config.max_tokens,
+-        )
++            client = budgeted_client
++        try:
++            resp = client.generate(
++                system=("You are a schema-constrained MANDATE role assistant. "
++                        "Return JSON only."),
++                user=prompt,
++                model=self.model,
++                temperature=self.config.temperature,
++                max_tokens=self.config.max_tokens,
++            )
++        except Exception:
++            if budgeted_client is not None and budgeted_client.attempts:
++                key = self._budget_key()
++                self._pending_budget_attempts.setdefault(key, [])
++                self._pending_budget_attempts[key] = _merge_budget_attempts(
++                    self._pending_budget_attempts[key],
++                    budgeted_client.attempts,
++                )
++            raise
++
+         parsed, _ = extract_json(resp.text)
+         output: Any = parsed if parsed is not None else resp.text
++        raw = getattr(resp, "raw_response", {})
++        raw = dict(raw) if isinstance(raw, dict) else {}
++        pending_attempts: list[dict] = []
++        if budgeted_client is not None:
++            pending_attempts = self._pending_budget_attempts.pop(self._budget_key(), [])
++        current_attempts = list(raw.get("budget_attempts") or [])
++        if not current_attempts and budgeted_client is not None:
++            current_attempts = list(budgeted_client.attempts)
++        budget_attempts = _merge_budget_attempts(pending_attempts, current_attempts)
++        budget_total = (
++            _budget_attempt_total(budget_attempts)
++            if budget_attempts
++            else raw.get("budget_total_cost_usd", resp.cost_usd)
++        )
++        budget_accounting = (
++            _budget_cost_accounting(budget_attempts)
++            if budget_attempts
++            else raw.get("budget_cost_accounting")
++        )
++        raw_response = {
++            "model": self.model,
++            "input_tokens": resp.input_tokens,
++            "output_tokens": resp.output_tokens,
++            "cost_usd": resp.cost_usd,
++            "budget_reservation_id": raw.get("budget_reservation_id"),
++            "text": resp.text,
++        }
++        raw_response.update(raw)
++        if budget_attempts:
++            raw_response["budget_attempts"] = budget_attempts
++            raw_response["budget_total_cost_usd"] = budget_total
++            raw_response["budget_cost_accounting"] = budget_accounting
+         return LLMResponse(
+             output=output,
+             tokens_used=int((resp.input_tokens or 0) + (resp.output_tokens or 0)),
+             latency_ms=(time.time() - t0) * 1000.0,
+-            raw_response={
+-                "model": self.model,
+-                "input_tokens": resp.input_tokens,
+-                "output_tokens": resp.output_tokens,
+-                "cost_usd": resp.cost_usd,
+-                "budget_reservation_id": getattr(resp, "raw_response", {}).get("budget_reservation_id")
+-                if isinstance(getattr(resp, "raw_response", {}), dict) else None,
+-                "text": resp.text,
+-            },
++            raw_response=raw_response,
+         )
+ 
+     def generate_with_trace(self, prompt: str, schema: dict):
+@@ -914,6 +1006,7 @@ class CondBSystem(System):
+         llm_adapter: Optional[LLMAdapter] = None,
+         domain_profile_mode: str = "default",
+         cost_ledger=None,
++        retry_backoff_sec=DEFAULT_RETRY_BACKOFF_SEC,
+     ):
+         if llm_backend not in ("anthropic", "ollama") and llm_adapter is None:
+             raise ValueError(
+@@ -932,6 +1025,7 @@ class CondBSystem(System):
+                 self.llm_adapter = AnthropicMLTAdapter(model=llm_model)
+         self.domain_profile_mode = domain_profile_mode
+         self.cost_ledger = cost_ledger
++        self.retry_backoff_sec = retry_backoff_sec
+ 
+     def run(self, request_text: str, *, run_id: str, task_id: str,
+             run_number: int, seed: Optional[int] = None) -> RunRecord:
+@@ -952,6 +1046,7 @@ class CondBSystem(System):
+             run_id=run_id,
+             run_number=run_number,
+             domain_profile_mode=self.domain_profile_mode,
++            retry_backoff_sec=self.retry_backoff_sec,
+         )
+         return RunRecord.from_dict(d)
+ 
+diff --git a/code/apparatus/tests/test_harness.py b/code/apparatus/tests/test_harness.py
+index fa2c836..e6d87d2 100644
+--- a/code/apparatus/tests/test_harness.py
++++ b/code/apparatus/tests/test_harness.py
+@@ -351,7 +351,30 @@ def test_run_matrix_paid_path_appends_record_summary_and_resumes(tmp_path):
+                 seed=seed,
+                 ok=True,
+                 api_cost_usd=resp.raw_response["budget_total_cost_usd"],
+-                output={"text": resp.text},
++                output={
++                    "text": resp.text,
++                    "mission_input_metadata": {
++                        "raw_provider_response": {
++                            "provider": getattr(self.client, "provider", ""),
++                            "model": resp.model,
++                            "input_tokens": resp.input_tokens,
++                            "output_tokens": resp.output_tokens,
++                            "cost_usd": resp.raw_response["budget_total_cost_usd"],
++                            "response_cost_usd": resp.cost_usd,
++                            "budget_reservation_id": resp.raw_response["budget_reservation_id"],
++                            "budget_attempts": list(resp.raw_response["budget_attempts"]),
++                            "budget_total_cost_usd": resp.raw_response["budget_total_cost_usd"],
++                            "budget_cost_accounting": resp.raw_response["budget_cost_accounting"],
++                            "text": resp.text,
++                            "retry": {
++                                "attempts": 1,
++                                "max_attempts": 1,
++                                "errors": [],
++                                "final_status": "success",
++                            },
++                        },
++                    },
++                },
+             )
+ 
+     cost_path = tmp_path / "cost.jsonl"
+diff --git a/code/apparatus/tests/test_rerun_analysis.py b/code/apparatus/tests/test_rerun_analysis.py
+index 1ec3c51..5e47595 100644
+--- a/code/apparatus/tests/test_rerun_analysis.py
++++ b/code/apparatus/tests/test_rerun_analysis.py
+@@ -3,6 +3,7 @@ from __future__ import annotations
+ import copy
+ import hashlib
+ import json
++from pathlib import Path
+ 
+ import pytest
+ 
+@@ -17,7 +18,15 @@ from apparatus.harness.runner import Task, run_matrix
+ from apparatus.harness.ledger import RunLedger
+ from apparatus.preprocess.extract_mission_input import extract
+ from apparatus.preprocess.extract_mission_input import EXTRACTION_PROMPT
+-from apparatus.rerun_analysis import load_json, sha256_file, sha256_text, summarize, validate_record
++from apparatus.rerun_analysis import (
++    _validate_cost_ledger,
++    load_json,
++    provider_cost_sum,
++    sha256_file,
++    sha256_text,
++    summarize,
++    validate_record,
++)
+ from apparatus.systems import mandate_canonical as mc
+ from apparatus.systems.mandate_canonical import run_cond_a, run_cond_b
+ 
+@@ -28,6 +37,10 @@ class FakeMLTAdapter(LLMAdapter):
+     def __init__(self):
+         self.config = LLMConfig(model_path="claude-sonnet-4-6", max_tokens=4096, retry_count=0)
+         self.calls = []
++        self._role = ""
++
++    def set_current_role(self, role_name):
++        self._role = str(role_name or "")
+ 
+     def generate(self, prompt, schema):
+         self.calls.append((prompt, schema))
+@@ -55,6 +68,8 @@ class FakeMLTAdapter(LLMAdapter):
+             output["candidate_coa_count"] = 1
+         if "selected_reference_ids" in props:
+             output["selected_reference_ids"] = []
++        actual = 0.000057
++        reservation_id = f"fake-{self._role or 'UNKNOWN_ROLE'}-{len(self.calls)}"
+         return LLMResponse(
+             output=output,
+             tokens_used=7,
+@@ -62,7 +77,22 @@ class FakeMLTAdapter(LLMAdapter):
+             raw_response={
+                 "input_tokens": 4,
+                 "output_tokens": 3,
+-                "cost_usd": 0.000057,
++                "cost_usd": actual,
++                "budget_reservation_id": reservation_id,
++                "budget_attempts": [{
++                    "budget_reservation_id": reservation_id,
++                    "reservation_id": reservation_id,
++                    "role": self._role or "UNKNOWN_ROLE",
++                    "status": "success",
++                    "cost_usd": actual,
++                    "debit_usd": actual,
++                    "cost_basis": "authoritative_response",
++                    "input_tokens": 4,
++                    "output_tokens": 3,
++                    "recovered": False,
++                }],
++                "budget_total_cost_usd": actual,
++                "budget_cost_accounting": "exact",
+                 "text": "{}",
+             },
+         )
+@@ -94,6 +124,22 @@ def _mission_input() -> MissionInput:
+                 "input_tokens": 10,
+                 "output_tokens": 20,
+                 "cost_usd": 0.00033,
++                "response_cost_usd": 0.00033,
++                "budget_reservation_id": "fake-cond-a-1",
++                "budget_attempts": [{
++                    "budget_reservation_id": "fake-cond-a-1",
++                    "reservation_id": "fake-cond-a-1",
++                    "role": "PreExtractor",
++                    "status": "success",
++                    "cost_usd": 0.00033,
++                    "debit_usd": 0.00033,
++                    "cost_basis": "authoritative_response",
++                    "input_tokens": 10,
++                    "output_tokens": 20,
++                    "recovered": False,
++                }],
++                "budget_total_cost_usd": 0.00033,
++                "budget_cost_accounting": "exact",
+                 "text": "{}",
+                 "retry": {"attempts": 1, "max_attempts": 4, "errors": [], "final_status": "success"},
+             },
+@@ -143,9 +189,26 @@ def _ledger(tmp_path, records):
+     return tmp_path / "cost.jsonl"
+ 
+ 
+-def _preflight_manifest():
++def _preflight_manifest(records=None):
+     eval_root = mc.APPARATUS_ROOT
+     mlt_root = mc.MLT_ROOT
++    provider_schema_sha256_by_role = {}
++    provider_prompt_sha256_by_task_role = {}
++    provider_prompt_sha256_by_run_role = {}
++    for record in list(records or []):
++        for response in (record.get("output", {}) or {}).get("provider_responses", []) or []:
++            if not isinstance(response, dict):
++                continue
++            role = str(response.get("role") or "")
++            if not role:
++                continue
++            provider_schema_sha256_by_role[role] = response.get("schema_sha256")
++            provider_prompt_sha256_by_task_role[
++                f"{record.get('task_id')}|{role}"
++            ] = response.get("prompt_sha256")
++            provider_prompt_sha256_by_run_role[
++                f"{record.get('run_id')}|{role}"
++            ] = response.get("prompt_sha256")
+     return {
+         "mlt_root": str(mlt_root),
+         "eval_root": str(eval_root),
+@@ -166,6 +229,9 @@ def _preflight_manifest():
+         "prompt_template_hashes": {
+             "cond_a_extraction_prompt_template": sha256_text(EXTRACTION_PROMPT),
+         },
++        "provider_schema_sha256_by_role": provider_schema_sha256_by_role,
++        "provider_prompt_sha256_by_task_role": provider_prompt_sha256_by_task_role,
++        "provider_prompt_sha256_by_run_role": provider_prompt_sha256_by_run_role,
+         "corpus_hashes": {},
+         "v1_condition_hashes": {},
+     }
+@@ -184,7 +250,7 @@ def _summarize(tmp_path, records, *, manifest=None, corpus_rows=None):
+         },
+         smoke=True,
+         cost_ledger=_ledger(tmp_path, [cond_a, cond_b]),
+-        preflight_manifest=manifest or _preflight_manifest(),
++        preflight_manifest=manifest or _preflight_manifest([cond_a, cond_b]),
+         corpus_rows=corpus_rows or {},
+     )
+ 
+@@ -199,6 +265,170 @@ def _validate(record, *, condition="cond_a", manifest=None, corpus_rows=None):
+     )
+ 
+ 
++def _ledger_rows(path):
++    with open(path, encoding="utf-8") as f:
++        return [json.loads(line) for line in f if line.strip()]
++
++
++def _provider_json_for_role(role: str) -> dict:
++    if role == "Intake":
++        return {
++            "mission_id": "TASK-MAIN-FIN-001",
++            "intent": "Assess reporting controls.",
++            "constraints": ["FORBIDS data_exfiltration"],
++            "scope": ["financial reporting"],
++            "assumptions": [],
++        }
++    if role == "Interpreter":
++        return {
++            "decision_summary": "Anchor the reporting-control mission.",
++            "minimum_outcome": "Minimum outcome.",
++            "target_outcome": "Target outcome.",
++            "risk_tolerance": "LOW",
++        }
++    if role == "Decomposition":
++        return {
++            "decision_summary": "Use one bounded candidate path.",
++            "candidate_coa_count": 1,
++            "scope_override": ["financial reporting"],
++        }
++    if role == "Procedure":
++        return {
++            "decision_summary": "Use deterministic procedure binding.",
++            "selected_reference_ids": [],
++        }
++    if role == "Binding":
++        return {
++            "decision_summary": "Keep the deterministic recommendation.",
++            "risk_notes": [],
++            "fallback_sequence": [],
++            "rationale_override": "Use the lowest-risk auditable path.",
++        }
++    if role == "Validation":
++        return {
++            "decision_summary": "Validate minimum/target alignment.",
++            "validation_focus": ["minimum_outcome", "constraints"],
++        }
++    return {"decision_summary": "Use deterministic core."}
++
++
++class FakeAnthropicTextClient:
++    provider = "anthropic"
++
++    def __init__(self, *, fail_once: bool = False):
++        self.fail_once = fail_once
++        self.calls = []
++
++    def generate(self, **kwargs):
++        self.calls.append(dict(kwargs))
++        if self.fail_once and len(self.calls) == 1:
++            raise RuntimeError("429 Too Many Requests")
++        prompt = str(kwargs.get("user") or "")
++        role = "UNKNOWN_ROLE"
++        for line in prompt.splitlines():
++            if line.startswith("ROLE: "):
++                role = line.split("ROLE: ", 1)[1].strip()
++                break
++        text = json.dumps(_provider_json_for_role(role))
++        return TextLLMResponse(
++            text=text,
++            model=kwargs["model"],
++            input_tokens=11,
++            output_tokens=17,
++        )
++
++
++class FakeExtractorClient:
++    provider = "anthropic"
++
++    def __init__(self):
++        self.calls = 0
++
++    def generate(self, **kwargs):
++        self.calls += 1
++        return TextLLMResponse(
++            text=json.dumps({
++                "mission_id": "TASK-MAIN-FIN-001",
++                "intent": "Assess reporting controls.",
++                "minimum_outcome": "Minimum outcome.",
++                "target_outcome": "Target outcome.",
++                "constraints": ["FORBIDS data_exfiltration"],
++                "scope": ["financial reporting"],
++                "risk_tolerance": "LOW",
++                "available_tools": [],
++            }),
++            model=kwargs["model"],
++            input_tokens=12,
++            output_tokens=24,
++        )
++
++
++def _stage_stale_attempt(cost_ledger, *, run_id: str, system_id: str, role: str, state: str) -> str:
++    rid = cost_ledger.reserve_call(
++        run_id=run_id,
++        system_id=system_id,
++        task_id="TASK-MAIN-FIN-001",
++        run_number=1,
++        role=role,
++        model="claude-sonnet-4-6",
++        reserved_cost_usd=0.05,
++    )
++    if state in {"dispatch_started", "response_received"}:
++        cost_ledger.mark_dispatch_started(rid)
++    if state == "response_received":
++        cost_ledger.mark_response_received(
++            rid,
++            actual_cost_usd=0.012345,
++            input_tokens=5,
++            output_tokens=6,
++        )
++    return rid
++
++
++def _assert_cost_reconciles(record: dict, cost_ledger: CampaignCostLedger):
++    run_id = record["run_id"]
++    settlement_total = cost_ledger.run_settlement_total(run_id)
++    assert round(float(record["api_cost_usd"] or 0.0), 6) == settlement_total
++    assert provider_cost_sum(record) == settlement_total
++    summary = next(
++        row for row in _ledger_rows(cost_ledger.path)
++        if row.get("row_type") == "record_summary"
++        and row.get("run_id") == run_id
++    )
++    assert round(float(summary["api_cost_usd"]), 6) == settlement_total
++
++
++def _assert_smoke_analyzer_passes(tmp_path, cost_ledger: CampaignCostLedger, record: dict, condition: str):
++    base_a, base_b = _records()
++    if condition == "cond_a":
++        cond_a = record
++        cond_b = base_b
++        if not cost_ledger.has_record_summary(cond_b["run_id"]):
++            cost_ledger.append(RunRecord.from_dict(cond_b))
++    else:
++        cond_a = base_a
++        cond_b = record
++        if not cost_ledger.has_record_summary(cond_a["run_id"]):
++            cost_ledger.append(RunRecord.from_dict(cond_a))
++    report, issues = summarize(
++        {
++            "cond_a": [cond_a],
++            "cond_b": [cond_b],
++        },
++        smoke=True,
++        cost_ledger=Path(cost_ledger.path),
++        preflight_manifest=_preflight_manifest([cond_a, cond_b]),
++        corpus_rows=({
++            "TASK-MAIN-FIN-001": {
++                "task_id": "TASK-MAIN-FIN-001",
++                "request_text": "Assess reporting controls.",
++            },
++        } if condition == "cond_a" else {}),
++    )
++    assert issues == []
++    assert report["ok"] is True
++
++
+ def test_smoke_summary_counts_primary_denominator(tmp_path):
+     cond_a, cond_b = _records()
+     report, issues = _summarize(tmp_path, (cond_a, cond_b))
+@@ -319,6 +549,230 @@ def test_validate_record_rejects_missing_decoding_flags():
+     assert any("wrong model/configuration" in issue for issue in issues)
+ 
+ 
++def test_validate_record_rejects_cond_b_schema_hash_mismatch():
++    cond_a, cond_b = _records()
++    manifest = _preflight_manifest([cond_a, cond_b])
++    cond_b = copy.deepcopy(cond_b)
++    cond_b["output"]["provider_responses"][0]["schema_sha256"] = "4" * 64
++    issues = _validate(cond_b, condition="cond_b", manifest=manifest)
++    assert any("schema hash mismatch" in issue for issue in issues)
++
++
++def test_validate_record_rejects_cond_b_prompt_hash_mismatch():
++    cond_a, cond_b = _records()
++    manifest = _preflight_manifest([cond_a, cond_b])
++    cond_b = copy.deepcopy(cond_b)
++    cond_b["output"]["provider_responses"][0]["prompt_sha256"] = "5" * 64
++    issues = _validate(cond_b, condition="cond_b", manifest=manifest)
++    assert any("prompt hash mismatch" in issue for issue in issues)
++
++
++def test_validate_record_rejects_missing_budget_attempts():
++    _cond_a, cond_b = _records()
++    manifest = _preflight_manifest([cond_b])
++    cond_b = copy.deepcopy(cond_b)
++    cond_b["output"]["provider_responses"][0]["raw_response"].pop("budget_attempts")
++    issues = _validate(cond_b, condition="cond_b", manifest=manifest)
++    assert any("missing budget fields" in issue for issue in issues)
++
++
++def test_cost_ledger_requires_settlement_attempt_evidence_exactly_once(tmp_path):
++    cond_a, _cond_b = _records()
++    ledger = CampaignCostLedger(str(tmp_path / "cost.jsonl"), 1.0)
++    rid = ledger.reserve_call(
++        run_id=cond_a["run_id"],
++        system_id="cond_a",
++        task_id=cond_a["task_id"],
++        run_number=cond_a["run_number"],
++        role="PreExtractor",
++        model="claude-sonnet-4-6",
++        reserved_cost_usd=0.01,
++    )
++    ledger.mark_dispatch_started(rid)
++    ledger.mark_response_received(rid, actual_cost_usd=0.00033, input_tokens=10, output_tokens=20)
++    ledger.settle_call(
++        rid,
++        actual_cost_usd=0.00033,
++        input_tokens=10,
++        output_tokens=20,
++        status="success",
++        cost_basis="authoritative_response",
++    )
++    raw = cond_a["output"]["mission_input_metadata"]["raw_provider_response"]
++    raw["budget_reservation_id"] = rid
++    raw["budget_attempts"][0]["budget_reservation_id"] = rid
++    raw["budget_attempts"][0]["reservation_id"] = rid
++    ledger.append_record_summary(RunRecord.from_dict(cond_a))
++
++    missing = copy.deepcopy(cond_a)
++    missing_raw = missing["output"]["mission_input_metadata"]["raw_provider_response"]
++    missing_raw["budget_attempts"][0]["budget_reservation_id"] = "missing-from-ledger"
++    missing_raw["budget_attempts"][0]["reservation_id"] = "missing-from-ledger"
++    issues = _validate_cost_ledger([missing], tmp_path / "cost.jsonl")
++    assert any("appears 0 times" in issue for issue in issues)
++
++    duplicate = copy.deepcopy(cond_a)
++    duplicate_raw = duplicate["output"]["mission_input_metadata"]["raw_provider_response"]
++    duplicate_raw["budget_attempts"].append(copy.deepcopy(duplicate_raw["budget_attempts"][0]))
++    issues = _validate_cost_ledger([duplicate], tmp_path / "cost.jsonl")
++    assert any("appears 2 times" in issue for issue in issues)
++
++
++def test_production_cond_b_retry_costs_reconcile_and_analyze(tmp_path):
++    task = Task("TASK-MAIN-FIN-001", "Assess reporting controls.")
++    cost_ledger = CampaignCostLedger(str(tmp_path / "cost.jsonl"), 5.0)
++    client = FakeAnthropicTextClient(fail_once=True)
++    adapter = mc.AnthropicMLTAdapter(client=client, cost_ledger=cost_ledger)
++    system = mc.CondBSystem(
++        llm_adapter=adapter,
++        domain_profile_mode="auto",
++        cost_ledger=cost_ledger,
++        retry_backoff_sec=(0.0,),
++    )
++    records = run_matrix(
++        system,
++        [task],
++        n_runs=1,
++        ledger=RunLedger(str(tmp_path / "cond_b_ledger.jsonl")),
++        output_dir=str(tmp_path / "cond_b"),
++        seed_base=20260623,
++        verbose=False,
++        cost_ledger=cost_ledger,
++    )
++    record = records[0].to_dict()
++    _assert_cost_reconciles(record, cost_ledger)
++    retried = [
++        response for response in record["output"]["provider_responses"]
++        if len(response["raw_response"].get("budget_attempts") or []) > 1
++    ]
++    assert retried
++    raw = retried[0]["raw_response"]
++    assert raw["retry"]["attempts"] == 2
++    assert raw["retry"]["final_status"] == "success"
++    assert raw["budget_cost_accounting"] == "conservative_upper_bound"
++    statuses = {attempt["status"] for attempt in raw["budget_attempts"]}
++    assert "failed_dispatch_uncertain_reserved_bound" in statuses
++    assert "success" in statuses
++    _assert_smoke_analyzer_passes(tmp_path, cost_ledger, record, "cond_b")
++
++
++@pytest.mark.parametrize("stale_state", ["reserved", "dispatch_started", "response_received"])
++def test_cond_a_recovered_stale_attempts_reconcile_and_resume(tmp_path, monkeypatch, stale_state):
++    import apparatus.preprocess.extract_mission_input as emi
++
++    task = Task("TASK-MAIN-FIN-001", "Assess reporting controls.")
++    run_id = "cond_a__TASK-MAIN-FIN-001__r01"
++    cost_ledger = CampaignCostLedger(str(tmp_path / "cost.jsonl"), 5.0)
++    stale_rid = _stage_stale_attempt(
++        cost_ledger,
++        run_id=run_id,
++        system_id="cond_a",
++        role="PreExtractor",
++        state=stale_state,
++    )
++    live_client = FakeExtractorClient()
++    monkeypatch.setattr(emi, "AnthropicClient", lambda: live_client)
++    records = run_matrix(
++        mc.CondASystem(cost_ledger=cost_ledger),
++        [task],
++        n_runs=1,
++        ledger=RunLedger(str(tmp_path / "cond_a_ledger.jsonl")),
++        output_dir=str(tmp_path / "cond_a"),
++        seed_base=20260623,
++        verbose=False,
++        cost_ledger=cost_ledger,
++    )
++    record = records[0].to_dict()
++    attempts = record["output"]["mission_input_metadata"]["raw_provider_response"]["budget_attempts"]
++    recovered = [attempt for attempt in attempts if attempt["budget_reservation_id"] == stale_rid]
++    assert recovered and recovered[0]["recovered"] is True
++    if stale_state == "dispatch_started":
++        assert record["output"]["mission_input_metadata"]["raw_provider_response"]["budget_cost_accounting"] == "conservative_upper_bound"
++    _assert_cost_reconciles(record, cost_ledger)
++
++    resume_client = FakeExtractorClient()
++    monkeypatch.setattr(emi, "AnthropicClient", lambda: resume_client)
++    resumed = run_matrix(
++        mc.CondASystem(cost_ledger=cost_ledger),
++        [task],
++        n_runs=1,
++        ledger=RunLedger(str(tmp_path / "cond_a_resume_ledger.jsonl")),
++        output_dir=str(tmp_path / "cond_a"),
++        seed_base=20260623,
++        verbose=False,
++        skip_existing=True,
++        cost_ledger=cost_ledger,
++    )
++    assert len(resumed) == 1
++    assert resume_client.calls == 0
++    _assert_cost_reconciles(resumed[0].to_dict(), cost_ledger)
++    _assert_smoke_analyzer_passes(tmp_path, cost_ledger, record, "cond_a")
++
++
++@pytest.mark.parametrize("stale_state", ["reserved", "dispatch_started", "response_received"])
++def test_cond_b_recovered_stale_attempts_reconcile_and_resume(tmp_path, stale_state):
++    task = Task("TASK-MAIN-FIN-001", "Assess reporting controls.")
++    run_id = "cond_b__TASK-MAIN-FIN-001__r01"
++    cost_ledger = CampaignCostLedger(str(tmp_path / "cost.jsonl"), 5.0)
++    stale_rid = _stage_stale_attempt(
++        cost_ledger,
++        run_id=run_id,
++        system_id="cond_b",
++        role="Intake",
++        state=stale_state,
++    )
++    client = FakeAnthropicTextClient()
++    adapter = mc.AnthropicMLTAdapter(client=client, cost_ledger=cost_ledger)
++    records = run_matrix(
++        mc.CondBSystem(
++            llm_adapter=adapter,
++            domain_profile_mode="auto",
++            cost_ledger=cost_ledger,
++            retry_backoff_sec=(0.0,),
++        ),
++        [task],
++        n_runs=1,
++        ledger=RunLedger(str(tmp_path / "cond_b_ledger.jsonl")),
++        output_dir=str(tmp_path / "cond_b"),
++        seed_base=20260623,
++        verbose=False,
++        cost_ledger=cost_ledger,
++    )
++    record = records[0].to_dict()
++    intake = next(r for r in record["output"]["provider_responses"] if r["role"] == "Intake")
++    recovered = [
++        attempt for attempt in intake["raw_response"]["budget_attempts"]
++        if attempt["budget_reservation_id"] == stale_rid
++    ]
++    assert recovered and recovered[0]["recovered"] is True
++    if stale_state == "dispatch_started":
++        assert intake["raw_response"]["budget_cost_accounting"] == "conservative_upper_bound"
++    _assert_cost_reconciles(record, cost_ledger)
++
++    resume_client = FakeAnthropicTextClient()
++    resume_adapter = mc.AnthropicMLTAdapter(client=resume_client, cost_ledger=cost_ledger)
++    resumed = run_matrix(
++        mc.CondBSystem(
++            llm_adapter=resume_adapter,
++            domain_profile_mode="auto",
++            cost_ledger=cost_ledger,
++            retry_backoff_sec=(0.0,),
++        ),
++        [task],
++        n_runs=1,
++        ledger=RunLedger(str(tmp_path / "cond_b_resume_ledger.jsonl")),
++        output_dir=str(tmp_path / "cond_b"),
++        seed_base=20260623,
++        verbose=False,
++        skip_existing=True,
++        cost_ledger=cost_ledger,
++    )
++    assert len(resumed) == 1
++    assert resume_client.calls == []
++    _assert_cost_reconciles(resumed[0].to_dict(), cost_ledger)
++    _assert_smoke_analyzer_passes(tmp_path, cost_ledger, record, "cond_b")
++
++
+ def test_no_network_run_matrix_smoke_passes_strict_analyzer(tmp_path):
+     class FakeExtractorClient:
+         provider = "anthropic"
+@@ -531,7 +985,7 @@ def test_no_network_run_matrix_smoke_passes_strict_analyzer(tmp_path):
+         },
+         smoke=True,
+         cost_ledger=cost_path,
+-        preflight_manifest=_preflight_manifest(),
++        preflight_manifest=_preflight_manifest([cond_a_record, cond_b_record]),
+         corpus_rows={task.task_id: {"task_id": task.task_id, "text": task.request_text}},
+     )
+     assert issues == []
+-- 
+2.53.0
+

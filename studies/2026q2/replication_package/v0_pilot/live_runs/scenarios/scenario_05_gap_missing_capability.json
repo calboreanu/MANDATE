@@ -1,0 +1,22 @@
+{
+  "mission_id": "LIVE-GAP-MISS-CAP-001",
+  "intent": "Conduct penetration test of web application including exploitation of discovered vulnerabilities",
+  "scope": ["webapp.corp.local", "api.corp.local"],
+  "time_limit": "PT8H",
+  "constraints": [
+    "scope.target IN ['webapp.corp.local', 'api.corp.local']",
+    "FORBIDS data_exfiltration",
+    "FORBIDS denial_of_service"
+  ],
+  "minimum_outcome": "Identify all web application vulnerabilities with CVSS scores",
+  "target_outcome": "Demonstrate exploitability of critical findings with proof-of-concept",
+  "available_tools": [],
+  "risk_tolerance": "MEDIUM",
+  "metadata": {
+    "scenario": "Gap trigger - MISSING_CAPABILITY (no tools)",
+    "domain": "pentest",
+    "paper_reference": "Table 11 row 5",
+    "claim": "RQ3 - Gap detection: MISSING_CAPABILITY when no tools available",
+    "expected_outcome": "GAP REPORT with MISSING_CAPABILITY gaps"
+  }
+}

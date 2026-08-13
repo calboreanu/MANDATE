@@ -1,0 +1,57 @@
+============================================================
+GAP DETECTION METRICS — SEED CORPUS
+============================================================
+Total examples:        125
+Gap-producing:         60 (48.0%)
+Non-gap-producing:     65 (52.0%)
+
+Gap-producing by category:
+  anchor_to_dag         3/21 gap-producing (14%)
+  end_to_end            5/16 gap-producing (31%)
+  gap_report            23/23 gap-producing (100%)
+  registry              2/10 gap-producing (20%)
+  source_to_anchor      25/44 gap-producing (57%)
+  task_to_procedure     2/11 gap-producing (18%)
+
+Gap type distribution (11 distinct types):
+  UNSPECIFIED                     37
+  UNDEFINED_MINIMUM               5
+  MISSING_PRECONDITION            5
+  AMBIGUOUS_SCOPE                 5
+  UNASSESSABLE_RISK               2
+  TIMELINE_INFEASIBLE             1
+  AMBIGUOUS_CONSTRAINT            1
+  MISSING_TTP                     1
+  MISSING_CAPABILITY              1
+  RESOURCE_UNAVAILABLE            1
+  UNKNOWN_PATTERN                 1
+
+  WARNING: UNDEFINED_CONSTRAINTS not found in corpus
+  Paper Table 12 lists this gap type. Add examples or remove from table.
+
+Distinct gap types: 11
+
+============================================================
+CLASSIFICATION PRECISION / RECALL
+============================================================
+True positives (gap correctly detected):   27
+False negatives (gap missed):              33
+False positives (non-gap flagged as gap):   1
+True negatives (non-gap correctly passed):  64
+Precision: 96.4%
+Recall:    45.0%
+F1 Score:  0.614
+
+Misclassified examples (34):
+  CONV-INTA-006  FALSE_POSITIVE    expected=non-gap  got=REQUIRES_CLARIFICATION
+  CONV-INTA-016  FALSE_NEGATIVE    expected=gap  got=extract_anchor
+  CONV-INTA-017  FALSE_NEGATIVE    expected=gap  got=extract_anchor
+  CONV-INTA-018  FALSE_NEGATIVE    expected=gap  got=extract_anchor
+  CONV-INTE-001  FALSE_NEGATIVE    expected=gap  got=anchor_extraction
+  CONV-INTE-002  FALSE_NEGATIVE    expected=gap  got=anchor_extraction
+  CONV-INTE-003  FALSE_NEGATIVE    expected=gap  got=anchor_extraction
+  CONV-INTE-004  FALSE_NEGATIVE    expected=gap  got=anchor_extraction
+  CONV-INTE-005  FALSE_NEGATIVE    expected=gap  got=anchor_extraction
+  CONV-INTE-006  FALSE_NEGATIVE    expected=gap  got=anchor_extraction
+
+Results written to eval_gap_detection_results.json

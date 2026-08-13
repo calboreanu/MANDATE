@@ -1,0 +1,4 @@
+Python: Python 3.10.12
+OS: Linux claude 6.8.0-106-generic #106~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Fri Mar  6 08:19:05 UTC  aarch64 aarch64 aarch64 GNU/Linux
+AEGIS version: 2.0.0
+Date: 2026-04-08T11:19:16Z

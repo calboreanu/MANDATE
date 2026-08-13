@@ -1,0 +1,14 @@
+============================================================
+ANCHOR HASH RECOMPUTATION — PROPERTY 1 VERIFICATION
+============================================================
+  [SKIP] defense_intel_mission.json: no anchor or anchor_hash
+  [SKIP] incident_response_mission.json: no anchor or anchor_hash
+  [SKIP] multi_coa_mission.json: no anchor or anchor_hash
+  [SKIP] normal_mission.json: no anchor or anchor_hash
+  [SKIP] quarterly_report_gap.json: no anchor or anchor_hash
+  [PASS] quarterly_report_mandate.json
+  [SKIP] underspecified_mission.json: no anchor or anchor_hash
+
+============================================================
+Anchor hashes verified: 1/1
+Results written to eval_anchor_hash_results.json

@@ -1,0 +1,28 @@
+{
+  "task_id": "TASK-CAL-FIN-002",
+  "domain": "financial_reporting",
+  "category": "calibration",
+  "author": "hand_authored_by_PI",
+  "purpose": "Calibration task for monthly recurring financial report.",
+  "stakeholder": "Executive Team",
+  "request_text": "Generate the monthly revenue summary for the executive team for the prior calendar month. Required content: gross revenue by product line; month-over-month percentage change for each product line; list of all deals exceeding $100,000 in value with their revenue recognition status (recognized, deferred, or pending). Data sources: Salesforce CRM for deal data, and our finance system of record for recognition status. Format: PDF document, 3 to 5 pages. Deadline: first business day of the following month, 1000 hours. Restrict to data from authorized regions only: United States, Canada, United Kingdom. Distribution: executive team only.",
+  "expected_anchor": {
+    "mission_intent": "Provide executive team with monthly revenue summary showing product performance and major deal status",
+    "minimum": [
+      {"dimension": "reporting_period", "threshold": "prior calendar month", "rationale": "explicit"},
+      {"dimension": "required_sections", "threshold": "gross revenue by product, MoM change, deals over $100K", "rationale": "three explicit sections"},
+      {"dimension": "deal_threshold", "threshold": "deals greater than $100,000", "rationale": "explicit"},
+      {"dimension": "format", "threshold": "PDF, 3 to 5 pages", "rationale": "explicit"},
+      {"dimension": "deadline", "threshold": "first business day of following month at 1000", "rationale": "explicit"}
+    ],
+    "target": [],
+    "constraints": [
+      {"predicate": "data.source IN ['salesforce_crm', 'finance_sor']", "rationale": "two explicit sources"},
+      {"predicate": "region IN ['US', 'CA', 'UK']", "rationale": "explicit allowed list"},
+      {"predicate": "distribution == 'executive_team_only'", "rationale": "explicit"}
+    ]
+  },
+  "expected_output_type": "MANDATE_AS_CODE",
+  "expected_gaps": [],
+  "notes_for_lead_analyst": "Tests multi-source data binding and regional constraint extraction."
+}

@@ -1,0 +1,39 @@
+{
+  "timestamp": "2026-04-14_094256",
+  "project_root": "/Users/ws01admin/Desktop/AEGIS",
+  "overall_status": "PASS",
+  "steps": {
+    "preflight": {
+      "status": "PASS",
+      "reason": ""
+    },
+    "register_adapters": {
+      "status": "PASS",
+      "reason": ""
+    },
+    "llm_smoke": {
+      "status": "PASS",
+      "reason": ""
+    },
+    "e2e": {
+      "status": "SKIPPED",
+      "reason": "skip_flag"
+    },
+    "acceptance_report": {
+      "status": "SKIPPED",
+      "reason": "skip_flag"
+    }
+  },
+  "context": {
+    "python_bin": "/Users/ws01admin/Desktop/AEGIS/.venv/bin/python",
+    "ollama_reachable": true,
+    "training_running": false
+  },
+  "artifacts": {
+    "readiness_log": "/Users/ws01admin/Desktop/AEGIS/logs/readiness_gate_2026-04-14_094256.log",
+    "smoke_log": "/Users/ws01admin/Desktop/AEGIS/logs/smoke_test_2026-04-14_094257.log",
+    "acceptance_report": "",
+    "json_summary": "/Users/ws01admin/Desktop/AEGIS/logs/readiness_gate_smoke_followup_2026-04-14.json"
+  },
+  "blockers": []
+}

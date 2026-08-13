@@ -1,0 +1,68 @@
+{
+  "anon_id": "OUT-47EF29DA",
+  "task_id": "TASK-HOLDOUT-SES-019",
+  "output_type": "MANDATE_AS_CODE",
+  "output": {
+    "artifact": {
+      "mandate_id": "TASK-HOLDOUT-SES-019",
+      "version": "1.0",
+      "generated": "2026-06-29T17:50:15.734Z",
+      "anchor": {
+        "mission_intent": "single-pass combined intent",
+        "minimum": {
+          "description": "minimum acceptable outcome"
+        },
+        "target": {
+          "description": "target outcome"
+        },
+        "constraints": [],
+        "anchor_hash": "b92a6e7da45bbdc3d5f1b2f99a2bd75083840c9e99026c00bc41aa961a076bb2"
+      },
+      "courses_of_action": [
+        {
+          "coa_id": "COA-1",
+          "approach": "single combined approach",
+          "task_dag": {
+            "nodes": [],
+            "edges": []
+          }
+        }
+      ],
+      "recommendation": {
+        "primary_coa": "COA-1",
+        "fallback_sequence": [],
+        "rationale": "single combined pass"
+      },
+      "trace": {
+        "chain_hash": "0d0b1af7986248bb4329be8bd4a87d4a24e934b41831e81eb1c2ff868b0afc14",
+        "entry_count": 1,
+        "entries": [
+          {
+            "role": "Combined",
+            "decision_type": "single_pass",
+            "mission_id": "TASK-HOLDOUT-SES-019",
+            "parent_hashes": [],
+            "hash": "67a21f1233e9e0ea628f532e1e0440acba423c22cd575e9a7980596dc1c47de3"
+          }
+        ]
+      },
+      "registry_reference": {
+        "resolved": false,
+        "source": "ablation_a1_single_pass",
+        "matches": []
+      },
+      "metadata": {
+        "sources_consulted": [
+          "mission_input",
+          "single_pass_llm"
+        ],
+        "ablation": "A1_role_separation_single_pass",
+        "input_hash": "d1510274526e5de27659975e487062605d200da9273f242494f6c5eaf06a7ddb",
+        "output_hash": "d3168eb5b15728a93d4da8ac912141f0ce19d83d7104be1b78d634ac58cf1324"
+      }
+    },
+    "gap_reports": [],
+    "has_gaps": false
+  },
+  "ok": true
+}
