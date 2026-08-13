@@ -1,0 +1,77 @@
+{
+  "n_outputs": 700,
+  "pairwise_kappa": {
+    "mission_intent_match:judge_1_gpt4o|judge_2_claude_opus": 0.3305590736385019,
+    "mission_intent_match:judge_1_gpt4o|judge_3_gemini_pro": 0.7093375317912074,
+    "mission_intent_match:judge_2_claude_opus|judge_3_gemini_pro": 0.296355119519109,
+    "gap_classification:judge_1_gpt4o|judge_2_claude_opus": 0.6768011150797109,
+    "gap_classification:judge_1_gpt4o|judge_3_gemini_pro": 0.44920017293558145,
+    "gap_classification:judge_2_claude_opus|judge_3_gemini_pro": 0.7132230068459922
+  },
+  "krippendorff_alpha": {
+    "mission_intent_match": 0.464406647188232,
+    "gap_classification": 0.5969700326523291,
+    "adversarial_compliance": null,
+    "minimum_coverage": 0.6972073714364466,
+    "target_coverage": 0.5832178721903662,
+    "constraint_coverage": 0.6556808600710043,
+    "trace_completeness": 0.2808470496027501,
+    "fabrication_count": 0.22800537835334644
+  },
+  "min_pairwise_kappa": 0.296355119519109,
+  "halt": true,
+  "halt_threshold": 0.4,
+  "double_grade": {
+    "sample_size": 70,
+    "seed": 20260618,
+    "sample_pct": 0.1,
+    "pass1_irr": {
+      "n_outputs": 70,
+      "pairwise_kappa": {
+        "mission_intent_match:judge_1_gpt4o|judge_2_claude_opus": -0.06779661016949157,
+        "mission_intent_match:judge_1_gpt4o|judge_3_gemini_pro": 0.7469879518072289,
+        "mission_intent_match:judge_2_claude_opus|judge_3_gemini_pro": 0.09793814432989689,
+        "gap_classification:judge_1_gpt4o|judge_2_claude_opus": 0.7582037996545768,
+        "gap_classification:judge_1_gpt4o|judge_3_gemini_pro": 0.5699868363317244,
+        "gap_classification:judge_2_claude_opus|judge_3_gemini_pro": 0.7904191616766467
+      },
+      "krippendorff_alpha": {
+        "mission_intent_match": 0.29929899420908257,
+        "gap_classification": 0.7010930636428645,
+        "adversarial_compliance": null,
+        "minimum_coverage": 0.6120888698638358,
+        "target_coverage": 0.5414716837054794,
+        "constraint_coverage": 0.5293682266322247,
+        "trace_completeness": 0.19421257556321625,
+        "fabrication_count": 0.2163491963042653
+      },
+      "min_pairwise_kappa": -0.06779661016949157,
+      "halt": true,
+      "halt_threshold": 0.4
+    },
+    "pass2_irr": {
+      "n_outputs": 70,
+      "pairwise_kappa": {
+        "mission_intent_match:judge_1_gpt4o|judge_2_claude_opus": 0.1694915254237288,
+        "mission_intent_match:judge_1_gpt4o|judge_3_gemini_pro": 0.6853932584269663,
+        "mission_intent_match:judge_2_claude_opus|judge_3_gemini_pro": 0.08114558472553701,
+        "gap_classification:judge_1_gpt4o|judge_2_claude_opus": 0.8148148148148148,
+        "gap_classification:judge_1_gpt4o|judge_3_gemini_pro": 0.6363636363636364,
+        "gap_classification:judge_2_claude_opus|judge_3_gemini_pro": 0.8
+      },
+      "krippendorff_alpha": {
+        "mission_intent_match": 0.33478009259259267,
+        "gap_classification": 0.747355696585071,
+        "adversarial_compliance": null,
+        "minimum_coverage": 0.5999183640711768,
+        "target_coverage": 0.5777589795235969,
+        "constraint_coverage": 0.552310838017174,
+        "trace_completeness": 0.20980234790545427,
+        "fabrication_count": 0.22289661456850196
+      },
+      "min_pairwise_kappa": 0.08114558472553701,
+      "halt": true,
+      "halt_threshold": 0.4
+    }
+  }
+}

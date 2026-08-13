@@ -1,0 +1,54 @@
+{
+  "mission_id": "LIVE-XDOMAIN-INTEL-001",
+  "intent": "Conduct open-source intelligence collection on threat actor group APT-PHANTOM targeting financial sector, producing actionable intelligence report for SOC consumption",
+  "scope": ["threat_actor:APT-PHANTOM", "sector:financial", "timeframe:last_90_days"],
+  "time_limit": "PT24H",
+  "constraints": [
+    "execution.duration <= PT24H",
+    "FORBIDS active_probing",
+    "FORBIDS classification_spillage",
+    "FORBIDS target_notification"
+  ],
+  "minimum_outcome": "Catalog of known IOCs (IPs, domains, hashes) attributed to APT-PHANTOM with confidence ratings and last-seen timestamps",
+  "target_outcome": "Full threat intelligence report with TTP mapping to MITRE ATT&CK, campaign timeline reconstruction, predictive targeting assessment for financial sector, and machine-readable STIX2.1 bundle",
+  "available_tools": [
+    {
+      "tool_id": "misp_platform",
+      "tool_class": "RECON",
+      "description": "MISP threat intelligence sharing platform for IOC collection and correlation",
+      "parameters": {"instance": "misp.corp.local", "api_key": "required"}
+    },
+    {
+      "tool_id": "maltego",
+      "tool_class": "SCAN",
+      "description": "Link analysis and data mining tool for OSINT pivot analysis",
+      "parameters": {"transforms": ["shodan", "virustotal", "passivedns"]}
+    },
+    {
+      "tool_id": "analyst_notebook",
+      "tool_class": "ANALYSIS",
+      "description": "Intelligence analysis and visualization platform",
+      "parameters": {"output_formats": ["pdf", "stix2.1"]}
+    },
+    {
+      "tool_id": "attack_navigator",
+      "tool_class": "PROCESS",
+      "description": "MITRE ATT&CK Navigator for TTP mapping and heat map generation",
+      "parameters": {"framework_version": "14.1"}
+    },
+    {
+      "tool_id": "intel_dissem",
+      "tool_class": "DISSEMINATE",
+      "description": "Intelligence dissemination system for report distribution",
+      "parameters": {"formats": ["pdf", "stix", "taxii"], "tlp": "AMBER"}
+    }
+  ],
+  "risk_tolerance": "LOW",
+  "metadata": {
+    "scenario": "Cross-domain Intelligence - OSINT Collection",
+    "domain": "defense_intel",
+    "paper_reference": "Cross-domain (INTEL) + RQ1",
+    "claim": "Cross-domain execution with full anchor extraction in intelligence domain",
+    "expected_outcome": "SUCCESS with mandate-as-code, 2 COAs (Conservative/Moderate)"
+  }
+}

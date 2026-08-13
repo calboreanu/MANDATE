@@ -1,0 +1,983 @@
+{
+  "generated_at": "2026-04-14T15:00:43Z",
+  "manifest": "/Users/ws01admin/Desktop/AEGIS/training/eval/authorized_lab_manifest.json",
+  "corpus_version": "0.1.0",
+  "tags": [
+    "authorized_lab"
+  ],
+  "repetitions": 1,
+  "profiles": [
+    {
+      "profile": "tuned",
+      "config": {
+        "mode": "llm",
+        "llm_backend": "ollama",
+        "llm_base_url": "http://localhost:11434",
+        "llm_timeout_s": 300.0,
+        "llm_fallback_enabled": true,
+        "llm_prompt_dir": "config/system-prompts",
+        "llm_role_models": {
+          "Intake": "mandate-intake",
+          "Interpreter": "mandate-interpreter",
+          "Decomposition": "mandate-decomp",
+          "Procedure": "mandate-procedure",
+          "Binding": "mandate-binding",
+          "Validation": "mandate-validation"
+        }
+      },
+      "summary": {
+        "profile": "tuned",
+        "total_runs": 6,
+        "cases_passed": 6,
+        "cases_failed": 0,
+        "pass_rate": 1.0,
+        "pipeline_ok_rate": 0.8333,
+        "check_pass_rate": 1.0,
+        "avg_duration_ms": 103481.116,
+        "avg_coas": 1.333,
+        "avg_gaps": 1.667,
+        "llm_used_role_rate": 1.0,
+        "llm_fallback_role_rate": 0.0667,
+        "llm_effective_role_rate": 0.9333
+      },
+      "role_summary": [
+        {
+          "role_name": "Intake",
+          "model": "mandate-intake",
+          "runs": 5,
+          "ok_rate": 1.0,
+          "avg_role_duration_ms": 12982.028,
+          "total_role_duration_ms": 64910.139,
+          "max_role_duration_ms": 15982.502,
+          "max_role_duration_case_id": "AUTH-LAB-003",
+          "avg_llm_latency_ms": 8274.975,
+          "total_llm_latency_ms": 41374.874,
+          "max_llm_latency_ms": 15981.707,
+          "max_llm_latency_case_id": "AUTH-LAB-003",
+          "avg_llm_tokens_used": 993.4,
+          "total_llm_tokens_used": 4967,
+          "llm_used_rate": 1.0,
+          "fallback_rate": 0.4,
+          "effective_rate": 0.6,
+          "fallback_runs": 2,
+          "fallback_reasons": [
+            {
+              "reason": "LLM response parsing failed after 3 attempt(s): schema validation failed: '' is not one of ['LOW', 'MEDIUM', 'HIGH']",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "role_name": "Interpreter",
+          "model": "mandate-interpreter",
+          "runs": 5,
+          "ok_rate": 1.0,
+          "avg_role_duration_ms": 28563.062,
+          "total_role_duration_ms": 142815.31,
+          "max_role_duration_ms": 37037.613,
+          "max_role_duration_case_id": "AUTH-LAB-005",
+          "avg_llm_latency_ms": 18436.393,
+          "total_llm_latency_ms": 92181.966,
+          "max_llm_latency_ms": 27857.867,
+          "max_llm_latency_case_id": "AUTH-LAB-001",
+          "avg_llm_tokens_used": 1111.8,
+          "total_llm_tokens_used": 5559,
+          "llm_used_rate": 1.0,
+          "fallback_rate": 0.0,
+          "effective_rate": 1.0,
+          "fallback_runs": 0,
+          "fallback_reasons": []
+        },
+        {
+          "role_name": "Decomposition",
+          "model": "mandate-decomp",
+          "runs": 5,
+          "ok_rate": 1.0,
+          "avg_role_duration_ms": 19623.881,
+          "total_role_duration_ms": 98119.404,
+          "max_role_duration_ms": 25227.345,
+          "max_role_duration_case_id": "AUTH-LAB-003",
+          "avg_llm_latency_ms": 19623.379,
+          "total_llm_latency_ms": 98116.894,
+          "max_llm_latency_ms": 25226.837,
+          "max_llm_latency_case_id": "AUTH-LAB-003",
+          "avg_llm_tokens_used": 1142.2,
+          "total_llm_tokens_used": 5711,
+          "llm_used_rate": 1.0,
+          "fallback_rate": 0.0,
+          "effective_rate": 1.0,
+          "fallback_runs": 0,
+          "fallback_reasons": []
+        },
+        {
+          "role_name": "Procedure",
+          "model": "mandate-procedure",
+          "runs": 5,
+          "ok_rate": 1.0,
+          "avg_role_duration_ms": 18866.365,
+          "total_role_duration_ms": 94331.827,
+          "max_role_duration_ms": 23928.872,
+          "max_role_duration_case_id": "AUTH-LAB-001",
+          "avg_llm_latency_ms": 11769.777,
+          "total_llm_latency_ms": 58848.883,
+          "max_llm_latency_ms": 14032.156,
+          "max_llm_latency_case_id": "AUTH-LAB-001",
+          "avg_llm_tokens_used": 3409.2,
+          "total_llm_tokens_used": 17046,
+          "llm_used_rate": 1.0,
+          "fallback_rate": 0.0,
+          "effective_rate": 1.0,
+          "fallback_runs": 0,
+          "fallback_reasons": []
+        },
+        {
+          "role_name": "Binding",
+          "model": "mandate-binding",
+          "runs": 5,
+          "ok_rate": 1.0,
+          "avg_role_duration_ms": 25801.485,
+          "total_role_duration_ms": 129007.424,
+          "max_role_duration_ms": 31352.764,
+          "max_role_duration_case_id": "AUTH-LAB-001",
+          "avg_llm_latency_ms": 25800.943,
+          "total_llm_latency_ms": 129004.715,
+          "max_llm_latency_ms": 31352.223,
+          "max_llm_latency_case_id": "AUTH-LAB-001",
+          "avg_llm_tokens_used": 1248.0,
+          "total_llm_tokens_used": 6240,
+          "llm_used_rate": 1.0,
+          "fallback_rate": 0.0,
+          "effective_rate": 1.0,
+          "fallback_runs": 0,
+          "fallback_reasons": []
+        },
+        {
+          "role_name": "Validation",
+          "model": "mandate-validation",
+          "runs": 5,
+          "ok_rate": 1.0,
+          "avg_role_duration_ms": 18339.613,
+          "total_role_duration_ms": 91698.063,
+          "max_role_duration_ms": 20983.014,
+          "max_role_duration_case_id": "AUTH-LAB-001",
+          "avg_llm_latency_ms": 18333.755,
+          "total_llm_latency_ms": 91668.773,
+          "max_llm_latency_ms": 20975.073,
+          "max_llm_latency_case_id": "AUTH-LAB-001",
+          "avg_llm_tokens_used": 1156.0,
+          "total_llm_tokens_used": 5780,
+          "llm_used_rate": 1.0,
+          "fallback_rate": 0.0,
+          "effective_rate": 1.0,
+          "fallback_runs": 0,
+          "fallback_reasons": []
+        }
+      ],
+      "tuning_recommendation": {
+        "profile": "tuned",
+        "role_name": "Intake",
+        "model": "mandate-intake",
+        "reason": "observed LLM fallbacks under runtime load",
+        "avg_role_duration_ms": 12982.028,
+        "avg_llm_latency_ms": 8274.975,
+        "llm_used_rate": 1.0,
+        "fallback_rate": 0.4,
+        "fallback_reasons": [
+          {
+            "reason": "LLM response parsing failed after 3 attempt(s): schema validation failed: '' is not one of ['LOW', 'MEDIUM', 'HIGH']",
+            "count": 2
+          }
+        ],
+        "evidence_case_id": "AUTH-LAB-003"
+      },
+      "cases": [
+        {
+          "case_id": "AUTH-LAB-001",
+          "name": "Authorized Lab Service Inventory",
+          "repetition": 1,
+          "passed": true,
+          "pipeline_ok": true,
+          "error": "",
+          "checks": [
+            {
+              "check_name": "pipeline_ok",
+              "passed": true,
+              "detail": "expected=True, actual=True"
+            },
+            {
+              "check_name": "min_coas",
+              "passed": true,
+              "detail": "expected>=1, actual=2"
+            },
+            {
+              "check_name": "max_coas",
+              "passed": true,
+              "detail": "expected<=3, actual=2"
+            },
+            {
+              "check_name": "required_tool_classes_present",
+              "passed": true,
+              "detail": "nodes_found=7, has_procedures=True"
+            },
+            {
+              "check_name": "recommendation_has_primary",
+              "passed": true,
+              "detail": "primary_coa=COA-1"
+            },
+            {
+              "check_name": "anchor_hash_present",
+              "passed": true,
+              "detail": "anchor_hash=present"
+            },
+            {
+              "check_name": "trace_present",
+              "passed": true,
+              "detail": "chain_hash=present"
+            },
+            {
+              "check_name": "constraints_count",
+              "passed": true,
+              "detail": "expected=6, actual=6"
+            }
+          ],
+          "checks_passed": 8,
+          "checks_total": 8,
+          "duration_ms": 136926.108916,
+          "coa_count": 2,
+          "gap_count": 2,
+          "llm_used_roles": 6,
+          "llm_fallback_roles": 0,
+          "llm_effective_roles": 6,
+          "roles_executed": 6,
+          "role_results": [
+            {
+              "role_name": "Intake",
+              "ok": true,
+              "status": "success",
+              "message": "Intake complete: mission_id=MANDATE-AUTHLAB-001",
+              "duration_ms": 12933.724,
+              "duration_pct": 9.45,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 12931.72,
+              "llm_tokens_used": 1587,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "4971aedca7cbbbf8a6807b79570de6ec731386efc5546470a037802c7891b840"
+            },
+            {
+              "role_name": "Interpreter",
+              "ok": true,
+              "status": "success",
+              "message": "Anchor extracted: hash=803d7036f990fb63...",
+              "duration_ms": 27858.367,
+              "duration_pct": 20.35,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 27857.867,
+              "llm_tokens_used": 1279,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "92af1794f19be1eeb4287156efefb8550b246bab69c263013e96bedc9ec6541a"
+            },
+            {
+              "role_name": "Decomposition",
+              "ok": true,
+              "status": "success",
+              "message": "Generated 2 COA(s)",
+              "duration_ms": 19868.292,
+              "duration_pct": 14.51,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 19867.774,
+              "llm_tokens_used": 1275,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "8ff62c3bb487caa82849b9892dcc7efd6794960a8205b0524a75eba580e7b8d5"
+            },
+            {
+              "role_name": "Procedure",
+              "ok": true,
+              "status": "success",
+              "message": "Generated 7 procedures, 4 triggers across 2 COA(s) (0 missing-TTP gap(s), 2 missing-procedure gap(s) detected)",
+              "duration_ms": 23928.872,
+              "duration_pct": 17.48,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 14032.156,
+              "llm_tokens_used": 3886,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "66099b121e351b2a50b5dc622c6e0071609a72c3c2429568b6228c23fe1f4cb9"
+            },
+            {
+              "role_name": "Binding",
+              "ok": true,
+              "status": "success",
+              "message": "Risk assessed for 2 COA(s), recommended: COA-1",
+              "duration_ms": 31352.764,
+              "duration_pct": 22.9,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 31352.223,
+              "llm_tokens_used": 1462,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "dac5ede80b2b14397137e20df3173ccc77f4f835cc754c78b7529b6cb18e2e89"
+            },
+            {
+              "role_name": "Validation",
+              "ok": true,
+              "status": "success",
+              "message": "Artifact assembled and validated successfully",
+              "duration_ms": 20983.014,
+              "duration_pct": 15.32,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 20975.073,
+              "llm_tokens_used": 1317,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "89db9ef6f2bb7da80cd720472202cb28e837c097cd6883613abfdb3b8fbcd56e"
+            }
+          ]
+        },
+        {
+          "case_id": "AUTH-LAB-002",
+          "name": "Authorized Lab Web Review",
+          "repetition": 1,
+          "passed": true,
+          "pipeline_ok": true,
+          "error": "",
+          "checks": [
+            {
+              "check_name": "pipeline_ok",
+              "passed": true,
+              "detail": "expected=True, actual=True"
+            },
+            {
+              "check_name": "min_coas",
+              "passed": true,
+              "detail": "expected>=1, actual=2"
+            },
+            {
+              "check_name": "max_coas",
+              "passed": true,
+              "detail": "expected<=3, actual=2"
+            },
+            {
+              "check_name": "required_tool_classes_present",
+              "passed": true,
+              "detail": "nodes_found=7, has_procedures=True"
+            },
+            {
+              "check_name": "recommendation_has_primary",
+              "passed": true,
+              "detail": "primary_coa=COA-1"
+            },
+            {
+              "check_name": "anchor_hash_present",
+              "passed": true,
+              "detail": "anchor_hash=present"
+            },
+            {
+              "check_name": "trace_present",
+              "passed": true,
+              "detail": "chain_hash=present"
+            },
+            {
+              "check_name": "constraints_count",
+              "passed": true,
+              "detail": "expected=6, actual=6"
+            }
+          ],
+          "checks_passed": 8,
+          "checks_total": 8,
+          "duration_ms": 127800.022583,
+          "coa_count": 2,
+          "gap_count": 2,
+          "llm_used_roles": 6,
+          "llm_fallback_roles": 0,
+          "llm_effective_roles": 6,
+          "roles_executed": 6,
+          "role_results": [
+            {
+              "role_name": "Intake",
+              "ok": true,
+              "status": "success",
+              "message": "Intake complete: mission_id=MANDATE-AUTHLAB-002",
+              "duration_ms": 12462.088,
+              "duration_pct": 9.75,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 12461.447,
+              "llm_tokens_used": 1550,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "529d7b2a8caa7281142dcddbdd8c4cfca788ad232d0e11610af124a994e69b17"
+            },
+            {
+              "role_name": "Interpreter",
+              "ok": true,
+              "status": "success",
+              "message": "Anchor extracted: hash=58a1447ba7ac8d03...",
+              "duration_ms": 23998.825,
+              "duration_pct": 18.78,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 23998.333,
+              "llm_tokens_used": 1221,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "dbea34ef30c9560638a44bf3fdcfda3d5e39152dac950c6a52a680fc971384ff"
+            },
+            {
+              "role_name": "Decomposition",
+              "ok": true,
+              "status": "success",
+              "message": "Generated 2 COA(s)",
+              "duration_ms": 21957.484,
+              "duration_pct": 17.18,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 21956.978,
+              "llm_tokens_used": 1280,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "b92b186f62c9c561805f7b1042d45e08ae4ce15c1b414f9328b7fc261f586e87"
+            },
+            {
+              "role_name": "Procedure",
+              "ok": true,
+              "status": "success",
+              "message": "Generated 7 procedures, 4 triggers across 2 COA(s) (0 missing-TTP gap(s), 2 missing-procedure gap(s) detected)",
+              "duration_ms": 23073.359,
+              "duration_pct": 18.05,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 13145.509,
+              "llm_tokens_used": 3860,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "e28fc545d3699e9d015b51f425de915aa78cb5518776d4adcc962557587e0c04"
+            },
+            {
+              "role_name": "Binding",
+              "ok": true,
+              "status": "success",
+              "message": "Risk assessed for 2 COA(s), recommended: COA-1",
+              "duration_ms": 27825.026,
+              "duration_pct": 21.77,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 27824.512,
+              "llm_tokens_used": 1419,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "f0d66de6298ca3c9f8a777486d55e92eb1eec562487848477e7912890176f55e"
+            },
+            {
+              "role_name": "Validation",
+              "ok": true,
+              "status": "success",
+              "message": "Artifact assembled and validated successfully",
+              "duration_ms": 18482.39,
+              "duration_pct": 14.46,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 18476.315,
+              "llm_tokens_used": 1294,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "0a2644987d24d1a4c7bd620effbc26d678e5c2de0db5475dfea3b5ecd521551b"
+            }
+          ]
+        },
+        {
+          "case_id": "AUTH-LAB-003",
+          "name": "Incident Response Containment",
+          "repetition": 1,
+          "passed": true,
+          "pipeline_ok": true,
+          "error": "",
+          "checks": [
+            {
+              "check_name": "pipeline_ok",
+              "passed": true,
+              "detail": "expected=True, actual=True"
+            },
+            {
+              "check_name": "min_coas",
+              "passed": true,
+              "detail": "expected>=2, actual=2"
+            },
+            {
+              "check_name": "max_coas",
+              "passed": true,
+              "detail": "expected<=3, actual=2"
+            },
+            {
+              "check_name": "required_tool_classes_present",
+              "passed": true,
+              "detail": "nodes_found=6, has_procedures=True"
+            },
+            {
+              "check_name": "recommendation_has_primary",
+              "passed": true,
+              "detail": "primary_coa=COA-2"
+            },
+            {
+              "check_name": "recommendation_has_fallback",
+              "passed": true,
+              "detail": "fallback_count=1"
+            },
+            {
+              "check_name": "anchor_hash_present",
+              "passed": true,
+              "detail": "anchor_hash=present"
+            },
+            {
+              "check_name": "trace_present",
+              "passed": true,
+              "detail": "chain_hash=present"
+            },
+            {
+              "check_name": "constraints_count",
+              "passed": true,
+              "detail": "expected=5, actual=5"
+            }
+          ],
+          "checks_passed": 9,
+          "checks_total": 9,
+          "duration_ms": 139791.589334,
+          "coa_count": 2,
+          "gap_count": 2,
+          "llm_used_roles": 6,
+          "llm_fallback_roles": 0,
+          "llm_effective_roles": 6,
+          "roles_executed": 6,
+          "role_results": [
+            {
+              "role_name": "Intake",
+              "ok": true,
+              "status": "success",
+              "message": "Intake complete: mission_id=MANDATE-IR-001",
+              "duration_ms": 15982.502,
+              "duration_pct": 11.43,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 15981.707,
+              "llm_tokens_used": 1830,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "8d07954b6b4097756958c781efa7141c52b3e5e87930a632993f33903a12ba84"
+            },
+            {
+              "role_name": "Interpreter",
+              "ok": true,
+              "status": "success",
+              "message": "Anchor extracted: hash=de675661d2e126ac...",
+              "duration_ms": 26475.015,
+              "duration_pct": 18.94,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 26474.504,
+              "llm_tokens_used": 1389,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "515ea0edff0156d2a1b1966f95e8fa45b81a41ddfe7dfa7ca7c170ebb97c4a79"
+            },
+            {
+              "role_name": "Decomposition",
+              "ok": true,
+              "status": "success",
+              "message": "Generated 2 COA(s) (LLM candidate limit applied)",
+              "duration_ms": 25227.345,
+              "duration_pct": 18.05,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 25226.837,
+              "llm_tokens_used": 1485,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "9884e1b9a21c6a9a584ab249f17c199f6658487dba4466ae12f3b4779b94a1b2"
+            },
+            {
+              "role_name": "Procedure",
+              "ok": true,
+              "status": "success",
+              "message": "Generated 7 procedures, 4 triggers across 2 COA(s)",
+              "duration_ms": 22556.947,
+              "duration_pct": 16.14,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 12589.56,
+              "llm_tokens_used": 3606,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "40e02a3139be003b62039d1a083b44a2e5c895c0eb737243ab689b0e1742c71c"
+            },
+            {
+              "role_name": "Binding",
+              "ok": true,
+              "status": "success",
+              "message": "Risk assessed for 2 COA(s), recommended: COA-2",
+              "duration_ms": 31110.796,
+              "duration_pct": 22.26,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 31110.122,
+              "llm_tokens_used": 1568,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "dd04e60bb0758ffb93b049c3cc006b6d0e0380aafe33e0322fc2a39a3ebe90e0"
+            },
+            {
+              "role_name": "Validation",
+              "ok": true,
+              "status": "success",
+              "message": "Artifact assembled and validated successfully (algorithm flags: constraint_compliance)",
+              "duration_ms": 18438.122,
+              "duration_pct": 13.19,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 18432.635,
+              "llm_tokens_used": 1258,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "425ccb44aa43f132e14afe739b62662bb057676d10b5b8ab5da8100e9f0c622a"
+            }
+          ]
+        },
+        {
+          "case_id": "AUTH-LAB-004",
+          "name": "Authorized Lab Readiness Gap Review",
+          "repetition": 1,
+          "passed": true,
+          "pipeline_ok": true,
+          "error": "",
+          "checks": [
+            {
+              "check_name": "pipeline_ok",
+              "passed": true,
+              "detail": "expected=True, actual=True"
+            },
+            {
+              "check_name": "min_coas",
+              "passed": true,
+              "detail": "expected>=1, actual=1"
+            },
+            {
+              "check_name": "max_coas",
+              "passed": true,
+              "detail": "expected<=3, actual=1"
+            },
+            {
+              "check_name": "recommendation_has_primary",
+              "passed": true,
+              "detail": "primary_coa=COA-1"
+            },
+            {
+              "check_name": "anchor_hash_present",
+              "passed": true,
+              "detail": "anchor_hash=present"
+            },
+            {
+              "check_name": "trace_present",
+              "passed": true,
+              "detail": "chain_hash=present"
+            },
+            {
+              "check_name": "constraints_count",
+              "passed": true,
+              "detail": "expected=2, actual=2"
+            },
+            {
+              "check_name": "gaps_detected",
+              "passed": true,
+              "detail": "gaps_found=2"
+            },
+            {
+              "check_name": "min_gaps",
+              "passed": true,
+              "detail": "expected>=2, actual=2"
+            }
+          ],
+          "checks_passed": 9,
+          "checks_total": 9,
+          "duration_ms": 106218.465,
+          "coa_count": 1,
+          "gap_count": 2,
+          "llm_used_roles": 6,
+          "llm_fallback_roles": 1,
+          "llm_effective_roles": 5,
+          "roles_executed": 6,
+          "role_results": [
+            {
+              "role_name": "Intake",
+              "ok": true,
+              "status": "success",
+              "message": "Intake complete: mission_id=MANDATE-AUTHLAB-GAP-001",
+              "duration_ms": 13935.206,
+              "duration_pct": 13.12,
+              "llm_used": true,
+              "llm_fallback": true,
+              "llm_effective": false,
+              "llm_latency_ms": 0.0,
+              "llm_tokens_used": 0,
+              "llm_fallback_reason": "LLM response parsing failed after 3 attempt(s): schema validation failed: '' is not one of ['LOW', 'MEDIUM', 'HIGH']",
+              "trace_entry_hash": "6bdc97a8a1b237626ef833ab7b90efd243253ed82ef12fa7390bd6c38884b6df"
+            },
+            {
+              "role_name": "Interpreter",
+              "ok": true,
+              "status": "success",
+              "message": "Anchor extracted: hash=9ca34a6b04db3ba6... (1 gap(s) detected)",
+              "duration_ms": 27445.49,
+              "duration_pct": 25.84,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 5641.764,
+              "llm_tokens_used": 849,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "c653a4489ab6dfe9320726a22e942b1e6af1b43de4cd0ea12e6c348e96fafdbd"
+            },
+            {
+              "role_name": "Decomposition",
+              "ok": true,
+              "status": "success",
+              "message": "Generated 1 COA(s) (1 gap(s) detected)",
+              "duration_ms": 14822.267,
+              "duration_pct": 13.95,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 14821.714,
+              "llm_tokens_used": 868,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "c079a197c4ae6e5d23007d67e9a265d0b88f9d4cbee3a8d122960257548263ff"
+            },
+            {
+              "role_name": "Procedure",
+              "ok": true,
+              "status": "success",
+              "message": "Generated 2 procedures, 2 triggers across 1 COA(s)",
+              "duration_ms": 12418.772,
+              "duration_pct": 11.69,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 9564.155,
+              "llm_tokens_used": 3007,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "c7d52cb18ccec88663fe9ee881948200b56ab04fa5e6fb620f4706c095332a68"
+            },
+            {
+              "role_name": "Binding",
+              "ok": true,
+              "status": "success",
+              "message": "Risk assessed for 1 COA(s), recommended: COA-1",
+              "duration_ms": 22452.398,
+              "duration_pct": 21.14,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 22451.896,
+              "llm_tokens_used": 947,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "c412b2b65249e8742aa2b643821971ee4173431ec3f61569f15bd37462281cb5"
+            },
+            {
+              "role_name": "Validation",
+              "ok": true,
+              "status": "success",
+              "message": "Artifact assembled and validated successfully",
+              "duration_ms": 15143.479,
+              "duration_pct": 14.26,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 15138.668,
+              "llm_tokens_used": 929,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "f2eb088a3be14aedfc85b3af5f778c400550c5a6a477de4baa4b7d87834165a0"
+            }
+          ]
+        },
+        {
+          "case_id": "AUTH-LAB-005",
+          "name": "Minimal Valid Recon Edge Case",
+          "repetition": 1,
+          "passed": true,
+          "pipeline_ok": true,
+          "error": "",
+          "checks": [
+            {
+              "check_name": "pipeline_ok",
+              "passed": true,
+              "detail": "expected=True, actual=True"
+            },
+            {
+              "check_name": "min_coas",
+              "passed": true,
+              "detail": "expected>=1, actual=1"
+            },
+            {
+              "check_name": "recommendation_has_primary",
+              "passed": true,
+              "detail": "primary_coa=COA-1"
+            },
+            {
+              "check_name": "anchor_hash_present",
+              "passed": true,
+              "detail": "anchor_hash=present"
+            },
+            {
+              "check_name": "trace_present",
+              "passed": true,
+              "detail": "chain_hash=present"
+            },
+            {
+              "check_name": "gaps_detected",
+              "passed": true,
+              "detail": "gaps_found=2"
+            },
+            {
+              "check_name": "min_gaps",
+              "passed": true,
+              "detail": "expected>=2, actual=2"
+            }
+          ],
+          "checks_passed": 7,
+          "checks_total": 7,
+          "duration_ms": 110150.510417,
+          "coa_count": 1,
+          "gap_count": 2,
+          "llm_used_roles": 6,
+          "llm_fallback_roles": 1,
+          "llm_effective_roles": 5,
+          "roles_executed": 6,
+          "role_results": [
+            {
+              "role_name": "Intake",
+              "ok": true,
+              "status": "success",
+              "message": "Intake complete: mission_id=MANDATE-EVAL-MIN-001",
+              "duration_ms": 9596.619,
+              "duration_pct": 8.71,
+              "llm_used": true,
+              "llm_fallback": true,
+              "llm_effective": false,
+              "llm_latency_ms": 0.0,
+              "llm_tokens_used": 0,
+              "llm_fallback_reason": "LLM response parsing failed after 3 attempt(s): schema validation failed: '' is not one of ['LOW', 'MEDIUM', 'HIGH']",
+              "trace_entry_hash": "4f07023f2781c053a181412a4d464a288569e0a9a9d8654ca2c005fcbe8ec9de"
+            },
+            {
+              "role_name": "Interpreter",
+              "ok": true,
+              "status": "success",
+              "message": "Anchor extracted: hash=fa9d5832126328c9... (2 gap(s) detected)",
+              "duration_ms": 37037.613,
+              "duration_pct": 33.62,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 8209.498,
+              "llm_tokens_used": 821,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "4b6901f188dea88335ab9b27f438409fac22e5cf11f7acf7e2075605f4bbaf8d"
+            },
+            {
+              "role_name": "Decomposition",
+              "ok": true,
+              "status": "success",
+              "message": "Generated 1 COA(s)",
+              "duration_ms": 16244.016,
+              "duration_pct": 14.75,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 16243.591,
+              "llm_tokens_used": 803,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "ea3cf9bf723fb260304eacd966a2998a5d14dc8d6c747ba0b69e2117a42c0329"
+            },
+            {
+              "role_name": "Procedure",
+              "ok": true,
+              "status": "success",
+              "message": "Generated 2 procedures, 2 triggers across 1 COA(s)",
+              "duration_ms": 12353.877,
+              "duration_pct": 11.22,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 9517.503,
+              "llm_tokens_used": 2687,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "84c3c133c64ffb05f0d1cd9d52f5f70bf37d1e88f6e4838f46124dd68fdaae0a"
+            },
+            {
+              "role_name": "Binding",
+              "ok": true,
+              "status": "success",
+              "message": "Risk assessed for 1 COA(s), recommended: COA-1",
+              "duration_ms": 16266.44,
+              "duration_pct": 14.77,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 16265.962,
+              "llm_tokens_used": 844,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "2e99ec5363db71ba062c4964d43ed4c441d15f8756308931595f7717d1da29c6"
+            },
+            {
+              "role_name": "Validation",
+              "ok": true,
+              "status": "success",
+              "message": "Artifact assembled and validated successfully",
+              "duration_ms": 18651.058,
+              "duration_pct": 16.93,
+              "llm_used": true,
+              "llm_fallback": false,
+              "llm_effective": true,
+              "llm_latency_ms": 18646.082,
+              "llm_tokens_used": 982,
+              "llm_fallback_reason": "",
+              "trace_entry_hash": "d14145296b06470a3e2b7dd64b6eefefacb9335386eb4a3f48bbcb3f3aded9fc"
+            }
+          ]
+        },
+        {
+          "case_id": "AUTH-LAB-006",
+          "name": "Invalid Input Missing Mission Fields",
+          "repetition": 1,
+          "passed": true,
+          "pipeline_ok": false,
+          "error": "Invalid mission input: 'mission_id'",
+          "checks": [
+            {
+              "check_name": "pipeline_ok",
+              "passed": true,
+              "detail": "Pipeline correctly failed on invalid input"
+            }
+          ],
+          "checks_passed": 1,
+          "checks_total": 1,
+          "duration_ms": 0.0,
+          "coa_count": 0,
+          "gap_count": 0,
+          "llm_used_roles": 0,
+          "llm_fallback_roles": 0,
+          "llm_effective_roles": 0,
+          "roles_executed": 0
+        }
+      ]
+    }
+  ],
+  "deltas_vs_deterministic": [],
+  "warnings": []
+}

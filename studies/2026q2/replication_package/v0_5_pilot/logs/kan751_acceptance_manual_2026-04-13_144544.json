@@ -1,0 +1,87 @@
+{
+  "generated_at": "2026-04-13T18:45:46Z",
+  "project_root": "/Users/ws01admin/Desktop/AEGIS",
+  "report_path": "/Users/ws01admin/Desktop/AEGIS/logs/kan751_acceptance_manual_2026-04-13_144544.json",
+  "overall_status": "FAIL",
+  "criteria": {
+    "ac1_all_6_roles_through_fine_tuned_models": {
+      "status": "BLOCKED",
+      "evidence": {
+        "preflight": "PASS",
+        "llm_smoke": "BLOCKED",
+        "e2e": "BLOCKED"
+      }
+    },
+    "ac2_all_6_adapters_registered_and_responding": {
+      "status": "FAIL",
+      "evidence": {
+        "register_adapters": "FAIL",
+        "llm_smoke": "BLOCKED"
+      }
+    },
+    "ac3_valid_mandate_artifacts_from_example_missions": {
+      "status": "BLOCKED",
+      "evidence": {
+        "e2e": "BLOCKED"
+      }
+    },
+    "ac4_gap_reports_correct_for_underspecified_mission": {
+      "status": "PASS",
+      "evidence": {
+        "e2e": "BLOCKED",
+        "deterministic_gap_check": "PASS"
+      }
+    },
+    "ac5_fallback_to_deterministic_when_ollama_unavailable": {
+      "status": "PASS",
+      "evidence": {
+        "fallback_regression_check": "PASS"
+      }
+    }
+  },
+  "stages": {
+    "readiness_gate": {
+      "status": "FAIL",
+      "reason": "overall_status=FAIL",
+      "source": "/Users/ws01admin/Desktop/AEGIS/logs/readiness_gate_manual_2026-04-13_144544.json"
+    },
+    "fallback_regression": {
+      "status": "PASS",
+      "reason": "pytest_passed",
+      "command": "/Users/ws01admin/Desktop/AEGIS/.venv/bin/python -m pytest tests/aegis/test_hybrid_pipeline_fallback.py -q",
+      "returncode": 0,
+      "timed_out": false,
+      "stdout_tail": [
+        ".........                                                                [100%]",
+        "9 passed in 0.08s"
+      ],
+      "stderr_tail": []
+    },
+    "deterministic_gap_check": {
+      "status": "PASS",
+      "reason": "pytest_passed",
+      "command": "/Users/ws01admin/Desktop/AEGIS/.venv/bin/python -m pytest tests/test_e2e_pipeline.py -q -k gap",
+      "returncode": 0,
+      "timed_out": false,
+      "stdout_tail": [
+        "..                                                                       [100%]",
+        "2 passed, 76 deselected in 0.06s"
+      ],
+      "stderr_tail": []
+    },
+    "ab_evaluation": {
+      "status": "SKIPPED",
+      "reason": "not_requested"
+    }
+  },
+  "artifacts": {
+    "readiness_json": "",
+    "ab_report": ""
+  },
+  "ab_profile_summaries": [],
+  "blockers": [
+    "e2e_blocked_by_llm_smoke",
+    "llm_smoke_blocked_by_registration",
+    "register_lora_adapters_failed"
+  ]
+}

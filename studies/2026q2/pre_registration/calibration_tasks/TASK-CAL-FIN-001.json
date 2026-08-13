@@ -1,0 +1,28 @@
+{
+  "task_id": "TASK-CAL-FIN-001",
+  "domain": "financial_reporting",
+  "category": "calibration",
+  "author": "hand_authored_by_PI",
+  "purpose": "Calibration task with unambiguous thresholds for the financial reporting domain.",
+  "stakeholder": "CFO",
+  "request_text": "Prepare the Q2 2026 expense variance report for the CFO. The report must include: total spending by department compared to approved budget; identification of any line item exceeding budget by more than 10 percent; summary of capital expenditure activity exceeding $50,000. Data source: Workday Financials, fiscal period 2026-Q2 (April through June). Deliver as an Excel workbook with separate tabs for summary, departmental detail, and CapEx detail, no later than 15 business days after quarter close. Confidentiality marking: Internal Use Only. Audience: CFO and senior finance leadership.",
+  "expected_anchor": {
+    "mission_intent": "Provide CFO with Q2 2026 expense variance against budget with capex summary",
+    "minimum": [
+      {"dimension": "fiscal_period", "threshold": "2026-Q2 (April through June)", "rationale": "explicit"},
+      {"dimension": "required_sections", "threshold": "departmental spending, line items over 10% variance, CapEx over $50K", "rationale": "three explicit sections"},
+      {"dimension": "variance_threshold", "threshold": "any line item > 10% over budget", "rationale": "explicit"},
+      {"dimension": "capex_threshold", "threshold": "items > $50,000", "rationale": "explicit"},
+      {"dimension": "format", "threshold": "Excel workbook with 3 tabs (summary, departmental, capex)", "rationale": "explicit"},
+      {"dimension": "deadline", "threshold": "15 business days after Q2 close", "rationale": "explicit"}
+    ],
+    "target": [],
+    "constraints": [
+      {"predicate": "data.source == 'workday_financials'", "rationale": "explicit"},
+      {"predicate": "confidentiality == 'INTERNAL_USE_ONLY'", "rationale": "explicit"}
+    ]
+  },
+  "expected_output_type": "MANDATE_AS_CODE",
+  "expected_gaps": [],
+  "notes_for_lead_analyst": "Financial domain calibration. Multi-tab Excel output tests format extraction precision."
+}

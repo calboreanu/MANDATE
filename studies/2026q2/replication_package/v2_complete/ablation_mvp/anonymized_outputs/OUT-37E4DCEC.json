@@ -1,0 +1,68 @@
+{
+  "anon_id": "OUT-37E4DCEC",
+  "task_id": "TASK-MAIN-FIN-030",
+  "output_type": "MANDATE_AS_CODE",
+  "output": {
+    "artifact": {
+      "mandate_id": "TASK-MAIN-FIN-030",
+      "version": "1.0",
+      "generated": "2026-06-29T17:50:11.459Z",
+      "anchor": {
+        "mission_intent": "single-pass combined intent",
+        "minimum": {
+          "description": "minimum acceptable outcome"
+        },
+        "target": {
+          "description": "target outcome"
+        },
+        "constraints": [],
+        "anchor_hash": "b92a6e7da45bbdc3d5f1b2f99a2bd75083840c9e99026c00bc41aa961a076bb2"
+      },
+      "courses_of_action": [
+        {
+          "coa_id": "COA-1",
+          "approach": "single combined approach",
+          "task_dag": {
+            "nodes": [],
+            "edges": []
+          }
+        }
+      ],
+      "recommendation": {
+        "primary_coa": "COA-1",
+        "fallback_sequence": [],
+        "rationale": "single combined pass"
+      },
+      "trace": {
+        "chain_hash": "82430423c7bc9448b0d1aef45de2dfb9959c1696a06c03dea6b5faa737de0f15",
+        "entry_count": 1,
+        "entries": [
+          {
+            "role": "Combined",
+            "decision_type": "single_pass",
+            "mission_id": "TASK-MAIN-FIN-030",
+            "parent_hashes": [],
+            "hash": "bb77962e2af4e9b670b595bf94d38ca23232639fe21710430656329b8a819549"
+          }
+        ]
+      },
+      "registry_reference": {
+        "resolved": false,
+        "source": "ablation_a1_single_pass",
+        "matches": []
+      },
+      "metadata": {
+        "sources_consulted": [
+          "mission_input",
+          "single_pass_llm"
+        ],
+        "ablation": "A1_role_separation_single_pass",
+        "input_hash": "02f263eef7e415d3ba4c945eb068e6373d60de865665b40f1418b39386b1d6bd",
+        "output_hash": "2bbf42a8539a3ca9372b0184cea9d801433a82331b58e7441252b29572a9dd61"
+      }
+    },
+    "gap_reports": [],
+    "has_gaps": false
+  },
+  "ok": true
+}

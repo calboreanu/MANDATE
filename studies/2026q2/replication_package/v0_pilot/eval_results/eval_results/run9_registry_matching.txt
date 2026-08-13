@@ -1,0 +1,19 @@
+============================================================
+REGISTRY MATCH THRESHOLD VERIFICATION
+============================================================
+  [SKIP] defense_intel_mission.json: no registry_reference
+  [SKIP] incident_response_mission.json: no registry_reference
+  [SKIP] multi_coa_mission.json: no registry_reference
+  [SKIP] normal_mission.json: no registry_reference
+  [SKIP] quarterly_report_gap.json: no registry_reference
+  [PASS] quarterly_report_mandate.json  match_type=NOVEL  description=yes
+  [SKIP] underspecified_mission.json: no registry_reference
+
+============================================================
+Artifacts with registry refs: 1/7
+Valid match types: 1/1
+
+Match type distribution:
+  NOVEL           1
+
+Results written to eval_registry_matching_results.json

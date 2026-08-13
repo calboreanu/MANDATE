@@ -1,0 +1,152 @@
+{
+  "coa_metric_bug_resolved": true,
+  "field_path_corrections_applied": true,
+  "notes": "Analysis regenerated 2026-07-01 after Phi-3 completion. Prior generation excluded Phi-3 as in-progress; this version includes all four vendor families. Per-vendor per-domain LLM fallback rates are surfaced explicitly per audit finding.",
+  "vendors": {
+    "llama": {
+      "anchor_hash_n_unique": 75,
+      "anchor_hash_uniqueness": 0.25,
+      "coa_count_distribution": {
+        "1": 100,
+        "3": 200
+      },
+      "coa_source": "output.artifact.courses_of_action",
+      "llm_fallback_rate": 1.0,
+      "llm_fallback_rate_by_domain": {
+        "FIN": {
+          "n_fallback": 100,
+          "n_total": 100,
+          "rate": 1.0
+        },
+        "INT": {
+          "n_fallback": 100,
+          "n_total": 100,
+          "rate": 1.0
+        },
+        "SEC": {
+          "n_fallback": 100,
+          "n_total": 100,
+          "rate": 1.0
+        }
+      },
+      "mean_coa_count": 2.3333333333333335,
+      "mean_gap_report_count": 4.52,
+      "mean_wall_clock_s": 60.996113213,
+      "model": "llama3.2:3b",
+      "n_ok": 300,
+      "n_total": 300,
+      "ok_rate": 1.0,
+      "p2_trace_completeness_rate": 1.0,
+      "vendor": "llama"
+    },
+    "mistral": {
+      "anchor_hash_n_unique": 75,
+      "anchor_hash_uniqueness": 0.25,
+      "coa_count_distribution": {
+        "1": 100,
+        "3": 200
+      },
+      "coa_source": "output.artifact.courses_of_action",
+      "llm_fallback_rate": 0.6666666666666666,
+      "llm_fallback_rate_by_domain": {
+        "FIN": {
+          "n_fallback": 4,
+          "n_total": 100,
+          "rate": 0.04
+        },
+        "INT": {
+          "n_fallback": 96,
+          "n_total": 100,
+          "rate": 0.96
+        },
+        "SEC": {
+          "n_fallback": 100,
+          "n_total": 100,
+          "rate": 1.0
+        }
+      },
+      "mean_coa_count": 2.3333333333333335,
+      "mean_gap_report_count": 5.613333333333333,
+      "mean_wall_clock_s": 35.523125111333336,
+      "model": "mistral:7b",
+      "n_ok": 300,
+      "n_total": 300,
+      "ok_rate": 1.0,
+      "p2_trace_completeness_rate": 1.0,
+      "vendor": "mistral"
+    },
+    "phi": {
+      "anchor_hash_n_unique": 78,
+      "anchor_hash_uniqueness": 0.26,
+      "coa_count_distribution": {
+        "1": 108,
+        "3": 192
+      },
+      "coa_source": "output.artifact.courses_of_action",
+      "llm_fallback_rate": 1.0,
+      "llm_fallback_rate_by_domain": {
+        "FIN": {
+          "n_fallback": 100,
+          "n_total": 100,
+          "rate": 1.0
+        },
+        "INT": {
+          "n_fallback": 100,
+          "n_total": 100,
+          "rate": 1.0
+        },
+        "SEC": {
+          "n_fallback": 100,
+          "n_total": 100,
+          "rate": 1.0
+        }
+      },
+      "mean_coa_count": 2.28,
+      "mean_gap_report_count": 3.76,
+      "mean_wall_clock_s": 128.16617994633333,
+      "model": "phi3:14b",
+      "n_ok": 300,
+      "n_total": 300,
+      "ok_rate": 1.0,
+      "p2_trace_completeness_rate": 1.0,
+      "vendor": "phi"
+    },
+    "qwen": {
+      "anchor_hash_n_unique": 77,
+      "anchor_hash_uniqueness": 0.25666666666666665,
+      "coa_count_distribution": {
+        "1": 108,
+        "3": 192
+      },
+      "coa_source": "output.artifact.courses_of_action",
+      "llm_fallback_rate": 0.05333333333333334,
+      "llm_fallback_rate_by_domain": {
+        "FIN": {
+          "n_fallback": 0,
+          "n_total": 100,
+          "rate": 0.0
+        },
+        "INT": {
+          "n_fallback": 0,
+          "n_total": 100,
+          "rate": 0.0
+        },
+        "SEC": {
+          "n_fallback": 16,
+          "n_total": 100,
+          "rate": 0.16
+        }
+      },
+      "mean_coa_count": 2.28,
+      "mean_gap_report_count": 4.8133333333333335,
+      "mean_wall_clock_s": 132.05328898166667,
+      "model": "qwen2.5:32b",
+      "n_ok": 300,
+      "n_total": 300,
+      "ok_rate": 1.0,
+      "p2_trace_completeness_rate": 1.0,
+      "vendor": "qwen"
+    }
+  },
+  "vendors_analyzed": "4 of 4 (all vendor families completed 2026-06-25 through 2026-06-26)"
+}

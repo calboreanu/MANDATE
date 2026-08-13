@@ -1,0 +1,41 @@
+From 9413b78beb7a6be7970c548ed873c2a2069e8ce7 Mon Sep 17 00:00:00 2001
+From: Elias Calboreanu <ecalboreanu@gmail.com>
+Date: Thu, 6 Aug 2026 10:33:18 -0400
+Subject: [PATCH 3/5] Accept frozen corpus text field in rerun analyzer
+
+---
+ code/apparatus/rerun_analysis.py            | 3 ++-
+ code/apparatus/tests/test_rerun_analysis.py | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/code/apparatus/rerun_analysis.py b/code/apparatus/rerun_analysis.py
+index 1e2317d..b741861 100644
+--- a/code/apparatus/rerun_analysis.py
++++ b/code/apparatus/rerun_analysis.py
+@@ -360,8 +360,9 @@ def _validate_prompt_and_schema_evidence(
+             issues.append(f"{rid}: Cond-A extraction prompt template hash mismatch")
+         row = (corpus_rows or {}).get(str(record.get("task_id")))
+         if row:
++            task_text = str(row.get("request_text") if row.get("request_text") is not None else row.get("text") or "")
+             expected_prompt = sha256_text(
+-                EXTRACTION_PROMPT.replace("{task_text}", str(row.get("request_text") or ""))
++                EXTRACTION_PROMPT.replace("{task_text}", task_text)
+             )
+             if meta.get("extraction_prompt_sha256") != expected_prompt:
+                 issues.append(f"{rid}: Cond-A rendered extraction prompt hash mismatch")
+diff --git a/code/apparatus/tests/test_rerun_analysis.py b/code/apparatus/tests/test_rerun_analysis.py
+index 99fbec7..1ec3c51 100644
+--- a/code/apparatus/tests/test_rerun_analysis.py
++++ b/code/apparatus/tests/test_rerun_analysis.py
+@@ -532,7 +532,7 @@ def test_no_network_run_matrix_smoke_passes_strict_analyzer(tmp_path):
+         smoke=True,
+         cost_ledger=cost_path,
+         preflight_manifest=_preflight_manifest(),
+-        corpus_rows={task.task_id: {"task_id": task.task_id, "request_text": task.request_text}},
++        corpus_rows={task.task_id: {"task_id": task.task_id, "text": task.request_text}},
+     )
+     assert issues == []
+     assert report["ok"] is True
+-- 
+2.53.0
+

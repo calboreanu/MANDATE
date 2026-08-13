@@ -1,0 +1,97 @@
+{
+  "scenario": "scenario_01_ciso_report",
+  "mission_id": "LIVE-CISO-001",
+  "status": "SUCCESS",
+  "ok": true,
+  "has_gaps": false,
+  "elapsed_ms": 7.4,
+  "summary": {
+    "ok": true,
+    "roles_executed": 6,
+    "roles_passed": 6,
+    "gaps": 0,
+    "errors": [],
+    "mandate_id": "LIVE-CISO-001",
+    "total_duration_ms": 7.437
+  },
+  "metadata": {
+    "scenario": "Paper Section 11 - CISO Weekly Security Report",
+    "domain": "business_reporting",
+    "paper_reference": "Section 11.1-11.6",
+    "claim": "RQ1 - Verifiable success criteria with anchor extraction",
+    "expected_outcome": "SUCCESS - mandate-as-code with anchor hash, trace chain, 2 COAs"
+  },
+  "artifact": {
+    "has_anchor": true,
+    "anchor_hash": "6902013ebe3c5e0b672288deb6f8f72ed19b0977f54e427c94f07e0bc924699b",
+    "num_coas": 2,
+    "has_trace": true,
+    "trace_entries": 6,
+    "has_registry_reference": true,
+    "has_risk_profile": false,
+    "recommendation": "COA-3"
+  },
+  "coas": [
+    {
+      "coa_id": "COA-1",
+      "num_tasks": 3,
+      "num_edges": 3,
+      "has_risk_assessment": true,
+      "risk_score": "LOW",
+      "confidence_min": "MEDIUM"
+    },
+    {
+      "coa_id": "COA-3",
+      "num_tasks": 4,
+      "num_edges": 3,
+      "has_risk_assessment": true,
+      "risk_score": "MEDIUM",
+      "confidence_min": "LOW"
+    }
+  ],
+  "trace_chain": {
+    "chain_hash": "d67cca0852ed5afe6b8e8bc8ee5c478122bdec6c11f60b6e2e5aed1319f8ae9a",
+    "num_entries": 6,
+    "roles": [
+      "Intake",
+      "Interpreter",
+      "Decomposition",
+      "Procedure",
+      "Binding",
+      "Validation"
+    ],
+    "all_hashed": true
+  },
+  "role_results": [
+    {
+      "role": "Intake",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Interpreter",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Decomposition",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Procedure",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Binding",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Validation",
+      "ok": true,
+      "elapsed_ms": null
+    }
+  ]
+}

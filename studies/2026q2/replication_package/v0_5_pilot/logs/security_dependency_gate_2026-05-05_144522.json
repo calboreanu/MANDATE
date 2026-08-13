@@ -1,0 +1,219 @@
+{
+  "generated_at": "2026-05-05T14:45:26Z",
+  "status": "FAIL",
+  "project_root": "/sessions/kind-happy-sagan/mnt/AEGIS",
+  "requirements_file": "/sessions/kind-happy-sagan/mnt/AEGIS/requirements-frozen.txt",
+  "python_bin": "/usr/bin/python3",
+  "totals": {
+    "pinned_requirements": 102,
+    "installed_packages": 189,
+    "missing_required": 43,
+    "version_mismatches": 28,
+    "vulnerabilities": 0
+  },
+  "dependency_integrity": {
+    "ok": false,
+    "missing_required": [
+      "backoff",
+      "build",
+      "chromadb",
+      "durationpy",
+      "fsspec",
+      "googleapis-common-protos",
+      "grpcio",
+      "hf-xet",
+      "httptools",
+      "huggingface-hub",
+      "joblib",
+      "kubernetes",
+      "mmh3",
+      "networkx",
+      "opentelemetry-api",
+      "opentelemetry-exporter-otlp-proto-common",
+      "opentelemetry-exporter-otlp-proto-grpc",
+      "opentelemetry-proto",
+      "opentelemetry-sdk",
+      "opentelemetry-semantic-conventions",
+      "orjson",
+      "overrides",
+      "posthog",
+      "pybase64",
+      "pypika",
+      "pyproject-hooks",
+      "regex",
+      "requests-oauthlib",
+      "safetensors",
+      "scikit-learn",
+      "scipy",
+      "sentence-transformers",
+      "tenacity",
+      "threadpoolctl",
+      "tokenizers",
+      "torch",
+      "tqdm",
+      "transformers",
+      "typer-slim",
+      "uvloop",
+      "watchfiles",
+      "websocket-client",
+      "websockets"
+    ],
+    "version_mismatches": [
+      {
+        "package": "anyio",
+        "expected": "4.12.1",
+        "actual": "4.13.0"
+      },
+      {
+        "package": "attrs",
+        "expected": "25.4.0",
+        "actual": "26.1.0"
+      },
+      {
+        "package": "bcrypt",
+        "expected": "5.0.0",
+        "actual": "3.2.0"
+      },
+      {
+        "package": "certifi",
+        "expected": "2026.1.4",
+        "actual": "2026.2.25"
+      },
+      {
+        "package": "charset-normalizer",
+        "expected": "3.4.4",
+        "actual": "3.4.6"
+      },
+      {
+        "package": "cryptography",
+        "expected": "46.0.5",
+        "actual": "46.0.6"
+      },
+      {
+        "package": "fastapi",
+        "expected": "0.136.0",
+        "actual": "0.136.1"
+      },
+      {
+        "package": "filelock",
+        "expected": "3.21.0",
+        "actual": "3.29.0"
+      },
+      {
+        "package": "importlib-metadata",
+        "expected": "8.7.1",
+        "actual": "4.6.4"
+      },
+      {
+        "package": "importlib-resources",
+        "expected": "6.5.2",
+        "actual": "7.1.0"
+      },
+      {
+        "package": "jinja2",
+        "expected": "3.1.6",
+        "actual": "3.0.3"
+      },
+      {
+        "package": "markupsafe",
+        "expected": "3.0.3",
+        "actual": "2.0.1"
+      },
+      {
+        "package": "numpy",
+        "expected": "2.4.2",
+        "actual": "2.2.6"
+      },
+      {
+        "package": "oauthlib",
+        "expected": "3.3.1",
+        "actual": "3.2.0"
+      },
+      {
+        "package": "onnxruntime",
+        "expected": "1.24.1",
+        "actual": "1.23.2"
+      },
+      {
+        "package": "protobuf",
+        "expected": "6.33.5",
+        "actual": "7.34.1"
+      },
+      {
+        "package": "pydantic",
+        "expected": "2.12.5",
+        "actual": "2.13.3"
+      },
+      {
+        "package": "pydantic-core",
+        "expected": "2.41.5",
+        "actual": "2.46.3"
+      },
+      {
+        "package": "pygments",
+        "expected": "2.19.2",
+        "actual": "2.20.0"
+      },
+      {
+        "package": "pypdfium2",
+        "expected": "5.4.0",
+        "actual": "5.6.0"
+      },
+      {
+        "package": "python-dotenv",
+        "expected": "1.2.1",
+        "actual": "1.2.2"
+      },
+      {
+        "package": "python-multipart",
+        "expected": "0.0.26",
+        "actual": "0.0.27"
+      },
+      {
+        "package": "requests",
+        "expected": "2.32.5",
+        "actual": "2.33.1"
+      },
+      {
+        "package": "rich",
+        "expected": "14.3.2",
+        "actual": "15.0.0"
+      },
+      {
+        "package": "setuptools",
+        "expected": "82.0.0",
+        "actual": "59.6.0"
+      },
+      {
+        "package": "typer",
+        "expected": "0.23.0",
+        "actual": "0.25.1"
+      },
+      {
+        "package": "uvicorn",
+        "expected": "0.40.0",
+        "actual": "0.46.0"
+      },
+      {
+        "package": "zipp",
+        "expected": "3.23.0",
+        "actual": "1.0.0"
+      }
+    ]
+  },
+  "pip_check": {
+    "ok": false,
+    "skipped": false,
+    "output_tail": [
+      "pipx 1.0.0 has requirement argcomplete>=1.9.4, but you have argcomplete 1.8.1."
+    ]
+  },
+  "vulnerability_scan": {
+    "ok": true,
+    "skipped": false,
+    "unavailable": false,
+    "strict_audit": false,
+    "vulnerability_count": 0,
+    "findings": []
+  }
+}

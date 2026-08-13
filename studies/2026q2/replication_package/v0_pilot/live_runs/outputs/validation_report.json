@@ -1,0 +1,537 @@
+{
+  "validations": [
+    {
+      "scenario": "scenario_01_ciso_report",
+      "checks": [
+        {
+          "check": "anchor_hash",
+          "status": "PASS",
+          "stored": "6902013ebe3c5e0b...",
+          "recomputed": "6902013ebe3c5e0b...",
+          "match": true
+        },
+        {
+          "check": "trace_chain",
+          "status": "PASS",
+          "num_entries": 6,
+          "roles": [
+            "Intake",
+            "Interpreter",
+            "Decomposition",
+            "Procedure",
+            "Binding",
+            "Validation"
+          ],
+          "all_hashed": true,
+          "parent_linkage_valid": true
+        },
+        {
+          "check": "anchor_fields",
+          "status": "PASS",
+          "fields": {
+            "mission_intent": true,
+            "minimum": true,
+            "target": true,
+            "constraints": true,
+            "anchor_hash": true
+          },
+          "all_present": true
+        },
+        {
+          "check": "coa_diversity",
+          "status": "PASS",
+          "num_coas": 2,
+          "task_counts": [
+            3,
+            4
+          ],
+          "edge_counts": [
+            3,
+            3
+          ],
+          "risk_scores": [
+            "LOW",
+            "MEDIUM"
+          ],
+          "diversity_flags": {
+            "different_task_counts": true,
+            "different_risk_scores": true,
+            "different_edge_counts": false,
+            "different_tool_coverage": false
+          },
+          "diversity_score": "2/4"
+        },
+        {
+          "check": "risk_profile",
+          "status": "SKIP",
+          "reason": "no risk profile"
+        },
+        {
+          "check": "gap_detection",
+          "status": "SKIP",
+          "reason": "not a gap scenario"
+        }
+      ]
+    },
+    {
+      "scenario": "scenario_02_gap_undefined_minimum",
+      "checks": [
+        {
+          "check": "anchor_hash",
+          "status": "PASS",
+          "stored": "8707143714afb4c1...",
+          "recomputed": "8707143714afb4c1...",
+          "match": true
+        },
+        {
+          "check": "trace_chain",
+          "status": "PASS",
+          "num_entries": 6,
+          "roles": [
+            "Intake",
+            "Interpreter",
+            "Decomposition",
+            "Procedure",
+            "Binding",
+            "Validation"
+          ],
+          "all_hashed": true,
+          "parent_linkage_valid": true
+        },
+        {
+          "check": "anchor_fields",
+          "status": "PASS",
+          "fields": {
+            "mission_intent": true,
+            "minimum": true,
+            "target": true,
+            "constraints": true,
+            "anchor_hash": true
+          },
+          "all_present": true
+        },
+        {
+          "check": "coa_diversity",
+          "status": "SKIP",
+          "reason": "only 1 COA(s)"
+        },
+        {
+          "check": "risk_profile",
+          "status": "SKIP",
+          "reason": "no risk profile"
+        },
+        {
+          "check": "gap_detection",
+          "status": "PASS",
+          "expected_gap_type": "UNDEFINED_MINIMUM",
+          "detected_gap_types": [
+            "UNDEFINED_MINIMUM",
+            "MISSING_CAPABILITY"
+          ],
+          "found": true
+        }
+      ]
+    },
+    {
+      "scenario": "scenario_03_gap_undefined_target",
+      "checks": [
+        {
+          "check": "anchor_hash",
+          "status": "PASS",
+          "stored": "d4d3ea4ec57c9d7c...",
+          "recomputed": "d4d3ea4ec57c9d7c...",
+          "match": true
+        },
+        {
+          "check": "trace_chain",
+          "status": "PASS",
+          "num_entries": 6,
+          "roles": [
+            "Intake",
+            "Interpreter",
+            "Decomposition",
+            "Procedure",
+            "Binding",
+            "Validation"
+          ],
+          "all_hashed": true,
+          "parent_linkage_valid": true
+        },
+        {
+          "check": "anchor_fields",
+          "status": "PASS",
+          "fields": {
+            "mission_intent": true,
+            "minimum": true,
+            "target": true,
+            "constraints": true,
+            "anchor_hash": true
+          },
+          "all_present": true
+        },
+        {
+          "check": "coa_diversity",
+          "status": "SKIP",
+          "reason": "only 1 COA(s)"
+        },
+        {
+          "check": "risk_profile",
+          "status": "SKIP",
+          "reason": "no risk profile"
+        },
+        {
+          "check": "gap_detection",
+          "status": "PASS",
+          "expected_gap_type": "UNDEFINED_TARGET",
+          "detected_gap_types": [
+            "UNDEFINED_TARGET"
+          ],
+          "found": true
+        }
+      ]
+    },
+    {
+      "scenario": "scenario_04_gap_unknown_pattern",
+      "checks": [
+        {
+          "check": "anchor_hash",
+          "status": "PASS",
+          "stored": "40825526f68c9a51...",
+          "recomputed": "40825526f68c9a51...",
+          "match": true
+        },
+        {
+          "check": "trace_chain",
+          "status": "PASS",
+          "num_entries": 6,
+          "roles": [
+            "Intake",
+            "Interpreter",
+            "Decomposition",
+            "Procedure",
+            "Binding",
+            "Validation"
+          ],
+          "all_hashed": true,
+          "parent_linkage_valid": true
+        },
+        {
+          "check": "anchor_fields",
+          "status": "PASS",
+          "fields": {
+            "mission_intent": true,
+            "minimum": true,
+            "target": true,
+            "constraints": true,
+            "anchor_hash": true
+          },
+          "all_present": true
+        },
+        {
+          "check": "coa_diversity",
+          "status": "SKIP",
+          "reason": "only 1 COA(s)"
+        },
+        {
+          "check": "risk_profile",
+          "status": "SKIP",
+          "reason": "no risk profile"
+        },
+        {
+          "check": "gap_detection",
+          "status": "PASS",
+          "expected_gap_type": "UNKNOWN_PATTERN",
+          "detected_gap_types": [
+            "UNKNOWN_PATTERN"
+          ],
+          "found": true
+        }
+      ]
+    },
+    {
+      "scenario": "scenario_05_gap_missing_capability",
+      "checks": [
+        {
+          "check": "anchor_hash",
+          "status": "PASS",
+          "stored": "1dff20b7123efb32...",
+          "recomputed": "1dff20b7123efb32...",
+          "match": true
+        },
+        {
+          "check": "trace_chain",
+          "status": "PASS",
+          "num_entries": 6,
+          "roles": [
+            "Intake",
+            "Interpreter",
+            "Decomposition",
+            "Procedure",
+            "Binding",
+            "Validation"
+          ],
+          "all_hashed": true,
+          "parent_linkage_valid": true
+        },
+        {
+          "check": "anchor_fields",
+          "status": "PASS",
+          "fields": {
+            "mission_intent": true,
+            "minimum": true,
+            "target": true,
+            "constraints": true,
+            "anchor_hash": true
+          },
+          "all_present": true
+        },
+        {
+          "check": "coa_diversity",
+          "status": "SKIP",
+          "reason": "only 1 COA(s)"
+        },
+        {
+          "check": "risk_profile",
+          "status": "SKIP",
+          "reason": "no risk profile"
+        },
+        {
+          "check": "gap_detection",
+          "status": "PASS",
+          "expected_gap_type": "MISSING_CAPABILITY",
+          "detected_gap_types": [
+            "MISSING_CAPABILITY"
+          ],
+          "found": true
+        }
+      ]
+    },
+    {
+      "scenario": "scenario_06_gap_unassessable_risk",
+      "checks": [
+        {
+          "check": "anchor_hash",
+          "status": "PASS",
+          "stored": "91bdacfe15a06542...",
+          "recomputed": "91bdacfe15a06542...",
+          "match": true
+        },
+        {
+          "check": "trace_chain",
+          "status": "PASS",
+          "num_entries": 6,
+          "roles": [
+            "Intake",
+            "Interpreter",
+            "Decomposition",
+            "Procedure",
+            "Binding",
+            "Validation"
+          ],
+          "all_hashed": true,
+          "parent_linkage_valid": true
+        },
+        {
+          "check": "anchor_fields",
+          "status": "PASS",
+          "fields": {
+            "mission_intent": true,
+            "minimum": true,
+            "target": true,
+            "constraints": true,
+            "anchor_hash": true
+          },
+          "all_present": true
+        },
+        {
+          "check": "coa_diversity",
+          "status": "SKIP",
+          "reason": "only 1 COA(s)"
+        },
+        {
+          "check": "risk_profile",
+          "status": "SKIP",
+          "reason": "no risk profile"
+        },
+        {
+          "check": "gap_detection",
+          "status": "PASS",
+          "expected_gap_type": "UNASSESSABLE_RISK",
+          "detected_gap_types": [
+            "UNASSESSABLE_RISK",
+            "MISSING_CAPABILITY"
+          ],
+          "found": true
+        }
+      ]
+    },
+    {
+      "scenario": "scenario_07_multi_coa_ir",
+      "checks": [
+        {
+          "check": "anchor_hash",
+          "status": "PASS",
+          "stored": "861eabb91d4caf39...",
+          "recomputed": "861eabb91d4caf39...",
+          "match": true
+        },
+        {
+          "check": "trace_chain",
+          "status": "PASS",
+          "num_entries": 6,
+          "roles": [
+            "Intake",
+            "Interpreter",
+            "Decomposition",
+            "Procedure",
+            "Binding",
+            "Validation"
+          ],
+          "all_hashed": true,
+          "parent_linkage_valid": true
+        },
+        {
+          "check": "anchor_fields",
+          "status": "PASS",
+          "fields": {
+            "mission_intent": true,
+            "minimum": true,
+            "target": true,
+            "constraints": true,
+            "anchor_hash": true
+          },
+          "all_present": true
+        },
+        {
+          "check": "coa_diversity",
+          "status": "PASS",
+          "num_coas": 3,
+          "task_counts": [
+            3,
+            4,
+            4
+          ],
+          "edge_counts": [
+            3,
+            3,
+            3
+          ],
+          "risk_scores": [
+            "MEDIUM",
+            "HIGH",
+            "HIGH"
+          ],
+          "diversity_flags": {
+            "different_task_counts": true,
+            "different_risk_scores": true,
+            "different_edge_counts": false,
+            "different_tool_coverage": false
+          },
+          "diversity_score": "2/4"
+        },
+        {
+          "check": "risk_profile",
+          "status": "SKIP",
+          "reason": "no risk profile"
+        },
+        {
+          "check": "gap_detection",
+          "status": "SKIP",
+          "reason": "not a gap scenario"
+        }
+      ]
+    },
+    {
+      "scenario": "scenario_08_cross_domain_intel",
+      "checks": [
+        {
+          "check": "anchor_hash",
+          "status": "PASS",
+          "stored": "e11a3b1e17762352...",
+          "recomputed": "e11a3b1e17762352...",
+          "match": true
+        },
+        {
+          "check": "trace_chain",
+          "status": "PASS",
+          "num_entries": 6,
+          "roles": [
+            "Intake",
+            "Interpreter",
+            "Decomposition",
+            "Procedure",
+            "Binding",
+            "Validation"
+          ],
+          "all_hashed": true,
+          "parent_linkage_valid": true
+        },
+        {
+          "check": "anchor_fields",
+          "status": "PASS",
+          "fields": {
+            "mission_intent": true,
+            "minimum": true,
+            "target": true,
+            "constraints": true,
+            "anchor_hash": true
+          },
+          "all_present": true
+        },
+        {
+          "check": "coa_diversity",
+          "status": "PASS",
+          "num_coas": 2,
+          "task_counts": [
+            3,
+            4
+          ],
+          "edge_counts": [
+            3,
+            3
+          ],
+          "risk_scores": [
+            "LOW",
+            "MEDIUM"
+          ],
+          "diversity_flags": {
+            "different_task_counts": true,
+            "different_risk_scores": true,
+            "different_edge_counts": false,
+            "different_tool_coverage": false
+          },
+          "diversity_score": "2/4"
+        },
+        {
+          "check": "risk_profile",
+          "status": "SKIP",
+          "reason": "no risk profile"
+        },
+        {
+          "check": "gap_detection",
+          "status": "SKIP",
+          "reason": "not a gap scenario"
+        }
+      ]
+    }
+  ],
+  "total_checks": 48,
+  "pass_count": 32,
+  "claims": {
+    "RQ1 - Verifiable success criteria": true,
+    "RQ2 - Multiple valid COAs": true,
+    "RQ3 - Gap detection (5 types)": true,
+    "Property 1 - Anchor immutability": true,
+    "Property 2 - Trace completeness": true,
+    "Cross-domain (IR)": true,
+    "Cross-domain (INTEL)": true,
+    "Section 11 walkthrough": true
+  },
+  "gap_types_exercised": [
+    "MISSING_CAPABILITY",
+    "UNASSESSABLE_RISK",
+    "UNDEFINED_MINIMUM",
+    "UNDEFINED_TARGET",
+    "UNKNOWN_PATTERN"
+  ]
+}

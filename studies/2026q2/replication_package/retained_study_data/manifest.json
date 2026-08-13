@@ -1,0 +1,70 @@
+{
+  "study_release_version": "2026.08.13",
+  "purpose": "Retained raw and per-record evidence for the complete MANDATE study; historical source paths are provenance labels, not separate results.",
+  "source_root_label": "mandate_eval_2026Q2",
+  "files": [
+    {
+      "path": "sampled_judge_gpt4o.jsonl.gz",
+      "source": "08_grading/judge_1_gpt4o/scores.jsonl",
+      "records": 700,
+      "bytes": 239621,
+      "sha256": "b725ece5cf050bc400fac9c0b335fd79d67947ae93e679c0300cd9806b32e4c7"
+    },
+    {
+      "path": "sampled_judge_claude.jsonl.gz",
+      "source": "08_grading/judge_2_claude_opus/scores.jsonl",
+      "records": 700,
+      "bytes": 588396,
+      "sha256": "2a1336f751a2d8801bc5e4ac6cfdf6b3aa35e55d9d967903e85a2c10e46e112e"
+    },
+    {
+      "path": "sampled_judge_gemini.jsonl.gz",
+      "source": "08_grading/judge_3_gemini_pro/scores.jsonl",
+      "records": 700,
+      "bytes": 214089,
+      "sha256": "0c03fcb55cf473c48174024ee18a5ce02bbbc0f844817b379a5ec22900ccff0d"
+    },
+    {
+      "path": "full_coverage_judge_gpt4o.jsonl.gz",
+      "source": "08_grading_v2/judge_1_gpt4o/scores.jsonl",
+      "records": 12000,
+      "bytes": 4931358,
+      "sha256": "e2f567ebabc557daa8807f2d51e964eeff7a96c6b66da38acd43fcdd5843881b"
+    },
+    {
+      "path": "full_coverage_judge_claude.jsonl.gz",
+      "source": "08_grading_v2/judge_2_claude_opus/scores.jsonl",
+      "records": 12000,
+      "bytes": 14105256,
+      "sha256": "46cea43d1d824e64b7508d377669138bf0cebb3665888a949d148f239e5ebea2"
+    },
+    {
+      "path": "full_coverage_judge_gemini.jsonl.gz",
+      "source": "08_grading_v2/judge_3_gemini_pro/scores.jsonl",
+      "records": 12000,
+      "bytes": 4243985,
+      "sha256": "d0391fbd84291c5b1da1d21e64bd58fd80605f314778decec133ca5fc2e2627f"
+    },
+    {
+      "path": "perturbation_judge_gpt4o_partial.jsonl.gz",
+      "source": "08_grading_v2/perturbations/judge_1_gpt4o/scores.jsonl",
+      "records": 14685,
+      "bytes": 5915307,
+      "sha256": "b248851d5c37262bd95023cf2a90e2171f28b693bf86e4dd041edde74ffe4f64"
+    },
+    {
+      "path": "perturbation_judge_claude_partial.jsonl.gz",
+      "source": "08_grading_v2/perturbations/judge_2_claude_opus/scores.jsonl",
+      "records": 14685,
+      "bytes": 16406827,
+      "sha256": "624aaf4f9c1faa00b8964a358ed66c026d5e010fe79b536d9edf63bbefc76478"
+    },
+    {
+      "path": "perturbation_judge_gemini_partial.jsonl.gz",
+      "source": "08_grading_v2/perturbations/judge_3_gemini_pro/scores.jsonl",
+      "records": 14685,
+      "bytes": 5248025,
+      "sha256": "d8358b7dc70ce71e2e402a0deebd24c364f5a7ed03ccd0c7604107e52c70eb2b"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "cond_a_total": 1500,
+  "cond_b_total": 1500,
+  "cost_mode": "conservative_upper_bound",
+  "executable_with_blocking_count": 0,
+  "file_hash_inventory": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z/provenance/file_hashes.sha256",
+  "ok": true,
+  "primary_denominator_N": 2999,
+  "settled_total_usd": 191.388447,
+  "v3_root": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z"
+}

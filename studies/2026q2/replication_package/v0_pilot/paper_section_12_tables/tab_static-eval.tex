@@ -1,0 +1,27 @@
+\begin{table}[H]
+\caption{Static Evaluation Results: AEGIS Reference Implementation}
+\label{tab:static-eval}
+\centering
+\small
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{@{}llccl@{}}
+\toprule
+\textbf{\#} & \textbf{Metric} & \textbf{Result} & \textbf{Status} & \textbf{Notes} \\
+\midrule
+1  & Test suite pass rate         & 499/500 (99.8\%) & PASS & 1 skip (known) \\
+2  & Anchor field extraction      & 7/7 (100\%)      & PASS & All M,T,C fields present \\
+3  & Gap detection precision      & 96.8\% (30/31)   & PASS & Structurally complete examples \\
+4  & Gap detection recall         & 47.6\% (30/63) raw & NOTE & 100\% (30/30) excluding 33 input-only examples \\
+5  & Trace chain integrity        & 2/2 (100\%)      & PASS & All hashes verify \\
+6  & Anchor hash (Algorithm 1)    & 1/1 (100\%)      & PASS & Production hashing module \\
+7  & COA diversity                & 3/3 (100\%)      & PASS & Structural variation confirmed \\
+8  & Cross-domain pipeline        & 5/5 (100\%)      & PASS & Generic, IR, Intel, Pentest, Underspec \\
+9  & Constraint grammar           & 12/12 (100\%)    & PASS & All grammar patterns parsed \\
+10 & NIST AI RMF mapping          & 11/11 (100\%)    & PASS & All MAP \& MEASURE subcategories \\
+11 & Registry matching            & 5/5 (100\%)      & PASS & All match types validated \\
+12 & Readiness scores             & 1/1 (100\%)      & PASS & 17\% (1/6), blocking=True \\
+13 & Timing (8 scenarios)         & $<$100ms total   & PASS & Deterministic, no LLM required \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}

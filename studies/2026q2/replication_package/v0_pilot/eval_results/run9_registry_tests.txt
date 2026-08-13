@@ -1,0 +1,44 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.12, pytest-9.0.3, pluggy-1.6.0 -- /usr/bin/python
+cachedir: .pytest_cache
+rootdir: /sessions/intelligent-ecstatic-cerf/mnt/Desktop/AEGIS
+configfile: pyproject.toml
+collecting ... collected 35 items
+
+tests/mandate/test_success_registry.py::TestTokenization::test_basic_tokenize PASSED [  2%]
+tests/mandate/test_success_registry.py::TestTokenization::test_stop_words_removed PASSED [  5%]
+tests/mandate/test_success_registry.py::TestTokenization::test_empty_string PASSED [  8%]
+tests/mandate/test_success_registry.py::TestTokenization::test_single_char_excluded PASSED [ 11%]
+tests/mandate/test_success_registry.py::TestTokenization::test_case_insensitive PASSED [ 14%]
+tests/mandate/test_success_registry.py::TestJaccardSimilarity::test_identical_sets PASSED [ 17%]
+tests/mandate/test_success_registry.py::TestJaccardSimilarity::test_disjoint_sets PASSED [ 20%]
+tests/mandate/test_success_registry.py::TestJaccardSimilarity::test_partial_overlap PASSED [ 22%]
+tests/mandate/test_success_registry.py::TestJaccardSimilarity::test_empty_both PASSED [ 25%]
+tests/mandate/test_success_registry.py::TestJaccardSimilarity::test_one_empty PASSED [ 28%]
+tests/mandate/test_success_registry.py::TestSuccessRecord::test_basic_creation PASSED [ 31%]
+tests/mandate/test_success_registry.py::TestSuccessRecord::test_from_artifact PASSED [ 34%]
+tests/mandate/test_success_registry.py::TestSuccessRecord::test_to_dict_and_from_dict PASSED [ 37%]
+tests/mandate/test_success_registry.py::TestSuccessRecord::test_empty_artifact PASSED [ 40%]
+tests/mandate/test_success_registry.py::TestSuccessRegistryBasic::test_empty_registry PASSED [ 42%]
+tests/mandate/test_success_registry.py::TestSuccessRegistryBasic::test_record_from_artifact PASSED [ 45%]
+tests/mandate/test_success_registry.py::TestSuccessRegistryBasic::test_add_and_remove PASSED [ 48%]
+tests/mandate/test_success_registry.py::TestSuccessRegistryBasic::test_record_ids_sorted PASSED [ 51%]
+tests/mandate/test_success_registry.py::TestSuccessRegistrySimilarity::test_find_similar_intent PASSED [ 54%]
+tests/mandate/test_success_registry.py::TestSuccessRegistrySimilarity::test_find_similar_with_domain_filter PASSED [ 57%]
+tests/mandate/test_success_registry.py::TestSuccessRegistrySimilarity::test_find_similar_with_domain_filter_excludes_unlabeled_records PASSED [ 60%]
+tests/mandate/test_success_registry.py::TestSuccessRegistrySimilarity::test_find_similar_with_tool_classes PASSED [ 62%]
+tests/mandate/test_success_registry.py::TestSuccessRegistrySimilarity::test_find_similar_with_constraints PASSED [ 65%]
+tests/mandate/test_success_registry.py::TestSuccessRegistrySimilarity::test_find_similar_empty_registry PASSED [ 68%]
+tests/mandate/test_success_registry.py::TestSuccessRegistrySimilarity::test_min_score_filter PASSED [ 71%]
+tests/mandate/test_success_registry.py::TestSuccessRegistrySimilarity::test_custom_weights PASSED [ 74%]
+tests/mandate/test_success_registry.py::TestSuccessRegistrySimilarity::test_top_k PASSED [ 77%]
+tests/mandate/test_success_registry.py::TestSuccessRegistryQueries::test_find_by_domain PASSED [ 80%]
+tests/mandate/test_success_registry.py::TestSuccessRegistryQueries::test_find_by_tool_class PASSED [ 82%]
+tests/mandate/test_success_registry.py::TestSuccessRegistryPersistence::test_save_and_load PASSED [ 85%]
+tests/mandate/test_success_registry.py::TestSuccessRegistryPersistence::test_load_nonexistent PASSED [ 88%]
+tests/mandate/test_success_registry.py::TestSuccessRegistryPersistence::test_merge PASSED [ 91%]
+tests/mandate/test_success_registry.py::TestSuccessRegistryPersistence::test_stats PASSED [ 94%]
+tests/mandate/test_success_registry.py::TestSuccessRegistryPersistence::test_to_dict PASSED [ 97%]
+tests/mandate/test_success_registry.py::TestSimilarityMatch::test_to_dict PASSED [100%]
+
+============================== 35 passed in 0.05s ==============================

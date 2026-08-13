@@ -1,0 +1,11 @@
+{
+  "conservative_settlement_count": 3,
+  "extra_attempt_cost_usd": 0,
+  "ledger_path": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z/api_cost_ledger.jsonl",
+  "mode": "conservative_upper_bound",
+  "record_summary_count": 3000,
+  "record_summary_total_usd": 191.388447,
+  "reservation_count": 10513,
+  "settled_total_usd": 191.388447,
+  "settlement_count": 10513
+}

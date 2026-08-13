@@ -1,0 +1,11 @@
+============================================================
+READINESS SCORE VALIDATION
+============================================================
+
+Artifact gap reports with readiness_score: 1/1
+  quarterly_report_gap.json       pct=17  blocking=True
+
+Corpus gap examples with readiness_score: 0/60
+
+All readiness scores consistent with roles_unblocked/6 formula
+Results written to eval_readiness_score_results.json

@@ -1,0 +1,88 @@
+{
+  "generated_at": "2026-04-30T12:21:57Z",
+  "project_root": "/sessions/vibrant-modest-brown/mnt/Desktop/AEGIS",
+  "report_path": "/sessions/vibrant-modest-brown/mnt/Desktop/AEGIS/logs/kan751_acceptance_from_readiness_2026-04-30_122156.json",
+  "overall_status": "FAIL",
+  "criteria": {
+    "ac1_all_6_roles_through_fine_tuned_models": {
+      "status": "FAIL",
+      "evidence": {
+        "preflight": "FAIL",
+        "llm_smoke": "SKIPPED",
+        "readiness_e2e": "SKIPPED",
+        "standalone_e2e": "FAIL",
+        "effective_e2e": "FAIL"
+      }
+    },
+    "ac2_all_6_adapters_registered_and_responding": {
+      "status": "BLOCKED",
+      "evidence": {
+        "register_adapters": "SKIPPED",
+        "llm_smoke": "SKIPPED"
+      }
+    },
+    "ac3_valid_mandate_artifacts_from_example_missions": {
+      "status": "FAIL",
+      "evidence": {
+        "readiness_e2e": "SKIPPED",
+        "standalone_e2e": "FAIL",
+        "effective_e2e": "FAIL"
+      }
+    },
+    "ac4_gap_reports_correct_for_underspecified_mission": {
+      "status": "FAIL",
+      "evidence": {
+        "readiness_e2e": "SKIPPED",
+        "standalone_e2e": "FAIL",
+        "effective_e2e": "FAIL",
+        "deterministic_gap_check": "SKIPPED"
+      }
+    },
+    "ac5_fallback_to_deterministic_when_ollama_unavailable": {
+      "status": "BLOCKED",
+      "evidence": {
+        "fallback_regression_check": "SKIPPED"
+      }
+    }
+  },
+  "stages": {
+    "readiness_gate": {
+      "status": "FAIL",
+      "reason": "overall_status=FAIL",
+      "source": "/tmp/aegis-runs/readiness.json"
+    },
+    "fallback_regression": {
+      "status": "SKIPPED",
+      "reason": "skip_flag"
+    },
+    "e2e_regression": {
+      "status": "FAIL",
+      "reason": "pytest_failed",
+      "command": "/usr/bin/python3 -m pytest tests/test_e2e_pipeline.py -q",
+      "returncode": 1,
+      "timed_out": false,
+      "stdout_tail": [],
+      "stderr_tail": [
+        "/usr/bin/python3: No module named pytest"
+      ]
+    },
+    "deterministic_gap_check": {
+      "status": "SKIPPED",
+      "reason": "skip_flag"
+    },
+    "ab_evaluation": {
+      "status": "SKIPPED",
+      "reason": "not_requested"
+    }
+  },
+  "artifacts": {
+    "readiness_json": "",
+    "ab_report": ""
+  },
+  "ab_profile_summaries": [],
+  "blockers": [
+    "e2e_regression_failed",
+    "ollama_unreachable",
+    "pytest_not_importable"
+  ]
+}

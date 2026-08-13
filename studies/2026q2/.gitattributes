@@ -1,0 +1,5 @@
+*.jsonl -diff
+*.jsonl.gz -diff
+*.pdf -diff
+*.zip binary
+*.part-* binary

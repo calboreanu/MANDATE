@@ -1,0 +1,42 @@
+{
+  "timestamp": "2026-04-30_081228",
+  "project_root": "/Users/ws01admin/Desktop/AEGIS",
+  "overall_status": "BLOCKED",
+  "steps": {
+    "preflight": {
+      "status": "BLOCKED",
+      "reason": "missing_adapters:lattice-planner"
+    },
+    "register_adapters": {
+      "status": "SKIPPED",
+      "reason": "preflight_only"
+    },
+    "llm_smoke": {
+      "status": "SKIPPED",
+      "reason": "preflight_only"
+    },
+    "e2e": {
+      "status": "SKIPPED",
+      "reason": "preflight_only"
+    },
+    "acceptance_report": {
+      "status": "BLOCKED",
+      "reason": "acceptance_blocked"
+    }
+  },
+  "context": {
+    "python_bin": "/Users/ws01admin/Desktop/AEGIS/.venv/bin/python",
+    "ollama_reachable": true,
+    "training_running": false
+  },
+  "artifacts": {
+    "readiness_log": "/Users/ws01admin/Desktop/AEGIS/logs/readiness_gate_2026-04-30_081228.log",
+    "smoke_log": "",
+    "acceptance_report": "/Users/ws01admin/Desktop/AEGIS/logs/kan751_acceptance_from_readiness_2026-04-30_081228.json",
+    "json_summary": "/Users/ws01admin/Desktop/AEGIS/logs/readiness_gate_2026-04-30_081228.json"
+  },
+  "blockers": [
+    "missing_adapters:lattice-planner",
+    "acceptance_blocked"
+  ]
+}

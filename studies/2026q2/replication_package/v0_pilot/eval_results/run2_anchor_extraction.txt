@@ -1,0 +1,21 @@
+Loaded 44 source_to_anchor examples
+
+============================================================
+ANCHOR FIELD PRESENCE — SEED CORPUS GROUND TRUTH
+============================================================
+Total examples:           44
+Complete extraction rate:  45.5%
+Classification accuracy:   50.0%
+
+Field presence rates:
+  mission_intent        100.0%
+  scope                 45.5%
+  constraints           100.0%
+
+By domain:
+  cyber         n=32  extraction=37.5%  classification=50.0%
+  financial     n= 5  extraction=40.0%  classification=40.0%
+  intel         n= 3  extraction=100.0%  classification=100.0%
+  legal         n= 4  extraction=75.0%  classification=25.0%
+
+Full results written to eval_anchor_extraction_results.json

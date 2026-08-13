@@ -1,0 +1,875 @@
+{
+  "ok": true,
+  "strict_lifecycle": false,
+  "lifecycle": [
+    {
+      "from_stage": "BOOT",
+      "to_stage": "MANDATE",
+      "requested_preload_models": [
+        "mandate-intake",
+        "mandate-interpreter"
+      ],
+      "settle_seconds": 5.0,
+      "ok": true,
+      "result": {
+        "from_stage": "BOOT",
+        "to_stage": "MANDATE",
+        "unloaded_models": [],
+        "preloaded_models": [
+          "mandate-intake",
+          "mandate-interpreter"
+        ],
+        "settle_seconds": 5.0
+      }
+    },
+    {
+      "from_stage": "MANDATE",
+      "to_stage": "LATTICE",
+      "requested_preload_models": [
+        "lattice-planner"
+      ],
+      "settle_seconds": 5.0,
+      "ok": true,
+      "result": {
+        "from_stage": "MANDATE",
+        "to_stage": "LATTICE",
+        "unloaded_models": [
+          "mandate-interpreter:latest",
+          "mandate-intake:latest"
+        ],
+        "preloaded_models": [
+          "lattice-planner"
+        ],
+        "settle_seconds": 5.0
+      }
+    },
+    {
+      "from_stage": "LATTICE",
+      "to_stage": "TRACE",
+      "requested_preload_models": [
+        "trace-executor",
+        "trace-watcher"
+      ],
+      "settle_seconds": 5.0,
+      "ok": true,
+      "result": {
+        "from_stage": "LATTICE",
+        "to_stage": "TRACE",
+        "unloaded_models": [
+          "lattice-planner:latest"
+        ],
+        "preloaded_models": [
+          "trace-executor",
+          "trace-watcher"
+        ],
+        "settle_seconds": 5.0
+      }
+    },
+    {
+      "from_stage": "TRACE",
+      "to_stage": "IDLE",
+      "requested_preload_models": [],
+      "settle_seconds": 5.0,
+      "ok": true,
+      "result": {
+        "from_stage": "TRACE",
+        "to_stage": "IDLE",
+        "unloaded_models": [
+          "trace-watcher:latest",
+          "trace-executor:latest"
+        ],
+        "preloaded_models": [],
+        "settle_seconds": 5.0
+      }
+    }
+  ],
+  "stages": {
+    "MANDATE": {
+      "stage": "MANDATE",
+      "status": "DONE",
+      "ok": true,
+      "result": {
+        "ok": true,
+        "errors": [],
+        "artifact": {
+          "mandate_id": "MANDATE-AUTHLAB-RUN-001",
+          "version": "1.0",
+          "generated": "2026-04-14T13:26:32.024Z",
+          "anchor": {
+            "mission_intent": "Create an authorized inventory of exposed services in the isolated lab subnet and prepare a review queue for human validation",
+            "minimum": {
+              "description": "Document reachable hosts and exposed services inside the approved lab scope"
+            },
+            "constraints": [
+              "target.scope IN ['lab-vlan-10', '10.10.10.0/28', 'svc-gateway.lab.local']",
+              "execution.duration <= PT2H",
+              "FORBIDS data_exfiltration",
+              "FORBIDS destructive_action",
+              "FORBIDS credential_capture",
+              "FORBIDS persistence_change"
+            ],
+            "anchor_hash": "f345197956baf6e68c9550b9683731e00442ae44d885240507b3fe7a74a1cdf7",
+            "target": {
+              "description": "Produce a risk-ranked review queue for exposed lab services without changing target state"
+            },
+            "risk_tolerance": {
+              "max_autonomous_score": "LOW",
+              "escalate_above": "MEDIUM"
+            }
+          },
+          "courses_of_action": [
+            {
+              "coa_id": "COA-1",
+              "approach": "Conservative reconnaissance and scanning without exploitation",
+              "task_dag": {
+                "nodes": [
+                  {
+                    "id": "1",
+                    "name": "Service Enumeration",
+                    "description": "Enumerate services on lab-vlan-10, 10.10.10.0/28, svc-gateway.lab.local"
+                  },
+                  {
+                    "id": "2",
+                    "name": "Vulnerability Scanning",
+                    "description": "Scan enumerated services for vulnerabilities"
+                  },
+                  {
+                    "id": "3",
+                    "name": "Results Analysis",
+                    "description": "Analyze and correlate scan results"
+                  }
+                ],
+                "edges": [
+                  {
+                    "from": "1",
+                    "to": "2"
+                  },
+                  {
+                    "from": "1",
+                    "to": "3"
+                  },
+                  {
+                    "from": "2",
+                    "to": "3"
+                  }
+                ]
+              },
+              "risk_assessment": {
+                "score": "LOW",
+                "confidence_min": "MEDIUM",
+                "confidence_target": "HIGH",
+                "primary_factor": "execution_uncertainty"
+              },
+              "off_nominal_triggers": [
+                "target.scope_violations > 0",
+                "execution.rate > 100"
+              ],
+              "procedures": [
+                "Step 1: Service Enumeration using nmap_safe",
+                "Step 2: Vulnerability Scanning using nuclei_safe",
+                "Step 3: Results Analysis"
+              ],
+              "capabilities": [
+                "tool_execution"
+              ]
+            },
+            {
+              "coa_id": "COA-3",
+              "approach": "Aggressive multi-vector approach with parallel execution",
+              "task_dag": {
+                "nodes": [
+                  {
+                    "id": "1",
+                    "name": "Parallel Enumeration",
+                    "description": "Multi-tool enumeration of lab-vlan-10, 10.10.10.0/28, svc-gateway.lab.local"
+                  },
+                  {
+                    "id": "2",
+                    "name": "Comprehensive Scanning",
+                    "description": "Full vulnerability scan with all available scanners"
+                  },
+                  {
+                    "id": "3",
+                    "name": "Multi-Vector Exploitation",
+                    "description": "Parallel exploitation attempts across confirmed vulnerabilities",
+                    "risk_factors": [
+                      "parallel_exploitation",
+                      "increased_detection_risk",
+                      "broader_attack_surface"
+                    ]
+                  },
+                  {
+                    "id": "4",
+                    "name": "Post-Exploitation Analysis",
+                    "description": "Analyze achieved access and document findings"
+                  }
+                ],
+                "edges": [
+                  {
+                    "from": "1",
+                    "to": "2"
+                  },
+                  {
+                    "from": "2",
+                    "to": "3"
+                  },
+                  {
+                    "from": "3",
+                    "to": "4"
+                  }
+                ]
+              },
+              "risk_assessment": {
+                "score": "MEDIUM",
+                "confidence_min": "LOW",
+                "confidence_target": "MEDIUM",
+                "primary_factor": "complexity_risk"
+              },
+              "off_nominal_triggers": [
+                "target.scope_violations > 0",
+                "execution.rate > 100"
+              ],
+              "procedures": [
+                "Step 1: Parallel Enumeration using nmap_safe",
+                "Step 2: Comprehensive Scanning using nuclei_safe",
+                "Step 3: Multi-Vector Exploitation",
+                "Step 4: Post-Exploitation Analysis"
+              ],
+              "capabilities": [
+                "tool_execution"
+              ]
+            }
+          ],
+          "recommendation": {
+            "primary_coa": "COA-1",
+            "fallback_sequence": [
+              "COA-3"
+            ],
+            "rationale": "COA-1's conservative approach with sequential execution better aligns with the mission intent of creating an authorized inventory without changing target state, while staying within the defined risk tolerance."
+          },
+          "trace": {
+            "chain_hash": "702a016dfe7ea3521cbf351c93e1d1685166b9531aded0a6c1a833009ea0af9a",
+            "entry_count": 6,
+            "entries": [
+              {
+                "role": "Intake",
+                "decision_type": "intake_phase",
+                "timestamp": "2026-04-14T13:26:32.024Z",
+                "parent_hashes": [],
+                "search": {
+                  "query": "Intake phase execution for mission MANDATE-AUTHLAB-RUN-001",
+                  "source": "pipeline_state",
+                  "k": 12,
+                  "total_results": 12
+                },
+                "results": [
+                  {
+                    "id": "mission_id",
+                    "score": 1.0,
+                    "summary": "mission_id=MANDATE-AUTHLAB-RUN-001"
+                  },
+                  {
+                    "id": "constraint_count",
+                    "score": 1.0,
+                    "summary": "constraint_count=6"
+                  },
+                  {
+                    "id": "scope_count",
+                    "score": 1.0,
+                    "summary": "scope_count=3"
+                  },
+                  {
+                    "id": "llm_tokens_used",
+                    "score": 1.0,
+                    "summary": "llm_tokens_used=1592"
+                  },
+                  {
+                    "id": "llm_latency_ms",
+                    "score": 1.0,
+                    "summary": "llm_latency_ms=12985.200082999654"
+                  }
+                ],
+                "selected": "Intake",
+                "selection_criteria": "role completed without errors",
+                "confidence": "HIGH",
+                "selection": {
+                  "selected": "Intake",
+                  "criteria": "role completed without errors",
+                  "confidence": "HIGH",
+                  "rationale": "Intake complete: mission_id=MANDATE-AUTHLAB-RUN-001"
+                },
+                "rationale": "Intake complete: mission_id=MANDATE-AUTHLAB-RUN-001",
+                "mission_id": "MANDATE-AUTHLAB-RUN-001",
+                "risk": {},
+                "search_trace_version": "1.0",
+                "metadata": {
+                  "role_status": "success"
+                },
+                "hash": "c8286f108369c0bb810ca1ce5ce91b5d82eba4eb5e55a99ddc6c64be1f9c1929"
+              },
+              {
+                "role": "Interpreter",
+                "decision_type": "interpreter_phase",
+                "timestamp": "2026-04-14T13:26:56.737Z",
+                "parent_hashes": [
+                  "c8286f108369c0bb810ca1ce5ce91b5d82eba4eb5e55a99ddc6c64be1f9c1929"
+                ],
+                "search": {
+                  "query": "Interpreter phase execution for mission MANDATE-AUTHLAB-RUN-001",
+                  "source": "pipeline_state",
+                  "k": 16,
+                  "total_results": 16
+                },
+                "results": [
+                  {
+                    "id": "anchor_hash",
+                    "score": 1.0,
+                    "summary": "anchor_hash=f345197956baf6e68c9550b9683731e00442ae44d885240507b3fe7a74a1cdf7"
+                  },
+                  {
+                    "id": "constraint_count",
+                    "score": 1.0,
+                    "summary": "constraint_count=6"
+                  },
+                  {
+                    "id": "gaps_detected",
+                    "score": 1.0,
+                    "summary": "gaps_detected=0"
+                  },
+                  {
+                    "id": "llm_tokens_used",
+                    "score": 1.0,
+                    "summary": "llm_tokens_used=1232"
+                  },
+                  {
+                    "id": "llm_latency_ms",
+                    "score": 1.0,
+                    "summary": "llm_latency_ms=24711.73329197336"
+                  }
+                ],
+                "selected": "Interpreter",
+                "selection_criteria": "role completed without errors",
+                "confidence": "HIGH",
+                "selection": {
+                  "selected": "Interpreter",
+                  "criteria": "role completed without errors",
+                  "confidence": "HIGH",
+                  "rationale": "Anchor extracted: hash=f345197956baf6e6..."
+                },
+                "rationale": "Anchor extracted: hash=f345197956baf6e6...",
+                "mission_id": "MANDATE-AUTHLAB-RUN-001",
+                "risk": {},
+                "search_trace_version": "1.0",
+                "metadata": {
+                  "role_status": "success"
+                },
+                "hash": "260ce2ab03bda036916742ed0b0996de3f2452cdde1d05ccf65213ae531c01b6"
+              },
+              {
+                "role": "Decomposition",
+                "decision_type": "decomposition_phase",
+                "timestamp": "2026-04-14T13:27:18.884Z",
+                "parent_hashes": [
+                  "260ce2ab03bda036916742ed0b0996de3f2452cdde1d05ccf65213ae531c01b6"
+                ],
+                "search": {
+                  "query": "Decomposition phase execution for mission MANDATE-AUTHLAB-RUN-001",
+                  "source": "pipeline_state",
+                  "k": 16,
+                  "total_results": 16
+                },
+                "results": [
+                  {
+                    "id": "coa_count",
+                    "score": 1.0,
+                    "summary": "coa_count=2"
+                  },
+                  {
+                    "id": "coa_ids",
+                    "score": 1.0,
+                    "summary": "coa_ids: 2 item(s)"
+                  },
+                  {
+                    "id": "gaps_detected",
+                    "score": 1.0,
+                    "summary": "gaps_detected=0"
+                  },
+                  {
+                    "id": "nist_map",
+                    "score": 1.0,
+                    "summary": "nist_map: 7 key(s)"
+                  },
+                  {
+                    "id": "llm_candidate_coa_count_requested",
+                    "score": 1.0,
+                    "summary": "llm_candidate_coa_count_requested=2"
+                  }
+                ],
+                "selected": "Decomposition",
+                "selection_criteria": "role completed without errors",
+                "confidence": "HIGH",
+                "selection": {
+                  "selected": "Decomposition",
+                  "criteria": "role completed without errors",
+                  "confidence": "HIGH",
+                  "rationale": "Generated 2 COA(s)"
+                },
+                "rationale": "Generated 2 COA(s)",
+                "mission_id": "MANDATE-AUTHLAB-RUN-001",
+                "risk": {},
+                "search_trace_version": "1.0",
+                "metadata": {
+                  "role_status": "success"
+                },
+                "hash": "fe697a42b8f49b298a24c3353893882a75febcb3ced80469c63a02615830e799"
+              },
+              {
+                "role": "Procedure",
+                "decision_type": "procedure_phase",
+                "timestamp": "2026-04-14T13:27:41.639Z",
+                "parent_hashes": [
+                  "fe697a42b8f49b298a24c3353893882a75febcb3ced80469c63a02615830e799"
+                ],
+                "search": {
+                  "query": "Procedure phase execution for mission MANDATE-AUTHLAB-RUN-001",
+                  "source": "pipeline_state",
+                  "k": 8,
+                  "total_results": 8
+                },
+                "results": [
+                  {
+                    "id": "procedure_count",
+                    "score": 1.0,
+                    "summary": "procedure_count=7"
+                  },
+                  {
+                    "id": "trigger_count",
+                    "score": 1.0,
+                    "summary": "trigger_count=4"
+                  },
+                  {
+                    "id": "missing_ttp_gaps",
+                    "score": 1.0,
+                    "summary": "missing_ttp_gaps=0"
+                  },
+                  {
+                    "id": "missing_procedure_gaps",
+                    "score": 1.0,
+                    "summary": "missing_procedure_gaps=2"
+                  },
+                  {
+                    "id": "gaps_detected",
+                    "score": 1.0,
+                    "summary": "gaps_detected=2"
+                  }
+                ],
+                "selected": "Procedure",
+                "selection_criteria": "role completed without errors",
+                "confidence": "HIGH",
+                "selection": {
+                  "selected": "Procedure",
+                  "criteria": "role completed without errors",
+                  "confidence": "HIGH",
+                  "rationale": "Generated 7 procedures, 4 triggers across 2 COA(s) (0 missing-TTP gap(s), 2 missing-procedure gap(s) detected)"
+                },
+                "rationale": "Generated 7 procedures, 4 triggers across 2 COA(s) (0 missing-TTP gap(s), 2 missing-procedure gap(s) detected)",
+                "mission_id": "MANDATE-AUTHLAB-RUN-001",
+                "risk": {},
+                "search_trace_version": "1.0",
+                "metadata": {
+                  "role_status": "success"
+                },
+                "hash": "e28d910c3ecbbd6fb84f81049a8c9450173160e4e014d41734c6f1cc9df94a6c"
+              },
+              {
+                "role": "Binding",
+                "decision_type": "binding_phase",
+                "timestamp": "2026-04-14T13:28:12.871Z",
+                "parent_hashes": [
+                  "e28d910c3ecbbd6fb84f81049a8c9450173160e4e014d41734c6f1cc9df94a6c"
+                ],
+                "search": {
+                  "query": "Binding phase execution for mission MANDATE-AUTHLAB-RUN-001",
+                  "source": "pipeline_state",
+                  "k": 17,
+                  "total_results": 17
+                },
+                "results": [
+                  {
+                    "id": "primary_coa",
+                    "score": 1.0,
+                    "summary": "primary_coa=COA-1"
+                  },
+                  {
+                    "id": "risk_scores",
+                    "score": 1.0,
+                    "summary": "risk_scores: 2 key(s)"
+                  },
+                  {
+                    "id": "fallback_sequence",
+                    "score": 1.0,
+                    "summary": "fallback_sequence: 1 item(s)"
+                  },
+                  {
+                    "id": "recommendation_rationale",
+                    "score": 1.0,
+                    "summary": "recommendation_rationale=COA-1's conservative approach with sequential execution better aligns with the mission intent of creating an authorized inventory without changing target state, while staying within the defined risk tolerance."
+                  },
+                  {
+                    "id": "llm_tokens_used",
+                    "score": 1.0,
+                    "summary": "llm_tokens_used=1447"
+                  }
+                ],
+                "selected": "Binding",
+                "selection_criteria": "role completed without errors",
+                "confidence": "HIGH",
+                "selection": {
+                  "selected": "Binding",
+                  "criteria": "role completed without errors",
+                  "confidence": "HIGH",
+                  "rationale": "Risk assessed for 2 COA(s), recommended: COA-1"
+                },
+                "rationale": "Risk assessed for 2 COA(s), recommended: COA-1",
+                "mission_id": "MANDATE-AUTHLAB-RUN-001",
+                "risk": {},
+                "search_trace_version": "1.0",
+                "metadata": {
+                  "role_status": "success"
+                },
+                "hash": "48dba838d323fd5092a2dd4a7496fdad643357a726afea8868b121cce341ed53"
+              },
+              {
+                "role": "Validation",
+                "decision_type": "validation_phase",
+                "timestamp": "2026-04-14T13:28:35.942Z",
+                "parent_hashes": [
+                  "48dba838d323fd5092a2dd4a7496fdad643357a726afea8868b121cce341ed53"
+                ],
+                "search": {
+                  "query": "Validate artifact for mission MANDATE-AUTHLAB-RUN-001",
+                  "source": "validator",
+                  "k": 1,
+                  "total_results": 1
+                },
+                "results": [
+                  {
+                    "id": "validator.validate_artifact",
+                    "score": 1.0,
+                    "summary": "Schema/hash/constraint validation run"
+                  }
+                ],
+                "selected": "validator.validate_artifact",
+                "selection_criteria": "final pipeline gate",
+                "confidence": "HIGH",
+                "selection": {
+                  "selected": "validator.validate_artifact",
+                  "criteria": "final pipeline gate",
+                  "confidence": "HIGH",
+                  "rationale": "Validation role assembled and validated final artifact"
+                },
+                "rationale": "Validation role assembled and validated final artifact",
+                "mission_id": "MANDATE-AUTHLAB-RUN-001",
+                "risk": {},
+                "search_trace_version": "1.0",
+                "hash": "9bde48ea3fb6488fab2223725e8eac9faf0082dd28e695db88a1da969f082c9f"
+              }
+            ]
+          },
+          "registry_reference": {
+            "similar_mandates": [],
+            "match_type": "NOVEL",
+            "similarity_description": "Success registry not configured."
+          },
+          "metadata": {
+            "nist_rmf": {
+              "framework": "NIST AI RMF 1.0",
+              "generated_at": "2026-04-14T13:28:35.942Z",
+              "MAP": {
+                "1.1": {
+                  "status": "SATISFIED",
+                  "evidence": [
+                    "mission_intent_present=True",
+                    "scope_items=3"
+                  ],
+                  "notes": "Mission context and scope establishment."
+                },
+                "1.5": {
+                  "status": "SATISFIED",
+                  "evidence": [
+                    "risk_tolerance_present=True"
+                  ],
+                  "notes": "Risk context captured from anchor risk_tolerance."
+                },
+                "1.6": {
+                  "status": "SATISFIED",
+                  "evidence": [
+                    "constraint_count=6"
+                  ],
+                  "notes": "Constraints are captured as portable predicate strings."
+                },
+                "2.1": {
+                  "status": "SATISFIED",
+                  "evidence": [
+                    "coa_count=2",
+                    "task_nodes=7"
+                  ],
+                  "notes": "Task decomposition coverage."
+                },
+                "2.2": {
+                  "status": "SATISFIED",
+                  "evidence": [
+                    "alternative_coas=2"
+                  ],
+                  "notes": "Alternative COA exploration."
+                },
+                "3.2": {
+                  "status": "SATISFIED",
+                  "evidence": [
+                    "risk_assessment_coverage=1.0"
+                  ],
+                  "notes": "Risk-aware planning across generated COAs."
+                },
+                "5.1": {
+                  "status": "SATISFIED",
+                  "evidence": [
+                    "anchor_hash_present=True",
+                    "trace_entries=6"
+                  ],
+                  "notes": "Traceability and provenance linkage."
+                }
+              },
+              "MEASURE": {
+                "1.1": {
+                  "status": "SATISFIED",
+                  "evidence": [
+                    "minimum_satisfaction_score=1.0"
+                  ],
+                  "notes": "Minimum satisfaction measurement."
+                },
+                "2.3": {
+                  "status": "SATISFIED",
+                  "evidence": [
+                    "constraint_compliance_score=1.0"
+                  ],
+                  "notes": "Constraint compliance measurement."
+                },
+                "2.8": {
+                  "status": "SATISFIED",
+                  "evidence": [
+                    "risk_aggregation_score=1.0"
+                  ],
+                  "notes": "Risk aggregation and calibration checks."
+                },
+                "3.1": {
+                  "status": "SATISFIED",
+                  "evidence": [
+                    "off_nominal_trigger_count=4"
+                  ],
+                  "notes": "Operational monitoring readiness signals."
+                }
+              },
+              "GOVERN": {
+                "1.1": {
+                  "status": "PARTIAL",
+                  "evidence": [
+                    "constraint_policies_defined=True",
+                    "strict_mode=False"
+                  ],
+                  "notes": "Constraint grammar defines enforceable governance policies."
+                },
+                "1.2": {
+                  "status": "SATISFIED",
+                  "evidence": [
+                    "orchestrator_role=deterministic_1plus6",
+                    "agent_roles=intake,interpreter,decomposition,procedure,binding,validation"
+                  ],
+                  "notes": "Accountability is structurally enforced by the 1+6 architecture: one deterministic orchestrator routes all work through 6 specialized LLM agent roles with schema-validated handoffs."
+                },
+                "1.5": {
+                  "status": "SATISFIED",
+                  "evidence": [
+                    "risk_tolerance_integrated=True"
+                  ],
+                  "notes": "Risk tolerance from anchor feeds governance decisions."
+                },
+                "2.1": {
+                  "status": "PARTIAL",
+                  "evidence": [
+                    "training_data_validated=true",
+                    "adapter_manifest_required=true"
+                  ],
+                  "notes": "Training data pipeline includes quality validation and scaling checks. Model fine-tuning uses LoRA adapters with manifest verification."
+                },
+                "3.2": {
+                  "status": "PARTIAL",
+                  "evidence": [
+                    "alternative_coas_explored=2"
+                  ],
+                  "notes": "COA diversity provides multiple approaches; human review recommended."
+                },
+                "4.1": {
+                  "status": "SATISFIED",
+                  "evidence": [
+                    "cryptographic_integrity=True"
+                  ],
+                  "notes": "Signed artifacts and hash-linked traces demonstrate commitment to verifiable AI."
+                },
+                "6.1": {
+                  "status": "PARTIAL",
+                  "evidence": [
+                    "strict_mode_enabled=False",
+                    "deployment_gate=lattice_execution_gate"
+                  ],
+                  "notes": "Deployment gated by LATTICE execution gate with signed audit trail."
+                }
+              },
+              "MANAGE": {
+                "1.1": {
+                  "status": "SATISFIED",
+                  "evidence": [
+                    "evidence_chain_entries=6",
+                    "hash_linked_provenance=True"
+                  ],
+                  "notes": "Risk management process is integrated through hash-linked evidence chains."
+                },
+                "2.1": {
+                  "status": "SATISFIED",
+                  "evidence": [
+                    "off_nominal_trigger_count=4"
+                  ],
+                  "notes": "Off-nominal triggers provide runtime monitoring predicates for deployed mandates."
+                },
+                "2.4": {
+                  "status": "PARTIAL",
+                  "evidence": [
+                    "gap_analysis_supported=true",
+                    "human_review_gate=lattice_hitl_threshold"
+                  ],
+                  "notes": "Gap analysis reports enable structured feedback; LATTICE HITL threshold gates low-confidence decisions for human review."
+                },
+                "3.1": {
+                  "status": "SATISFIED",
+                  "evidence": [
+                    "tripwire_triggers=4",
+                    "containment_fsm=lattice_containment",
+                    "safe_state=HALT"
+                  ],
+                  "notes": "Incident response via tripwire predicates, containment FSM, and HALT safe state."
+                },
+                "4.1": {
+                  "status": "SATISFIED",
+                  "evidence": [
+                    "validation_passed=True"
+                  ],
+                  "notes": "Validation role provides automated review; success registry tracks improvements."
+                },
+                "4.2": {
+                  "status": "PARTIAL",
+                  "evidence": [
+                    "audit_chain_preserved=true"
+                  ],
+                  "notes": "Signed audit chains are preserved for post-deployment review. Formal decommissioning procedures to be documented."
+                }
+              }
+            },
+            "sources_consulted": [
+              "mission_input",
+              "anchor",
+              "courses_of_action",
+              "constraints",
+              "validation_algorithm",
+              "trace_chain",
+              "local_pipeline_state"
+            ],
+            "input_hash": "4d02f2dfd6fb01a232c6e06c13ad1168ec8c9d109f3dc7be42e89d8c31149c94",
+            "output_hash": "9b5842513ca53c7a0c4c09a22f58b56d9425a91ef4b48fa119a18b763e35295a",
+            "validation_focus": [
+              "procedure_coverage",
+              "dag_completeness",
+              "constraint_compliance",
+              "risk_coherence"
+            ]
+          }
+        },
+        "gaps": []
+      }
+    },
+    "LATTICE": {
+      "stage": "LATTICE",
+      "status": "DONE",
+      "ok": true,
+      "result": {
+        "verdict": "ALLOW",
+        "confidence": 92.0,
+        "reason_codes": [
+          "POLICY_ALLOW"
+        ],
+        "stub": false,
+        "detail": "Deterministic LATTICE evaluation completed."
+      }
+    },
+    "TRACE": {
+      "stage": "TRACE",
+      "status": "DONE",
+      "ok": true,
+      "result": {
+        "ok": true,
+        "status": "OK",
+        "reason": "",
+        "stub": false,
+        "evidence_path": "/Users/ws01admin/Desktop/AEGIS/examples/authorized_lab/service_inventory_run/generated/phase1_trace/trace_out/evidence.jsonl"
+      }
+    }
+  },
+  "errors": [],
+  "authorized_lab": {
+    "profile_id": "authorized-lab-v1",
+    "bundle": {
+      "bundle_id": "AUTHLAB-RUN-001",
+      "name": "Authorized Lab Service Inventory",
+      "profile_id": "authorized-lab-v1",
+      "mission_json": "/Users/ws01admin/Desktop/AEGIS/examples/authorized_lab/service_inventory_run/mission.json",
+      "lattice_action_json": "/Users/ws01admin/Desktop/AEGIS/examples/authorized_lab/service_inventory_run/action_bundle.json",
+      "lattice_policy_json": "/Users/ws01admin/Desktop/AEGIS/examples/authorized_lab/service_inventory_run/policy_bundle.json",
+      "trace_bundle": "/Users/ws01admin/Desktop/AEGIS/examples/authorized_lab/service_inventory_run/generated/phase1_trace/trace_bundle_signed.json",
+      "trace_governance_key": "/Users/ws01admin/Desktop/AEGIS/examples/authorized_lab/service_inventory_run/generated/phase1_trace/keys/governance_public.pem",
+      "trace_evidence_key": "/Users/ws01admin/Desktop/AEGIS/examples/authorized_lab/service_inventory_run/generated/phase1_trace/keys/evidence_private.pem",
+      "trace_out_dir": "/Users/ws01admin/Desktop/AEGIS/examples/authorized_lab/service_inventory_run/generated/phase1_trace/trace_out",
+      "trace_approval_json": "/Users/ws01admin/Desktop/AEGIS/examples/authorized_lab/service_inventory_run/generated/phase1_trace/trace_approval.json",
+      "notes": "Phase 1 prepared TRACE dry run. Bundle, keys, and approval record are generated for simulated lab-safe execution only."
+    },
+    "model_manifest_id": "ws01-model-manifest-2026-04-13",
+    "stack_config_id": "authorized-lab-stack-v1",
+    "base_url": "http://localhost:11434",
+    "timeout_s": 300.0,
+    "settle_seconds": 5.0,
+    "stage_preloads": {
+      "MANDATE": [
+        "mandate-intake",
+        "mandate-interpreter"
+      ],
+      "LATTICE": [
+        "lattice-planner"
+      ],
+      "TRACE": [
+        "trace-executor",
+        "trace-watcher"
+      ]
+    },
+    "approval": {
+      "approval_id": "TRACE-APP-DA37E2DC2461",
+      "approval_ref": "LAB-AUTH-2026-0413-EXEC-01",
+      "approved_by": "ws01admin",
+      "approved_at": "2026-04-14T13:25:35.636758+00:00",
+      "mission_id": "MANDATE-AUTHLAB-RUN-001",
+      "policy_id": "AUTHLAB-POLICY-001",
+      "approval_scope": "TRACE_DRY_RUN",
+      "lattice_verdict": "ALLOW",
+      "profile_id": "authorized-lab-v1",
+      "action_bundle_id": "AUTHLAB-ACTION-001",
+      "notes": "Authorized phase-1 TRACE dry run for simulated lab-safe execution only."
+    },
+    "warnings": []
+  }
+}

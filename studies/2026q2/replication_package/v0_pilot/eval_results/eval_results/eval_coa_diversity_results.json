@@ -1,0 +1,40 @@
+[
+  {
+    "file": "quarterly_report_mandate.json",
+    "coa_count": 2,
+    "coas": [
+      {
+        "coa_id": "COA-A",
+        "approach": "Speed-optimized: use pre-aggregated dashboard metrics and standard executive tem",
+        "dag_nodes": 3,
+        "dag_edges": 2,
+        "risk_score": "MEDIUM",
+        "confidence_min": "HIGH",
+        "confidence_target": "MEDIUM",
+        "procedures": 2,
+        "capabilities": 1,
+        "estimated_time": "2h",
+        "off_nominal_triggers": 2
+      },
+      {
+        "coa_id": "COA-B",
+        "approach": "Thoroughness-optimized: query raw internal data sources, compute custom aggregat",
+        "dag_nodes": 4,
+        "dag_edges": 3,
+        "risk_score": "LOW",
+        "confidence_min": "HIGH",
+        "confidence_target": "HIGH",
+        "procedures": 1,
+        "capabilities": 1,
+        "estimated_time": "8h",
+        "off_nominal_triggers": 2
+      }
+    ],
+    "diversity": {
+      "dag_size_varies": true,
+      "risk_varies": true,
+      "time_varies": true,
+      "approach_differs": true
+    }
+  }
+]

@@ -1,0 +1,42 @@
+{
+  "snapshot_utc": "2026-08-12T13:40:27Z",
+  "snapshot_local": "2026-08-12T09:40:27-04:00",
+  "status": "cond_b_holdout_active",
+  "campaign_root": "/Users/ws01admin/Desktop/mandate-eval-v3-local-exec/replication_package/v3_corrected_routing_20260806T231117Z",
+  "campaign_cap_usd": "299.250033",
+  "counts": {
+    "cond_a_main": 1200,
+    "cond_a_holdout": 300,
+    "cond_b_main": 1200,
+    "cond_b_holdout": 3,
+    "total": 2703,
+    "required_total": 3000
+  },
+  "ledger": {
+    "rows": 37638,
+    "reservations": 8735,
+    "settlements": 8734,
+    "record_summaries": 2703,
+    "settled_total_usd": "161.767389",
+    "remaining_cap_usd": "137.482644",
+    "active_reservations": 1
+  },
+  "active_reservation": {
+    "run_id": "cond_b__TASK-HOLDOUT-SES-001__r04",
+    "role": "Procedure",
+    "reserved_cost_usd": "0.072276",
+    "timestamp_utc": "2026-08-12T13:40:18Z"
+  },
+  "latest_completed_holdout": {
+    "run_id": "cond_b__TASK-HOLDOUT-SES-001__r03",
+    "api_cost_usd": "0.119937",
+    "execution_state": "NON_EXECUTABLE_GAPS",
+    "ok": false
+  },
+  "pinned": {
+    "mlt_commit": "c0b58fb38b3c72ab6ece72f7576425892234976c",
+    "apparatus_commit": "74c62b02856254656905269d2bff9851dbfb1800",
+    "preflight_manifest_sha256": "09425f3d725d6f7192aa13a5bf3287b75e8eb0afc56d062074d432c5bc6d0067"
+  }
+}
+

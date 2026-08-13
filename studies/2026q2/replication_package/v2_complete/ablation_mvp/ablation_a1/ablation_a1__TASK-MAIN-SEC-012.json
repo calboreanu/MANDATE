@@ -1,0 +1,108 @@
+{
+  "run_id": "ablation_a1__TASK-MAIN-SEC-012__r01",
+  "task_id": "TASK-MAIN-SEC-012",
+  "system_id": "ablation_a1",
+  "system_label": "Ablation A1 (canonical MLT v1.0.0rc1)",
+  "run_number": 1,
+  "seed": 20260629,
+  "started_at": "2026-06-29T17:50:13Z",
+  "wall_clock_ms": 0.2902,
+  "role_timings": [
+    {
+      "role_name": "Combined",
+      "status": "success",
+      "duration_ms": 0.0,
+      "llm_used": true,
+      "llm_fallback": false,
+      "llm_fallback_reason": ""
+    }
+  ],
+  "api_cost_usd": null,
+  "local_compute_ms": 0.2902,
+  "model_versions": {
+    "mlt": "mlt-stack-1.0.0rc1",
+    "ablation": "A1"
+  },
+  "decoding_params": {
+    "condition": "ablation_a1",
+    "ablation_id": "A1",
+    "config_overrides": {
+      "ablate_role_separation": true
+    },
+    "domain_profile_mode": "default",
+    "domain_profile_name": null
+  },
+  "code_ref": "mlt-stack-1.0.0rc1",
+  "harness_version": "0.1.0",
+  "output_type": "MANDATE_AS_CODE",
+  "output": {
+    "artifact": {
+      "mandate_id": "TASK-MAIN-SEC-012",
+      "version": "1.0",
+      "generated": "2026-06-29T17:50:13.968Z",
+      "anchor": {
+        "mission_intent": "single-pass combined intent",
+        "minimum": {
+          "description": "minimum acceptable outcome"
+        },
+        "target": {
+          "description": "target outcome"
+        },
+        "constraints": [],
+        "anchor_hash": "b92a6e7da45bbdc3d5f1b2f99a2bd75083840c9e99026c00bc41aa961a076bb2"
+      },
+      "courses_of_action": [
+        {
+          "coa_id": "COA-1",
+          "approach": "single combined approach",
+          "task_dag": {
+            "nodes": [],
+            "edges": []
+          }
+        }
+      ],
+      "recommendation": {
+        "primary_coa": "COA-1",
+        "fallback_sequence": [],
+        "rationale": "single combined pass"
+      },
+      "trace": {
+        "chain_hash": "23a901cfcb49cf65b37b785a4bb3c48e9bb805e42aa9df2c97d604f20a6863f2",
+        "entry_count": 1,
+        "entries": [
+          {
+            "role": "Combined",
+            "decision_type": "single_pass",
+            "mission_id": "TASK-MAIN-SEC-012",
+            "parent_hashes": [],
+            "hash": "714668f601ad16ea2f2c3e495427282dbaca1fb4d9810477355ca23aeaf176d6"
+          }
+        ]
+      },
+      "registry_reference": {
+        "resolved": false,
+        "source": "ablation_a1_single_pass",
+        "matches": []
+      },
+      "metadata": {
+        "sources_consulted": [
+          "mission_input",
+          "single_pass_llm"
+        ],
+        "ablation": "A1_role_separation_single_pass",
+        "input_hash": "2805938a1855977d0d46dc493b6636626e2b199eff34838cbf7d2d31cd2ce0df",
+        "output_hash": "50a82d240540f27ef6d1c50dea9660ef944eaabc88b7f82863d35ea47f154407"
+      }
+    },
+    "gap_reports": [],
+    "has_gaps": false,
+    "ablation_id": "A1"
+  },
+  "ok": true,
+  "errors": [],
+  "any_llm_fallback": false,
+  "fallback_roles": [],
+  "llm_roles_used": [
+    "Combined"
+  ]
+}

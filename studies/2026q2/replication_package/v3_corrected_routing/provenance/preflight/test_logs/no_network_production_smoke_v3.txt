@@ -1,0 +1,10 @@
+PASS: N=1, executable_with_blocking=0
+wrote work/v3_preflight_local/no_network_production_smoke_v3/ordinary_success/consolidated/rerun_manifest.json
+{"N": 1, "cost": 0.002124, "executable_with_blocking": 0, "ok": true, "records": 2, "scenario": "ordinary_success"}
+PASS: N=1, executable_with_blocking=0
+wrote work/v3_preflight_local/no_network_production_smoke_v3/fail_once_retry/consolidated/rerun_manifest.json
+{"N": 1, "cost": 0.153312, "executable_with_blocking": 0, "ok": true, "records": 2, "scenario": "fail_once_retry"}
+PASS: N=1, executable_with_blocking=0
+wrote work/v3_preflight_local/no_network_production_smoke_v3/recovered_stale_success/consolidated/rerun_manifest.json
+{"N": 1, "cost": 0.102124, "executable_with_blocking": 0, "ok": true, "records": 2, "scenario": "recovered_stale_success"}
+NO_NETWORK_PRODUCTION_SMOKE_V3_PASS

@@ -1,0 +1,24 @@
+\begin{table}[H]
+\caption{LLM-Backed Pipeline Execution: Fine-Tuned Qwen3 Models via Ollama}
+\label{tab:llm-run}
+\centering
+\small
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{@{}llcccl@{}}
+\toprule
+\textbf{\#} & \textbf{Scenario} & \textbf{Status} & \textbf{LLM} & \textbf{Fallback} & \textbf{Notes} \\
+\midrule
+1 & CISO Report        & SUCCESS    & 4/6 & 2/6 & Intake timeout, Validation parse \\
+2 & Undef.\ Minimum    & GAP\_RPT   & 5/6 & 1/6 & Validation parse error \\
+3 & Undef.\ Target     & GAP\_RPT   & 5/6 & 1/6 & Interpreter timeout \\
+4 & Unknown Pattern    & GAP\_RPT   & 6/6 & 0/6 & Full LLM execution \\
+5 & Missing Capability & GAP\_RPT   & 6/6 & 0/6 & Full LLM execution \\
+6 & Unassess.\ Risk    & GAP\_RPT   & 5/6 & 1/6 & Decomposition parse \\
+7 & Ransomware IR      & SUCCESS    & 4/6 & 2/6 & Intake timeout, Validation parse \\
+8 & OSINT Intel        & GAP\_RPT   & 5/6 & 1/6 & Validation parse error \\
+\midrule
+\multicolumn{2}{@{}l}{\textit{Totals}} & & 40/48 & 8/48 & 83\% LLM, 17\% fallback \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}

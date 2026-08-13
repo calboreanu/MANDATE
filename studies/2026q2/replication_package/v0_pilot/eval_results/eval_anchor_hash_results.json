@@ -1,0 +1,33 @@
+[
+  {
+    "file": "defense_intel_mission.json",
+    "status": "SKIP"
+  },
+  {
+    "file": "incident_response_mission.json",
+    "status": "SKIP"
+  },
+  {
+    "file": "multi_coa_mission.json",
+    "status": "SKIP"
+  },
+  {
+    "file": "normal_mission.json",
+    "status": "SKIP"
+  },
+  {
+    "file": "quarterly_report_gap.json",
+    "status": "SKIP"
+  },
+  {
+    "file": "quarterly_report_mandate.json",
+    "status": "FAIL",
+    "stored_hash": "183af60d6e6256ca4d2845765363d6bdd546cb62578b595dc8a1b486dea93ce0",
+    "recomputed_hash": "eceb6c9d06caaf744e4ac2abc2a7d2b32a9e3bcc9c5752f6e2389db03a91e122",
+    "match": false
+  },
+  {
+    "file": "underspecified_mission.json",
+    "status": "SKIP"
+  }
+]

@@ -1,0 +1,38 @@
+cff-version: 1.2.0
+message: >-
+  If you use this evaluation deposit, please cite it as below, by
+  repository URL and version.
+title: "MANDATE 2026Q2 Study — Evidence and Replication Package"
+type: dataset
+version: "2026.08.13"
+date-released: "2026-08-13"
+authors:
+  - family-names: Calboreanu
+    given-names: Elias
+    affiliation: "Capitol Technology University"
+keywords:
+  - autonomous agents
+  - task specification
+  - LLM evaluation
+  - pre-registered evaluation
+  - governance
+  - MANDATE
+license: Apache-2.0
+license-url: "https://www.apache.org/licenses/LICENSE-2.0"
+repository-code: "https://github.com/calboreanu/MANDATE"
+url: "https://github.com/calboreanu/MANDATE/tree/study-release-2026.08.13/studies/2026q2"
+notes: >-
+  Code is Apache-2.0; data (RunRecords, corpus, ground truth, grades) is
+  CC BY 4.0 (see LICENSE-DATA); pre-registration prompts and forms are CC0.
+  This is one versioned study release. The comparative campaign evaluated
+  mlt-stack 1.0.0rc1. After its audit exposed a fail-open result-state defect,
+  the study checked the successor 1.0.3-derived implementation on the frozen
+  canonical conditions to determine whether blocking or insufficient
+  specifications route to non-executable states.
+references:
+  - type: article
+    title: "MANDATE: Tolerance-Based Task Specification with Tamper-Evident Provenance for LLM Agents, and What Its Own Audit Trail Revealed"
+    authors:
+      - family-names: Calboreanu
+        given-names: Elias
+    notes: "Manuscript prepared for Automated Software Engineering; it supersedes the earlier Frontiers/SSRN manuscript lineage. Cite the published version when available."

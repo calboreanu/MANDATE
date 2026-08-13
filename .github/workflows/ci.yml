@@ -24,3 +24,17 @@ jobs:
       - run: python -m pytest -q
       - name: Verify schema mirrors
         run: cmp schemas/mandate-result-envelope.schema.json src/mandate/schemas/mandate-result-envelope.schema.json
+
+  verify-study-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify unified MANDATE study evidence
+        run: python3 studies/2026q2/code/scripts/verify_study_release.py
+      - name: Verify immutable routing-check evidence
+        run: |
+          cd studies/2026q2/replication_package/v3_corrected_routing
+          sha256sum -c EVIDENCE_SHA256SUMS.txt

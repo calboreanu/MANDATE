@@ -1,0 +1,39 @@
+{
+  "timestamp": "2026-04-13_144642",
+  "project_root": "/Users/ws01admin/Desktop/AEGIS",
+  "overall_status": "PASS",
+  "steps": {
+    "preflight": {
+      "status": "PASS",
+      "reason": ""
+    },
+    "register_adapters": {
+      "status": "PASS",
+      "reason": ""
+    },
+    "llm_smoke": {
+      "status": "PASS",
+      "reason": ""
+    },
+    "e2e": {
+      "status": "PASS",
+      "reason": ""
+    },
+    "acceptance_report": {
+      "status": "PASS",
+      "reason": ""
+    }
+  },
+  "context": {
+    "python_bin": "/Users/ws01admin/Desktop/AEGIS/.venv/bin/python",
+    "ollama_reachable": true,
+    "training_running": false
+  },
+  "artifacts": {
+    "readiness_log": "/Users/ws01admin/Desktop/AEGIS/logs/readiness_gate_2026-04-13_144642.log",
+    "smoke_log": "/Users/ws01admin/Desktop/AEGIS/logs/smoke_test_2026-04-13_144643.log",
+    "acceptance_report": "/Users/ws01admin/Desktop/AEGIS/logs/kan751_acceptance_manual_2026-04-13_144642.json",
+    "json_summary": "/Users/ws01admin/Desktop/AEGIS/logs/readiness_gate_manual_2026-04-13_144642.json"
+  },
+  "blockers": []
+}

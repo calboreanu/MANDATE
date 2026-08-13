@@ -1,0 +1,84 @@
+{
+  "total_subcategories": 11,
+  "covered": 11,
+  "coverage_rate": 1.0,
+  "details": {
+    "MAP 1.1": {
+      "field": "anchor.mission_intent",
+      "role": "Interpreter",
+      "found_in": [
+        "quarterly_report_mandate.json"
+      ]
+    },
+    "MAP 1.5": {
+      "field": "anchor.minimum + anchor.target",
+      "role": "Interpreter",
+      "found_in": [
+        "quarterly_report_mandate.json"
+      ]
+    },
+    "MAP 1.6": {
+      "field": "anchor.constraints",
+      "role": "Interpreter",
+      "found_in": [
+        "quarterly_report_mandate.json"
+      ]
+    },
+    "MAP 2.1": {
+      "field": "courses_of_action[].task_dag",
+      "role": "Decomposition",
+      "found_in": [
+        "quarterly_report_mandate.json"
+      ]
+    },
+    "MAP 2.2": {
+      "field": "gap_report (any role)",
+      "role": "All",
+      "found_in": [
+        "quarterly_report_gap.json"
+      ]
+    },
+    "MAP 3.2": {
+      "field": "task_dag.nodes[].risk_factors",
+      "role": "Decomposition",
+      "found_in": [
+        "quarterly_report_mandate.json"
+      ]
+    },
+    "MAP 5.1": {
+      "field": "risk_assessment.score + primary_factor",
+      "role": "Validation",
+      "found_in": [
+        "quarterly_report_mandate.json"
+      ]
+    },
+    "MEASURE 1.1": {
+      "field": "confidence bands (HIGH/MEDIUM/LOW)",
+      "role": "Validation",
+      "found_in": [
+        "quarterly_report_mandate.json"
+      ]
+    },
+    "MEASURE 2.3": {
+      "field": "confidence_min + confidence_target per COA",
+      "role": "Validation",
+      "found_in": [
+        "quarterly_report_mandate.json"
+      ]
+    },
+    "MEASURE 2.8": {
+      "field": "trace chain (hash-linked)",
+      "role": "All",
+      "found_in": [
+        "quarterly_report_mandate.json"
+      ]
+    },
+    "MEASURE 3.1": {
+      "field": "registry_reference",
+      "role": "Success Registry",
+      "found_in": [
+        "quarterly_report_mandate.json"
+      ]
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "checked": 1,
+  "valid": 1,
+  "type_distribution": {
+    "NOVEL": 1
+  },
+  "details": [
+    {
+      "file": "defense_intel_mission.json",
+      "status": "SKIP"
+    },
+    {
+      "file": "incident_response_mission.json",
+      "status": "SKIP"
+    },
+    {
+      "file": "multi_coa_mission.json",
+      "status": "SKIP"
+    },
+    {
+      "file": "normal_mission.json",
+      "status": "SKIP"
+    },
+    {
+      "file": "quarterly_report_gap.json",
+      "status": "SKIP"
+    },
+    {
+      "file": "quarterly_report_mandate.json",
+      "match_type": "NOVEL",
+      "valid_type": true,
+      "has_similarity_description": true,
+      "similar_mandates": []
+    },
+    {
+      "file": "underspecified_mission.json",
+      "status": "SKIP"
+    }
+  ]
+}

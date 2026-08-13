@@ -1,0 +1,117 @@
+{
+  "scenario": "scenario_06_gap_unassessable_risk",
+  "mission_id": "LIVE-GAP-UNASSESS-001",
+  "status": "GAP_REPORT",
+  "ok": true,
+  "has_gaps": true,
+  "elapsed_ms": 4.9,
+  "summary": {
+    "ok": true,
+    "roles_executed": 6,
+    "roles_passed": 6,
+    "gaps": 2,
+    "errors": [],
+    "mandate_id": "LIVE-GAP-UNASSESS-001",
+    "total_duration_ms": 4.935
+  },
+  "metadata": {
+    "scenario": "Gap trigger - UNASSESSABLE_RISK (no risk_tolerance, no FORBIDS)",
+    "domain": "operations",
+    "paper_reference": "Table 11 row 6",
+    "claim": "RQ3 - Gap detection: UNASSESSABLE_RISK when risk cannot be evaluated",
+    "expected_outcome": "GAP REPORT with UNASSESSABLE_RISK gap"
+  },
+  "artifact": {
+    "has_anchor": true,
+    "anchor_hash": "91bdacfe15a06542a7950bcaae561a129298a8499f8fac052dbd992a98255ac1",
+    "num_coas": 1,
+    "has_trace": true,
+    "trace_entries": 6,
+    "has_registry_reference": true,
+    "has_risk_profile": false,
+    "recommendation": "COA-1"
+  },
+  "coas": [
+    {
+      "coa_id": "COA-1",
+      "num_tasks": 2,
+      "num_edges": 1,
+      "has_risk_assessment": true,
+      "risk_score": "LOW",
+      "confidence_min": "LOW"
+    }
+  ],
+  "trace_chain": {
+    "chain_hash": "f46127987bd6b83a03d81ccee1eb7609c04d3671ff7c525a7dd52c59346c1abd",
+    "num_entries": 6,
+    "roles": [
+      "Intake",
+      "Interpreter",
+      "Decomposition",
+      "Procedure",
+      "Binding",
+      "Validation"
+    ],
+    "all_hashed": true
+  },
+  "gap_reports": [
+    {
+      "gap_type": "UNASSESSABLE_RISK",
+      "detected_by": "Interpreter",
+      "severity": "DEGRADING",
+      "blocking": false,
+      "field_or_task": "",
+      "reason": "Cannot determine risk tolerance. No explicit risk_tolerance was provided and no FORBIDS constraints exist to infer one.",
+      "readiness_score": {
+        "completion_percentage": 0,
+        "blocking": false,
+        "partial_spec_available": false
+      }
+    },
+    {
+      "gap_type": "MISSING_CAPABILITY",
+      "detected_by": "Decomposition",
+      "severity": "DEGRADING",
+      "blocking": false,
+      "field_or_task": "",
+      "reason": "No RECON-class tools available. Reconnaissance is typically required for target enumeration.",
+      "readiness_score": {
+        "completion_percentage": 50,
+        "blocking": false,
+        "partial_spec_available": true
+      }
+    }
+  ],
+  "role_results": [
+    {
+      "role": "Intake",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Interpreter",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Decomposition",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Procedure",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Binding",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Validation",
+      "ok": true,
+      "elapsed_ms": null
+    }
+  ]
+}

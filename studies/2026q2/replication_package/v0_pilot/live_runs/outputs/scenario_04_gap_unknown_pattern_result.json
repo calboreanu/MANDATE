@@ -1,0 +1,104 @@
+{
+  "scenario": "scenario_04_gap_unknown_pattern",
+  "mission_id": "LIVE-GAP-UNKNOWN-PAT-001",
+  "status": "GAP_REPORT",
+  "ok": true,
+  "has_gaps": true,
+  "elapsed_ms": 4.2,
+  "summary": {
+    "ok": true,
+    "roles_executed": 6,
+    "roles_passed": 6,
+    "gaps": 1,
+    "errors": [],
+    "mandate_id": "LIVE-GAP-UNKNOWN-PAT-001",
+    "total_duration_ms": 4.147
+  },
+  "metadata": {
+    "scenario": "Gap trigger - UNKNOWN_PATTERN (no scope)",
+    "domain": "pentest",
+    "paper_reference": "Table 11 row 3",
+    "claim": "RQ3 - Gap detection: UNKNOWN_PATTERN when scope is empty",
+    "expected_outcome": "GAP REPORT with UNKNOWN_PATTERN - blocking gap, scope required"
+  },
+  "artifact": {
+    "has_anchor": true,
+    "anchor_hash": "40825526f68c9a51466866ea53ac7f304c8e7452d86bb9b011e7a46e63c8b8d3",
+    "num_coas": 1,
+    "has_trace": true,
+    "trace_entries": 6,
+    "has_registry_reference": true,
+    "has_risk_profile": false,
+    "recommendation": "COA-1"
+  },
+  "coas": [
+    {
+      "coa_id": "COA-1",
+      "num_tasks": 2,
+      "num_edges": 1,
+      "has_risk_assessment": true,
+      "risk_score": "LOW",
+      "confidence_min": "MEDIUM"
+    }
+  ],
+  "trace_chain": {
+    "chain_hash": "cf06b8490d3b1c66a0f00522d5345f4bf48ba67d6eca5f73c71832389c144b00",
+    "num_entries": 6,
+    "roles": [
+      "Intake",
+      "Interpreter",
+      "Decomposition",
+      "Procedure",
+      "Binding",
+      "Validation"
+    ],
+    "all_hashed": true
+  },
+  "gap_reports": [
+    {
+      "gap_type": "UNKNOWN_PATTERN",
+      "detected_by": "Decomposition",
+      "severity": "BLOCKING",
+      "blocking": false,
+      "field_or_task": "",
+      "reason": "No target scope defined. Cannot generate targeted COAs without knowing the operational boundary.",
+      "readiness_score": {
+        "completion_percentage": 0,
+        "blocking": true,
+        "partial_spec_available": false
+      }
+    }
+  ],
+  "role_results": [
+    {
+      "role": "Intake",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Interpreter",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Decomposition",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Procedure",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Binding",
+      "ok": true,
+      "elapsed_ms": null
+    },
+    {
+      "role": "Validation",
+      "ok": true,
+      "elapsed_ms": null
+    }
+  ]
+}

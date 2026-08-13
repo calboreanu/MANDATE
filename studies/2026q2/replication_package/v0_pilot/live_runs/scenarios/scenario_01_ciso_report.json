@@ -1,0 +1,48 @@
+{
+  "mission_id": "LIVE-CISO-001",
+  "intent": "Generate a weekly security posture report covering vulnerability scan results, patch compliance, and incident summary for the CISO",
+  "scope": ["corp-network-10.0.0.0/8", "dmz-172.16.0.0/16", "cloud-aws-prod"],
+  "time_limit": "PT8H",
+  "constraints": [
+    "execution.duration <= PT8H",
+    "FORBIDS data_exfiltration",
+    "FORBIDS unauthorized_disclosure",
+    "FORBIDS destructive_action"
+  ],
+  "minimum_outcome": "Report covers all three required sections: vulnerability scan results, patch compliance metrics, incident summary with data no older than 7 days",
+  "target_outcome": "Report includes trend analysis comparing current week to 4-week rolling average, risk prioritization matrix ranking vulnerabilities by exploitability and asset criticality, and executive summary with strategic recommendations",
+  "available_tools": [
+    {
+      "tool_id": "tenable_api",
+      "tool_class": "RECON",
+      "description": "Tenable Nessus vulnerability scanner API for retrieving scan results",
+      "parameters": {"api_version": "v2", "auth": "api_key"}
+    },
+    {
+      "tool_id": "wsus_connector",
+      "tool_class": "SCAN",
+      "description": "WSUS/SCCM patch compliance data connector",
+      "parameters": {"endpoint": "wsus.corp.local", "protocol": "WMI"}
+    },
+    {
+      "tool_id": "servicenow_api",
+      "tool_class": "ANALYSIS",
+      "description": "ServiceNow incident tracking API",
+      "parameters": {"instance": "corp.service-now.com", "auth": "oauth2"}
+    },
+    {
+      "tool_id": "pdf_generator",
+      "tool_class": "PROCESS",
+      "description": "Template-driven PDF report generation engine",
+      "parameters": {"templates": ["executive_summary", "vuln_detail", "compliance"]}
+    }
+  ],
+  "risk_tolerance": "LOW",
+  "metadata": {
+    "scenario": "Paper Section 11 - CISO Weekly Security Report",
+    "domain": "business_reporting",
+    "paper_reference": "Section 11.1-11.6",
+    "claim": "RQ1 - Verifiable success criteria with anchor extraction",
+    "expected_outcome": "SUCCESS - mandate-as-code with anchor hash, trace chain, 2 COAs"
+  }
+}

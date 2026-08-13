@@ -1,0 +1,11 @@
+{
+  "budget_cost_accounting": {
+    "conservative_upper_bound": 3,
+    "exact": 10500
+  },
+  "provider_call_count": 10503,
+  "retry_error_count": 0,
+  "retry_final_status": {
+    "success": 10503
+  }
+}

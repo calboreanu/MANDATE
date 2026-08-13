@@ -1,0 +1,27 @@
+{
+  "mission_id": "LIVE-GAP-UNDEF-MIN-001",
+  "intent": "Generate a patch compliance report for the CISO showing high patch compliance across all asset categories",
+  "scope": ["corp-network-10.0.0.0/8"],
+  "time_limit": "PT4H",
+  "constraints": [
+    "output.format == PDF",
+    "FORBIDS data_exfiltration"
+  ],
+  "minimum_outcome": "",
+  "target_outcome": "Comprehensive patch compliance dashboard with per-asset-group breakdown",
+  "available_tools": [
+    {
+      "tool_id": "wsus_connector",
+      "tool_class": "COLLECT",
+      "description": "WSUS/SCCM patch compliance data connector",
+      "parameters": {"endpoint": "wsus.corp.local"}
+    }
+  ],
+  "metadata": {
+    "scenario": "Paper Section 11.7 Gap Variant - UNDEFINED_MINIMUM",
+    "domain": "business_reporting",
+    "paper_reference": "Section 11.7, Table 11 row 1",
+    "claim": "RQ3 - Gap detection: UNDEFINED_MINIMUM when patch compliance threshold is not specified",
+    "expected_outcome": "GAP REPORT with gap_type=UNDEFINED_MINIMUM, readiness_score ~83%"
+  }
+}

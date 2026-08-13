@@ -1,0 +1,27 @@
+{
+  "mission_id": "LIVE-GAP-UNKNOWN-PAT-001",
+  "intent": "Assess the security posture of the target environment and identify vulnerabilities",
+  "scope": [],
+  "time_limit": "PT4H",
+  "constraints": [
+    "FORBIDS destructive_action"
+  ],
+  "minimum_outcome": "Identify critical vulnerabilities in the target environment",
+  "target_outcome": "Complete vulnerability assessment with remediation priorities",
+  "available_tools": [
+    {
+      "tool_id": "nmap",
+      "tool_class": "RECON",
+      "description": "Network scanner",
+      "parameters": {}
+    }
+  ],
+  "risk_tolerance": "LOW",
+  "metadata": {
+    "scenario": "Gap trigger - UNKNOWN_PATTERN (no scope)",
+    "domain": "pentest",
+    "paper_reference": "Table 11 row 3",
+    "claim": "RQ3 - Gap detection: UNKNOWN_PATTERN when scope is empty",
+    "expected_outcome": "GAP REPORT with UNKNOWN_PATTERN - blocking gap, scope required"
+  }
+}

@@ -1,0 +1,602 @@
+{
+  "mandate_id": "LIVE-GAP-MISS-CAP-001",
+  "version": "1.0",
+  "generated": "2026-04-08T11:55:10.647Z",
+  "anchor": {
+    "mission_intent": "Conduct penetration test of web application including exploitation of discovered vulnerabilities",
+    "minimum": {
+      "description": "Identify all web application vulnerabilities with CVSS scores"
+    },
+    "constraints": [
+      "scope.target IN ['webapp.corp.local', 'api.corp.local']",
+      "FORBIDS data_exfiltration",
+      "FORBIDS denial_of_service"
+    ],
+    "anchor_hash": "1dff20b7123efb32ae3493274a25e9dbf5a903640f30e8ee5d28e8c6439435db",
+    "target": {
+      "description": "Demonstrate exploitability of critical findings with proof-of-concept"
+    },
+    "risk_tolerance": {
+      "max_autonomous_score": "MEDIUM",
+      "escalate_above": "HIGH"
+    }
+  },
+  "courses_of_action": [
+    {
+      "coa_id": "COA-1",
+      "approach": "Minimal manual assessment approach",
+      "task_dag": {
+        "nodes": [
+          {
+            "id": "1",
+            "name": "Manual Assessment",
+            "description": "Manual assessment of webapp.corp.local, api.corp.local"
+          },
+          {
+            "id": "2",
+            "name": "Results Documentation",
+            "description": "Document assessment findings"
+          }
+        ],
+        "edges": [
+          {
+            "from": "1",
+            "to": "2"
+          }
+        ]
+      },
+      "risk_assessment": {
+        "score": "LOW",
+        "confidence_min": "LOW",
+        "confidence_target": "MEDIUM",
+        "primary_factor": "execution_uncertainty"
+      },
+      "off_nominal_triggers": [
+        "target.scope_violations > 0",
+        "execution.rate > 100"
+      ],
+      "procedures": [
+        "Step 1: Manual Assessment",
+        "Step 2: Results Documentation"
+      ]
+    }
+  ],
+  "recommendation": {
+    "primary_coa": "COA-1",
+    "fallback_sequence": [],
+    "rationale": "Single COA COA-1: Minimal manual assessment approach"
+  },
+  "trace": {
+    "chain_hash": "0f8a2753bcce145a55f0cf7ddc493ed1a37dd4e1e66f5142f804b823a6199120",
+    "entry_count": 6,
+    "entries": [
+      {
+        "role": "Intake",
+        "decision_type": "intake_phase",
+        "timestamp": "2026-04-08T11:55:10.647Z",
+        "parent_hashes": [],
+        "search": {
+          "query": "Intake phase execution for mission LIVE-GAP-MISS-CAP-001",
+          "source": "pipeline_state",
+          "k": 5,
+          "total_results": 5
+        },
+        "results": [
+          {
+            "id": "mission_id",
+            "score": 1.0,
+            "summary": "mission_id=LIVE-GAP-MISS-CAP-001"
+          },
+          {
+            "id": "constraint_count",
+            "score": 1.0,
+            "summary": "constraint_count=3"
+          },
+          {
+            "id": "scope_count",
+            "score": 1.0,
+            "summary": "scope_count=2"
+          },
+          {
+            "id": "llm_used",
+            "score": 1.0,
+            "summary": "llm_used=False"
+          },
+          {
+            "id": "llm_fallback",
+            "score": 1.0,
+            "summary": "llm_fallback=False"
+          }
+        ],
+        "selected": "Intake",
+        "selection_criteria": "role completed without errors",
+        "confidence": "HIGH",
+        "selection": {
+          "selected": "Intake",
+          "criteria": "role completed without errors",
+          "confidence": "HIGH",
+          "rationale": "Intake complete: mission_id=LIVE-GAP-MISS-CAP-001"
+        },
+        "rationale": "Intake complete: mission_id=LIVE-GAP-MISS-CAP-001",
+        "mission_id": "LIVE-GAP-MISS-CAP-001",
+        "risk": {},
+        "search_trace_version": "1.0",
+        "metadata": {
+          "role_status": "success"
+        },
+        "hash": "7f3b309d904a740b3635dbe5c4bb70bf39b7efd96ce172f47f555210667a97eb"
+      },
+      {
+        "role": "Interpreter",
+        "decision_type": "interpreter_phase",
+        "timestamp": "2026-04-08T11:55:10.647Z",
+        "parent_hashes": [
+          "7f3b309d904a740b3635dbe5c4bb70bf39b7efd96ce172f47f555210667a97eb"
+        ],
+        "search": {
+          "query": "Interpreter phase execution for mission LIVE-GAP-MISS-CAP-001",
+          "source": "pipeline_state",
+          "k": 5,
+          "total_results": 5
+        },
+        "results": [
+          {
+            "id": "anchor_hash",
+            "score": 1.0,
+            "summary": "anchor_hash=1dff20b7123efb32ae3493274a25e9dbf5a903640f30e8ee5d28e8c6439435db"
+          },
+          {
+            "id": "constraint_count",
+            "score": 1.0,
+            "summary": "constraint_count=3"
+          },
+          {
+            "id": "gaps_detected",
+            "score": 1.0,
+            "summary": "gaps_detected=0"
+          },
+          {
+            "id": "llm_used",
+            "score": 1.0,
+            "summary": "llm_used=False"
+          },
+          {
+            "id": "llm_fallback",
+            "score": 1.0,
+            "summary": "llm_fallback=False"
+          }
+        ],
+        "selected": "Interpreter",
+        "selection_criteria": "role completed without errors",
+        "confidence": "HIGH",
+        "selection": {
+          "selected": "Interpreter",
+          "criteria": "role completed without errors",
+          "confidence": "HIGH",
+          "rationale": "Anchor extracted: hash=1dff20b7123efb32..."
+        },
+        "rationale": "Anchor extracted: hash=1dff20b7123efb32...",
+        "mission_id": "LIVE-GAP-MISS-CAP-001",
+        "risk": {},
+        "search_trace_version": "1.0",
+        "metadata": {
+          "role_status": "success"
+        },
+        "hash": "9be71070851a7bbd6ded5821102d8fe59e80f5ef8ad46f5321e5e5600b85cfc3"
+      },
+      {
+        "role": "Decomposition",
+        "decision_type": "decomposition_phase",
+        "timestamp": "2026-04-08T11:55:10.647Z",
+        "parent_hashes": [
+          "9be71070851a7bbd6ded5821102d8fe59e80f5ef8ad46f5321e5e5600b85cfc3"
+        ],
+        "search": {
+          "query": "Decomposition phase execution for mission LIVE-GAP-MISS-CAP-001",
+          "source": "pipeline_state",
+          "k": 6,
+          "total_results": 6
+        },
+        "results": [
+          {
+            "id": "coa_count",
+            "score": 1.0,
+            "summary": "coa_count=1"
+          },
+          {
+            "id": "coa_ids",
+            "score": 1.0,
+            "summary": "coa_ids: 1 item(s)"
+          },
+          {
+            "id": "gaps_detected",
+            "score": 1.0,
+            "summary": "gaps_detected=1"
+          },
+          {
+            "id": "nist_map",
+            "score": 1.0,
+            "summary": "nist_map: 7 key(s)"
+          },
+          {
+            "id": "llm_used",
+            "score": 1.0,
+            "summary": "llm_used=False"
+          }
+        ],
+        "selected": "Decomposition",
+        "selection_criteria": "role completed without errors",
+        "confidence": "HIGH",
+        "selection": {
+          "selected": "Decomposition",
+          "criteria": "role completed without errors",
+          "confidence": "HIGH",
+          "rationale": "Generated 1 COA(s) (1 gap(s) detected)"
+        },
+        "rationale": "Generated 1 COA(s) (1 gap(s) detected)",
+        "mission_id": "LIVE-GAP-MISS-CAP-001",
+        "risk": {},
+        "search_trace_version": "1.0",
+        "metadata": {
+          "role_status": "success"
+        },
+        "hash": "c3c6bc25d72be1ba84b9a429007c541b065363cc3c22d52a527cc5bdf5a92493"
+      },
+      {
+        "role": "Procedure",
+        "decision_type": "procedure_phase",
+        "timestamp": "2026-04-08T11:55:10.647Z",
+        "parent_hashes": [
+          "c3c6bc25d72be1ba84b9a429007c541b065363cc3c22d52a527cc5bdf5a92493"
+        ],
+        "search": {
+          "query": "Procedure phase execution for mission LIVE-GAP-MISS-CAP-001",
+          "source": "pipeline_state",
+          "k": 7,
+          "total_results": 7
+        },
+        "results": [
+          {
+            "id": "procedure_count",
+            "score": 1.0,
+            "summary": "procedure_count=2"
+          },
+          {
+            "id": "trigger_count",
+            "score": 1.0,
+            "summary": "trigger_count=2"
+          },
+          {
+            "id": "missing_ttp_gaps",
+            "score": 1.0,
+            "summary": "missing_ttp_gaps=0"
+          },
+          {
+            "id": "missing_procedure_gaps",
+            "score": 1.0,
+            "summary": "missing_procedure_gaps=0"
+          },
+          {
+            "id": "gaps_detected",
+            "score": 1.0,
+            "summary": "gaps_detected=0"
+          }
+        ],
+        "selected": "Procedure",
+        "selection_criteria": "role completed without errors",
+        "confidence": "HIGH",
+        "selection": {
+          "selected": "Procedure",
+          "criteria": "role completed without errors",
+          "confidence": "HIGH",
+          "rationale": "Generated 2 procedures, 2 triggers across 1 COA(s)"
+        },
+        "rationale": "Generated 2 procedures, 2 triggers across 1 COA(s)",
+        "mission_id": "LIVE-GAP-MISS-CAP-001",
+        "risk": {},
+        "search_trace_version": "1.0",
+        "metadata": {
+          "role_status": "success"
+        },
+        "hash": "fe976b755e93d0ff9c8ccd47d7b449dea1cd05d27d0e3ef31c421e243b52c8d4"
+      },
+      {
+        "role": "Binding",
+        "decision_type": "binding_phase",
+        "timestamp": "2026-04-08T11:55:10.647Z",
+        "parent_hashes": [
+          "fe976b755e93d0ff9c8ccd47d7b449dea1cd05d27d0e3ef31c421e243b52c8d4"
+        ],
+        "search": {
+          "query": "Binding phase execution for mission LIVE-GAP-MISS-CAP-001",
+          "source": "pipeline_state",
+          "k": 4,
+          "total_results": 4
+        },
+        "results": [
+          {
+            "id": "primary_coa",
+            "score": 1.0,
+            "summary": "primary_coa=COA-1"
+          },
+          {
+            "id": "risk_scores",
+            "score": 1.0,
+            "summary": "risk_scores: 1 key(s)"
+          },
+          {
+            "id": "llm_used",
+            "score": 1.0,
+            "summary": "llm_used=False"
+          },
+          {
+            "id": "llm_fallback",
+            "score": 1.0,
+            "summary": "llm_fallback=False"
+          }
+        ],
+        "selected": "Binding",
+        "selection_criteria": "role completed without errors",
+        "confidence": "HIGH",
+        "selection": {
+          "selected": "Binding",
+          "criteria": "role completed without errors",
+          "confidence": "HIGH",
+          "rationale": "Risk assessed for 1 COA(s), recommended: COA-1"
+        },
+        "rationale": "Risk assessed for 1 COA(s), recommended: COA-1",
+        "mission_id": "LIVE-GAP-MISS-CAP-001",
+        "risk": {},
+        "search_trace_version": "1.0",
+        "metadata": {
+          "role_status": "success"
+        },
+        "hash": "435ed39468c4b10fc9e420d7f1439989926a4dc4ed918cd4d63be441ebc24e50"
+      },
+      {
+        "role": "Validation",
+        "decision_type": "validation_phase",
+        "timestamp": "2026-04-08T11:55:10.647Z",
+        "parent_hashes": [
+          "435ed39468c4b10fc9e420d7f1439989926a4dc4ed918cd4d63be441ebc24e50"
+        ],
+        "search": {
+          "query": "Validate artifact for mission LIVE-GAP-MISS-CAP-001",
+          "source": "validator",
+          "k": 1,
+          "total_results": 1
+        },
+        "results": [
+          {
+            "id": "validator.validate_artifact",
+            "score": 1.0,
+            "summary": "Schema/hash/constraint validation run"
+          }
+        ],
+        "selected": "validator.validate_artifact",
+        "selection_criteria": "final pipeline gate",
+        "confidence": "HIGH",
+        "selection": {
+          "selected": "validator.validate_artifact",
+          "criteria": "final pipeline gate",
+          "confidence": "HIGH",
+          "rationale": "Validation role assembled and validated final artifact"
+        },
+        "rationale": "Validation role assembled and validated final artifact",
+        "mission_id": "LIVE-GAP-MISS-CAP-001",
+        "risk": {},
+        "search_trace_version": "1.0",
+        "hash": "57824507aba35d7b06a9ad6b875873cb4d2c5f23d9bff4362074e3435c8a51dd"
+      }
+    ]
+  },
+  "registry_reference": {
+    "similar_mandates": [],
+    "match_type": "NOVEL",
+    "similarity_description": "Success registry not configured."
+  },
+  "metadata": {
+    "nist_rmf": {
+      "framework": "NIST AI RMF 1.0",
+      "generated_at": "2026-04-08T11:55:10.647Z",
+      "MAP": {
+        "1.1": {
+          "status": "SATISFIED",
+          "evidence": [
+            "mission_intent_present=True",
+            "scope_items=2"
+          ],
+          "notes": "Mission context and scope establishment."
+        },
+        "1.5": {
+          "status": "SATISFIED",
+          "evidence": [
+            "risk_tolerance_present=True"
+          ],
+          "notes": "Risk context captured from anchor risk_tolerance."
+        },
+        "1.6": {
+          "status": "SATISFIED",
+          "evidence": [
+            "constraint_count=3"
+          ],
+          "notes": "Constraints are captured as portable predicate strings."
+        },
+        "2.1": {
+          "status": "SATISFIED",
+          "evidence": [
+            "coa_count=1",
+            "task_nodes=2"
+          ],
+          "notes": "Task decomposition coverage."
+        },
+        "2.2": {
+          "status": "PARTIAL",
+          "evidence": [
+            "alternative_coas=1"
+          ],
+          "notes": "Alternative COA exploration."
+        },
+        "3.2": {
+          "status": "SATISFIED",
+          "evidence": [
+            "risk_assessment_coverage=1.0"
+          ],
+          "notes": "Risk-aware planning across generated COAs."
+        },
+        "5.1": {
+          "status": "SATISFIED",
+          "evidence": [
+            "anchor_hash_present=True",
+            "trace_entries=6"
+          ],
+          "notes": "Traceability and provenance linkage."
+        }
+      },
+      "MEASURE": {
+        "1.1": {
+          "status": "SATISFIED",
+          "evidence": [
+            "minimum_satisfaction_score=1.0"
+          ],
+          "notes": "Minimum satisfaction measurement."
+        },
+        "2.3": {
+          "status": "SATISFIED",
+          "evidence": [
+            "constraint_compliance_score=1.0"
+          ],
+          "notes": "Constraint compliance measurement."
+        },
+        "2.8": {
+          "status": "SATISFIED",
+          "evidence": [
+            "risk_aggregation_score=1.0"
+          ],
+          "notes": "Risk aggregation and calibration checks."
+        },
+        "3.1": {
+          "status": "SATISFIED",
+          "evidence": [
+            "off_nominal_trigger_count=2"
+          ],
+          "notes": "Operational monitoring readiness signals."
+        }
+      },
+      "GOVERN": {
+        "1.1": {
+          "status": "PARTIAL",
+          "evidence": [
+            "constraint_policies_defined=True",
+            "strict_mode=False"
+          ],
+          "notes": "Constraint grammar defines enforceable governance policies."
+        },
+        "1.2": {
+          "status": "SATISFIED",
+          "evidence": [
+            "orchestrator_role=deterministic_1plus6",
+            "agent_roles=intake,interpreter,decomposition,procedure,binding,validation"
+          ],
+          "notes": "Accountability is structurally enforced by the 1+6 architecture: one deterministic orchestrator routes all work through 6 specialized LLM agent roles with schema-validated handoffs."
+        },
+        "1.5": {
+          "status": "SATISFIED",
+          "evidence": [
+            "risk_tolerance_integrated=True"
+          ],
+          "notes": "Risk tolerance from anchor feeds governance decisions."
+        },
+        "2.1": {
+          "status": "PARTIAL",
+          "evidence": [
+            "training_data_validated=true",
+            "adapter_manifest_required=true"
+          ],
+          "notes": "Training data pipeline includes quality validation and scaling checks. Model fine-tuning uses LoRA adapters with manifest verification."
+        },
+        "3.2": {
+          "status": "PARTIAL",
+          "evidence": [
+            "alternative_coas_explored=1"
+          ],
+          "notes": "COA diversity provides multiple approaches; human review recommended."
+        },
+        "4.1": {
+          "status": "SATISFIED",
+          "evidence": [
+            "cryptographic_integrity=True"
+          ],
+          "notes": "Signed artifacts and hash-linked traces demonstrate commitment to verifiable AI."
+        },
+        "6.1": {
+          "status": "PARTIAL",
+          "evidence": [
+            "strict_mode_enabled=False",
+            "deployment_gate=lattice_execution_gate"
+          ],
+          "notes": "Deployment gated by LATTICE execution gate with signed audit trail."
+        }
+      },
+      "MANAGE": {
+        "1.1": {
+          "status": "SATISFIED",
+          "evidence": [
+            "evidence_chain_entries=6",
+            "hash_linked_provenance=True"
+          ],
+          "notes": "Risk management process is integrated through hash-linked evidence chains."
+        },
+        "2.1": {
+          "status": "SATISFIED",
+          "evidence": [
+            "off_nominal_trigger_count=2"
+          ],
+          "notes": "Off-nominal triggers provide runtime monitoring predicates for deployed mandates."
+        },
+        "2.4": {
+          "status": "PARTIAL",
+          "evidence": [
+            "gap_analysis_supported=true",
+            "human_review_gate=lattice_hitl_threshold"
+          ],
+          "notes": "Gap analysis reports enable structured feedback; LATTICE HITL threshold gates low-confidence decisions for human review."
+        },
+        "3.1": {
+          "status": "SATISFIED",
+          "evidence": [
+            "tripwire_triggers=2",
+            "containment_fsm=lattice_containment",
+            "safe_state=HALT"
+          ],
+          "notes": "Incident response via tripwire predicates, containment FSM, and HALT safe state."
+        },
+        "4.1": {
+          "status": "SATISFIED",
+          "evidence": [
+            "validation_passed=True"
+          ],
+          "notes": "Validation role provides automated review; success registry tracks improvements."
+        },
+        "4.2": {
+          "status": "PARTIAL",
+          "evidence": [
+            "audit_chain_preserved=true"
+          ],
+          "notes": "Signed audit chains are preserved for post-deployment review. Formal decommissioning procedures to be documented."
+        }
+      }
+    },
+    "sources_consulted": [
+      "mission_input",
+      "anchor",
+      "courses_of_action",
+      "constraints",
+      "validation_algorithm",
+      "trace_chain",
+      "local_pipeline_state"
+    ],
+    "input_hash": "48583b29eae801787adfa9e88ee4180f9ff08ecb60c1d118e8f7b9ae261ceab3",
+    "output_hash": "4551a8558f088c09901c259229c40f99bc16aafae671075a36a63acc551625dc"
+  }
+}
