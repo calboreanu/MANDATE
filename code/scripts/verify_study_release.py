@@ -6,6 +6,7 @@ from __future__ import annotations
 import gzip
 import hashlib
 import json
+import statistics
 import subprocess
 import sys
 from pathlib import Path
@@ -24,6 +25,78 @@ def sha256_file(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def load_jsonl(path: Path) -> list[dict]:
+    opener = gzip.open if path.suffix == ".gz" else open
+    with opener(path, "rt", encoding="utf-8") as handle:
+        return [json.loads(line) for line in handle if line.strip()]
+
+
+def majority(values):
+    values = [value for value in values if value is not None]
+    if not values:
+        return None, True
+    counts = {}
+    for value in values:
+        counts[value] = counts.get(value, 0) + 1
+    modal = max(counts, key=counts.get)
+    return modal, len(counts) == 1
+
+
+def verify_full_coverage_ensemble(repo: Path, issues: list[str]) -> dict:
+    retained = repo / "replication_package/retained_study_data"
+    names = (
+        "full_coverage_judge_gpt4o.jsonl.gz",
+        "full_coverage_judge_claude.jsonl.gz",
+        "full_coverage_judge_gemini.jsonl.gz",
+    )
+    if not all((retained / name).is_file() for name in names):
+        return {"present": False, "records_recomputed": 0, "mismatches": None}
+    per_judge = [load_jsonl(retained / name) for name in names]
+    indexes = [{row["anon_id"]: row for row in rows} for rows in per_judge]
+    expected = load_jsonl(
+        repo / "replication_package/v1_main/grading/v2_full_coverage/ensemble_scores.jsonl"
+    )
+    numeric = (
+        "minimum_coverage", "target_coverage", "constraint_coverage",
+        "fabrication_count", "trace_completeness",
+    )
+    discrete = ("mission_intent_match", "gap_classification", "adversarial_compliance")
+    mismatches = 0
+    for ensemble in expected:
+        anon_id = ensemble["anon_id"]
+        rows = [index.get(anon_id) for index in indexes]
+        if any(row is None for row in rows):
+            mismatches += 1
+            continue
+        recomputed = {}
+        unanimous = []
+        for field in numeric:
+            values = [row.get(field) for row in rows if row.get(field) is not None]
+            recomputed[field] = statistics.median(values) if values else None
+        for field in discrete:
+            recomputed[field], is_unanimous = majority([row.get(field) for row in rows])
+            unanimous.append(is_unanimous)
+        recomputed["has_disagreement"] = not all(unanimous)
+        recomputed["n_judges"] = 3
+        for field, value in recomputed.items():
+            if ensemble.get(field) != value:
+                mismatches += 1
+                break
+        else:
+            # Judge identity is set-valued. Historical aggregation serialized
+            # the same three IDs in more than one order.
+            if set(ensemble.get("judge_ids") or []) != {row["judge_id"] for row in rows}:
+                mismatches += 1
+    if mismatches:
+        issues.append(f"full-coverage ensemble reconciliation: {mismatches} mismatches")
+    return {
+        "present": True,
+        "judge_records": sum(len(rows) for rows in per_judge),
+        "records_recomputed": len(expected),
+        "mismatches": mismatches,
+    }
 
 
 def main() -> int:
@@ -88,6 +161,8 @@ def main() -> int:
                     f"expected {item['records']}, got {observed}"
                 )
 
+    ensemble_reconciliation = verify_full_coverage_ensemble(repo, issues)
+
     report = {
         "study_release_version": "2026.08.13",
         "ok": not issues,
@@ -105,6 +180,7 @@ def main() -> int:
             "routing_contract_violations": routing_report.get("executable_with_blocking"),
         },
         "retained_study_data": retained_report,
+        "ensemble_reconciliation": ensemble_reconciliation,
     }
     print(json.dumps(report, indent=2, sort_keys=True))
     return 0 if not issues else 1
