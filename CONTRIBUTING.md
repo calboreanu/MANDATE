@@ -3,12 +3,15 @@
 Thanks for contributing to MANDATE.
 
 ## Ways to contribute
-- File issues for schema improvements, edge cases, or paper-repo mismatches
-- Add example mandates/gap reports and test vectors
-- Implement schema-to-policy translators (OPA/Rego, Cedar)
-- Improve the hashing + trace integrity tooling
+
+- File issues for schema defects, edge cases, or paper-to-repository mismatches.
+- Add example mandates, gap reports, and canonicalization test vectors.
+- Improve validation, policy translation, and trace-integrity tooling.
+- Add interoperable integrations without changing the fail-closed result
+  contract.
 
 ## Development setup
+
 ```bash
 python -m venv .venv
 source .venv/bin/activate
@@ -17,6 +20,8 @@ pytest
 ```
 
 ## Pull request guidelines
-- Add/adjust tests for any behavior changes
-- Keep schemas backwards compatible when possible (or bump `version`)
-- Document changes in `CHANGELOG.md`
+
+- Add or adjust tests for behavior changes.
+- Keep schemas backward-compatible when possible; otherwise bump the semantic
+  version and document the migration.
+- Record user-visible changes in `CHANGELOG.md`.

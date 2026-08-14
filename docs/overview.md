@@ -1,37 +1,52 @@
-# Overview
+# MANDATE v2 Overview
 
-MANDATE is a specification framework for autonomous agent tasks.
+MANDATE is a task-specification and evidence framework for autonomous agents.
+It defines acceptable outcomes before execution, represents alternative
+courses of action, records structured gaps, and routes incomplete results to
+explicit non-executable states.
 
-## Core Concepts
+## Core concepts
 
-- **Anchor** = immutable success criteria (minimum / target / constraints)
-- **COAs** = alternative approaches that all satisfy the anchor
-- **Search-Trace** = record search → candidate results → selection → rationale, chained by hashes
-- **Dual output**:
-  - `mandate-as-code` (complete), or
-  - `gap-report` (incomplete; tells you what is missing)
+- **Anchor:** minimum requirements, targets, constraints, and risk tolerance.
+- **Courses of Action:** alternative approaches intended to satisfy the same
+  Anchor.
+- **Search→Select→Trace:** hash-linked evidence for retrieval, candidate
+  selection, and role decisions.
+- **Gap reporting:** structured descriptions of information or capability that
+  is missing or insufficient for automation.
+- **Execution state:** an explicit, fail-closed decision about whether a result
+  may proceed.
 
-## This Repository Provides
+## Output ontology
 
-- JSON Schemas for the artifacts
-- Hashing + integrity checks (anchor hash, trace entry hash, simple chain hash)
-- Constraint grammar parser and validator
-- A validation CLI
+MANDATE separates the payload representation from the execution decision.
 
-## Related Work
+| Dimension | Values |
+|---|---|
+| Output representation | `MANDATE_AS_CODE`, `GAP_REPORT`, `NONE` |
+| Execution state | `EXECUTABLE`, `NON_EXECUTABLE_GAPS`, `NON_EXECUTABLE_VALIDATION`, `FAILED` |
 
-MANDATE builds on and differs from several established approaches:
+A partial mandate may remain represented as `MANDATE_AS_CODE` while its state
+is `NON_EXECUTABLE_GAPS`. An executable result may retain nonblocking gap
+reports. Schema validity, hash consistency, and executability are therefore
+separate properties.
 
-- **BDI Architecture** [Bratman 1987, Rao & Georgeff 1995]: MANDATE extends BDI's binary goal satisfaction with tolerance-based thresholds (minimum/target).
+## This repository provides
 
-- **Multi-Agent Orchestration (AutoGen, LangChain)**: These frameworks focus on conversation patterns and tool execution. MANDATE operates upstream, specifying *what* constitutes success before execution begins.
+- artifact and result-envelope JSON Schemas;
+- RFC 8785 canonicalization and hash-integrity checks;
+- constraint parsing, validation, and policy translators;
+- a six-stage reference pipeline and command-line interface;
+- evaluation and registry utilities; and
+- the paper's deposited empirical evidence and verification tools.
 
-- **Reflexion** [Shinn et al. 2023]: Introduces episodic memory for agent self-improvement. MANDATE's Success Registry applies similar principles to specification precedents rather than execution improvement.
+## Relationship to adjacent systems
 
-- **Agent Evaluation (AgentBench)**: Benchmarks assess task completion but don't address the upstream problem of *defining* acceptable completion. MANDATE provides that specification layer.
+MANDATE operates upstream of tool execution. Agent orchestration frameworks may
+consume a MANDATE result, while policy engines such as OPA/Rego or Cedar may
+enforce translated constraints. Runtime execution, monitoring, and enforcement
+are outside this repository's scope.
 
-- **Policy-as-Code (OPA/Rego, Cedar)**: These enforce constraints at runtime. MANDATE specifies constraints declaratively; enforcement is a downstream responsibility with translation pathways to OPA and Cedar.
-
-## Paper Reference
-
-See the MANDATE paper (v1.0) for complete framework description, formal definitions, and architectural details.
+The public v2 implementation is a reference implementation. The exact campaign
+engines used for the paper are versioned separately and are described in the
+study's replication documentation.

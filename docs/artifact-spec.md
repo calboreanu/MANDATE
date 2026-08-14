@@ -101,7 +101,9 @@ Optional fields include:
 
 ## gap-report
 
-Produced when the system cannot complete the specification. Gap reports are diagnostic artifacts, not failures—they tell the organization what information is missing.
+Gap reports describe information, policy, or capability that is missing or
+insufficient. They may accompany a mandate-shaped partial artifact and do not,
+by themselves, determine the output representation.
 
 Gap types:
 - `UNDEFINED_MINIMUM` — cannot determine required threshold
@@ -117,3 +119,19 @@ Each gap includes:
 - Responsible party
 - Complexity estimate
 - Readiness score (percentage complete)
+
+## result envelope
+
+The result envelope records payload representation separately from execution
+state:
+
+- `output_representation`: `MANDATE_AS_CODE`, `GAP_REPORT`, or `NONE`;
+- `execution_state`: `EXECUTABLE`, `NON_EXECUTABLE_GAPS`,
+  `NON_EXECUTABLE_VALIDATION`, or `FAILED`;
+- `has_blocking_or_insufficient_signal`: summary of the raw gap payload; and
+- `ok`: true only when the result is `EXECUTABLE`.
+
+The JSON Schema checks state/summary consistency. The semantic validator
+re-derives the summary from raw gap objects and reconciles it with the envelope.
+An executable state is rejected when a blocking or insufficient-for-automation
+signal is present.

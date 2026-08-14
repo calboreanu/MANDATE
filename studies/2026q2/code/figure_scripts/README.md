@@ -1,10 +1,8 @@
 # code/figure_scripts — figure generation and verification tooling
 
-Consolidated in study release 2026.08.13.1: this directory is the single
-canonical figure/verification tree (the earlier figure pipeline lived here;
-release .1 replaces `make_figures.py` and `fig_constants.json` in place and
-adds the two verification scripts with their committed reports). Run
-everything from the study root (`studies/2026q2/` in the repository).
+This is the canonical figure and verification tree for the study snapshot
+included in the MANDATE v2.0.1 publication release. Run everything from the
+study root (`studies/2026q2/` in the repository).
 
 | File | What it is |
 |---|---|

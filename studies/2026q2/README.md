@@ -1,10 +1,13 @@
-# MANDATE 2026Q2 Study — Deposited Evidence and Verification Package (with Partial Replication Apparatus)
+# MANDATE 2026Q2 Study Evidence
 
-**Study-release version:** `2026.08.13.1`
+**Publication release:** MANDATE `2.0.1`
+
+**Study snapshot:** `2026.08.13.1`
 
 **Repository and path:** `calboreanu/MANDATE`, `studies/2026q2/`
 
-This directory is the deposited evidence and verification package for the
+This directory is the deposited evidence and verification package included in
+the MANDATE v2 publication release. It supports the
 protocol-governed 2026Q2 comparative evaluation of **MANDATE** (Multi-Agent Nominal Decomposition
 for Autonomous Task Execution), a tolerance-based task-specification framework
 for autonomous agents. The evaluation measured three MANDATE conditions against
@@ -38,10 +41,9 @@ conformance of that routing rule on the study corpus; it does not establish
 gap-detection accuracy, executable-state specificity, downstream operational
 fitness, or a controlled causal effect of the code change.
 
-This directory is one study deposit within the public MANDATE repository.
-Historical directory labels remain only
-to preserve the executed chronology, immutable hashes, and citation anchors;
-they are not separate study results or separate releases.
+This is one study result with several evidence tiers. Historical directory
+labels remain only to preserve the executed chronology, immutable hashes, and
+citation anchors; they are not separate study results or current releases.
 
 ## Read this first
 
@@ -49,13 +51,14 @@ they are not separate study results or separate releases.
 |---|---|
 | Read the results | `supplement_pdfs/Empirical Evidence Supplemental.pdf` |
 | Verify a specific claim against data | `docs/CLAIM_TO_DATA_MAP.md` |
+| Confirm the publication release identity | `docs/PUBLICATION_RELEASE.md` |
 | Run the targeted release-integrity verifier | `python3 code/scripts/verify_study_release.py` |
 | Recompute every deposited trace hash | `python3 code/figure_scripts/verify_trace_hashes_full.py --root .` |
 | Recompute measured judge reliability | `python3 code/figure_scripts/compute_reliability.py` |
 | Understand the routing-purpose test | `docs/CORRECTED_ROUTING_VALIDATION_20260812.md` |
 | Inspect retained raw grading depth | `replication_package/retained_study_data/` |
 | Replicate (tiered, from free to cluster) | `docs/REPLICATION_INSTRUCTIONS.md` + `docs/PARTIAL_REPLICATION.md` |
-| See what routed where and why | `DEPOSIT_MAPPING.md` |
+| Understand the deposited scope | `docs/CLAIM_TO_DATA_MAP.md` + `docs/EXCLUSIONS.md` |
 | Check the locked protocol + halt rules | `pre_registration/PROTOCOL_LOCK.md` |
 | See every protocol deviation | `pre_registration/DEVIATIONS.md` + supplement Deviation Table (13 rows) |
 | Know what cannot be replicated | `docs/KNOWN_GAPS.md` |
@@ -67,7 +70,7 @@ they are not separate study results or separate releases.
 ```bash
 git clone https://github.com/calboreanu/MANDATE.git
 cd MANDATE
-git checkout study-release-2026.08.13.1
+git checkout v2.0.1
 cd studies/2026q2
 
 # Record counts match the supplement:
@@ -97,8 +100,10 @@ python3 code/scripts/verify_study_release.py
 
 - `supplement_pdfs/` — the three supplement documents (Empirical Evidence
   Supplemental, v2 Protocol Amendment, Engineering and Operational Provenance).
-- `pre_registration/` — the locked protocol package: PROTOCOL_LOCK.md (κ≥0.40
-  halt rule), analysis plan, prompts, forms, calibration tasks, DEVIATIONS.md.
+- `pre_registration/` — the protocol archive: PROTOCOL_LOCK.md (κ≥0.40 halt
+  rule), analysis plan, prompts, forms, calibration tasks, and the complete
+  deviation record. The archive documents the protocol as executed; it is not
+  evidence of an externally timestamped pre-registration.
 - `replication_package/v0_pilot/`, `v0_5_pilot/` — historical pilot evidence
   backing the paper's §12 pilot tables.
 - `replication_package/v1_main/` — the frozen comparative-campaign component:
@@ -127,8 +132,9 @@ python3 code/scripts/verify_study_release.py
   scripts, and `code/figure_scripts/` — the figure-data extraction and
   plotting scripts, the whole-deposit trace-hash verifier, and the
   full-coverage reliability script used by the manuscript.
-- `engineering_provenance/` — full handoff chronology (119 files) + cost
-  ledger with the closeout addendum. Reviewers can skip this directory.
+- `engineering_provenance/` — historical execution records and the cost ledger.
+  These files are retained verbatim for transparency and are not current
+  instructions or publication prose. Reviewers can skip this directory.
 - `docs/` — replication instructions, environment spec, claim-to-data map,
   partial-replication guide, known gaps, exclusions, errata.
 - `requirements.txt` — pinned dependency manifest for `code/` (Tier 1 needs

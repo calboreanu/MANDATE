@@ -1,5 +1,15 @@
 # Changelog — MANDATE 2026Q2 Evaluation Deposit
 
+## v2.0.1-publication — 2026-08-14
+
+- Included the full study snapshot in the single MANDATE v2.0.1 publication
+  release.
+- Replaced obsolete deposit-planning documents with the released README,
+  claim-to-data map, exclusions list, and replication instructions.
+- Classified operator handoffs and protocol-planning files as historical
+  evidence rather than current instructions.
+- Updated release identifiers without modifying frozen empirical records.
+
 ## v3-corrected-routing-validation — 2026-08-12
 
 - Added the generation-only 3,000-record Cond-A/Cond-B corrective validation

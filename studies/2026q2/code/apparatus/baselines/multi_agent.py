@@ -17,10 +17,9 @@ mock-testable today:
   B5  SequentialCrewBaseline       analyst + gap reviewer, sequential
   B6  GraphRevisionBaseline        draft -> review decision, one revision
 
-Per the Decisions memo Section 4, B4-B6 should run a single consistent
-model so the framework, not the model, is the variable; the default is
-the same Claude model B1 and B3 use. The pre-registration freezes both
-the model and the prompts at the end of Phase 4 calibration.
+B4-B6 use one consistent model so the orchestration pattern, rather than the
+model family, is the intended variable. The recorded campaign configuration
+pins the model and prompts used by these shells.
 
 All three subclass `BaselineSystem`, so the harness, anonymization,
 grading and scoring path treat them exactly like B1-B3, and the same
@@ -38,9 +37,7 @@ from .prompts import (SPECIFICATION_INSTRUCTIONS, REVIEWER_INSTRUCTIONS,
                       ANALYST_INSTRUCTIONS, GAP_REVIEWER_INSTRUCTIONS,
                       GRAPH_REVIEW_DECISION, GRAPH_REVISION_PROMPT)
 
-# Default model: per Decisions memo Section 4, one model across B4-B6. The
-# placeholder is the pinned Claude family used by B1 and B3; the version
-# string is finalized at deposit (TO_FILL_TRACKER row D7 / D8).
+# Default model recorded for the B4-B6 shells.
 DEFAULT_MULTI_AGENT_MODEL = "claude-sonnet-4-6"
 
 

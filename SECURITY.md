@@ -1,3 +1,6 @@
 # Security Policy
 
-This repo contains schemas and validation utilities. If you find a security issue (e.g., a hash verification bypass), please open a private security report if available, or file an issue with minimal exploit detail.
+This repository contains schemas, validation utilities, and hash-verification
+code. Report security issues through GitHub's private security-advisory feature.
+If private reporting is unavailable, open an issue that identifies the affected
+component without publishing exploit details.

@@ -1,10 +1,10 @@
 """
 Baseline systems for the MANDATE evaluation (Workstream B2).
 
-Built and mock-tested: B1, B2 (single-prompt planners), B3 (ReAct), plus the
-shared foundation (specification schema, LLM client, prompts, base class).
-
-Pending: B4 (AutoGen), B5 (CrewAI), B6 (LangGraph). See MULTI_AGENT_BASELINES.md.
+This package exports B1, B2 (single-prompt planners), and B3 (ReAct), plus the
+shared specification schema, model client, prompts, and base class. B4-B6 were
+evaluated through orchestration-pattern shells in ``multi_agent.py`` rather
+than the corresponding framework products; see ``MULTI_AGENT_BASELINES.md``.
 """
 from .schema import (BASELINE_SPECIFICATION_SCHEMA, SCHEMA_ID,
                      validate_specification)

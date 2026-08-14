@@ -1,6 +1,9 @@
-# Multi-agent baselines B4, B5, B6: design note
+# Multi-agent Baselines B4, B5, and B6: Historical Design Note
 
-**Status:** Specified, not yet built. B1, B2, B3 (single-prompt and ReAct) are built and mock-tested. This note specifies B4 (AutoGen), B5 (CrewAI), and B6 (LangGraph) so they can be implemented as a focused, separate task.
+**Publication status:** The evaluated B4-B6 systems are orchestration-pattern
+shells implemented in `multi_agent.py`; they are not executions of the AutoGen,
+CrewAI, or LangGraph products. This file preserves the design rationale that
+preceded that implementation. Interpret the empirical comparisons accordingly.
 
 ## Why these are separate from B1-B3
 
@@ -16,7 +19,9 @@ All three integrate identically to B1-B3, so the integration point is not open:
 - Each receives only the raw `request_text` (the harness same-input contract, PROTOCOL_LOCK Section 11).
 - Each must produce the **baseline specification schema** (`schema.py`): `mission_intent`, `minimum`, `target`, `constraints`, `suspected_gaps`. Same schema as B1-B3, so grading is identical.
 - Each emits a `RunRecord` with one `Step` (and one `RoleTiming`) per model call, so token usage and cost are captured per agent turn.
-- Per the Decisions memo (Decision 4), B4-B6 should run **one consistent model** so the agent framework, not the model, is the variable. Recommended: Claude, consistent with B1 and B3. Confirm with Cal.
+- B4-B6 use **one consistent model** so the orchestration pattern, rather than
+  the model family, is the intended variable. The executed RunRecords are the
+  source of truth for the frozen model identifiers.
 
 So the work in B4-B6 is purely the framework-internal orchestration that produces the schema.
 
@@ -49,5 +54,5 @@ So the work in B4-B6 is purely the framework-internal orchestration that produce
 ## Open decisions
 
 - AutoGen line: `autogen-agentchat` vs `pyautogen` (see B4 above).
-- The single model used inside B4-B6 (Decisions memo, Decision 4).
+- The single model used inside B4-B6, as frozen in the executed configuration.
 - Per-baseline vs shared schema: this note assumes the shared `baseline-specification-v1`, consistent with B1-B3. PROTOCOL_LOCK Section 11 permits per-baseline schemas but shared is better for comparability.

@@ -1,8 +1,11 @@
 # MANDATE 2026Q2 Replication Instructions
 
-This document tells a reviewer how to reproduce every empirical claim in the MANDATE 2026Q2 supplement, from a zero-compute read-only check through a full hardware-bound re-run. It pairs with `DEPOSIT_MAPPING.md` (what each artifact is and where it lives) and `GITHUB_DEPOSIT_PLAN.md` (the deposit directory layout).
+This document tells a reviewer how to verify the deposited empirical claims and
+which additional components are required for regeneration. It pairs with
+`docs/CLAIM_TO_DATA_MAP.md`, `docs/EXCLUSIONS.md`, and
+`docs/ENVIRONMENT.md`.
 
-> **Conventions (deposit layout).** Clone `https://github.com/calboreanu/MANDATE`, check out tag `study-release-2026.08.13.1`, and `cd studies/2026q2`. All commands in this document run **from that study root** (the directory containing `replication_package/`, `code/`, and `docs/`) and use the deposit's own paths. Frozen data lives under `replication_package/` (`v1_main/system_outputs/` ships the RunRecords as consolidated JSONL, one record per line; `v1_main/findings_extracted/` ships the pre-computed finding extracts). Apparatus code lives under `code/` and is invoked as `python3 -m apparatus.<entrypoint>` from inside `code/`. Compute tiers write to a scratch `work/` directory at the study root so the frozen `replication_package/` tree is never modified.
+> **Conventions (deposit layout).** Clone `https://github.com/calboreanu/MANDATE`, check out tag `v2.0.1`, and `cd studies/2026q2`. All commands in this document run **from that study root** (the directory containing `replication_package/`, `code/`, and `docs/`) and use the deposit's own paths. Frozen data lives under `replication_package/` (`v1_main/system_outputs/` ships the RunRecords as consolidated JSONL, one record per line; `v1_main/findings_extracted/` ships the pre-computed finding extracts). Apparatus code lives under `code/` and is invoked as `python3 -m apparatus.<entrypoint>` from inside `code/`. Compute tiers write to a scratch `work/` directory at the study root so the frozen `replication_package/` tree is never modified.
 >
 > *Historical note:* the evaluation itself executed on the eval host from an "apparatus root" (`mandate_eval_2026Q2/` with `07_system_outputs/`, `04_ground_truth/`, `08_grading/`, `08_grading_v2/`, interpreter `.venv/bin/python`) beside a "deposit root" (`Mandate Data/` with `standalone data results/`). Frozen evidence files and handoff documents record those paths verbatim as provenance (see the README "Provenance note on absolute paths"); they do not exist in this repository, and no command below depends on them. The provenance tags are unchanged: apparatus code tag `mandate-eval-primary-2026q2-v1` (commit `4f8af83`), frozen outputs tag `outputs_freeze_v1_1` (commit `5f4de54`).
 
@@ -33,7 +36,9 @@ The canonical MANDATE implementation under test is **`mlt-stack 1.0.0rc1`**, imp
 
 - Byte-faithful re-execution must use **exactly 1.0.0rc1**: the stack repository has since advanced (v1.0.3 at deposit time — `code/README.md`); artifacts verify against later releases, but re-execution should not use them.
 - Without mlt-stack, `import apparatus.systems` fails (`ModuleNotFoundError: No module named 'mlt'`), which gates every `run-system` / `run-cond-a` / `run-cond-b` invocation (Tiers 3–4). `code/apparatus/verify_mandate_primary.py` detects this and exits with code 3 and an acquisition message.
-- The stack's authenticity evidence is in the deposit: `engineering_provenance/handoffs/MLT_realness_audit_opus.md` (418 passed / 8 skipped / 3 xfailed against `mlt-stack 1.0.0rc1`).
+- The released RunRecords pin the evaluated stack identity. Exact source access
+  for regeneration is available to reviewers on request; the public release
+  does not claim to vendor that proprietary core.
 - **Tier 1 and Tier 2 do not require mlt-stack** (verified: the `grade-v2` CLI and grading modules import without `mlt.*`).
 
 ## Offline replication status (recorded from the 2026-07-17 pre-push smoke test)
@@ -382,4 +387,7 @@ These are honest, documented boundaries of what can be replicated:
 
 ---
 
-*Prepared as part of the 2026Q2 deposit-prep (audit Tier B); command paths rewritten against the deposit layout and Tier-1 smoke-tested 2026-07-17 (pre-push fix D2). Pairs with `DEPOSIT_MAPPING.md`, `GITHUB_DEPOSIT_PLAN.md`, and `docs/ENVIRONMENT.md`. Command signatures verified against `code/apparatus/run.py` at the v1 frozen tag.*
+Command paths were rewritten against the released deposit layout and the
+read-only verification tier was smoke-tested from a clean checkout. Command
+signatures were checked against `code/apparatus/run.py` at the frozen campaign
+snapshot.

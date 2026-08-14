@@ -160,4 +160,5 @@ infrastructure above plus the MLX-LM toolchain on Apple Silicon.
 - `REPLICATION_INSTRUCTIONS.md` — tier-by-tier execution steps
 - `cost_ledger.md` — per-phase cost actuals and projections
 - Supplement §1.1 + §2 — methodology
-- `GITHUB_DEPOSIT_PLAN.md` — replication-package directory structure
+- `CLAIM_TO_DATA_MAP.md` — claim-level evidence paths and checks
+- `EXCLUSIONS.md` — components required for regeneration but not redistributed

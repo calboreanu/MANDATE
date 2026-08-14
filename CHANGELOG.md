@@ -2,6 +2,14 @@
 
 ## 2.0.1 (2026-08-13)
 
+### Publication release
+- Published one canonical v2 release surface for the framework and its 2026Q2
+  evidence package.
+- Replaced internal planning language with publication-facing documentation.
+- Clarified the two-axis result ontology, the verification boundary, and the
+  relationship between the public reference implementation and proprietary
+  campaign engines.
+
 ### Correctness and reproducibility
 - Added an explicit fail-closed `execution_state` and result-envelope contract.
 - Blocking or insufficient-for-automation signals now force `ok=false` and

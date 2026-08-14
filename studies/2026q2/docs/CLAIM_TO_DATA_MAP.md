@@ -8,9 +8,8 @@ it. Paths are study-root-relative (`studies/2026q2/` in the repository).
 "Supp." = the deposit's Empirical Evidence Supplemental (`supplement_pdfs/`);
 "SI" = the manuscript's Supplementary Information; "§" = manuscript section.
 
-Regenerated 2026-08-13 for study release 2026.08.13.1 against the current
-manuscript. Supersedes the map written against the earlier Frontiers-draft
-section numbering.
+Regenerated for the study snapshot included in the MANDATE v2.0.1 publication
+release and aligned to the submission manuscript's section numbering.
 
 | # | Claim (as stated) | Data | How to check |
 |---|---|---|---|
