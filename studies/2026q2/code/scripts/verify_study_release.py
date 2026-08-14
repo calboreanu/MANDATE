@@ -9,6 +9,7 @@ import json
 import statistics
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 from typing import Iterable
 
@@ -163,8 +164,72 @@ def main() -> int:
 
     ensemble_reconciliation = verify_full_coverage_ensemble(repo, issues)
 
+    trace_report = {"present": False}
+    trace_script = repo / "code/figure_scripts/verify_trace_hashes_full.py"
+    if trace_script.is_file():
+        with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as tmp:
+            tmp_path = tmp.name
+        trace = subprocess.run(
+            [sys.executable, str(trace_script), "--root", str(repo), "--report", tmp_path],
+            cwd=repo, text=True, capture_output=True,
+        )
+        try:
+            trace_totals = json.loads(Path(tmp_path).read_text(encoding="utf-8")).get("totals", {})
+        except (OSError, json.JSONDecodeError):
+            trace_totals = {}
+        trace_report = {"present": True, "exit_code": trace.returncode, "totals": trace_totals}
+        expected_trace = {
+            "artifacts": 17050,
+            "entries": 100500, "entry_hash_fail": 0,
+            "parent_links": 83600, "parent_fail": 0,
+            "chains": 16900, "chain_fail": 0,
+            "anchors": 17050, "anchor_fail": 0,
+            "empty_traces": 150,
+        }
+        for key, expected in expected_trace.items():
+            if trace_totals.get(key) != expected:
+                issues.append(
+                    f"trace-hash verification: {key} expected {expected}, got {trace_totals.get(key)}"
+                )
+        if trace.returncode != 0:
+            issues.append("trace-hash verification: nonzero exit")
+    else:
+        issues.append("trace-hash verifier missing: code/figure_scripts/verify_trace_hashes_full.py")
+
+    reliability_report = {"present": False}
+    reliability_script = repo / "code/figure_scripts/compute_reliability.py"
+    if reliability_script.is_file():
+        rel = subprocess.run(
+            [sys.executable, str(reliability_script)], cwd=repo, text=True, capture_output=True,
+        )
+        try:
+            rel_values = json.loads(rel.stdout).get("alpha", {})
+        except json.JSONDecodeError:
+            rel_values = {}
+        reliability_report = {"present": True, "exit_code": rel.returncode, "alpha": rel_values}
+        expected_alpha = {
+            "minimum_coverage__interval": 0.855,
+            "target_coverage__interval": 0.586,
+            "constraint_coverage__interval": 0.589,
+            "mission_intent_match__nominal": 0.536,
+            "gap_classification__nominal": 0.449,
+            "fabrication_count__interval": 0.218,
+            "trace_completeness__interval": 0.218,
+            "trace_completeness__nominal": 0.027,
+        }
+        for key, expected in expected_alpha.items():
+            if rel_values.get(key) != expected:
+                issues.append(
+                    f"full-coverage reliability: {key} expected {expected}, got {rel_values.get(key)}"
+                )
+        if rel.returncode != 0:
+            issues.append("full-coverage reliability: nonzero exit")
+    else:
+        issues.append("reliability script missing: code/figure_scripts/compute_reliability.py")
+
+
     report = {
-        "study_release_version": "2026.08.13",
+        "study_release_version": "2026.08.13.1",
         "ok": not issues,
         "issues": issues,
         "campaign_record_counts": observed_campaign_counts,
@@ -181,6 +246,8 @@ def main() -> int:
         },
         "retained_study_data": retained_report,
         "ensemble_reconciliation": ensemble_reconciliation,
+        "trace_hash_verification": trace_report,
+        "full_coverage_reliability": reliability_report,
     }
     print(json.dumps(report, indent=2, sort_keys=True))
     return 0 if not issues else 1

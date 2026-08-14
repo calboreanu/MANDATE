@@ -70,10 +70,10 @@ def fig20():
         "3,000 signal-carrying records\n(blocking or insufficient-for-automation)")
     arrow(ax, 0.25, 0.70, 0.25, 0.565)
     box(ax, 0.065, 0.08, 0.37, 0.17,
-        "3,000 completed ok=true\nmandates\n3,000 routing-contract violations",
+        "3,000 completed ok=true mandates\n(retrospective fail-closed\ninconsistencies)",
         fc="#fbeaea", ec=CRIT, tc=CRIT, bold=True, fs=7.3)
     arrow(ax, 0.25, 0.44, 0.25, 0.265, color=CRIT)
-    ax.text(0.258, 0.35, "no state gate", fontsize=7, color=CRIT, ha="left")
+    ax.text(0.258, 0.35, "no state gate (fail-open)", fontsize=7, color=CRIT, ha="left")
     # right column
     box(ax, 0.565, 0.70, 0.37, 0.12, "3,000 regenerated records\n(same corpus and recorded schedule)")
     box(ax, 0.565, 0.44, 0.30, 0.12,
@@ -142,7 +142,8 @@ def fig22():
     for ax, (base, title, ci, delta) in zip(axes, pairs):
         tasks = sorted(tm["cond_b"].keys())
         diffs = sorted(tm["cond_b"][t] - tm[base][t] for t in tasks)
-        neg = sum(1 for d in diffs if d < 0); pos = sum(1 for d in diffs if d > 0)
+        neg = sum(1 for d in diffs if d < -1e-12); pos = sum(1 for d in diffs if d > 1e-12)
+        tie = len(diffs) - neg - pos
         ax.axvline(0, color=BASE, lw=0.9)
         ax.plot(diffs, range(len(diffs)), ls="none", marker="o", ms=2.6,
                 color=BLUE, alpha=0.55, mec="none")
@@ -151,7 +152,7 @@ def fig22():
         ax.set_ylim(-14, len(diffs) + 2)
         ax.set_title(title, fontsize=8.5, loc="left", color=INK)
         ax.set_xlabel("per-task Δ minimum coverage", fontsize=7.5)
-        ax.text(0.02, 0.97, f"{neg}/120 tasks favor baseline\n{pos}/120 favor Cond-B",
+        ax.text(0.02, 0.97, f"{neg}/120 favor baseline\n{pos}/120 favor Cond-B\n{tie} ties",
                 transform=ax.transAxes, fontsize=7, color=SEC, va="top")
         ax.set_yticks([])
         ax.grid(axis="x", color=GRID, lw=0.5); ax.set_axisbelow(True)
@@ -167,29 +168,33 @@ def fig22():
 
 # ------------------------------------------------------------ fig23 reliability
 def fig23():
-    R = C["reliability"]; rows = R["outcomes"]
-    fig, ax = plt.subplots(figsize=(5.7, 2.7))
+    R = C["full_coverage_alpha"]; rows = R["outcomes"]
+    fig, ax = plt.subplots(figsize=(5.7, 2.6))
     ys = list(range(len(rows)))[::-1]
     ax.axvline(R["floor"], color=INK, lw=1.0, ls=(0, (4, 2)))
-    ax.text(R["floor"] + 0.008, len(rows) - 0.45, "0.667 pre-registered floor",
+    ax.text(R["floor"] + 0.008, len(rows) - 0.40, "0.667 protocol floor",
             fontsize=7, color=INK)
     for y, r in zip(ys, rows):
-        ok = r["lo"] >= R["floor"]
-        col = BLUE if r["hi"] >= R["floor"] else MUTED
-        ax.plot([r["lo"], r["hi"]], [y, y], color=col, lw=1.8, solid_capstyle="butt")
-        ax.plot([r["lo"]], [y], marker="o", ms=4, color=col, mec=SURF, mew=0.5)
-        ax.plot([r["hi"]], [y], marker="o", ms=4, color=col, mec=SURF, mew=0.5)
-        tag = "qualified use" if r["hi"] >= R["floor"] else "descriptive"
-        ax.text(1.01, y, tag, fontsize=7, color=SEC, va="center")
+        above = r["alpha"] >= R["floor"]
+        col = BLUE if above else MUTED
+        ax.plot([0, r["alpha"]], [y, y], color=col, lw=1.2, alpha=0.35)
+        ax.plot([r["alpha"]], [y], marker="o", ms=5.5, color=col, mec=SURF, mew=0.6)
+        ax.text(r["alpha"] + 0.014, y, f'{r["alpha"]:.3f}', fontsize=7, color=SEC,
+                va="center")
+        if "alpha_nominal" in r:
+            ax.plot([r["alpha_nominal"]], [y], marker="s", ms=4.5, mfc="none",
+                    mec=MUTED, mew=1.0)
+            ax.text(r["alpha_nominal"] + 0.012, y - 0.34,
+                    f'{r["alpha_nominal"]:.3f} (nominal)', fontsize=6.3, color=MUTED)
+        tag = "above floor" if above else "below floor (descriptive)"
+        ax.text(1.01, y, tag, fontsize=7, color=(BLUE if above else SEC), va="center")
     ax.set_yticks(ys)
-    ax.set_yticklabels([r["name"] for r in rows], fontsize=7.5)
-    ax.set_xlim(0.0, 1.0); ax.set_ylim(-1.9, len(rows) - 0.3)
-    ax.set_xlabel("Krippendorff α (range across the two sampled bases, initial rubric)",
+    ax.set_yticklabels([f'{r["name"]} ({r["metric"]})' for r in rows], fontsize=7.5)
+    ax.set_xlim(0.0, 1.0); ax.set_ylim(-0.8, len(rows) - 0.2)
+    ax.set_xlabel("Measured full-coverage Krippendorff \u03b1 (3 judges \u00d7 12,000 records, shape-neutral rubric)",
                   fontsize=7.5)
     ax.grid(axis="x", color=GRID, lw=0.5); ax.set_axisbelow(True)
     for s in ("top", "right", "left"): ax.spines[s].set_visible(False)
-    ax.plot([0.012], [-1.15], marker="o", ms=5, mfc="none", mec=INK, mew=1.0)
-    ax.text(0.035, -1.15, "Shape-neutral full-coverage rubric: reliability NOT MEASURED\n(planned double-grade not executed)", fontsize=7.3, color=INK, va="center")
     fig.tight_layout(pad=0.5)
     fig.savefig(os.path.join(OUT, "fig23_judge_reliability.pdf"))
     plt.close(fig)
@@ -223,21 +228,20 @@ def fig24():
 
 # ------------------------------------------------------- fig25 evidence pipeline
 def fig25():
-    P = C["pipeline_counts"]
-    fig, ax = plt.subplots(figsize=(5.7, 3.1))
+    fig, ax = plt.subplots(figsize=(5.7, 3.3))
     ax.set_xlim(0, 1); ax.set_ylim(0, 1); ax.axis("off")
-    ax.text(0.30, 0.975, "Judged branch", ha="center", fontsize=8.5,
+    ax.text(0.30, 0.985, "Judged branch (all 9 systems)", ha="center", fontsize=8.5,
             fontweight="bold", color=INK)
-    ax.text(0.82, 0.975, "Deterministic branch", ha="center", fontsize=8.5,
-            fontweight="bold", color=INK)
-    steps = ["150 frozen tasks\n(120 main + 30 hold-out)",
-             "9 systems × recorded 10-run schedule\n= 12,000 graded outputs",
-             "anonymized outputs",
-             "3 independent judges × 12,000\n= 36,000 retained judge records",
+    ax.text(0.81, 0.985, "Provenance branch\n(MANDATE artifacts only; baselines emit no chains)",
+            ha="center", fontsize=7.6, fontweight="bold", color=INK, va="top")
+    steps = ["150 frozen tasks (120 main + 30 hold-out)",
+             "10,800 main records (120 \u00d7 9 \u00d7 10)\n+ 1,200 hold-out records (30 \u00d7 4 \u00d7 10)",
+             "12,000 anonymized graded outputs",
+             "3 judges \u00d7 12,000 = 36,000 retained judge records",
              "12,000 ensemble aggregates\n(0 reconciliation mismatches)",
-             "120 task means →\n24 task-clustered contrasts",
+             "120 task means \u2192 24 task-clustered contrasts",
              "claim tables and figures"]
-    y = 0.895; h = 0.108; gap = 0.018
+    y = 0.90; h = 0.104; gap = 0.018
     for i, s in enumerate(steps):
         box(ax, 0.05, y - h, 0.50, h, s, fs=7.0,
             fc="#e8f0fb" if i in (3, 4) else "#f4f4f2",
@@ -245,19 +249,16 @@ def fig25():
         if i < len(steps) - 1:
             arrow(ax, 0.30, y - h, 0.30, y - h - gap + 0.003)
         y -= (h + gap)
-    dsteps = ["run records (every system execution)",
-              "six-entry hash-linked chains",
-              "34,080 + 18,000 trace entries,\nevery hash recomputed",
-              "integrity claims (L3, disk-verified)"]
-    y = 0.895; h2 = 0.115; gap2 = 0.045
+    dsteps = ["5,680 campaign chains\n(3,000 canonical + 1,480 primary\n+ 1,200 cross-vendor)",
+              "34,080 campaign entries",
+              "+ 3,000 successor chains\n\u2192 18,000 entries",
+              "52,080 entries: entry, parent, chain,\nanchor digests recomputed (Sect. 6.3)"]
+    y = 0.86; h2 = 0.135; gap2 = 0.035
     for i, s in enumerate(dsteps):
-        box(ax, 0.62, y - h2, 0.36, h2, s, fs=7.3)
+        box(ax, 0.63, y - h2, 0.35, h2, s, fs=7.0)
         if i < len(dsteps) - 1:
-            arrow(ax, 0.80, y - h2, 0.80, y - h2 - gap2 + 0.004)
+            arrow(ax, 0.805, y - h2, 0.805, y - h2 - gap2 + 0.003)
         y -= (h2 + gap2)
-    ax.text(0.62, 0.16, "Zero reconciliation mismatches between the 36,000\n"
-            "retained judge records and the 12,000 aggregates.",
-            fontsize=7.3, color=SEC, va="top")
     fig.tight_layout(pad=0.4)
     fig.savefig(os.path.join(OUT, "fig25_evidence_pipeline.pdf"))
     plt.close(fig)

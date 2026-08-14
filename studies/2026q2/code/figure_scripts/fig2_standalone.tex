@@ -25,6 +25,7 @@
 \draw[->, thick] (state.south) -- node[right=1pt, font=\footnotesize]{no signal} (exe.north);
 \draw[->, dashed] (sources.west) -- (decomp.east);
 \node[draw, dashed, rounded corners, fit=(intake)(interp)(decomp)(proc)(bind)(valid), inner sep=0.16cm] {};
+\node[draw, dashed, thick, rounded corners, fit=(pred)(state)(nex)(exe), inner sep=0.20cm, label={[font=\footnotesize\itshape, anchor=north west]south west:successor contract only --- absent in the evaluated 1.0.0rc1 build}] {};
 \node[right=1.1cm of pred, text width=4.0cm, font=\footnotesize, align=left]
   {a generated artifact is not\\ necessarily executable:\\ the state gate, not artifact\\ completion, decides};
 \end{tikzpicture}

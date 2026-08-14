@@ -2,7 +2,7 @@
 
 This document tells a reviewer how to reproduce every empirical claim in the MANDATE 2026Q2 supplement, from a zero-compute read-only check through a full hardware-bound re-run. It pairs with `DEPOSIT_MAPPING.md` (what each artifact is and where it lives) and `GITHUB_DEPOSIT_PLAN.md` (the deposit directory layout).
 
-> **Conventions (deposit layout).** Clone `https://github.com/calboreanu/MANDATE`, check out tag `study-release-2026.08.13`, and `cd studies/2026q2`. All commands in this document run **from that study root** (the directory containing `replication_package/`, `code/`, and `docs/`) and use the deposit's own paths. Frozen data lives under `replication_package/` (`v1_main/system_outputs/` ships the RunRecords as consolidated JSONL, one record per line; `v1_main/findings_extracted/` ships the pre-computed finding extracts). Apparatus code lives under `code/` and is invoked as `python3 -m apparatus.<entrypoint>` from inside `code/`. Compute tiers write to a scratch `work/` directory at the study root so the frozen `replication_package/` tree is never modified.
+> **Conventions (deposit layout).** Clone `https://github.com/calboreanu/MANDATE`, check out tag `study-release-2026.08.13.1`, and `cd studies/2026q2`. All commands in this document run **from that study root** (the directory containing `replication_package/`, `code/`, and `docs/`) and use the deposit's own paths. Frozen data lives under `replication_package/` (`v1_main/system_outputs/` ships the RunRecords as consolidated JSONL, one record per line; `v1_main/findings_extracted/` ships the pre-computed finding extracts). Apparatus code lives under `code/` and is invoked as `python3 -m apparatus.<entrypoint>` from inside `code/`. Compute tiers write to a scratch `work/` directory at the study root so the frozen `replication_package/` tree is never modified.
 >
 > *Historical note:* the evaluation itself executed on the eval host from an "apparatus root" (`mandate_eval_2026Q2/` with `07_system_outputs/`, `04_ground_truth/`, `08_grading/`, `08_grading_v2/`, interpreter `.venv/bin/python`) beside a "deposit root" (`Mandate Data/` with `standalone data results/`). Frozen evidence files and handoff documents record those paths verbatim as provenance (see the README "Provenance note on absolute paths"); they do not exist in this repository, and no command below depends on them. The provenance tags are unchanged: apparatus code tag `mandate-eval-primary-2026q2-v1` (commit `4f8af83`), frozen outputs tag `outputs_freeze_v1_1` (commit `5f4de54`).
 
@@ -232,7 +232,7 @@ python3 -m apparatus.run grade-v2 \
   --sample-size 200 --sample-seed 20260623 \
   --out ../work/grading_v2 --skip-existing
 
-# Full coverage + pre-registered 20% IRR double-grade
+# Full coverage + protocol-specified 20% IRR double-grade
 python3 -m apparatus.run grade-v2 \
   --anonymized ../work/grading_v2/anonymized_outputs \
   --ground-truth ../replication_package/v1_main/ground_truth/ground_truth.json \
@@ -246,6 +246,17 @@ python3 -m apparatus.run grade-v2 \
 
 ## Tier 3 — Re-run baselines and conditions on the frozen corpus (requires mlt-stack)
 
+**Recorded seed schedules (measured from the frozen records; seed = base + run number, `code/apparatus/run.py`):**
+
+| Condition | Base | Runs | Recorded seeds |
+|---|---|---|---|
+| Cond-A / Cond-B / successor routing check | 20260623 | 1-10 | 20260624-20260633 |
+| Cross-vendor Cond-B | 20260623 | 1-4 | 20260624-20260627 |
+| MANDATE-primary, baselines B1-B6 | 20260605 | 1-10 | 20260606-20260615 |
+| Baseline calibration (`TASK-CAL-*`, single pass) | - | - | 20260605 |
+
+The frozen baseline main files carry 1,206 records each: 120 tasks x 10 runs plus the six ungraded calibration-task records at seed 20260605; graded denominators exclude the calibration records (1,200).
+
 Regenerate RunRecords from the frozen 120-task corpus. Requires **mlt-stack 1.0.0rc1** (see "Acquiring mlt-stack" — every `run-*` entry point imports `apparatus.systems`, which imports `mlt.mandate`), API keys, and substantial wall clock (~24h/baseline; ~$500–2,000 each). From `code/`:
 
 ```bash
@@ -254,8 +265,9 @@ cd code
 python3 -m apparatus.run run-system \
   --system baseline_1 \
   --tasks ../replication_package/v1_main/corpus/main_tasks.jsonl \
-  --runs 10 --seed-base 20260601 \
+  --runs 10 --seed-base 20260605 \
   --output ../work/system_outputs/baseline_1_repro
+# (recorded schedule: seeds 20260606-20260615 = 20260605 + run number)
 # repeat for baseline_2 .. baseline_6
 
 # Cond-A: upstream extractor -> canonical MLT MANDATE
@@ -290,16 +302,28 @@ cd code
 python3 -m apparatus.run run-system \
   --system mandate_primary --ollama-mode \
   --tasks ../replication_package/v1_main/corpus/main_tasks.jsonl \
-  --runs 10 --seed-base 20260601 \
+  --runs 10 --seed-base 20260605 \
   --aegis <AEGIS-eval root> \
   --output ../work/system_outputs/mandate_primary_repro
 
-# Cross-vendor Cond-B (the HANDOFF_22 pilot) over the stratified-75 selection
+# Cross-vendor Cond-B (the HANDOFF_22 pilot) over the frozen stratified-75 selection
+# (75 tasks x 4 runs = 300 records per vendor; recorded seeds 20260624-20260627)
+mkdir -p ../work
+python3 - <<'PY'
+import json
+sel = json.load(open("../replication_package/v2_complete/cross_vendor/task_selection_75.json"))
+keep = set(sel["task_ids"])
+with open("../replication_package/v1_main/corpus/main_tasks.jsonl") as src, \
+     open("../work/xvendor_tasks_75.jsonl", "w") as dst:
+    for line in src:
+        if json.loads(line)["task_id"] in keep:
+            dst.write(line)
+PY
 for m in qwen2.5:32b llama3.2:3b mistral:7b phi3:14b; do
   python3 -m apparatus.run run-cond-b --all \
-    --tasks ../replication_package/v1_main/corpus/main_tasks.jsonl \
+    --tasks ../work/xvendor_tasks_75.jsonl \
     --llm-backend ollama --llm-model "$m" \
-    --runs-per-task 4 --seed 20260624 \
+    --runs-per-task 4 --seed 20260623 \
     --out "../work/system_outputs/cond_b_xvendor/${m%%:*}" --skip-existing
 done
 ```

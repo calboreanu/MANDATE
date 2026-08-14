@@ -1,6 +1,7 @@
 # code/ — Evaluation Apparatus Snapshot
 
-- `apparatus/` — the evaluation harness: 7-role MANDATE pipeline adapters,
+- `apparatus/` — the evaluation harness: adapters for the six MANDATE pipeline
+  roles plus the Cond-A extraction stage,
   baseline shells (B1–B6), perturbation generator, three-judge grading
   (`grade-v2`, shape-neutral v2 rubric, per-record checkpointing with
   `--skip-existing` resume), anonymization, and analysis helpers. Snapshot of

@@ -1,11 +1,11 @@
-# MANDATE 2026Q2 Study — Complete Evidence and Replication Package
+# MANDATE 2026Q2 Study — Deposited Evidence and Verification Package (with Partial Replication Apparatus)
 
-**Study-release version:** `2026.08.13`
+**Study-release version:** `2026.08.13.1`
 
 **Repository and path:** `calboreanu/MANDATE`, `studies/2026q2/`
 
-This directory is the evidence and replication package for the pre-registered
-2026Q2 comparative evaluation of **MANDATE** (Multi-Agent Nominal Decomposition
+This directory is the deposited evidence and verification package for the
+protocol-governed 2026Q2 comparative evaluation of **MANDATE** (Multi-Agent Nominal Decomposition
 for Autonomous Task Execution), a tolerance-based task-specification framework
 for autonomous agents. The evaluation measured three MANDATE conditions against
 six baseline systems on a frozen three-domain corpus (120 tasks × a recorded
@@ -13,13 +13,20 @@ six baseline systems on a frozen three-domain corpus (120 tasks × a recorded
 plus a 30-task out-of-domain hold-out, graded 12,000 records at full coverage
 under a three-judge ensemble (Claude Opus, GPT-4o, Gemini 2.5 Pro), and added
 cross-vendor execution (4 LLM families), a 350-perturbation adversarial suite,
-and ablations. Every deviation from the pre-registered protocol is documented
-(13 entries, D-01–D-13).
+and ablations. Every deviation from the locked protocol is documented (13 entries,
+D-01–D-13; standalone structured ledger at
+`pre_registration/DEVIATION_LEDGER.md`). The campaign is protocol-governed,
+not pre-registered: the released registration carries an unfilled lock-date
+field and no externally timestamped pre-data registration, and the executed
+analysis deviates materially from the locked plan (hypothesis dispositions in
+the manuscript's Supplementary Information).
 
 **The study result, stated as one result:** MANDATE produced schema-valid,
-fully hash-traced specification artifacts at scale and remained semantically
-competitive with, but not superior to, the strongest agentic comparator under
-identical raw-text input. The audit trail also exposed a result-state defect in
+fully hash-traced specification artifacts at scale; on the one semantic
+outcome whose measured full-coverage reliability clears the protocol floor
+(minimum coverage, Krippendorff α = 0.855), it measures below the strongest
+agentic comparator under identical raw-text input (Δ = −0.112, consistent in
+direction across all three judges and 112/120 tasks). The retained structured result fields also exposed a result-state defect in
 the evaluated `1.0.0rc1` implementation: blocking or insufficient
 specifications could coexist with `ok=true`. The successor `1.0.3`-derived
 implementation therefore underwent a focused, generation-only contract check
@@ -42,7 +49,9 @@ they are not separate study results or separate releases.
 |---|---|
 | Read the results | `supplement_pdfs/Empirical Evidence Supplemental.pdf` |
 | Verify a specific claim against data | `docs/CLAIM_TO_DATA_MAP.md` |
-| Verify the complete study release | `python3 code/scripts/verify_study_release.py` |
+| Run the targeted release-integrity verifier | `python3 code/scripts/verify_study_release.py` |
+| Recompute every deposited trace hash | `python3 code/figure_scripts/verify_trace_hashes_full.py --root .` |
+| Recompute measured judge reliability | `python3 code/figure_scripts/compute_reliability.py` |
 | Understand the routing-purpose test | `docs/CORRECTED_ROUTING_VALIDATION_20260812.md` |
 | Inspect retained raw grading depth | `replication_package/retained_study_data/` |
 | Replicate (tiered, from free to cluster) | `docs/REPLICATION_INSTRUCTIONS.md` + `docs/PARTIAL_REPLICATION.md` |
@@ -58,7 +67,7 @@ they are not separate study results or separate releases.
 ```bash
 git clone https://github.com/calboreanu/MANDATE.git
 cd MANDATE
-git checkout study-release-2026.08.13
+git checkout study-release-2026.08.13.1
 cd studies/2026q2
 
 # Record counts match the supplement:
@@ -80,7 +89,7 @@ print('cond_a main ok:', ok, '/ 1200')"
 # Adversarial structural results (100% prompt-injection structural pass):
 wc -l replication_package/v2_complete/perturbations_mandate/*.jsonl   # 3500 + 350 + 350
 
-# Complete release verification (stdlib only; no keys or network):
+# Targeted release-integrity verification (stdlib only; no keys or network):
 python3 code/scripts/verify_study_release.py
 ```
 
@@ -110,12 +119,14 @@ python3 code/scripts/verify_study_release.py
 - `replication_package/retained_study_data/` — deterministic, checksummed
   consolidation of the retained raw per-judge streams, including all 36,000
   records behind the 12,000 full-coverage ensemble results and 44,055 partial
-  perturbation-judge records. Additional directory-backed retained material is
-  inventoried by the included packager and will be appended after cloud
-  materialization.
-- `code/` — apparatus snapshot (7-role pipeline, judges, baselines,
-  perturbation generator), run scripts, and the figure-data extraction and
-  plotting scripts used by the manuscript.
+  perturbation-judge records. The checksummed streams above are the retained set deposited with this
+  release; anything beyond them is out of scope here (see
+  `docs/EXCLUSIONS.md`).
+- `code/` — apparatus snapshot (adapters for the six MANDATE roles plus the
+  Cond-A extraction stage; judges, baselines, perturbation generator), run
+  scripts, and `code/figure_scripts/` — the figure-data extraction and
+  plotting scripts, the whole-deposit trace-hash verifier, and the
+  full-coverage reliability script used by the manuscript.
 - `engineering_provenance/` — full handoff chronology (119 files) + cost
   ledger with the closeout addendum. Reviewers can skip this directory.
 - `docs/` — replication instructions, environment spec, claim-to-data map,
@@ -163,16 +174,20 @@ them.
   multi-agent-shell class representative). No cross-system semantic
   adversarial claims are made from partial grades. Resumable via
   `grade-v2 --skip-existing` against frozen records.
-- **Confidence intervals** for the pre-registered contrast family were
+- **Confidence intervals** for the protocol-specified primary contrast family were
   delivered 2026-07-10 (`analysis/bootstrap_contrasts_results.json`;
   script `code/scripts/bootstrap_contrasts.py`, seed 20260710); the wider
-  9-system grid remains descriptive. Subjective judge outcomes
-  (trace_completeness α=0.194, fabrication_count α=0.216) fell below the
-  reliability threshold and are flagged wherever used; structural claims
-  derive from artifact inspection.
+  9-system grid remains descriptive. **Measured full-coverage inter-judge
+  reliability** (Krippendorff α from the retained streams, via
+  `code/figure_scripts/compute_reliability.py`): minimum coverage 0.855
+  (above the 0.667 floor); target 0.586; constraint 0.589; mission-intent
+  0.536; gap classification 0.449; fabrication 0.218; trace completeness
+  0.218 interval / 0.027 nominal. The earlier sampled v1 values are halt-rule
+  history. Judged claims are read jointly with these values; structural
+  claims derive from artifact inspection.
 
   Note on `v1_main/grading/v1_sampled/judges_config.json`: the file
-  records the pre-registered ensemble (Opus); the v1 cycle executed with
+  records the protocol-locked ensemble (Opus); the v1 cycle executed with
   Sonnet substituted under deviation D-08 and v2 restored Opus under
   D-10. `pre_registration/DEVIATIONS.md` carries the four long-form
   deviation narratives; the complete 13-entry structured table is §9 of
@@ -196,5 +211,5 @@ Cite the paper and this repository by URL. See `CITATION.cff` and
 
 - **Code** (`code/`, scripts): Apache License 2.0 — see `LICENSE`.
 - **Data** (RunRecords, corpus, ground truth, grades): CC BY 4.0 — see `LICENSE-DATA`.
-- **Pre-registration prompts and forms:** CC0.
+- **Registration prompts and forms** (`pre_registration/`): CC0.
 - **Paper text:** not redistributed here; cite via the journal/preprint.

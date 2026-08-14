@@ -140,8 +140,11 @@ infrastructure above plus the MLX-LM toolchain on Apple Silicon.
    per record is ~100 s steady-state.
 2. **Apple Silicon required for fine-tuning.** The MLX-LM toolchain is
    Apple Silicon-only. Reviewers without Apple Silicon hardware cannot
-   replicate the MANDATE fine-tunes; they should use the pre-fine-tuned
-   adapters distributed with the replication package.
+   replicate the MANDATE fine-tunes; the fine-tuned adapters are not
+   distributed with this deposit: they belong to the proprietary AEGIS
+   evaluation tree (available on request; see `docs/EXCLUSIONS.md`), with
+   their manifests deposited at
+   `replication_package/v0_5_pilot/logs/adapter_manifest_*.json`.
 3. **API rate limits.** Stage 4 grading (Opus + GPT-4o + Gemini) is
    subject to provider rate limits. The HANDOFF_20 retry-layer and
    probe-gate (HANDOFF_19c) handle this gracefully; reviewers should not

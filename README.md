@@ -22,8 +22,8 @@ It produces governance-ready specification artifacts that separate:
   - `mandate validate examples/quarterly_report_mandate.json`
 - `examples/` — example artifacts (mandate + gap report) and trace entries
 - `docs/` — short specs and implementation notes
-- `studies/2026q2/` — the complete evidence and replication package for the
-  pre-registered 2026Q2 MANDATE evaluation, including frozen records, retained
+- `studies/2026q2/` — the deposited evidence and verification package (with partial replication
+  apparatus) for the protocol-governed 2026Q2 MANDATE evaluation, including frozen records, retained
   per-judge evidence, the successor routing-contract check, analysis code, and
   one-command verification.
 
@@ -51,7 +51,7 @@ public project. From a full checkout:
 python3 studies/2026q2/code/scripts/verify_study_release.py
 ```
 
-Use the repository tag `study-release-2026.08.13` and the files under
+Use the repository tag `study-release-2026.08.13.1` and the files under
 `studies/2026q2/` when citing or verifying the evaluation. Historical names
 inside frozen artifacts remain unchanged solely for provenance and hash
 continuity.

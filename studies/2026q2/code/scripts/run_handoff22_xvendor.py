@@ -174,9 +174,36 @@ def update_status(
     write_report(report_path, status)
 
 
+def build_cmd(model, out_dir, corpus_path, runs_per_task, task_ids, root):
+    return [
+        sys.executable, "-m", "apparatus.run", "run-cond-b",
+        *task_ids,
+        "--tasks", str(corpus_path),
+        "--out", str(out_dir.relative_to(root)),
+        "--llm-backend", "ollama",
+        "--llm-model", model,
+        "--runs-per-task", str(runs_per_task),
+        "--seed", "20260623",
+        "--domain-profile-mode", "auto",
+        "--max-workers", "1",
+        "--skip-existing",
+    ]
+
+
 def main() -> int:
     root = Path(__file__).resolve().parents[1]
-    selection_path = root / "07_system_outputs/cond_b/_handoff_22_task_selection.json"
+    study_root = Path(__file__).resolve().parents[2]
+    selection_candidates = [
+        study_root / "replication_package/v2_complete/cross_vendor/task_selection_75.json",
+        root / "07_system_outputs/cond_b/_handoff_22_task_selection.json",  # legacy private-core layout
+    ]
+    selection_path = next((p for p in selection_candidates if p.exists()), selection_candidates[0])
+    corpus_candidates = [
+        study_root / "replication_package/v1_main/corpus/main_tasks.jsonl",
+        root / "04_ground_truth/main_tasks.jsonl",  # legacy private-core layout
+    ]
+    corpus_path = next((p for p in corpus_candidates if p.exists()), corpus_candidates[0])
+    dry_run = "--dry-run" in sys.argv[1:]
     status_path = root / "handoffs/HANDOFF_22_xvendor_status.json"
     report_path = root / "handoffs/HANDOFF_22_xvendor_report.md"
     selection = load_json(selection_path)
@@ -192,6 +219,15 @@ def main() -> int:
         "vendors": {},
         "verdict": "RUNNING",
     }
+    if dry_run:
+        print(f"# HANDOFF_22 dry run: {len(task_ids)} tasks x {runs_per_task} runs = {expected_records} records/vendor")
+        print(f"# selection: {selection_path}")
+        print(f"# corpus:    {corpus_path}")
+        for vendor, model in VENDORS:
+            out_dir = root / "07_system_outputs/cond_b_xvendor" / vendor
+            print(" ".join(build_cmd(model, out_dir, corpus_path, runs_per_task, task_ids, root)))
+        return 0
+
     if status_path.exists():
         previous = load_json(status_path)
         status["started_at"] = previous.get("started_at", status["started_at"])
@@ -203,6 +239,7 @@ def main() -> int:
         out_dir = root / "07_system_outputs/cond_b_xvendor" / vendor
         out_dir.mkdir(parents=True, exist_ok=True)
         log_path = root / "logs" / f"HANDOFF_22_{vendor}.stderr"
+        log_path.parent.mkdir(parents=True, exist_ok=True)
         existing = len(record_files(out_dir))
         row = status["vendors"].setdefault(vendor, {
             "model": model,
@@ -224,17 +261,7 @@ def main() -> int:
         })
         update_status(status_path=status_path, report_path=report_path, status=status)
 
-        cmd = [
-            sys.executable, "-m", "apparatus.run", "run-cond-b",
-            *task_ids,
-            "--out", str(out_dir.relative_to(root)),
-            "--llm-backend", "ollama",
-            "--llm-model", model,
-            "--runs-per-task", str(runs_per_task),
-            "--domain-profile-mode", "auto",
-            "--max-workers", "1",
-            "--skip-existing",
-        ]
+        cmd = build_cmd(model, out_dir, corpus_path, runs_per_task, task_ids, root)
         with log_path.open("a", buffering=1) as log:
             log.write(f"\n=== {utc_now()} starting {vendor} ({model}) ===\n")
             log.write(" ".join(cmd) + "\n")

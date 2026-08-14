@@ -3,7 +3,7 @@
 Honest boundaries, stated once, in one place. Each is documented in the
 supplement (Deviation Table and/or Threats to Validity) and summarized here.
 
-1. **Human-expert baseline: never measured.** The pre-registered
+1. **Human-expert baseline: never measured.** The protocol-specified
    human-authored workflow-template comparator was not executed. No claim in
    the paper or supplement compares MANDATE to human specification quality.
 
@@ -17,13 +17,17 @@ supplement (Deviation Table and/or Threats to Validity) and summarized here.
    120-task main corpus now ship in `analysis/bootstrap_contrasts_results.json`
    (script: `code/scripts/bootstrap_contrasts.py`). Small gaps at the
    Cond-A/B3 boundary (clustered CI [+0.004, +0.029]) remain below the
-   pre-registered minimum detectable effect and must not be read as wins.
+   protocol-specified minimum detectable effect and must not be read as wins.
 
-4. **Subjective judge outcomes are unreliable by their own IRR.**
-   trace_completeness (α=0.194) and fabrication_count (α=0.216) fell below
-   the reliability threshold; structural claims deliberately derive from
-   on-disk record inspection instead. Treat those two grade columns as
-   descriptive.
+4. **Most subjective judge outcomes remain below the reliability floor.**
+   Full-coverage inter-judge reliability clears the protocol's 0.667 floor
+   only for minimum coverage (α=0.855). Target coverage (0.586), constraint
+   coverage (0.589), mission-intent match (0.536 nominal), gap classification
+   (0.449 nominal), fabrication count (0.218), and judged trace completeness
+   (0.218 interval / 0.027 nominal) remain below the floor and are treated as
+   descriptive. Structural trace-integrity claims derive from on-disk hash
+   recomputation instead. The earlier sampled values (trace 0.194;
+   fabrication 0.216) are retained only as halt-rule history.
 
 5. **Cross-system semantic adversarial comparison: partial (80.7%).** Grading
    paused under budget Deviation D-13; baseline_4 generation halted at
@@ -35,7 +39,7 @@ supplement (Deviation Table and/or Threats to Validity) and summarized here.
 6. **Source-level ablations A1/A2/A4/A6/A7: not run at full scale.**
    Upstream-blocked at the variant-build level. The auxiliary `ablation_mvp/`
    demonstrates all seven ablations end-to-end at 150-task scale but does not
-   substitute for the pre-registered full-scale runs.
+   substitute for the protocol-specified full-scale runs.
 
 7. **Single-lab provenance.** All results come from one author-controlled
    environment. Independent-lab replication has not been attempted; this

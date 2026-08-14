@@ -1,0 +1,14 @@
+{
+  "n_units": 12000,
+  "floor": 0.667,
+  "alpha": {
+    "minimum_coverage__interval": 0.855,
+    "target_coverage__interval": 0.586,
+    "constraint_coverage__interval": 0.589,
+    "mission_intent_match__nominal": 0.536,
+    "gap_classification__nominal": 0.449,
+    "fabrication_count__interval": 0.218,
+    "trace_completeness__interval": 0.218,
+    "trace_completeness__nominal": 0.027
+  }
+}
