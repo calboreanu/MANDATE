@@ -1,5 +1,11 @@
 # Changelog — MANDATE 2026Q2 Evaluation Deposit
 
+## v2.0.2-publication — 2026-08-14
+
+- Updated publication figure tooling for readability and reliability-aware
+  visual hierarchy; no evidence, data, statistics, or empirical result changed.
+- Aligned public verification instructions with the single `v2.0.2` release.
+
 ## v2.0.1-publication — 2026-08-14
 
 - Included the full study snapshot in the single MANDATE v2.0.1 publication

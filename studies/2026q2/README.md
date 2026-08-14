@@ -1,6 +1,6 @@
 # MANDATE 2026Q2 Study Evidence
 
-**Publication release:** MANDATE `2.0.1`
+**Publication release:** MANDATE `2.0.2`
 
 **Study snapshot:** `2026.08.13.1`
 
@@ -70,7 +70,7 @@ citation anchors; they are not separate study results or current releases.
 ```bash
 git clone https://github.com/calboreanu/MANDATE.git
 cd MANDATE
-git checkout v2.0.1
+git checkout v2.0.2
 cd studies/2026q2
 
 # Record counts match the supplement:

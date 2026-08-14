@@ -1,6 +1,6 @@
 # MANDATE v2 Release Status
 
-MANDATE 2.0.1 is the publication release represented by this repository.
+MANDATE 2.0.2 is the publication release represented by this repository.
 
 ## Included
 

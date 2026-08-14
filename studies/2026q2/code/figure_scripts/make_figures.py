@@ -95,31 +95,51 @@ def fig20():
 
 # ------------------------------------------------------------------ fig21 forest
 def fig21():
-    panels = [("minimum_coverage", "Minimum coverage"),
-              ("target_coverage", "Target coverage"),
-              ("constraint_coverage", "Constraint coverage")]
+    # Reliability hierarchy: minimum coverage is the one outcome whose measured
+    # full-coverage alpha clears the 0.667 floor; it is drawn emphasized (accent
+    # blue, bold title). Target and constraint coverage sit below the floor and
+    # are drawn de-emphasized (muted gray marks, gray titles, tinted panel).
+    panels = [("minimum_coverage",
+               "Minimum coverage — reliable ($\\alpha$ = 0.855)",
+               True),
+              ("target_coverage",
+               "Target coverage — descriptive ($\\alpha$ = 0.586, below 0.667 floor)",
+               False),
+              ("constraint_coverage",
+               "Constraint coverage — descriptive ($\\alpha$ = 0.589, below floor)",
+               False)]
     fig, axes = plt.subplots(3, 1, figsize=(5.7, 4.6), sharex=True)
     XL = 0.16
-    for ax, (key, title) in zip(axes, panels):
+    for ax, (key, title, reliable) in zip(axes, panels):
+        mark = BLUE if reliable else MUTED
+        val_ink = SEC if reliable else MUTED
         data = C["contrasts_task_clustered"][key]
         names = list(data.keys())
         ys = list(range(len(names)))[::-1]
+        if not reliable:
+            ax.set_facecolor("#f4f3ef")
         ax.axvline(0, color=BASE, lw=0.9)
         for y, n in zip(ys, names):
             d, lo, hi = data[n]
             if hi > XL:  # off-scale (B2): arrow + printed value
                 ax.annotate("", xy=(XL*0.97, y), xytext=(XL*0.72, y),
-                            arrowprops=dict(arrowstyle="-|>", color=BLUE, lw=1.4))
+                            arrowprops=dict(arrowstyle="-|>", color=mark, lw=1.4))
                 ax.text(XL*0.70, y, f"+{d:.3f} [{lo:+.3f}, {hi:+.3f}]",
-                        ha="right", va="center", fontsize=7, color=SEC)
+                        ha="right", va="center", fontsize=7, color=val_ink)
             else:
-                ax.plot([lo, hi], [y, y], color=BLUE, lw=1.6, solid_capstyle="butt")
-                ax.plot([d], [y], marker="o", ms=4.5, color=BLUE, mec=SURF, mew=0.6)
+                ax.plot([lo, hi], [y, y], color=mark, lw=1.9 if reliable else 1.4,
+                        solid_capstyle="butt")
+                ax.plot([d], [y], marker="o", ms=5.0 if reliable else 4.0,
+                        color=mark, mec=SURF, mew=0.6)
                 ax.text(XL*1.02, y, f"{d:+.3f}", ha="left", va="center",
-                        fontsize=7, color=SEC)
-        ax.set_yticks(ys); ax.set_yticklabels(names, fontsize=7.5)
+                        fontsize=7, color=val_ink)
+        ax.set_yticks(ys)
+        ax.set_yticklabels(names, fontsize=7.5,
+                           color=INK if reliable else SEC)
         ax.set_xlim(-XL, XL*1.22)
-        ax.set_title(title, fontsize=8.5, loc="left", color=INK, pad=2)
+        ax.set_title(title, fontsize=8.5, loc="left", pad=2,
+                     color=INK if reliable else MUTED,
+                     fontweight="bold" if reliable else "normal")
         ax.grid(axis="x", color=GRID, lw=0.5)
         ax.set_axisbelow(True)
         for s in ("top", "right"): ax.spines[s].set_visible(False)

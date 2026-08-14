@@ -1,32 +1,92 @@
-\documentclass[border=4pt]{standalone}
+\documentclass[border=5pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage{tikz}
-\usetikzlibrary{arrows.meta,positioning,fit}
+\usetikzlibrary{arrows.meta,positioning,fit,shapes.geometric,backgrounds}
 \begin{document}
-\begin{tikzpicture}[>=Stealth, every node/.style={font=\small},
-  role/.style={draw, rounded corners, align=center, minimum width=5.7cm, minimum height=0.82cm, fill=blue!5},
-  src/.style={draw, rounded corners, align=center, minimum width=5.2cm, fill=gray!8},
-  gate/.style={draw, rounded corners, align=center, minimum width=3.4cm, minimum height=0.7cm, fill=orange!8},
-  term/.style={draw, rounded corners, align=center, minimum width=2.9cm, minimum height=0.7cm, font=\small\ttfamily}]
-\node[src] (input) {Operational documents};
-\node[role, below=0.40cm of input] (intake) {1 Intake: normalize and validate input};
-\node[role, below=0.40cm of intake] (interp) {2 Interpreter: extract immutable anchor};
-\node[role, below=0.40cm of interp] (decomp) {3 Decomposition: generate task DAGs and COAs};
-\node[role, below=0.40cm of decomp] (proc) {4 Procedure: match TTPs and SOPs};
-\node[role, below=0.40cm of proc] (bind) {5 Binding: assign available capabilities};
-\node[role, below=0.40cm of bind] (valid) {6 Validation: verify integrity, risk, and completeness};
-\node[src, below=0.50cm of valid] (out) {result envelope: artifact (mandate-as-code or gap report) + raw gap objects};
-\node[gate, below=0.50cm of out] (pred) {signal predicate\\{\footnotesize\texttt{has\_blocking\_or\_insufficient\_signal}}};
-\node[gate, below=0.45cm of pred] (state) {execution state (fail-closed routing)};
-\node[term, below left=0.45cm and -1.2cm of state, fill=blue!8] (nex) {NON\_EXECUTABLE\_GAPS};
-\node[term, below right=0.45cm and -1.2cm of state, fill=green!8] (exe) {EXECUTABLE};
-\node[src, right=1.2cm of decomp, text width=4.0cm] (sources) {Context sources\\SOPs, TTPs, policies, capability inventory, Success Registry\\\emph{consulted by roles 2--6}};
-\foreach \a/\b in {input/intake,intake/interp,interp/decomp,decomp/proc,proc/bind,bind/valid,valid/out,out/pred,pred/state}{\draw[->, thick] (\a) -- (\b);}
-\draw[->, thick] (state.south) -- node[left=1pt, font=\footnotesize]{signal present} (nex.north);
-\draw[->, thick] (state.south) -- node[right=1pt, font=\footnotesize]{no signal} (exe.north);
-\draw[->, dashed] (sources.west) -- (decomp.east);
-\node[draw, dashed, rounded corners, fit=(intake)(interp)(decomp)(proc)(bind)(valid), inner sep=0.16cm] {};
-\node[draw, dashed, thick, rounded corners, fit=(pred)(state)(nex)(exe), inner sep=0.20cm, label={[font=\footnotesize\itshape, anchor=north west]south west:successor contract only --- absent in the evaluated 1.0.0rc1 build}] {};
-\node[right=1.1cm of pred, text width=4.0cm, font=\footnotesize, align=left]
-  {a generated artifact is not\\ necessarily executable:\\ the state gate, not artifact\\ completion, decides};
+\begin{tikzpicture}[>=Stealth,
+  role/.style={draw=black!70, rounded corners=2pt, align=center, text width=8.6cm,
+               inner ysep=5pt, inner xsep=6pt},
+  mini/.style={draw=black!60, rounded corners=2pt, align=center, text width=3.1cm,
+               inner ysep=3.5pt, font=\footnotesize, fill=gray!7},
+  gatebox/.style={draw=black!70, rounded corners=2pt, align=center,
+                  inner ysep=4.5pt, inner xsep=8pt, fill=orange!10},
+  term/.style={draw=black!70, rounded corners=2pt, align=center, minimum width=3.6cm,
+               inner ysep=4.5pt, font=\small\ttfamily},
+  flow/.style={->, very thick, draw=black!75}]
+
+% ---------- input ----------
+\node[draw=black!60, rounded corners=2pt, fill=gray!10, inner ysep=5pt, inner xsep=10pt,
+      font=\small] (input) {\textbf{Operational documents} (raw mission input)};
+
+% ---------- six-role pipeline ----------
+\node[role, fill=blue!4,  below=0.62cm of input] (intake)
+  {\small\textbf{\textsc{1\quad Intake}}\\[1pt]\footnotesize normalize and validate input};
+\node[role, fill=blue!7,  below=0.30cm of intake] (interp)
+  {\small\textbf{\textsc{2\quad Interpreter}}\\[1pt]\footnotesize extract the immutable anchor (min / target / constraints)};
+\node[role, fill=blue!10, below=0.30cm of interp] (decomp)
+  {\small\textbf{\textsc{3\quad Decomposition}}\\[1pt]\footnotesize generate task DAGs and courses of action};
+\node[role, fill=blue!13, below=0.30cm of decomp] (proc)
+  {\small\textbf{\textsc{4\quad Procedure}}\\[1pt]\footnotesize match TTPs and SOPs to tasks};
+\node[role, fill=blue!16, below=0.30cm of proc] (bind)
+  {\small\textbf{\textsc{5\quad Binding}}\\[1pt]\footnotesize assign available capabilities};
+\node[role, fill=blue!19, below=0.30cm of bind] (valid)
+  {\small\textbf{\textsc{6\quad Validation}}\\[1pt]\footnotesize independently verify integrity, risk, and completeness};
+
+\node[draw=black!80, rounded corners=3pt, fit=(intake)(valid), inner sep=0.24cm] (pipe) {};
+
+\foreach \a/\b in {intake/interp,interp/decomp,decomp/proc,proc/bind,bind/valid}
+  {\draw[flow] (\a) -- (\b);}
+\draw[flow] (input) -- (pipe.north -| input);
+
+% ---------- context sources (sidebar) ----------
+\node[mini, right=1.5cm of interp.north east, anchor=north west, yshift=2pt] (src1) {SOP repository};
+\node[mini, below=0.22cm of src1] (src2) {TTP library};
+\node[mini, below=0.22cm of src2] (src3) {policies \& capability inventory};
+\node[mini, below=0.22cm of src3] (src4) {Success Registry};
+\node[draw=black!60, rounded corners=3pt, fit=(src1)(src4), inner sep=0.20cm] (srcframe) {};
+\node[fill=white, inner xsep=5pt, font=\footnotesize\bfseries] at (srcframe.north) {\textsc{Context sources}};
+\draw[<-, thick, dashed, draw=black!65]
+  (pipe.east |- srcframe.west) -- node[above=1pt, font=\footnotesize\itshape, align=center, fill=white, inner sep=1pt]
+  {consulted by roles 2--6} (srcframe.west);
+
+% ---------- hash-linked trace (sidebar, lower) ----------
+\node[cylinder, shape border rotate=90, draw=black!70, aspect=0.12, fill=gray!8,
+      align=center, inner ysep=6pt, inner xsep=5pt, below=0.9cm of srcframe.south,
+      anchor=north, font=\footnotesize] (trace)
+  {\textbf{hash-linked trace}\\one retained entry\\per role, per record};
+\draw[->, thick, dotted, draw=black!65]
+  (pipe.east |- trace.west) -- node[above, font=\footnotesize\itshape] {append} (trace.west);
+
+% ---------- result envelope ----------
+\node[draw=black!70, rounded corners=2pt, fill=gray!10, align=center, below=0.55cm of pipe,
+      inner ysep=5pt, inner xsep=8pt, font=\small] (out)
+  {\textbf{Result envelope:} artifact (\emph{mandate-as-code} or \emph{gap report}) $+$ raw gap objects};
+\draw[flow] (pipe.south) -- (out.north);
+
+% ---------- terminal routing gate ----------
+\node[gatebox, below=0.85cm of out, font=\small] (pred)
+  {\textbf{signal predicate}\\[1pt]\footnotesize\ttfamily has\_blocking\_or\_insufficient\_signal};
+\node[gatebox, below=0.42cm of pred, font=\small] (state)
+  {\textbf{execution state} (fail-closed routing)};
+\node[term, fill=blue!9,  below left=0.55cm and -1.0cm of state] (nex) {NON\_EXECUTABLE\_GAPS};
+\node[term, fill=green!12, below right=0.55cm and -1.0cm of state] (exe) {EXECUTABLE};
+\node[align=center, font=\footnotesize\itshape, below=2.05cm of state, text width=9.6cm] (note)
+  {a generated artifact is not necessarily executable:\\the gate, not artifact completion, decides};
+
+\begin{scope}[on background layer]
+\node[draw=black!80, thick, dashed, rounded corners=3pt, fill=orange!5,
+      fit=(pred)(state)(nex)(exe)(note), inner sep=0.26cm] (gate) {};
+\end{scope}
+\node[fill=white, inner xsep=5pt, font=\footnotesize\itshape, anchor=center] at (gate.south)
+  {successor contract only --- absent in the evaluated \texttt{1.0.0rc1} build};
+
+\draw[flow] (out.south) -- (pred.north);
+\draw[flow] (pred) -- (state);
+\draw[flow] (state.south) -- node[left=2pt, font=\footnotesize]{signal present} (nex.north);
+\draw[flow] (state.south) -- node[right=2pt, font=\footnotesize]{no signal} (exe.north);
+
+\node[fill=white, inner xsep=6pt, font=\small\bfseries] at (pipe.north) {\textsc{Six-Role Pipeline}};
+\node[fill=white, inner xsep=6pt, font=\small\bfseries] at (gate.north) {\textsc{Terminal Routing Gate}};
 \end{tikzpicture}
 \end{document}

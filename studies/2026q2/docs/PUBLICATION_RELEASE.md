@@ -1,13 +1,13 @@
-# MANDATE v2.0.1 Publication Evidence
+# MANDATE v2.0.2 Publication Evidence
 
-The 2026Q2 study snapshot is included in the single MANDATE v2.0.1 publication
+The 2026Q2 study snapshot is included in the single MANDATE v2.0.2 publication
 release at repository path `studies/2026q2/`.
 
 ## Release identity
 
 - Repository: `https://github.com/calboreanu/MANDATE`
-- Publication tag: `v2.0.1`
-- Framework version: `2.0.1`
+- Publication tag: `v2.0.2`
+- Framework version: `2.0.2`
 - Study snapshot: `2026.08.13.1`
 
 Historical study tags and commits remain available as provenance anchors. They
@@ -15,7 +15,7 @@ do not denote additional current releases.
 
 ## Verification gates
 
-From a full checkout at `v2.0.1`:
+From a full checkout at `v2.0.2`:
 
 ```bash
 cd studies/2026q2

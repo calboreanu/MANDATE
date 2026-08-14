@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.0.2 (2026-08-14)
+
+### Figure tooling (patch)
+- Improved the publication architecture diagram for legibility while preserving
+  the six-stage pipeline, context-source, trace, and terminal-routing semantics.
+- Updated the reliability figure to distinguish the measured outcome above the
+  protocol floor from outcomes retained as descriptive evidence.
+- No changes to evidence, data, statistics, or any empirical result.
+
 ## 2.0.1 (2026-08-13)
 
 ### Publication release
