@@ -1,5 +1,13 @@
 # Changelog — MANDATE 2026Q2 Evaluation Deposit
 
+## v2.0.9-publication — 2026-08-15
+
+- Completed the corrected-core routing-diagram inputs, removed a colliding
+  cross-vendor figure annotation, and aligned the verifier description with
+  the L3 result-envelope/state-contract finding.
+- Corrected MANDATE manuscript-lineage metadata. No evidence, data,
+  statistics, model-generated records, or empirical results changed.
+
 ## v2.0.8-publication — 2026-08-15
 
 - Clarified that the deposit enumerates 13 keyed deviations plus additional

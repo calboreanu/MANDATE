@@ -35,7 +35,7 @@ def load_jsonl(path: Path) -> list[dict]:
 
 
 def verify_evaluated_gap_census(repo: Path, issues: list[str]) -> dict:
-    """Recompute the evaluated-build gap/COA identity behind the L4 finding."""
+    """Recompute the evaluated-build gap/COA identity behind the L3 state-contract finding."""
     outputs = repo / "replication_package/v1_main/system_outputs"
     names = (
         "cond_a_main.jsonl",
@@ -332,7 +332,7 @@ def main() -> int:
 
 
     report = {
-        "publication_release_version": "2.0.8",
+        "publication_release_version": "2.0.9",
         "study_snapshot": "2026.08.13.1",
         "ok": not issues,
         "issues": issues,

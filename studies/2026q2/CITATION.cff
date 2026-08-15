@@ -20,7 +20,7 @@ keywords:
 license: CC-BY-4.0
 license-url: "https://creativecommons.org/licenses/by/4.0/"
 repository-code: "https://github.com/calboreanu/MANDATE"
-url: "https://github.com/calboreanu/MANDATE/tree/v2.0.8/studies/2026q2"
+url: "https://github.com/calboreanu/MANDATE/tree/v2.0.9/studies/2026q2"
 notes: >-
   Code is Apache-2.0; data (RunRecords, corpus, ground truth, grades) is
   CC BY 4.0 (see LICENSE-DATA); registration prompts and forms (pre_registration/) are CC0.
@@ -36,4 +36,4 @@ references:
     authors:
       - family-names: Calboreanu
         given-names: Elias
-    notes: "Manuscript prepared for Automated Software Engineering; it supersedes the earlier Frontiers/SSRN manuscript lineage. Cite the published version when available."
+    notes: "Manuscript prepared for Automated Software Engineering; its earlier MANDATE preprint is DOI 10.2139/ssrn.6170328. LATTICE is separate published work. Cite the published MANDATE version when available."

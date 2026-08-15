@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.0.9 (2026-08-15)
+
+### Submission-gate corrections
+- Complete the routing diagram's corrected-core state-derivation inputs and
+  clarify that the public reference implementation is separately versioned.
+- Remove a colliding zero-value annotation from the cross-vendor figure and
+  tighten study metadata around the L3 result-envelope finding.
+- Correct citation-lineage wording. No study data, model-generated records,
+  empirical counts, or reported statistics changed.
+
 ## 2.0.8 (2026-08-15)
 
 ### Study-documentation corrections

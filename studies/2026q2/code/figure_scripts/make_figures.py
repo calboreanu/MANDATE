@@ -290,7 +290,7 @@ def fig24():
         elif l > 0:
             ax.text(x, l + 2, f"{l:g}%", ha="center", fontsize=8, color=SEC)
         else:
-            ax.text(x, 2.5, "0% on LLM path", ha="center", va="bottom",
+            ax.text(x, 2.5, "0%", ha="center", va="bottom",
                     fontsize=8, color="#1c5cab", fontweight="bold",
                     bbox=dict(fc=SURF, ec="none", alpha=1.0, pad=1.0))
         if r >= 12:
