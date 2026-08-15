@@ -21,6 +21,7 @@ GRID   = "#e1e0d9"
 BASE   = "#c3c2b7"
 BLUE   = "#2a78d6"   # accent / conformant
 LBLUE  = "#9ec5f4"   # secondary bar
+DESC   = "#6da7ec"   # descriptive / below-floor marks (same hue, lighter step)
 CRIT   = "#d03b3b"   # violation (always labeled, never color-alone)
 SURF   = "#ffffff"
 
@@ -63,14 +64,14 @@ def fig20():
             fontsize=8, fontweight="bold", color=INK, va="top")
     ax.text(0.75, 0.965, "Successor implementation\n(post-hoc conformance check)", ha="center",
             fontsize=8, fontweight="bold", color=INK, va="top")
-    ax.plot([0.5, 0.5], [0.02, 0.86], color=GRID, lw=0.8)
+    ax.plot([0.5, 0.5], [0.055, 0.86], color=GRID, lw=0.8)
     # left column
     box(ax, 0.065, 0.70, 0.37, 0.12, "3,000 canonical records\n(Cond-A 1,500 + Cond-B 1,500)")
     box(ax, 0.065, 0.44, 0.37, 0.12,
         "3,000 signal-carrying records\n(blocking or insufficient-for-automation)")
     arrow(ax, 0.25, 0.70, 0.25, 0.565)
     box(ax, 0.065, 0.08, 0.37, 0.17,
-        "3,000 completed ok=true mandates\n(retrospective fail-closed\ninconsistencies)",
+        "3,000 completed ok=true mandates\n(retrospective inconsistencies\nunder the later fail-closed contract)",
         fc="#fbeaea", ec=CRIT, tc=CRIT, bold=True, fs=7.3)
     arrow(ax, 0.25, 0.44, 0.25, 0.265, color=CRIT)
     ax.text(0.258, 0.35, "no state gate (fail-open)", fontsize=7, color=CRIT, ha="left")
@@ -88,69 +89,92 @@ def fig20():
     # the one no-signal record
     box(ax, 0.885, 0.08, 0.105, 0.17, "1 record,\nno signal:\nEXECUTABLE", fs=6.3)
     arrow(ax, 0.955, 0.70, 0.945, 0.26, color=MUTED, lw=0.8, ls=(0, (3, 2)))
+    ax.text(0.5, 0.002, "post-hoc, prompt-nonidentical conformance observation — not a paired causal replay",
+            fontsize=6.8, color=SEC, ha="center", va="bottom", fontstyle="italic")
     fig.tight_layout(pad=0.4)
     fig.savefig(os.path.join(OUT, "fig20_routing_conformance.pdf"))
     plt.close(fig)
 
 
 # ------------------------------------------------------------------ fig21 forest
-def fig21():
-    # Reliability hierarchy: minimum coverage is the one outcome whose measured
-    # full-coverage alpha clears the 0.667 floor; it is drawn emphasized (accent
-    # blue, bold title). Target and constraint coverage sit below the floor and
-    # are drawn de-emphasized (muted gray marks, gray titles, tinted panel).
-    panels = [("minimum_coverage",
-               "Minimum coverage — reliable ($\\alpha$ = 0.855)",
-               True),
-              ("target_coverage",
-               "Target coverage — descriptive ($\\alpha$ = 0.586, below 0.667 floor)",
-               False),
-              ("constraint_coverage",
-               "Constraint coverage — descriptive ($\\alpha$ = 0.589, below floor)",
-               False)]
-    fig, axes = plt.subplots(3, 1, figsize=(5.7, 4.6), sharex=True)
+JUDGE_TAGS = {"B1": "judge-sensitive", "B2": "judge-consistent",
+              "B3": "judge-consistent", "B4": "judge-sensitive",
+              "B5": "judge-sensitive", "B6": "judge-sensitive"}
+
+
+def _forest(panels, fname, figh, note_y, rect_top, tags=False):
+    # Reliability hierarchy: the reliable outcome is drawn emphasized (accent
+    # blue, bold ink title); below-floor outcomes are de-emphasized as a lighter
+    # step of the same hue (one hue, two shades; secondary-ink titles).
+    fig, axes = plt.subplots(len(panels), 1, figsize=(5.7, figh), sharex=True)
+    if len(panels) == 1:
+        axes = [axes]
     XL = 0.16
     for ax, (key, title, reliable) in zip(axes, panels):
-        mark = BLUE if reliable else MUTED
-        val_ink = SEC if reliable else MUTED
+        mark = BLUE if reliable else DESC
+        val_ink = SEC
         data = C["contrasts_task_clustered"][key]
         names = list(data.keys())
         ys = list(range(len(names)))[::-1]
-        if not reliable:
-            ax.set_facecolor("#f4f3ef")
         ax.axvline(0, color=BASE, lw=0.9)
         for y, n in zip(ys, names):
             d, lo, hi = data[n]
             if hi > XL:  # off-scale (B2): arrow + printed value
                 ax.annotate("", xy=(XL*0.97, y), xytext=(XL*0.72, y),
                             arrowprops=dict(arrowstyle="-|>", color=mark, lw=1.4))
-                ax.text(XL*0.70, y, f"+{d:.3f} [{lo:+.3f}, {hi:+.3f}]",
-                        ha="right", va="center", fontsize=7, color=val_ink)
+                ax.text(XL*0.30, y, f"+{d:.3f}\n[{lo:+.3f}, {hi:+.3f}]",
+                        ha="center", va="center", fontsize=6.2, color=val_ink,
+                        linespacing=1.15)
             else:
                 ax.plot([lo, hi], [y, y], color=mark, lw=1.9 if reliable else 1.4,
                         solid_capstyle="butt")
                 ax.plot([d], [y], marker="o", ms=5.0 if reliable else 4.0,
                         color=mark, mec=SURF, mew=0.6)
                 ax.text(XL*1.02, y, f"{d:+.3f}", ha="left", va="center",
-                        fontsize=7, color=val_ink)
+                        fontsize=6.8, color=val_ink)
+            if tags:
+                tag = JUDGE_TAGS.get(n[:2], "")
+                if tag:
+                    ax.text(XL*1.76, y, tag, ha="left", va="center", clip_on=False,
+                            fontsize=5.9, color=SEC if "consistent" in tag else MUTED,
+                            style="italic")
         ax.set_yticks(ys)
         ax.set_yticklabels(names, fontsize=7.5,
                            color=INK if reliable else SEC)
         ax.set_xlim(-XL, XL*1.22)
         ax.set_title(title, fontsize=8.5, loc="left", pad=2,
-                     color=INK if reliable else MUTED,
+                     color=INK if reliable else SEC,
                      fontweight="bold" if reliable else "normal")
         ax.grid(axis="x", color=GRID, lw=0.5)
         ax.set_axisbelow(True)
         for s in ("top", "right"): ax.spines[s].set_visible(False)
     axes[-1].set_xlabel("Δ = Cond-B − baseline (task-clustered 95% CI; positive favors Cond-B)",
                         fontsize=7.5)
-    axes[0].text(0.0, 1.30, "Exploratory intervals; 120 shared main-corpus tasks.\n"
-                 "Cond-A excluded: structured-input upper bound, not a fair contrast.",
+    note = ("Exploratory intervals; 120 shared main-corpus tasks.\n"
+            "Cond-A excluded: structured-input upper bound, not a fair contrast.")
+    if tags:
+        note += "\nPair-restricted reliability $\\alpha$ = 0.618 (below floor): magnitudes descriptive."
+    axes[0].text(0.0, note_y, note,
                  transform=axes[0].transAxes, fontsize=7, color=MUTED, va="bottom")
-    fig.tight_layout(pad=0.5, h_pad=1.0, rect=(0, 0, 1, 0.955))
-    fig.savefig(os.path.join(OUT, "fig21_contrast_forest.pdf"))
+    fig.tight_layout(pad=0.5, h_pad=1.0, rect=(0, 0, 0.80 if tags else 1, rect_top))
+    fig.savefig(os.path.join(OUT, fname))
     plt.close(fig)
+
+
+def fig21():
+    # Main paper: the one coverage outcome above the reliability floor, alone.
+    _forest([("minimum_coverage",
+              "Minimum coverage — pooled $\\alpha$ = 0.855",
+              True)],
+            "fig21_contrast_forest.pdf", 2.35, 1.16, 0.87, tags=True)
+    # Supplement companion: the below-floor outcomes, descriptive.
+    _forest([("target_coverage",
+              "Target coverage — descriptive ($\\alpha$ = 0.586, below 0.667 floor)",
+              False),
+             ("constraint_coverage",
+              "Constraint coverage — descriptive ($\\alpha$ = 0.589, below floor)",
+              False)],
+            "fig21b_descriptive_forest.pdf", 3.4, 1.30, 0.945)
 
 
 # ------------------------------------------------------------- fig22 paired tasks
@@ -170,6 +194,7 @@ def fig22():
         ax.plot([ci[0], ci[1]], [-8, -8], color=INK, lw=2.2, solid_capstyle="butt")
         ax.plot([delta], [-8], marker="D", ms=5, color=INK, mec=SURF, mew=0.6)
         ax.set_ylim(-14, len(diffs) + 2)
+        ax.set_xlim(-0.42, 0.42)  # one shared x-scale across both panels
         ax.set_title(title, fontsize=8.5, loc="left", color=INK)
         ax.set_xlabel("per-task Δ minimum coverage", fontsize=7.5)
         ax.text(0.02, 0.97, f"{neg}/120 favor baseline\n{pos}/120 favor Cond-B\n{tie} ties",
@@ -196,17 +221,24 @@ def fig23():
             fontsize=7, color=INK)
     for y, r in zip(ys, rows):
         above = r["alpha"] >= R["floor"]
-        col = BLUE if above else MUTED
+        col = BLUE if above else DESC
         ax.plot([0, r["alpha"]], [y, y], color=col, lw=1.2, alpha=0.35)
         ax.plot([r["alpha"]], [y], marker="o", ms=5.5, color=col, mec=SURF, mew=0.6)
         ax.text(r["alpha"] + 0.014, y, f'{r["alpha"]:.3f}', fontsize=7, color=SEC,
                 va="center")
         if "alpha_nominal" in r:
             ax.plot([r["alpha_nominal"]], [y], marker="s", ms=4.5, mfc="none",
-                    mec=MUTED, mew=1.0)
+                    mec=SEC, mew=1.0)
             ax.text(r["alpha_nominal"] + 0.012, y - 0.34,
                     f'{r["alpha_nominal"]:.3f} (nominal)', fontsize=6.3, color=MUTED)
         tag = "above floor" if above else "below floor (descriptive)"
+        if r["name"].lower().startswith("minimum"):
+            # pooled vs decisive-pair distinction: open marker at the
+            # Cond-B/B3-restricted value (below the floor)
+            ax.plot([0.618], [y], marker="o", ms=5.5, mfc="none", mec=BLUE, mew=1.1)
+            ax.text(0.618, y - 0.34, "0.618 (decisive pair)", fontsize=6.3,
+                    color=SEC, ha="center")
+            tag = "pooled above floor;\ndecisive pair below"
         ax.text(1.01, y, tag, fontsize=7, color=(BLUE if above else SEC), va="center")
     ax.set_yticks(ys)
     ax.set_yticklabels([f'{r["name"]} ({r["metric"]})' for r in rows], fontsize=7.5)
@@ -222,21 +254,37 @@ def fig23():
 
 # ------------------------------------------------------------- fig24 xvendor
 def fig24():
+    # Nested quantities drawn as nested geometry: LLM-path completion is a
+    # subset of structural validity after fallback, so the bar is a 100%
+    # stack — solid = completed on the LLM path, hatched = rescued by the
+    # deterministic fallback.
     V = C["xvendor"]; n = len(V["vendors"])
-    xs = list(range(n)); w = 0.36
+    xs = list(range(n)); w = 0.55
+    llm = V["llm_path_pct"]
+    rescued = [round(t - l, 1) for t, l in zip(V["valid_after_fallback_pct"], llm)]
     fig, ax = plt.subplots(figsize=(5.7, 2.5))
-    b1 = ax.bar([x - w/2 for x in xs], V["llm_path_pct"], w, color=BLUE,
-                label="completed fully on the LLM path")
-    b2 = ax.bar([x + w/2 for x in xs], V["valid_after_fallback_pct"], w,
-                color=LBLUE, hatch="///", edgecolor=SURF, lw=0.5,
-                label="structurally valid after deterministic fallback")
-    for r in list(b1) + list(b2):
-        ax.text(r.get_x() + r.get_width()/2, r.get_height() + 1.5,
-                f"{r.get_height():.0f}%" if r.get_height() % 1 == 0 else f"{r.get_height():.1f}%",
-                ha="center", fontsize=7, color=SEC)
+    ax.bar(xs, llm, w, color=BLUE, label="completed fully on the LLM path")
+    ax.bar(xs, rescued, w, bottom=llm, color=LBLUE, hatch="///",
+           edgecolor=SURF, lw=0.5, label="rescued by the deterministic fallback")
+    for x, l, r in zip(xs, llm, rescued):
+        if l >= 12:
+            ax.text(x, l/2, f"{l:g}%", ha="center", va="center",
+                    fontsize=7.2, color=SURF, fontweight="bold")
+        elif l > 0:
+            ax.text(x, l + 2, f"{l:g}%", ha="center", fontsize=7, color=SEC)
+        else:
+            ax.text(x, 2.5, "0% on LLM path", ha="center", va="bottom",
+                    fontsize=6.6, color="#1c5cab", fontweight="bold")
+        if r >= 12:
+            ax.text(x, l + r/2, f"{r:g}% rescued", ha="center", va="center",
+                    fontsize=7, color="#1c5cab")
+        elif r > 0:
+            ax.text(x, 102.5, f"{r:g}% rescued", ha="center", va="bottom",
+                    fontsize=6.6, color="#1c5cab")
     ax.set_xticks(xs); ax.set_xticklabels(V["vendors"], fontsize=7.5)
     ax.set_ylim(0, 112); ax.set_yticks([0, 25, 50, 75, 100])
     ax.set_ylabel("% of 300 records", fontsize=7.5)
+    ax.axhline(100, color=BASE, lw=0.7, ls=(0, (2, 2)))
     ax.grid(axis="y", color=GRID, lw=0.5); ax.set_axisbelow(True)
     for s in ("top", "right"): ax.spines[s].set_visible(False)
     ax.legend(loc="lower left", bbox_to_anchor=(0.0, 1.0), ncol=2, fontsize=7,
@@ -259,7 +307,7 @@ def fig25():
              "12,000 anonymized graded outputs",
              "3 judges \u00d7 12,000 = 36,000 retained judge records",
              "12,000 ensemble aggregates\n(0 reconciliation mismatches)",
-             "120 task means \u2192 24 task-clustered contrasts",
+             "120 task means per system\n\u2192 24 task-clustered contrasts",
              "claim tables and figures"]
     y = 0.90; h = 0.104; gap = 0.018
     for i, s in enumerate(steps):
@@ -272,10 +320,13 @@ def fig25():
     dsteps = ["5,680 campaign chains\n(3,000 canonical + 1,480 primary\n+ 1,200 cross-vendor)",
               "34,080 campaign entries",
               "+ 3,000 successor chains\n\u2192 18,000 entries",
-              "52,080 entries: entry, parent, chain,\nanchor digests recomputed (Sect. 6.3)"]
-    y = 0.86; h2 = 0.135; gap2 = 0.035
+              "52,080 core campaign + successor\nentries: entry, parent, chain,\nanchor digests recomputed (Sect. 6.3)",
+              "whole-deposit sweep: 100,500 entries\nacross 17,050 trace-bearing artifacts\n(perturbation + ablation tiers included)"]
+    y = 0.86; h2 = 0.125; gap2 = 0.028
     for i, s in enumerate(dsteps):
-        box(ax, 0.63, y - h2, 0.35, h2, s, fs=7.0)
+        last = (i == len(dsteps) - 1)
+        box(ax, 0.63, y - h2, 0.35, h2, s, fs=7.0,
+            fc="#e8f0fb" if last else "#f4f4f2", ec=BLUE if last else BASE)
         if i < len(dsteps) - 1:
             arrow(ax, 0.805, y - h2, 0.805, y - h2 - gap2 + 0.003)
         y -= (h2 + gap2)

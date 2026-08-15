@@ -229,7 +229,7 @@ def main() -> int:
 
 
     report = {
-        "publication_release_version": "2.0.2",
+        "publication_release_version": "2.0.3",
         "study_snapshot": "2026.08.13.1",
         "ok": not issues,
         "issues": issues,

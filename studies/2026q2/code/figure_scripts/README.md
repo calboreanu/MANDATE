@@ -1,7 +1,7 @@
 # code/figure_scripts — figure generation and verification tooling
 
 This is the canonical figure and verification tree for the study snapshot
-included in the MANDATE v2.0.2 publication release. Run everything from the
+included in the MANDATE v2.0.3 publication release. Run everything from the
 study root (`studies/2026q2/` in the repository).
 
 | File | What it is |
