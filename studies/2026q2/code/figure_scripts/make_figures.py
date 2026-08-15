@@ -149,14 +149,15 @@ def _forest(panels, fname, figh, note_y, rect_top, tags=False):
         ax.grid(axis="x", color=GRID, lw=0.5)
         ax.set_axisbelow(True)
         for s in ("top", "right"): ax.spines[s].set_visible(False)
-    axes[-1].set_xlabel("Δ = Cond-B − baseline (task-clustered 95% CI; positive favors Cond-B)",
+    axes[-1].set_xlabel("Δ = Cond-B − baseline (task-bootstrap 95% CI)",
                         fontsize=8.5)
-    note = ("Exploratory intervals; 120 shared main-corpus tasks.\n"
-            "Cond-A excluded: non-comparable structured-input condition.")
+    note = ("120 shared tasks; exploratory task-bootstrap intervals.\n"
+            "Cond-A omitted (non-comparable structured-input condition).")
     if tags:
-        note += ("\nFilled circles: all judge directions agree; open squares: reversal. "
-                 "Pair $\\alpha$ = 0.618.")
-    fig.text(0.38 if tags else 0.34, 0.975, note, fontsize=8.2, color=MUTED, va="top",
+        note += ("\nFilled = judge-direction agreement; open = reversal "
+                 "($\\alpha_{pair}=.618$).")
+    fig.text(0.02 if tags else 0.34, 0.975, note, fontsize=7.6 if tags else 8.2,
+             color=MUTED, va="top",
              linespacing=1.18)
     if tags:
         fig.subplots_adjust(left=0.38, right=0.97, bottom=0.20, top=0.70)
@@ -210,10 +211,11 @@ def fig22():
         ax.grid(axis="x", color=GRID, lw=0.5); ax.set_axisbelow(True)
         for s in ("top", "right", "left"): ax.spines[s].set_visible(False)
     axes[0].set_ylabel("120 shared tasks, ranked by Δ", fontsize=8.5)
-    fig.text(0.02, 0.025, "Dots: paired task means (10 recorded executions each). "
+    fig.text(0.02, 0.055,
+             "Dots: paired task means (10 recorded executions each).\n"
              "Black: mean Δ with exploratory task-clustered 95% CI.",
-             fontsize=8, color=MUTED, va="bottom")
-    fig.subplots_adjust(left=0.10, right=0.98, bottom=0.20,
+             fontsize=7.8, color=MUTED, va="bottom", linespacing=1.15)
+    fig.subplots_adjust(left=0.10, right=0.98, bottom=0.24,
                         top=0.88, wspace=0.25)
     fig.savefig(os.path.join(OUT, "fig22_paired_tasks.pdf"))
     plt.close(fig)
