@@ -237,7 +237,8 @@ class TestGapReportSchemaCompliance:
 
         required = {
             "gap_id", "gap_type", "detected_by", "pipeline_stage",
-            "location", "reason", "remediation", "readiness_score",
+            "location", "reason", "remediation", "severity", "readiness_score",
+            "readiness_assessment",
             "trace_to_gap"
         }
         for gap in result.gap_reports:

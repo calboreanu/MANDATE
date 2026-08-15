@@ -12,7 +12,9 @@
     "location",
     "reason",
     "remediation",
+    "severity",
     "readiness_score",
+    "readiness_assessment",
     "trace_to_gap"
   ],
   "properties": {
@@ -91,6 +93,10 @@
         }
       }
     },
+    "severity": {
+      "type": "string",
+      "enum": ["BLOCKING", "DEGRADING", "INFORMATIONAL"]
+    },
     "readiness_score": {
       "type": "object",
       "additionalProperties": false,
@@ -110,6 +116,22 @@
         },
         "partial_spec_available": {
           "type": "boolean"
+        }
+      }
+    },
+    "readiness_assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["blocking_gap_count", "recommendation"],
+      "properties": {
+        "blocking_gap_count": {"type": "integer", "minimum": 0},
+        "recommendation": {
+          "type": "string",
+          "enum": [
+            "PROCEED_WITH_CAVEATS",
+            "REQUIRES_HUMAN_INPUT",
+            "INSUFFICIENT_FOR_AUTOMATION"
+          ]
         }
       }
     },

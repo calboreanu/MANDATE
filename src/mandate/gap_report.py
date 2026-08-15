@@ -65,10 +65,18 @@ def gap_spec_to_artifact(
             "responsible_party": gap.responsible_party,
             "complexity": gap.complexity,
         },
+        "severity": "BLOCKING" if gap.blocking else "DEGRADING",
         "readiness_score": {
             "completion_percentage": gap.completion_percentage,
             "blocking": gap.blocking,
             "partial_spec_available": gap.partial_spec_available,
+        },
+        "readiness_assessment": {
+            "blocking_gap_count": 1 if gap.blocking else 0,
+            "recommendation": (
+                "INSUFFICIENT_FOR_AUTOMATION"
+                if gap.blocking else "PROCEED_WITH_CAVEATS"
+            ),
         },
         "trace_to_gap": trace_hash,
     }

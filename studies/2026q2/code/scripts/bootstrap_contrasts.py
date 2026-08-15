@@ -15,15 +15,17 @@ Design decisions (documented, not silently chosen):
   trace_completeness). 24 contrasts total.
 - Main corpus only (TASK-MAIN-*): B2-B6 have no graded hold-out
   records, so cross-system contrasts are restricted to the shared
-  120-task corpus. Table point estimates in the paper include hold-out
-  records for MP/Cond-A/Cond-B/B1 (n=1,500); main-only means are also
-  reported here for transparency.
-- Method 1 (pre-registered primary): per-record percentile bootstrap,
+  120-task corpus. Paper point estimates used for cross-system contrasts
+  are therefore main-corpus-only.
+- Method 1 (post-hoc exploratory): per-record percentile bootstrap,
   independent resampling within each system, B=10,000, 95% CI on the
   difference in means; Cohen's d with pooled SD.
-- Method 2 (sensitivity): task-clustered bootstrap; resample the 120
+- Method 2 (post-hoc exploratory, inference-relevant): task-clustered bootstrap; resample the 120
   task IDs with replacement, recompute record-weighted means. Records
-  within a task share seeds and content, so this respects clustering.
+  within a task share content, so this respects task clustering.
+  Unlike the locked plan, this script uses task means and does not stratify
+  resamples by domain; the locked task-median/domain-stratified analysis was
+  not executed.
 - Method 3: two-sided Wilcoxon signed-rank on the 120 paired task
   means, Holm-Bonferroni corrected across the 24 contrasts.
 - Cond-A vs B3 on minimum_coverage is reported separately as a

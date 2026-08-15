@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.0.7 (2026-08-15)
+
+### Submission audit corrections
+- Reconcile every result-envelope state and `ok` value against raw artifact,
+  schema, error, and gap facts; add regression tests for invalid exact states.
+- Align the public gap-report reference schema with explicit severity and
+  readiness summaries while retaining the documented campaign/successor
+  ontology boundary.
+- Scope the 100,500-entry hash result to the declared source-of-record families,
+  document excluded derived copies and legacy pilot formats, and correct the
+  executed-versus-locked bootstrap description.
+- Enlarge and recrop the grayscale publication figures. No study data,
+  empirical counts, or model-generated records changed.
+
 ## 2.0.6 (2026-08-15)
 
 ### Publication alignment

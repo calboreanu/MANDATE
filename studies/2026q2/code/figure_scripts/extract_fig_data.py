@@ -2,7 +2,7 @@
 """Extract figure source data from the MANDATE study release (stdlib only).
 
 Run from any directory after checking out ``calboreanu/MANDATE`` at tag
-``v2.0.6``:
+``v2.0.7``:
 
     python3 studies/2026q2/code/figure_scripts/extract_fig_data.py \
       > /tmp/fig_source_extract.json

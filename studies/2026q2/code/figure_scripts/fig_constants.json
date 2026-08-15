@@ -185,7 +185,7 @@
     "judges": "3 separately executed judges x 12,000 = 36,000 retained judge records",
     "aggregates": "12,000 ensemble aggregates (0 reconciliation mismatches)",
     "contrasts": "120 task means -> 24 task-clustered contrasts",
-    "trace": "100,500 trace entries across 17,050 trace-bearing artifacts (34,080 campaign + 18,000 conformance + 25,020 perturbation + 18,000 ablation + 5,400 ablation-MVP); entry, parent-link, chain, and anchor digests recomputed; the A6 no-search-trace ablation's 150 empty traces are by design",
+    "trace": "100,500 trace entries across 17,050 artifacts in the declared 2026Q2 source-of-record families (34,080 campaign + 18,000 conformance + 25,020 perturbation + 18,000 ablation + 5,400 ablation-MVP); derived anonymized copies and pre-contract pilot formats excluded; entry, parent-link, chain, and anchor digests recomputed; the A6 no-search-trace ablation's 150 empty traces are by design",
     "main_records": "10,800 main = 120 tasks x 9 systems x 10 runs",
     "holdout_records": "1,200 hold-out = 30 tasks x 4 systems x 10 runs"
   },

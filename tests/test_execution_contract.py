@@ -92,6 +92,57 @@ def test_semantic_validator_reconciles_summary_against_raw_gaps():
     assert any("mismatch" in issue or "cannot coexist" in issue for issue in issues)
 
 
+def test_semantic_validator_rejects_wrong_non_executable_state():
+    gaps = [_gap(readiness_score={"blocking": True})]
+    envelope = build_result_envelope(
+        pipeline_succeeded=True, artifact=ARTIFACT, gap_reports=gaps,
+        schema_valid=True,
+    )
+    envelope["execution_state"] = "FAILED"
+    issues = validate_result_envelope(
+        envelope, artifact=ARTIFACT, gap_reports=gaps, schema_valid=True,
+    )
+    assert any("execution_state mismatch" in issue for issue in issues)
+
+
+def test_semantic_validator_rejects_wrong_ok_summary():
+    envelope = build_result_envelope(
+        pipeline_succeeded=True, artifact=ARTIFACT, gap_reports=[],
+        schema_valid=True,
+    )
+    envelope["ok"] = False
+    issues = validate_result_envelope(
+        envelope, artifact=ARTIFACT, gap_reports=[], schema_valid=True,
+    )
+    assert any("ok mismatch" in issue for issue in issues)
+
+
+def test_semantic_validator_rejects_validation_state_for_clean_valid_artifact():
+    envelope = build_result_envelope(
+        pipeline_succeeded=True, artifact=ARTIFACT, gap_reports=[],
+        schema_valid=True,
+    )
+    envelope["execution_state"] = "NON_EXECUTABLE_VALIDATION"
+    envelope["ok"] = False
+    issues = validate_result_envelope(
+        envelope, artifact=ARTIFACT, gap_reports=[], schema_valid=True,
+    )
+    assert any("execution_state mismatch" in issue for issue in issues)
+
+
+def test_semantic_validator_rejects_failed_state_for_blocking_gap():
+    gaps = [_gap(readiness_score={"blocking": True})]
+    envelope = build_result_envelope(
+        pipeline_succeeded=True, artifact=ARTIFACT, gap_reports=gaps,
+        schema_valid=True,
+    )
+    envelope["execution_state"] = "FAILED"
+    issues = validate_result_envelope(
+        envelope, artifact=ARTIFACT, gap_reports=gaps, schema_valid=True,
+    )
+    assert any("execution_state mismatch" in issue for issue in issues)
+
+
 def test_underspecified_pipeline_fails_closed():
     mission = MissionInput(
         mission_id="TEST-CONTRACT-001",

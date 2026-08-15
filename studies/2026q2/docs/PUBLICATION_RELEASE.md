@@ -1,13 +1,13 @@
-# MANDATE v2.0.6 Publication Evidence
+# MANDATE v2.0.7 Publication Evidence
 
-The 2026Q2 study snapshot is included in the single MANDATE v2.0.6 publication
+The 2026Q2 study snapshot is included in the single MANDATE v2.0.7 publication
 release at repository path `studies/2026q2/`.
 
 ## Release identity
 
 - Repository: `https://github.com/calboreanu/MANDATE`
-- Publication tag: `v2.0.6`
-- Framework version: `2.0.6`
+- Publication tag: `v2.0.7`
+- Framework version: `2.0.7`
 - Study snapshot: `2026.08.13.1`
 
 Historical study tags and commits remain available as provenance anchors. They
@@ -15,7 +15,7 @@ do not denote additional current releases.
 
 ## Verification gates
 
-From a full checkout at `v2.0.6`:
+From a full checkout at `v2.0.7`:
 
 ```bash
 cd studies/2026q2
@@ -27,12 +27,13 @@ shasum -a 256 -c EVIDENCE_SHA256SUMS.txt
 The verifier checks the comparative record counts, all 36,000 retained
 full-coverage judge records, ensemble reconciliation, measured reliability,
 the evaluated-build gap census, the 3,000-record routing-purpose test,
-whole-deposit trace hashes, and the SHA-256 manifest covering every file under
+trace hashes for the declared 2026Q2 source-of-record families, and the
+SHA-256 manifest covering every file under
 `replication_package/`.
 
 The GitHub Release additionally publishes a deterministic source archive and
 its SHA-256 digest. It is constructed from the tagged tree with
-`git archive --format=tar --prefix=MANDATE-v2.0.6/ v2.0.6 | gzip -n`; the
+`git archive --format=tar --prefix=MANDATE-v2.0.7/ v2.0.7 | gzip -n`; the
 digest asset authenticates the downloaded archive with SHA-256 rather than
 relying on the repository's SHA-1-format Git object name as a cryptographic
 strength claim.

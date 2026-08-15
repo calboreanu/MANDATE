@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Trace-hash verifier for every trace-bearing artifact in the MANDATE study release.
+"""Trace-hash verifier for declared 2026Q2 source-of-record artifact families.
 
-Recomputes, for every deposited MANDATE artifact across all trace-bearing
-tiers -- the comparative campaign (canonical Cond-A/Cond-B and
+Recomputes hashes for the explicitly enumerated MANDATE source-of-record
+families -- the comparative campaign (canonical Cond-A/Cond-B and
 MANDATE-primary, main and hold-out), the cross-vendor runs, the successor
 routing-check outputs, the Phase-A perturbation artifacts, the A3/A5
 source-ablation artifacts, and the auxiliary ablation-MVP records (canonical run plus all seven ablation variants):
@@ -25,7 +25,9 @@ NOT recomputed here.
 Out of scope, with reasons: grading and retained judge streams (judgments,
 not pipeline artifacts); pilot v0/v0_5 outputs (predate the 2026Q2 trace
 contract and carry no artifact envelope); findings extracts and the ablation-MVP anonymized_outputs/ grading copies
-(derived, identity-stripped views of records verified at source).
+(derived, identity-stripped views of records verified at source). The totals
+are therefore not a recursive census of every trace serialization in the
+repository.
 
 Canonicalization is the deposited artifacts' contract: property names sorted
 by UTF-16 code units, no insignificant whitespace, UTF-8 output, ES6 number

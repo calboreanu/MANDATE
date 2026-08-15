@@ -6,13 +6,13 @@
 \begin{document}
 \begin{tikzpicture}[>=Stealth,
   role/.style={draw=black!70, rounded corners=2pt, align=center, text width=8.6cm,
-               inner ysep=5pt, inner xsep=6pt},
+               inner ysep=5pt, inner xsep=6pt, font=\normalsize},
   mini/.style={draw=black!60, rounded corners=2pt, align=center, text width=3.1cm,
-               inner ysep=3.5pt, font=\footnotesize, fill=white},
+               inner ysep=3.5pt, font=\small, fill=white},
   gatebox/.style={draw=black!70, rounded corners=2pt, align=center,
                   inner ysep=4.5pt, inner xsep=8pt, fill=gray!12},
   term/.style={draw=black!70, rounded corners=2pt, align=center, text width=3.15cm,
-               inner ysep=6pt, inner xsep=4pt, font=\footnotesize\ttfamily},
+               inner ysep=6pt, inner xsep=4pt, font=\small\ttfamily},
   flow/.style={->, very thick, draw=black!75}]
 
 % ---------- input ----------
@@ -21,17 +21,17 @@
 
 % ---------- six-role pipeline ----------
 \node[role, fill=gray!4,  below=0.62cm of input] (intake)
-  {\small\textbf{\textsc{1\quad Intake}}\\[1pt]\footnotesize normalize and validate input};
+  {\textbf{\textsc{1\quad Intake}}\\[1pt]\small normalize and validate input};
 \node[role, fill=gray!7,  below=0.30cm of intake] (interp)
-  {\small\textbf{\textsc{2\quad Interpreter}}\\[1pt]\footnotesize extract the immutable anchor (min / target / constraints)};
+  {\textbf{\textsc{2\quad Interpreter}}\\[1pt]\small extract the immutable anchor (min / target / constraints)};
 \node[role, fill=gray!10, below=0.30cm of interp] (decomp)
-  {\small\textbf{\textsc{3\quad Decomposition}}\\[1pt]\footnotesize generate task DAGs and courses of action};
+  {\textbf{\textsc{3\quad Decomposition}}\\[1pt]\small generate task DAGs and courses of action};
 \node[role, fill=gray!13, below=0.30cm of decomp] (proc)
-  {\small\textbf{\textsc{4\quad Procedure}}\\[1pt]\footnotesize match TTPs and SOPs to tasks};
+  {\textbf{\textsc{4\quad Procedure}}\\[1pt]\small match TTPs and SOPs to tasks};
 \node[role, fill=gray!16, below=0.30cm of proc] (bind)
-  {\small\textbf{\textsc{5\quad Binding}}\\[1pt]\footnotesize assign available capabilities};
+  {\textbf{\textsc{5\quad Binding}}\\[1pt]\small assign available capabilities};
 \node[role, fill=gray!19, below=0.30cm of bind] (valid)
-  {\small\textbf{\textsc{6\quad Validation}}\\[1pt]\footnotesize independently verify integrity, risk, and completeness};
+  {\textbf{\textsc{6\quad Validation}}\\[1pt]\small independently verify integrity, risk, and completeness};
 
 \node[draw=black!80, rounded corners=3pt, fit=(intake)(valid), inner sep=0.24cm] (pipe) {};
 
@@ -70,13 +70,13 @@
 \node[gatebox, below=0.42cm of pred, font=\small] (state)
   {\textbf{execution state} (fail-closed routing)};
 \node[term, fill=gray!16, very thick, below=1.08cm of state, xshift=-5.30cm] (nex)
-  {NON\_EXECUTABLE\\GAPS\\[-1pt]\normalfont\scriptsize blocking or insufficient signal};
+  {NON\_EXECUTABLE\\GAPS\\[-1pt]\normalfont\small blocking or insufficient signal};
 \node[term, fill=gray!7, dashed, right=0.25cm of nex] (nev)
-  {NON\_EXECUTABLE\\VALIDATION\\[-1pt]\normalfont\scriptsize validation fails};
+  {NON\_EXECUTABLE\\VALIDATION\\[-1pt]\normalfont\small validation fails};
 \node[term, fill=white, double=black!70, double distance=0.35pt, right=0.25cm of nev] (exe)
-  {EXECUTABLE\\[-1pt]\normalfont\scriptsize no signal; valid artifact};
+  {EXECUTABLE\\[-1pt]\normalfont\small no signal; valid artifact};
 \node[term, fill=gray!25, right=0.25cm of exe] (fail)
-  {FAILED\\[-1pt]\normalfont\scriptsize no valid result};
+  {FAILED\\[-1pt]\normalfont\small no valid result};
 \node[align=center, font=\footnotesize\itshape, below=0.55cm of nev.south east,
       xshift=1.65cm, text width=11.8cm] (note)
   {a generated artifact is not necessarily executable:\\the gate, not artifact completion, decides};
@@ -95,7 +95,7 @@
 \draw[thick, draw=black!70] (nex.north |- routehub) -- (fail.north |- routehub);
 \foreach \terminal in {nex,nev,exe,fail}
   {\draw[->, thick, draw=black!75] (\terminal.north |- routehub) -- (\terminal.north);}
-\node[fill=gray!3, inner xsep=3pt, font=\scriptsize\itshape, above=1pt of routehub]
+\node[fill=gray!3, inner xsep=3pt, font=\small\itshape, above=1pt of routehub]
   {exactly one terminal state};
 
 \node[fill=white, inner xsep=6pt, font=\small\bfseries] at (pipe.north) {\textsc{Six-Role Pipeline}};

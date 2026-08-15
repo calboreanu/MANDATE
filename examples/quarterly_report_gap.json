@@ -13,10 +13,15 @@
     "responsible_party": "Process Owner",
     "complexity": "LOW"
   },
+  "severity": "BLOCKING",
   "readiness_score": {
     "completion_percentage": 17,
     "blocking": true,
     "partial_spec_available": false
+  },
+  "readiness_assessment": {
+    "blocking_gap_count": 1,
+    "recommendation": "INSUFFICIENT_FOR_AUTOMATION"
   },
   "trace_to_gap": "f7b748631fdfa73492bfa085d7702c658e42e28a656a8658da60ec92cd4a03a7"
 }

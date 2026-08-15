@@ -135,13 +135,17 @@ def validate_result_envelope(
         path = "/".join(str(p) for p in err.absolute_path)
         issues.append(f"{path}: {err.message}" if path else err.message)
     expected = build_result_envelope(
-        pipeline_succeeded=envelope.get("execution_state") == ExecutionState.EXECUTABLE.value,
+        # Reconstruct the state from raw payload facts, not from the claimed
+        # state. A valid artifact with no errors is a completed pipeline result;
+        # blocking gaps and schema failure still take fail-closed precedence.
+        pipeline_succeeded=artifact is not None and schema_valid is True and not errors,
         artifact=artifact,
         gap_reports=gap_reports,
         schema_valid=schema_valid,
         errors=errors,
     )
     for field in (
+        "ok", "execution_state",
         "artifact_present", "schema_valid", "gap_report_count",
         "has_blocking_or_insufficient_signal", "errors_present", "missing_result",
         "output_representation",

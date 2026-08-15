@@ -132,6 +132,10 @@ def main() -> int:
                   f"{record.get('run_id')}: envelope blocker mismatch", issues)
             check(bool(record.get("ok")) == (state == "EXECUTABLE"),
                   f"{record.get('run_id')}: ok/state mismatch", issues)
+            check(envelope.get("execution_state") == state,
+                  f"{record.get('run_id')}: top-level/envelope state mismatch", issues)
+            check(envelope.get("ok") is record.get("ok"),
+                  f"{record.get('run_id')}: top-level/envelope ok mismatch", issues)
             if record.get("any_llm_fallback"):
                 fallback[condition] += 1
                 check(state == "NON_EXECUTABLE_GAPS", f"{record.get('run_id')}: fallback route", issues)
@@ -232,4 +236,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-

@@ -54,29 +54,29 @@ for line in open(os.path.join(G, "ensemble_scores.jsonl")):
         vals[s].append(v)
 
 PHI = 0.6180339887498949
-fig, ax = plt.subplots(figsize=(5.7, 2.9))
+fig, ax = plt.subplots(figsize=(5.15, 3.45))
 for i, (key, label) in enumerate(ORDER):
     v = vals[key]
     xs = [i + (((j * PHI) % 1.0) - 0.5) * 0.62 for j in range(len(v))]
-    ax.plot(xs, v, ls="none", marker="o", ms=1.1, color=BLUE, alpha=0.10,
+    ax.plot(xs, v, ls="none", marker="o", ms=1.2, color=BLUE, alpha=0.18,
             mec="none", rasterized=True)
     mean = sum(v) / len(v)
     ax.plot([i - 0.36, i + 0.36], [mean, mean], color=INK, lw=1.6,
             solid_capstyle="butt", zorder=5)
     ax.text(i, mean + 0.045, f"{mean:.3f}", ha="center", va="bottom",
-            fontsize=6.2, color=INK,
+            fontsize=8.0, color=INK,
             bbox=dict(fc="#ffffff", ec="none", alpha=0.75, pad=0.6))
 ax.plot([], [], color=INK, lw=1.6, label="system mean")
 ax.set_xticks(range(len(ORDER)))
-ax.set_xticklabels([l for _, l in ORDER], fontsize=6.4)
+ax.set_xticklabels([l for _, l in ORDER], fontsize=8.0)
 ax.set_ylim(-0.03, 1.03)
 ax.set_xlim(-0.6, len(ORDER) - 0.4)
-ax.set_ylabel("Per-record minimum coverage", fontsize=7.5)
+ax.set_ylabel("Per-record minimum coverage", fontsize=8.5)
 ax.grid(axis="y", color=GRID, lw=0.5)
 ax.set_axisbelow(True)
 for s in ("top", "right"):
     ax.spines[s].set_visible(False)
-ax.legend(loc="lower left", bbox_to_anchor=(0.0, 1.0), fontsize=7,
+ax.legend(loc="lower left", bbox_to_anchor=(0.0, 1.0), fontsize=8,
           frameon=False, handlelength=1.4)
 fig.tight_layout(pad=0.5)
 fig.savefig(os.path.join(OUT, "fig15_mincov_distributions.pdf"), dpi=300)
