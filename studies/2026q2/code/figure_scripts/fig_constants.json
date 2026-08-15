@@ -227,6 +227,7 @@
         "name": "Judged trace completeness",
         "alpha": 0.218,
         "metric": "interval",
+        "alpha_ordinal": 0.129,
         "alpha_nominal": 0.027
       }
     ],

@@ -1,7 +1,7 @@
 # code/figure_scripts — figure generation and verification tooling
 
 This is the canonical figure and verification tree for the study snapshot
-included in the MANDATE v2.0.3 publication release. Run everything from the
+included in the MANDATE v2.0.4 publication release. Run everything from the
 study root (`studies/2026q2/` in the repository).
 
 | File | What it is |
@@ -15,6 +15,8 @@ study root (`studies/2026q2/` in the repository).
 | `verify_trace_hashes_full.py` | Trace-hash verifier over **every trace-bearing artifact in the deposit** (campaign, cross-vendor, successor check, perturbations, A3/A5 ablations, ablation-MVP incl. its canonical run). Expected from a fresh clone: 17,050 artifacts; 100,500/100,500 entry hashes; 83,600/83,600 parent links; 16,900/16,900 chain digests; 17,050/17,050 anchor hashes; 150 deliberately empty traces (the A6 no-search-trace ablation); exit 0. The artifact-level `metadata.output_hash`/`input_hash` are carried values from the proprietary core and are not recomputed (manuscript §4.2). |
 | `trace_hash_report.json` | Committed machine-readable report from running the verifier against this release's public tree. |
 | `compute_reliability.py` | Full-coverage inter-judge reliability (Krippendorff α, closed-form) from the three retained judge streams (3 × 12,000). |
+| `compute_restricted_reliability.py` | Pair-restricted and within-system minimum-coverage reliability, including the decisive Cond-B/B3 pair. |
+| `compute_judge_contrast_cis.py` | Per-judge task-clustered 95% intervals for the Cond-B/B3 and Cond-B/B1 minimum-coverage contrasts. |
 | `full_coverage_reliability.json` | Committed output of `compute_reliability.py` against this release. |
 | `requirements.txt` | Pinned plotting dependency. |
 

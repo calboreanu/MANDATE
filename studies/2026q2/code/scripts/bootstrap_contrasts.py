@@ -33,17 +33,16 @@ Design decisions (documented, not silently chosen):
 
 Output: analysis/bootstrap_contrasts_results.json + markdown table.
 """
+import argparse
 import json
 import os
+import tempfile
 import numpy as np
 from scipy.stats import wilcoxon
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 GRADING = os.path.normpath(os.path.join(
     HERE, "..", "..", "replication_package", "v1_main", "grading", "v2_full_coverage"))
-OUTDIR = os.path.normpath(os.path.join(HERE, "..", "..", "analysis"))
-os.makedirs(OUTDIR, exist_ok=True)
-
 B = 10_000
 SEED = 20260710
 OUTCOMES = ["minimum_coverage", "target_coverage",
@@ -122,6 +121,16 @@ def holm(pvals):
     return adj
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--outdir",
+        help="output directory (default: a new scratch directory under the system temp root)",
+    )
+    args = parser.parse_args()
+    outdir = os.path.abspath(args.outdir) if args.outdir else tempfile.mkdtemp(
+        prefix="mandate-bootstrap-"
+    )
+    os.makedirs(outdir, exist_ok=True)
     rng = np.random.default_rng(SEED)
     recs = load()
     results, pvals, keys = [], [], []
@@ -181,7 +190,7 @@ def main():
         "primary_contrasts": results,
         "descriptive_cond_a_vs_b3": descriptive,
     }
-    with open(os.path.join(OUTDIR, "bootstrap_contrasts_results.json"), "w") as f:
+    with open(os.path.join(outdir, "bootstrap_contrasts_results.json"), "w") as f:
         json.dump(out, f, indent=1)
 
     lines = ["| Outcome | Contrast | Δ (B−baseline) | 95% CI (record) | 95% CI (task-clustered) | d | p (Holm) |",
@@ -194,12 +203,12 @@ def main():
             r0=r["ci95_per_record"][0], r1=r["ci95_per_record"][1],
             c0=r["ci95_task_clustered"][0], c1=r["ci95_task_clustered"][1],
             cd=cd_s, p=r["wilcoxon_p_holm_adjusted"]))
-    with open(os.path.join(OUTDIR, "bootstrap_contrasts_table.md"), "w") as f:
+    with open(os.path.join(outdir, "bootstrap_contrasts_table.md"), "w") as f:
         f.write("# Bootstrap contrasts (v2 comparative table)\n\n" +
                 "\n".join(lines) + "\n\nDescriptive Cond-A vs B3 (min cov): Δ {:+.3f}, record CI [{:+.3f}, {:+.3f}], clustered CI [{:+.3f}, {:+.3f}], d {:+.2f}\n".format(
                     descriptive["delta"], *descriptive["ci95_per_record"],
                     *descriptive["ci95_task_clustered"], descriptive["cohens_d_per_record"]))
-    print("written:", OUTDIR)
+    print("written:", outdir)
 
 if __name__ == "__main__":
     main()

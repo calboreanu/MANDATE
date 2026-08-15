@@ -3,4 +3,4 @@ __all__ = [
     'roles', 'translators', 'registry', 'domain',
     'metrics', 'evaluation', 'success_registry', 'execution_contract',
 ]
-__version__ = '2.0.3'
+__version__ = '2.0.4'

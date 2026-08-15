@@ -62,7 +62,7 @@ def fig20():
     # panel titles
     ax.text(0.25, 0.965, "Evaluated build\n(frozen campaign)", ha="center",
             fontsize=8, fontweight="bold", color=INK, va="top")
-    ax.text(0.75, 0.965, "Successor implementation\n(post-hoc conformance check)", ha="center",
+    ax.text(0.75, 0.965, "Successor implementation\n(signal-conditional check)", ha="center",
             fontsize=8, fontweight="bold", color=INK, va="top")
     ax.plot([0.5, 0.5], [0.055, 0.86], color=GRID, lw=0.8)
     # left column
@@ -81,7 +81,7 @@ def fig20():
         "2,999 signal-carrying records\n(measured from fresh gap sets)")
     arrow(ax, 0.72, 0.70, 0.72, 0.565)
     box(ax, 0.565, 0.08, 0.30, 0.17,
-        "2,999\nNON_EXECUTABLE_GAPS\n0 routing-contract violations",
+        "2,999\nNON_EXECUTABLE_GAPS\n0 executable-with-signal",
         fc="#e8f0fb", ec=BLUE, tc="#1c5cab", bold=True, fs=7.3)
     arrow(ax, 0.68, 0.44, 0.68, 0.265, color=BLUE)
     ax.text(0.688, 0.35, "signal predicate →\nexecution state (fail-closed)",
@@ -89,7 +89,7 @@ def fig20():
     # the one no-signal record
     box(ax, 0.885, 0.08, 0.105, 0.17, "1 record,\nno signal:\nEXECUTABLE", fs=6.3)
     arrow(ax, 0.955, 0.70, 0.945, 0.26, color=MUTED, lw=0.8, ls=(0, (3, 2)))
-    ax.text(0.5, 0.002, "post-hoc, prompt-nonidentical conformance observation — not a paired causal replay",
+    ax.text(0.5, 0.002, "one-sided signal check — pass-through, specificity, and causal effect remain open",
             fontsize=6.8, color=SEC, ha="center", va="bottom", fontstyle="italic")
     fig.tight_layout(pad=0.4)
     fig.savefig(os.path.join(OUT, "fig20_routing_conformance.pdf"))
@@ -97,9 +97,9 @@ def fig20():
 
 
 # ------------------------------------------------------------------ fig21 forest
-JUDGE_TAGS = {"B1": "judge-sensitive", "B2": "judge-consistent",
-              "B3": "judge-consistent", "B4": "judge-sensitive",
-              "B5": "judge-sensitive", "B6": "judge-sensitive"}
+JUDGE_TAGS = {"B1": "direction reverses", "B2": "same direction",
+              "B3": "same direction", "B4": "direction reverses",
+              "B5": "direction reverses", "B6": "direction reverses"}
 
 
 def _forest(panels, fname, figh, note_y, rect_top, tags=False):
@@ -231,6 +231,11 @@ def fig23():
                     mec=SEC, mew=1.0)
             ax.text(r["alpha_nominal"] + 0.012, y - 0.34,
                     f'{r["alpha_nominal"]:.3f} (nominal)', fontsize=6.3, color=MUTED)
+        if "alpha_ordinal" in r:
+            ax.plot([r["alpha_ordinal"]], [y], marker="^", ms=4.5, mfc="none",
+                    mec=SEC, mew=1.0)
+            ax.text(r["alpha_ordinal"] + 0.012, y + 0.30,
+                    f'{r["alpha_ordinal"]:.3f} (ordinal)', fontsize=6.3, color=MUTED)
         tag = "above floor" if above else "below floor (descriptive)"
         if r["name"].lower().startswith("minimum"):
             # pooled vs decisive-pair distinction: open marker at the

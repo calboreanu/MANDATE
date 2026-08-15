@@ -11,8 +11,8 @@
                inner ysep=3.5pt, font=\footnotesize, fill=gray!7},
   gatebox/.style={draw=black!70, rounded corners=2pt, align=center,
                   inner ysep=4.5pt, inner xsep=8pt, fill=orange!10},
-  term/.style={draw=black!70, rounded corners=2pt, align=center, minimum width=3.6cm,
-               inner ysep=4.5pt, font=\small\ttfamily},
+  term/.style={draw=black!70, rounded corners=2pt, align=center, text width=4.6cm,
+               inner ysep=4.5pt, font=\footnotesize\ttfamily},
   flow/.style={->, very thick, draw=black!75}]
 
 % ---------- input ----------
@@ -69,22 +69,26 @@
   {\textbf{signal predicate}\\[1pt]\footnotesize\ttfamily has\_blocking\_or\_insufficient\_signal};
 \node[gatebox, below=0.42cm of pred, font=\small] (state)
   {\textbf{execution state} (fail-closed routing)};
-\node[term, fill=blue!9,  below left=0.55cm and -1.0cm of state] (nex) {NON\_EXECUTABLE\_GAPS};
-\node[term, fill=green!12, below right=0.55cm and -1.0cm of state] (exe) {EXECUTABLE};
-\node[align=center, font=\footnotesize\itshape, below=2.05cm of state, text width=9.6cm] (note)
+\node[term, fill=blue!9, below left=0.75cm and 0.20cm of state] (nex) {NON\_EXECUTABLE\_GAPS};
+\node[term, fill=green!12, below right=0.75cm and 0.20cm of state] (exe) {EXECUTABLE};
+\node[term, fill=blue!6, below=0.28cm of nex] (nev) {NON\_EXECUTABLE\_VALIDATION};
+\node[term, fill=gray!12, below=0.28cm of exe] (fail) {FAILED};
+\node[align=center, font=\footnotesize\itshape, below=3.15cm of state, text width=10.6cm] (note)
   {a generated artifact is not necessarily executable:\\the gate, not artifact completion, decides};
 
 \begin{scope}[on background layer]
 \node[draw=black!80, thick, dashed, rounded corners=3pt, fill=orange!5,
-      fit=(pred)(state)(nex)(exe)(note), inner sep=0.26cm] (gate) {};
+      fit=(pred)(state)(nex)(exe)(nev)(fail)(note), inner sep=0.26cm] (gate) {};
 \end{scope}
 \node[fill=white, inner xsep=5pt, font=\footnotesize\itshape, anchor=center] at (gate.south)
   {successor contract only --- absent in the evaluated \texttt{1.0.0rc1} build};
 
 \draw[flow] (out.south) -- (pred.north);
 \draw[flow] (pred) -- (state);
-\draw[flow] (state.south) -- node[left=2pt, font=\footnotesize]{signal present} (nex.north);
-\draw[flow] (state.south) -- node[right=2pt, font=\footnotesize]{no signal} (exe.north);
+\draw[flow] (state.south) -- node[left=2pt, font=\scriptsize]{signal present} (nex.north);
+\draw[flow] (state.south) -- node[right=2pt, font=\scriptsize]{no signal; valid} (exe.north);
+\draw[flow] (state.south west) -- node[left=2pt, font=\scriptsize, align=right]{validation gate\\fails} (nev.north);
+\draw[flow] (state.south east) -- node[right=2pt, font=\scriptsize, align=left]{no valid\\artifact} (fail.north);
 
 \node[fill=white, inner xsep=6pt, font=\small\bfseries] at (pipe.north) {\textsc{Six-Role Pipeline}};
 \node[fill=white, inner xsep=6pt, font=\small\bfseries] at (gate.north) {\textsc{Terminal Routing Gate}};

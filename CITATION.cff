@@ -6,7 +6,7 @@ authors:
     given-names: "Elias"
     orcid: "https://orcid.org/0009-0008-9194-0589"
 date-released: 2026-08-14
-version: "2.0.3"
+version: "2.0.4"
 repository-code: "https://github.com/calboreanu/MANDATE"
 license: "Apache-2.0"
 keywords:

@@ -34,6 +34,105 @@ def load_jsonl(path: Path) -> list[dict]:
         return [json.loads(line) for line in handle if line.strip()]
 
 
+def verify_evaluated_gap_census(repo: Path, issues: list[str]) -> dict:
+    """Recompute the evaluated-build gap/COA identity behind the L4 finding."""
+    outputs = repo / "replication_package/v1_main/system_outputs"
+    names = (
+        "cond_a_main.jsonl",
+        "cond_a_holdout.jsonl",
+        "cond_b_main.jsonl",
+        "cond_b_holdout.jsonl",
+    )
+    totals = {
+        "records": 0,
+        "gaps": 0,
+        "blocking_gaps": 0,
+        "readiness_blocking_gaps": 0,
+        "canonical_coas": 0,
+        "severity_readiness_disagreements": 0,
+    }
+    for name in names:
+        for record in load_jsonl(outputs / name):
+            totals["records"] += 1
+            output = record.get("output") or {}
+            gaps = output.get("gap_reports") or []
+            artifact = output.get("artifact") or {}
+            coas = artifact.get("courses_of_action") or []
+            totals["gaps"] += len(gaps)
+            totals["canonical_coas"] += len(coas)
+            for gap in gaps:
+                severity_blocking = gap.get("severity") == "BLOCKING"
+                readiness_blocking = (
+                    (gap.get("readiness_score") or {}).get("blocking") is True
+                )
+                totals["blocking_gaps"] += int(severity_blocking)
+                totals["readiness_blocking_gaps"] += int(readiness_blocking)
+                totals["severity_readiness_disagreements"] += int(
+                    severity_blocking != readiness_blocking
+                )
+    expected = {
+        "records": 3000,
+        "gaps": 7393,
+        "blocking_gaps": 5261,
+        "readiness_blocking_gaps": 5261,
+        "canonical_coas": 5261,
+        "severity_readiness_disagreements": 0,
+    }
+    for key, value in expected.items():
+        if totals[key] != value:
+            issues.append(
+                f"evaluated-build gap census: {key} expected {value}, got {totals[key]}"
+            )
+    totals["blocking_gap_per_coa_identity"] = (
+        totals["blocking_gaps"] == totals["canonical_coas"] == 5261
+    )
+    if not totals["blocking_gap_per_coa_identity"]:
+        issues.append("evaluated-build gap census: blocking-gap/COA identity failed")
+    return totals
+
+
+def verify_evidence_manifest(repo: Path, issues: list[str]) -> dict:
+    """Verify SHA-256 coverage for every deposited evidence file."""
+    manifest = repo / "EVIDENCE_SHA256SUMS.txt"
+    report = {"present": manifest.is_file(), "files": 0, "bytes": 0}
+    if not manifest.is_file():
+        issues.append("evidence SHA-256 manifest missing: EVIDENCE_SHA256SUMS.txt")
+        return report
+
+    listed: dict[str, str] = {}
+    for line in manifest.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        try:
+            digest, relpath = line.split("  ", 1)
+        except ValueError:
+            issues.append(f"evidence manifest malformed line: {line[:80]}")
+            continue
+        listed[relpath] = digest
+
+    evidence_root = repo / "replication_package"
+    actual = {
+        path.relative_to(repo).as_posix()
+        for path in evidence_root.rglob("*")
+        if path.is_file()
+    }
+    missing = sorted(actual - set(listed))
+    unexpected = sorted(set(listed) - actual)
+    if missing:
+        issues.append(f"evidence manifest missing {len(missing)} deposited files")
+    if unexpected:
+        issues.append(f"evidence manifest lists {len(unexpected)} absent files")
+
+    for relpath in sorted(actual & set(listed)):
+        path = repo / relpath
+        report["files"] += 1
+        report["bytes"] += path.stat().st_size
+        observed = sha256_file(path)
+        if observed != listed[relpath]:
+            issues.append(f"evidence SHA-256 mismatch: {relpath}")
+    return report
+
+
 def majority(values):
     values = [value for value in values if value is not None]
     if not values:
@@ -120,6 +219,9 @@ def main() -> int:
         observed_campaign_counts[name] = observed
         if observed != expected:
             issues.append(f"{name}: expected {expected}, got {observed}")
+
+    evaluated_gap_census = verify_evaluated_gap_census(repo, issues)
+    evidence_manifest = verify_evidence_manifest(repo, issues)
 
     grades = repo / "replication_package/v1_main/grading/v2_full_coverage/ensemble_scores.jsonl"
     grade_count = jsonl_count(grades) if grades.is_file() else -1
@@ -215,6 +317,7 @@ def main() -> int:
             "gap_classification__nominal": 0.449,
             "fabrication_count__interval": 0.218,
             "trace_completeness__interval": 0.218,
+            "trace_completeness__ordinal": 0.129,
             "trace_completeness__nominal": 0.027,
         }
         for key, expected in expected_alpha.items():
@@ -229,11 +332,13 @@ def main() -> int:
 
 
     report = {
-        "publication_release_version": "2.0.3",
+        "publication_release_version": "2.0.4",
         "study_snapshot": "2026.08.13.1",
         "ok": not issues,
         "issues": issues,
         "campaign_record_counts": observed_campaign_counts,
+        "evaluated_build_gap_census": evaluated_gap_census,
+        "evidence_sha256_manifest": evidence_manifest,
         "ensemble_grade_records": grade_count,
         "mandate_perturbation_records": perturbation_count,
         "routing_purpose_test": {

@@ -3,7 +3,7 @@
 **MANDATE (Multi-Agent Nominal Decomposition for Autonomous Task Execution)**
 is a tolerance-based task-specification framework for autonomous agent systems.
 This repository is the publication release of MANDATE v2. The current software
-version is **2.0.3**.
+version is **2.0.4**.
 
 MANDATE separates:
 
@@ -21,8 +21,8 @@ reports when the available information is insufficient for automation.
 
 ## Publication release
 
-- **Software:** MANDATE 2.0.3
-- **Release tag:** `v2.0.3`
+- **Software:** MANDATE 2.0.4
+- **Release tag:** `v2.0.4`
 - **Empirical evidence:** [`studies/2026q2/`](studies/2026q2/)
 - **Citation metadata:** [`CITATION.cff`](CITATION.cff)
 - **License:** Apache-2.0 for framework code; the study directory documents its
@@ -62,6 +62,7 @@ Verify the deposited study evidence from a full checkout:
 
 ```bash
 python3 studies/2026q2/code/scripts/verify_study_release.py
+cd studies/2026q2 && shasum -a 256 -c EVIDENCE_SHA256SUMS.txt
 ```
 
 ## Result contract

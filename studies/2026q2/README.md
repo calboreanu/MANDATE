@@ -1,6 +1,6 @@
 # MANDATE 2026Q2 Study Evidence
 
-**Publication release:** MANDATE `2.0.3`
+**Publication release:** MANDATE `2.0.4`
 
 **Study snapshot:** `2026.08.13.1`
 
@@ -53,6 +53,7 @@ citation anchors; they are not separate study results or current releases.
 | Verify a specific claim against data | `docs/CLAIM_TO_DATA_MAP.md` |
 | Confirm the publication release identity | `docs/PUBLICATION_RELEASE.md` |
 | Run the targeted release-integrity verifier | `python3 code/scripts/verify_study_release.py` |
+| Verify every deposited evidence file | `shasum -a 256 -c EVIDENCE_SHA256SUMS.txt` |
 | Recompute every deposited trace hash | `python3 code/figure_scripts/verify_trace_hashes_full.py --root .` |
 | Recompute measured judge reliability | `python3 code/figure_scripts/compute_reliability.py` |
 | Understand the routing-purpose test | `docs/CORRECTED_ROUTING_VALIDATION_20260812.md` |
@@ -70,7 +71,7 @@ citation anchors; they are not separate study results or current releases.
 ```bash
 git clone https://github.com/calboreanu/MANDATE.git
 cd MANDATE
-git checkout v2.0.3
+git checkout v2.0.4
 cd studies/2026q2
 
 # Record counts match the supplement:
