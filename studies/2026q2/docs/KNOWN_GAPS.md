@@ -19,14 +19,17 @@ supplement (Deviation Table and/or Threats to Validity) and summarized here.
    Cond-A/B3 boundary (clustered CI [+0.004, +0.029]) remain below the
    protocol-specified minimum detectable effect and must not be read as wins.
 
-4. **Most subjective judge outcomes remain below the reliability floor.**
-   Full-coverage inter-judge reliability clears the protocol's 0.667 floor
-   only for minimum coverage (α=0.855). Target coverage (0.586), constraint
-   coverage (0.589), mission-intent match (0.536 nominal), gap classification
-   (0.449 nominal), fabrication count (0.218), and judged trace completeness
-   (0.218 interval / 0.027 nominal) remain below the floor and are treated as
-   descriptive. Structural trace-integrity claims derive from on-disk hash
-   recomputation instead. The earlier sampled values (trace 0.194;
+4. **Judged semantic outcomes are analysis-set dependent.** Full-coverage
+   minimum-coverage reliability is α=0.855 when pooled across systems,
+   α=0.618 for the decisive Cond-B/B3 comparison, α=0.446 within Cond-B,
+   and α=0.766 within B3. Target coverage (0.586), constraint coverage
+   (0.589), mission-intent match (0.536 nominal), gap classification (0.449
+   nominal), fabrication count (0.218), and judged trace completeness (0.218
+   interval / 0.027 nominal) show additional low or variable agreement. The
+   locked protocol specified no Krippendorff-α acceptance cutoff. Semantic
+   effect magnitudes are therefore descriptive and paired with the applicable
+   reliability estimate. Structural trace-integrity claims instead derive
+   from on-disk hash recomputation. The earlier sampled values (trace 0.194;
    fabrication 0.216) are retained only as halt-rule history.
 
 5. **Cross-system semantic adversarial comparison: partial (80.7%).** Grading

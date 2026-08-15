@@ -106,7 +106,7 @@ def main():
                 d[r["anon_id"]] = r
         streams[j] = d
     ids = sorted(set.intersection(*(set(s) for s in streams.values())))
-    out = {"n_units": len(ids), "floor": 0.667, "alpha": {}}
+    out = {"n_units": len(ids), "alpha": {}}
     for outcome, metric in OUTCOMES:
         units = []
         for i in ids:

@@ -1,12 +1,24 @@
 # Changelog
 
+## 2.0.6 (2026-08-15)
+
+### Publication alignment
+- Removed an unsupported post-hoc Krippendorff-alpha cutoff and now report
+  pooled, pair-restricted, and within-system reliability directly.
+- Added the model-generated, author-selected corpus-construction disclosure and
+  bounded pilot, cross-vendor, governance-signal, and hold-out claims to what
+  the deposited evidence actually verifies.
+- Synchronized the publication figures, grayscale architecture source,
+  reliability outputs, and reviewer-facing replication documentation. No
+  study data or empirical counts changed.
+
 ## 2.0.2 (2026-08-14)
 
 ### Figure tooling (patch)
 - Improved the publication architecture diagram for legibility while preserving
   the six-stage pipeline, context-source, trace, and terminal-routing semantics.
-- Updated the reliability figure to distinguish the measured outcome above the
-  protocol floor from outcomes retained as descriptive evidence.
+- Updated the reliability figure to distinguish higher- and lower-agreement
+  outcomes retained as descriptive evidence.
 - No changes to evidence, data, statistics, or any empirical result.
 
 ## 2.0.1 (2026-08-13)

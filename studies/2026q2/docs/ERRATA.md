@@ -36,8 +36,8 @@ sonnet)".
 **The correct reading** (consistent with the README status disclosure and the
 deviation record):
 
-- `judges_config.json` records the **pre-registered** ensemble (Opus). It is
-  frozen pre-registration/configuration evidence, not an execution log.
+- `judges_config.json` records the **protocol-specified** ensemble (Opus). It is
+  frozen planning/configuration evidence, not an execution log.
 - The **v1 sampled cycle** (N=700 + the 70-record double-grade; the cycle that
   engaged the PROTOCOL_LOCK §8 κ halt at 0.296) executed its Anthropic judge
   as **Claude Sonnet 4.6**, substituted under **Deviation D-08**. The

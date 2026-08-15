@@ -114,7 +114,6 @@
     }
   },
   "reliability": {
-    "floor": 0.667,
     "outcomes": [
       {
         "name": "Gap classification",
@@ -191,7 +190,6 @@
     "holdout_records": "1,200 hold-out = 30 tasks x 4 systems x 10 runs"
   },
   "full_coverage_alpha": {
-    "floor": 0.667,
     "outcomes": [
       {
         "name": "Minimum coverage",

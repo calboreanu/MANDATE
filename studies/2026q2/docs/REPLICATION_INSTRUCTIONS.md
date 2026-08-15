@@ -5,9 +5,18 @@ which additional components are required for regeneration. It pairs with
 `docs/CLAIM_TO_DATA_MAP.md`, `docs/EXCLUSIONS.md`, and
 `docs/ENVIRONMENT.md`.
 
-> **Conventions (deposit layout).** Clone `https://github.com/calboreanu/MANDATE`, check out tag `v2.0.5`, and `cd studies/2026q2`. All commands in this document run **from that study root** (the directory containing `replication_package/`, `code/`, and `docs/`) and use the deposit's own paths. Frozen data lives under `replication_package/` (`v1_main/system_outputs/` ships the RunRecords as consolidated JSONL, one record per line; `v1_main/findings_extracted/` ships the pre-computed finding extracts). Apparatus code lives under `code/` and is invoked as `python3 -m apparatus.<entrypoint>` from inside `code/`. Compute tiers write to a scratch `work/` directory at the study root so the frozen `replication_package/` tree is never modified.
+> **Conventions (deposit layout).** Clone `https://github.com/calboreanu/MANDATE`, check out tag `v2.0.6`, and `cd studies/2026q2`. All commands in this document run **from that study root** (the directory containing `replication_package/`, `code/`, and `docs/`) and use the deposit's own paths. Frozen data lives under `replication_package/` (`v1_main/system_outputs/` ships the RunRecords as consolidated JSONL, one record per line; `v1_main/findings_extracted/` ships the pre-computed finding extracts). Apparatus code lives under `code/` and is invoked as `python3 -m apparatus.<entrypoint>` from inside `code/`. Compute tiers write to a scratch `work/` directory at the study root so the frozen `replication_package/` tree is never modified.
 >
 > *Historical note:* the evaluation itself executed on the eval host from an "apparatus root" (`mandate_eval_2026Q2/` with `07_system_outputs/`, `04_ground_truth/`, `08_grading/`, `08_grading_v2/`, interpreter `.venv/bin/python`) beside a "deposit root" (`Mandate Data/` with `standalone data results/`). Frozen evidence files and handoff documents record those paths verbatim as provenance (see the README "Provenance note on absolute paths"); they do not exist in this repository, and no command below depends on them. The provenance tags are unchanged: apparatus code tag `mandate-eval-primary-2026q2-v1` (commit `4f8af83`), frozen outputs tag `outputs_freeze_v1_1` (commit `5f4de54`).
+>
+> *Corpus provenance:* Claude Opus generated candidates from public-document
+> chunks; deduplication left 262 candidates. A source-balanced
+> domain/category water-fill proposed 40 tasks per main domain, after which
+> the author finalized the 120-task corpus. The 30-task hold-out was
+> author-selected from 44 generated candidates. Independent SME realism
+> review and signed ground-truth ratification were not completed. Verification
+> below is therefore bounded to this fixed, model-generated and
+> author-selected corpus.
 
 ---
 
@@ -54,15 +63,32 @@ Every Tier-1 command below was executed from a clean checkout of this repository
 
 ---
 
-## What this package replicates
+## What this package verifies
 
 The supplement makes five affirmative claims (§1.2). They rest on structural counts and verbatim model outputs that are *on disk* — the frozen RunRecords are themselves the evidence, so the strongest verification path requires no re-execution at all.
 
-- **Claim 1** — The original campaign produced pipeline/schema-complete mandate artifacts at scale (Cond-A 1500/1500, Cond-B 1500/1500, MANDATE-primary 1480/1500 with 20 documented Intake-tripwire deltas). V1 `ok=true` was not an executability guarantee; the V3 corrected-routing tier supplies the repaired-contract evidence.
-- **Claim 2** — High-precision/recall specification-defect detection (96.8%/96.8% on the structurally-complete subset; 47.6% whole-corpus recall, transparently disclosed).
-- **Claim 3** — Structural invariants hold across execution modes *and* LLM vendor families (the cross-vendor Cond-B pilot is the strongest single piece of evidence).
-- **Claim 4** — MANDATE surfaces consequential governance signals (AEGIS 51-defect convergence, Binding refusal cascade, Intake tripwire, Decomposition single-COA prior).
-- **Claim 5** — Cross-domain generalization (3 in-domain corpora + a 30-task out-of-domain hold-out).
+- **Claim 1** — The original campaign produced pipeline/schema-complete
+  mandate artifacts at scale (Cond-A 1500/1500, Cond-B 1500/1500,
+  MANDATE-primary 1480/1500 with 20 documented Intake-tripwire deltas).
+  V1 `ok=true` was not an executability guarantee; the successor tier verifies
+  signal-conditional fail-closed routing on this corpus.
+- **Claim 2** — In the historical 64-case pilot, the observed counts are 30
+  true positives, 1 false positive, and 33 unresolved input-only cases:
+  precision 30/31, raw recall 30/63, and conditional recall 30/30 on the
+  structurally complete subset. These are pilot counts, not population
+  precision/recall estimates.
+- **Claim 3** — Structural pipeline completion and trace fields held for
+  1,200/1,200 cross-vendor Cond-B records; deterministic fallback produced the
+  valid output for every Llama and Phi record. This does not establish
+  semantic vendor invariance.
+- **Claim 4** — The records contain measured implementation signals and failure
+  patterns (AEGIS convergence, Binding refusals, Intake tripwire, and the
+  Decomposition single-COA prior). Downstream operational consequences were
+  not measured.
+- **Claim 5** — The fixed 30-task software-engineering hold-out produced
+  300/300 structurally complete MANDATE-primary records. This is structural
+  hold-out evidence, not a claim of cross-domain generalization or semantic
+  ranking.
 
 This repository publishes one versioned study result. The historical `v0`,
 `v0.5`, `v1`, `v2`, and `v3` strings remain only in frozen paths and tags that
@@ -174,8 +200,15 @@ Expected: Qwen, Llama, Mistral, and Phi-3 each 300/300 ok with P2 trace complete
 
 ### 1.5 Claims 2 & 5 — defect detection and cross-domain
 
-- **Claim 2:** inspect `replication_package/v1_main/findings_extracted/cross_system/` and the gap-detection eval outputs; the 96.8%/96.8% figure is on the 31-example structurally-complete subset, and the 47.6% whole-corpus recall is disclosed in the published paper §12 (the 33 input-only examples are a corpus-design boundary, not detection failures).
-- **Claim 5:** confirm the four domains — `security_operations_reporting`, `financial_reporting`, `intelligence_collection_tasking` (in-domain, 40 tasks each) and `software_engineering_specification` (30-task hold-out) — all produce structurally valid output:
+- **Claim 2:** inspect `replication_package/v1_main/findings_extracted/cross_system/`
+  and the gap-detection eval outputs. The historical 64-case pilot contains 30
+  true positives, 1 false positive, and 33 unresolved input-only cases:
+  precision 30/31, raw recall 30/63, and conditional recall 30/30 on the
+  structurally complete subset. These counts do not validate detection
+  accuracy on the full corpus.
+- **Claim 5:** confirm the fixed software-engineering hold-out (30 tasks)
+  produces structurally valid output. This check does not establish
+  population-level cross-domain generalization or semantic ranking:
 
 ```bash
 python3 -c "import json; recs=[json.loads(l) for l in open('replication_package/v1_main/system_outputs/mandate_primary_holdout.jsonl')]; print('holdout ok:', sum(1 for r in recs if r.get('ok')), '/', len(recs))"
@@ -348,10 +381,10 @@ python3 -m apparatus.run run-analysis    # executes notebooks 01–10
 | Claim | Files to inspect | What to expect | Successful reproduction |
 |---|---|---|---|
 | **1** Structural validity at scale | `replication_package/v1_main/system_outputs/{mandate_primary,cond_a,cond_b}_{main,holdout}.jsonl` | 1480/1500, 1500/1500, 1500/1500 | ok-counts match exactly; 20 deltas are SEC-038/040 |
-| **2** Defect detection | `replication_package/v1_main/findings_extracted/cross_system/`, gap-detection eval JSON | 96.8%/96.8% on 31-complete subset; 47.6% whole-corpus | numbers reproduce; 33 input-only excluded by design |
-| **3** Structural invariance | `replication_package/v1_main/findings_extracted/cross_vendor/` (+ raw `v2_complete/cross_vendor/`), paper Table det-vs-llm, §6.7 | 1,200/1,200 across Qwen/Llama/Mistral/Phi-3; P2 = 1.00 | per-vendor ok-rate & P2 = 1.00 |
-| **4** Governance signals | `replication_package/v1_main/findings_extracted/finding_4_binding/`, `finding_5_intake/`, AEGIS audit | 51-defect 9-round convergence; refusal rates 2.0/40.2/13.5/7.0%; 20 tripwire fails | exact-match convergence sequence; per-domain refusal rates |
-| **5** Cross-domain | `replication_package/v1_main/system_outputs/*_holdout.jsonl`, `v1_main/corpus/` | 3 in-domain (40 each) + 30 hold-out, all structurally valid | hold-out 300/300 structurally valid |
+| **2** Historical pilot gap signals | `replication_package/v1_main/findings_extracted/cross_system/`, gap-detection eval JSON | 30 TP, 1 FP, 33 unresolved; precision 30/31, raw recall 30/63, conditional recall 30/30 | counts reproduce; no full-corpus accuracy claim |
+| **3** Cross-vendor structural completion | `replication_package/v1_main/findings_extracted/cross_vendor/` (+ raw `v2_complete/cross_vendor/`), paper Table det-vs-llm, §6.7 | 1,200/1,200 across Qwen/Llama/Mistral/Phi-3; P2 = 1.00; deterministic fallback on Llama/Phi | per-vendor completion and fallback counts match; no semantic-invariance claim |
+| **4** Recorded governance signals | `replication_package/v1_main/findings_extracted/finding_4_binding/`, `finding_5_intake/`, AEGIS audit | 51-defect 9-round convergence; refusal rates 2.0/40.2/13.5/7.0%; 20 tripwire fails | exact sequences and rates; downstream consequence unmeasured |
+| **5** Structural hold-out | `replication_package/v1_main/system_outputs/*_holdout.jsonl`, `v1_main/corpus/` | fixed 30-task hold-out, 300/300 structurally complete | count matches; no population generalization or semantic-ranking claim |
 
 ---
 

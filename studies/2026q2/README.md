@@ -1,6 +1,6 @@
 # MANDATE 2026Q2 Study Evidence
 
-**Publication release:** MANDATE `2.0.5`
+**Publication release:** MANDATE `2.0.6`
 
 **Study snapshot:** `2026.08.13.1`
 
@@ -24,12 +24,23 @@ field and no externally timestamped pre-data registration, and the executed
 analysis deviates materially from the locked plan (hypothesis dispositions in
 the manuscript's Supplementary Information).
 
+The corpus is model-generated and author-selected. Claude Opus produced task
+candidates from public-document chunks; deduplication left 262 candidates.
+A source-balanced domain/category water-fill proposed 40 tasks per main
+domain, after which the author finalized the 120-task main corpus. The
+30-task software-engineering hold-out was author-selected from 44 generated
+candidates. Independent SME realism review and signed ground-truth
+ratification were not completed. The corpus is therefore a fixed evaluation
+artifact, not a probability sample from a defined task population.
+
 **The study result, stated as one result:** MANDATE produced schema-valid,
-fully hash-traced specification artifacts at scale; on the one semantic
-outcome whose measured full-coverage reliability clears the protocol floor
-(minimum coverage, Krippendorff α = 0.855), it measures below the strongest
-agentic comparator under identical raw-text input (Δ = −0.112, consistent in
-direction across all three judges and 112/120 tasks). The retained structured result fields also exposed a result-state defect in
+fully hash-traced specification artifacts at scale. Under the retained
+three-judge full-coverage rubric, pooled minimum-coverage reliability was
+Krippendorff α = 0.855; the decisive Cond-B/B3 pair was α = 0.618, with
+within-system values of 0.446 and 0.766. The observed ensemble contrast was
+Δ = −0.112, with the same direction for all three judges and 112/120
+tasks; its magnitude is descriptive because reliability depends on the
+analysis set and the protocol specified no Krippendorff-α cutoff. The retained structured result fields also exposed a result-state defect in
 the evaluated `1.0.0rc1` implementation: blocking or insufficient
 specifications could coexist with `ok=true`. The successor `1.0.3`-derived
 implementation therefore underwent a focused, generation-only contract check
@@ -71,7 +82,7 @@ citation anchors; they are not separate study results or current releases.
 ```bash
 git clone https://github.com/calboreanu/MANDATE.git
 cd MANDATE
-git checkout v2.0.5
+git checkout v2.0.6
 cd studies/2026q2
 
 # Record counts match the supplement:
@@ -186,10 +197,13 @@ them.
   script `code/scripts/bootstrap_contrasts.py`, seed 20260710); the wider
   9-system grid remains descriptive. **Measured full-coverage inter-judge
   reliability** (Krippendorff α from the retained streams, via
-  `code/figure_scripts/compute_reliability.py`): minimum coverage 0.855
-  (above the 0.667 floor); target 0.586; constraint 0.589; mission-intent
+  `code/figure_scripts/compute_reliability.py`): minimum coverage 0.855;
+  target 0.586; constraint 0.589; mission-intent
   0.536; gap classification 0.449; fabrication 0.218; trace completeness
-  0.218 interval / 0.027 nominal. The earlier sampled v1 values are halt-rule
+  0.218 interval / 0.027 nominal. For minimum coverage, the decisive
+  Cond-B/B3 pair has α = 0.618 (Cond-B 0.446; B3 0.766). The locked protocol
+  specified no Krippendorff-α acceptance cutoff; these estimates describe
+  measurement agreement and analysis-set sensitivity. The earlier sampled v1 values are halt-rule
   history. Judged claims are read jointly with these values; structural
   claims derive from artifact inspection.
 

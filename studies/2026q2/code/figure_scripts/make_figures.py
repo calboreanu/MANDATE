@@ -21,7 +21,7 @@ GRID   = "#e1e0d9"
 BASE   = "#c3c2b7"
 BLUE   = "#2a78d6"   # accent / conformant
 LBLUE  = "#9ec5f4"   # secondary bar
-DESC   = "#6da7ec"   # descriptive / below-floor marks (same hue, lighter step)
+DESC   = "#6da7ec"   # descriptive outcomes (same hue, lighter step)
 CRIT   = "#d03b3b"   # violation (always labeled, never color-alone)
 SURF   = "#ffffff"
 
@@ -103,9 +103,8 @@ JUDGE_TAGS = {"B1": "direction reverses", "B2": "same direction",
 
 
 def _forest(panels, fname, figh, note_y, rect_top, tags=False):
-    # Reliability hierarchy: the reliable outcome is drawn emphasized (accent
-    # blue, bold ink title); below-floor outcomes are de-emphasized as a lighter
-    # step of the same hue (one hue, two shades; secondary-ink titles).
+    # Minimum coverage is emphasized; other exploratory outcomes use a lighter
+    # step of the same hue. Coefficients are labeled without a pass/fail cutoff.
     fig, axes = plt.subplots(len(panels), 1, figsize=(5.7, figh), sharex=True)
     if len(panels) == 1:
         axes = [axes]
@@ -120,11 +119,12 @@ def _forest(panels, fname, figh, note_y, rect_top, tags=False):
         for y, n in zip(ys, names):
             d, lo, hi = data[n]
             if hi > XL:  # off-scale (B2): arrow + printed value
-                ax.annotate("", xy=(XL*0.97, y), xytext=(XL*0.72, y),
+                ax.annotate("", xy=(XL*0.97, y), xytext=(XL*0.78, y),
                             arrowprops=dict(arrowstyle="-|>", color=mark, lw=1.4))
-                ax.text(XL*0.30, y, f"+{d:.3f}\n[{lo:+.3f}, {hi:+.3f}]",
-                        ha="center", va="center", fontsize=6.2, color=val_ink,
-                        linespacing=1.15)
+                ax.text(XL*0.72, y, f"+{d:.3f}\n[{lo:+.3f}, {hi:+.3f}]",
+                        ha="right", va="center", fontsize=6.0, color=val_ink,
+                        linespacing=1.15,
+                        bbox=dict(fc=SURF, ec="none", alpha=1.0, pad=0.6))
             else:
                 ax.plot([lo, hi], [y, y], color=mark, lw=1.9 if reliable else 1.4,
                         solid_capstyle="butt")
@@ -153,7 +153,7 @@ def _forest(panels, fname, figh, note_y, rect_top, tags=False):
     note = ("Exploratory intervals; 120 shared main-corpus tasks.\n"
             "Cond-A excluded: structured-input upper bound, not a fair contrast.")
     if tags:
-        note += "\nPair-restricted reliability $\\alpha$ = 0.618 (below floor): magnitudes descriptive."
+        note += "\nPair-restricted reliability $\\alpha$ = 0.618; analysis-set sensitivity keeps magnitudes descriptive."
     axes[0].text(0.0, note_y, note,
                  transform=axes[0].transAxes, fontsize=7, color=MUTED, va="bottom")
     fig.tight_layout(pad=0.5, h_pad=1.0, rect=(0, 0, 0.80 if tags else 1, rect_top))
@@ -162,17 +162,17 @@ def _forest(panels, fname, figh, note_y, rect_top, tags=False):
 
 
 def fig21():
-    # Main paper: the one coverage outcome above the reliability floor, alone.
+    # Main paper: minimum coverage, the outcome with the highest pooled agreement.
     _forest([("minimum_coverage",
               "Minimum coverage — pooled $\\alpha$ = 0.855",
               True)],
             "fig21_contrast_forest.pdf", 2.35, 1.16, 0.87, tags=True)
-    # Supplement companion: the below-floor outcomes, descriptive.
+    # Supplement companion: lower-agreement outcomes, descriptive.
     _forest([("target_coverage",
-              "Target coverage — descriptive ($\\alpha$ = 0.586, below 0.667 floor)",
+              "Target coverage — descriptive ($\\alpha$ = 0.586)",
               False),
              ("constraint_coverage",
-              "Constraint coverage — descriptive ($\\alpha$ = 0.589, below floor)",
+              "Constraint coverage — descriptive ($\\alpha$ = 0.589)",
               False)],
             "fig21b_descriptive_forest.pdf", 3.4, 1.30, 0.945)
 
@@ -198,7 +198,8 @@ def fig22():
         ax.set_title(title, fontsize=8.5, loc="left", color=INK)
         ax.set_xlabel("per-task Δ minimum coverage", fontsize=7.5)
         ax.text(0.02, 0.97, f"{neg}/120 favor baseline\n{pos}/120 favor Cond-B\n{tie} ties",
-                transform=ax.transAxes, fontsize=7, color=SEC, va="top")
+                transform=ax.transAxes, fontsize=7, color=SEC, va="top",
+                bbox=dict(fc=SURF, ec="none", alpha=1.0, pad=0.8))
         ax.set_yticks([])
         ax.grid(axis="x", color=GRID, lw=0.5); ax.set_axisbelow(True)
         for s in ("top", "right", "left"): ax.spines[s].set_visible(False)
@@ -214,14 +215,11 @@ def fig22():
 # ------------------------------------------------------------ fig23 reliability
 def fig23():
     R = C["full_coverage_alpha"]; rows = R["outcomes"]
-    fig, ax = plt.subplots(figsize=(5.7, 2.6))
+    fig, ax = plt.subplots(figsize=(5.7, 2.8))
     ys = list(range(len(rows)))[::-1]
-    ax.axvline(R["floor"], color=INK, lw=1.0, ls=(0, (4, 2)))
-    ax.text(R["floor"] + 0.008, len(rows) - 0.40, "0.667 protocol floor",
-            fontsize=7, color=INK)
     for y, r in zip(ys, rows):
-        above = r["alpha"] >= R["floor"]
-        col = BLUE if above else DESC
+        is_minimum = r["name"].lower().startswith("minimum")
+        col = BLUE if is_minimum else DESC
         ax.plot([0, r["alpha"]], [y, y], color=col, lw=1.2, alpha=0.35)
         ax.plot([r["alpha"]], [y], marker="o", ms=5.5, color=col, mec=SURF, mew=0.6)
         ax.text(r["alpha"] + 0.014, y, f'{r["alpha"]:.3f}', fontsize=7, color=SEC,
@@ -236,23 +234,25 @@ def fig23():
                     mec=SEC, mew=1.0)
             ax.text(r["alpha_ordinal"] + 0.012, y + 0.30,
                     f'{r["alpha_ordinal"]:.3f} (ordinal)', fontsize=6.3, color=MUTED)
-        tag = "above floor" if above else "below floor (descriptive)"
-        if r["name"].lower().startswith("minimum"):
-            # pooled vs decisive-pair distinction: open marker at the
-            # Cond-B/B3-restricted value (below the floor)
+        tag = "pooled" if is_minimum else "descriptive"
+        if is_minimum:
+            # Open marker: Cond-B/B3-restricted estimate, illustrating
+            # analysis-set dependence rather than a threshold crossing.
             ax.plot([0.618], [y], marker="o", ms=5.5, mfc="none", mec=BLUE, mew=1.1)
-            ax.text(0.618, y - 0.34, "0.618 (decisive pair)", fontsize=6.3,
-                    color=SEC, ha="center")
-            tag = "pooled above floor;\ndecisive pair below"
-        ax.text(1.01, y, tag, fontsize=7, color=(BLUE if above else SEC), va="center")
+            ax.text(0.604, y - 0.34, "0.618 (decisive pair)", fontsize=6.3,
+                    color=SEC, ha="right")
+            tag = "pooled 0.855;\ndecisive pair 0.618"
+        ax.text(1.01, y, tag, fontsize=7, color=(BLUE if is_minimum else SEC), va="center")
     ax.set_yticks(ys)
     ax.set_yticklabels([f'{r["name"]} ({r["metric"]})' for r in rows], fontsize=7.5)
     ax.set_xlim(0.0, 1.0); ax.set_ylim(-0.8, len(rows) - 0.2)
     ax.set_xlabel("Measured full-coverage Krippendorff \u03b1 (3 judges \u00d7 12,000 records, shape-neutral rubric)",
                   fontsize=7.5)
+    ax.text(0.0, -0.20, "No Krippendorff-α acceptance threshold was specified in the locked protocol.",
+            transform=ax.transAxes, fontsize=6.8, color=MUTED, va="top")
     ax.grid(axis="x", color=GRID, lw=0.5); ax.set_axisbelow(True)
     for s in ("top", "right", "left"): ax.spines[s].set_visible(False)
-    fig.tight_layout(pad=0.5)
+    fig.tight_layout(pad=0.5, rect=(0, 0.05, 1, 1))
     fig.savefig(os.path.join(OUT, "fig23_judge_reliability.pdf"))
     plt.close(fig)
 
@@ -279,10 +279,12 @@ def fig24():
             ax.text(x, l + 2, f"{l:g}%", ha="center", fontsize=7, color=SEC)
         else:
             ax.text(x, 2.5, "0% on LLM path", ha="center", va="bottom",
-                    fontsize=6.6, color="#1c5cab", fontweight="bold")
+                    fontsize=6.6, color="#1c5cab", fontweight="bold",
+                    bbox=dict(fc=SURF, ec="none", alpha=1.0, pad=1.0))
         if r >= 12:
             ax.text(x, l + r/2, f"{r:g}% rescued", ha="center", va="center",
-                    fontsize=7, color="#1c5cab")
+                    fontsize=7, color="#1c5cab",
+                    bbox=dict(fc=SURF, ec="none", alpha=1.0, pad=1.0))
         elif r > 0:
             ax.text(x, 102.5, f"{r:g}% rescued", ha="center", va="bottom",
                     fontsize=6.6, color="#1c5cab")
@@ -305,7 +307,7 @@ def fig25():
     ax.set_xlim(0, 1); ax.set_ylim(0, 1); ax.axis("off")
     ax.text(0.30, 0.985, "Judged branch (all 9 systems)", ha="center", fontsize=8.5,
             fontweight="bold", color=INK)
-    ax.text(0.81, 0.985, "Provenance branch\n(MANDATE artifacts only; baselines emit no chains)",
+    ax.text(0.8025, 0.985, "Provenance branch\n(MANDATE artifacts only; baselines emit no chains)",
             ha="center", fontsize=7.6, fontweight="bold", color=INK, va="top")
     steps = ["150 frozen tasks (120 main + 30 hold-out)",
              "10,800 main records (120 \u00d7 9 \u00d7 10)\n+ 1,200 hold-out records (30 \u00d7 4 \u00d7 10)",
@@ -330,10 +332,10 @@ def fig25():
     y = 0.86; h2 = 0.125; gap2 = 0.028
     for i, s in enumerate(dsteps):
         last = (i == len(dsteps) - 1)
-        box(ax, 0.63, y - h2, 0.35, h2, s, fs=7.0,
+        box(ax, 0.615, y - h2, 0.375, h2, s, fs=6.6,
             fc="#e8f0fb" if last else "#f4f4f2", ec=BLUE if last else BASE)
         if i < len(dsteps) - 1:
-            arrow(ax, 0.805, y - h2, 0.805, y - h2 - gap2 + 0.003)
+            arrow(ax, 0.8025, y - h2, 0.8025, y - h2 - gap2 + 0.003)
         y -= (h2 + gap2)
     fig.tight_layout(pad=0.4)
     fig.savefig(os.path.join(OUT, "fig25_evidence_pipeline.pdf"))
