@@ -11,8 +11,8 @@
                inner ysep=3.5pt, font=\footnotesize, fill=white},
   gatebox/.style={draw=black!70, rounded corners=2pt, align=center,
                   inner ysep=4.5pt, inner xsep=8pt, fill=gray!12},
-  term/.style={draw=black!70, rounded corners=2pt, align=center, text width=2.8cm,
-               inner ysep=5pt, inner xsep=4pt, font=\scriptsize\ttfamily},
+  term/.style={draw=black!70, rounded corners=2pt, align=center, text width=3.15cm,
+               inner ysep=6pt, inner xsep=4pt, font=\footnotesize\ttfamily},
   flow/.style={->, very thick, draw=black!75}]
 
 % ---------- input ----------
@@ -61,7 +61,7 @@
 % ---------- result envelope ----------
 \node[draw=black!70, rounded corners=2pt, fill=gray!10, align=center, below=0.55cm of pipe,
       inner ysep=5pt, inner xsep=8pt, font=\small] (out)
-  {\textbf{Result envelope:} artifact (\emph{mandate-as-code} or \emph{gap report}) $+$ raw gap objects};
+  {\textbf{Pipeline result:} primary representation (\emph{mandate-as-code} or \emph{gap report}) $+$ raw gap objects; contract envelope carries state};
 \draw[flow] (pipe.south) -- (out.north);
 
 % ---------- terminal routing gate ----------
@@ -69,14 +69,14 @@
   {\textbf{signal predicate}\\[1pt]\footnotesize\ttfamily has\_blocking\_or\_insufficient\_signal};
 \node[gatebox, below=0.42cm of pred, font=\small] (state)
   {\textbf{execution state} (fail-closed routing)};
-\node[term, fill=gray!16, very thick, below=1.08cm of state, xshift=-4.95cm] (nex)
-  {NON\_EXECUTABLE\\GAPS\\[-1pt]\normalfont\tiny blocking or insufficient signal};
+\node[term, fill=gray!16, very thick, below=1.08cm of state, xshift=-5.30cm] (nex)
+  {NON\_EXECUTABLE\\GAPS\\[-1pt]\normalfont\scriptsize blocking or insufficient signal};
 \node[term, fill=gray!7, dashed, right=0.25cm of nex] (nev)
-  {NON\_EXECUTABLE\\VALIDATION\\[-1pt]\normalfont\tiny validation fails};
+  {NON\_EXECUTABLE\\VALIDATION\\[-1pt]\normalfont\scriptsize validation fails};
 \node[term, fill=white, double=black!70, double distance=0.35pt, right=0.25cm of nev] (exe)
-  {EXECUTABLE\\[-1pt]\normalfont\tiny no signal; valid artifact};
+  {EXECUTABLE\\[-1pt]\normalfont\scriptsize no signal; valid artifact};
 \node[term, fill=gray!25, right=0.25cm of exe] (fail)
-  {FAILED\\[-1pt]\normalfont\tiny no valid result};
+  {FAILED\\[-1pt]\normalfont\scriptsize no valid result};
 \node[align=center, font=\footnotesize\itshape, below=0.55cm of nev.south east,
       xshift=1.65cm, text width=11.8cm] (note)
   {a generated artifact is not necessarily executable:\\the gate, not artifact completion, decides};
@@ -95,7 +95,7 @@
 \draw[thick, draw=black!70] (nex.north |- routehub) -- (fail.north |- routehub);
 \foreach \terminal in {nex,nev,exe,fail}
   {\draw[->, thick, draw=black!75] (\terminal.north |- routehub) -- (\terminal.north);}
-\node[fill=gray!3, inner xsep=3pt, font=\tiny\itshape, above=1pt of routehub]
+\node[fill=gray!3, inner xsep=3pt, font=\scriptsize\itshape, above=1pt of routehub]
   {exactly one terminal state};
 
 \node[fill=white, inner xsep=6pt, font=\small\bfseries] at (pipe.north) {\textsc{Six-Role Pipeline}};
