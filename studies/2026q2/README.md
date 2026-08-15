@@ -119,7 +119,7 @@ python3 code/scripts/verify_study_release.py
 - `replication_package/v0_pilot/`, `v0_5_pilot/` — historical pilot evidence
   backing the paper's §12 pilot tables.
 - `replication_package/v1_main/` — the frozen comparative-campaign component:
-  corpus, ground truth, perturbation suite, per-system RunRecords (consolidated
+  corpus, model-authored unratified reference scaffolds, perturbation suite, per-system RunRecords (consolidated
   JSONL), sampled grading (700), full-coverage grading (12,000), per-finding
   extracts, and the RunRecord schema. The directory name is historical.
 - `replication_package/v2_complete/` — the historical path for additional
@@ -231,6 +231,6 @@ Cite the paper and this repository by URL. See `CITATION.cff` and
 ## Licenses
 
 - **Code** (`code/`, scripts): Apache License 2.0 — see `LICENSE`.
-- **Data** (RunRecords, corpus, ground truth, grades): CC BY 4.0 — see `LICENSE-DATA`.
+- **Data** (RunRecords, corpus, reference scaffolds, grades): CC BY 4.0 — see `LICENSE-DATA`.
 - **Registration prompts and forms** (`pre_registration/`): CC0.
 - **Paper text:** not redistributed here; cite via the journal/preprint.
