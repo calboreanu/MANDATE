@@ -71,7 +71,7 @@ def fig20():
         "3,000 signal-carrying records\n(blocking or insufficient-for-automation)")
     arrow(ax, 0.25, 0.70, 0.25, 0.565)
     box(ax, 0.065, 0.08, 0.37, 0.17,
-        "3,000 completed ok=true mandates\n(retrospective inconsistencies\nunder the later fail-closed contract)",
+        "3,000 ok=true results\n(retrospective inconsistencies\nunder the later fail-closed contract)",
         fc="#fbeaea", ec=CRIT, tc=CRIT, bold=True, fs=8.0)
     arrow(ax, 0.25, 0.44, 0.25, 0.265, color=CRIT)
     ax.text(0.258, 0.35, "no successor state gate", fontsize=8, color=CRIT, ha="left")
@@ -80,14 +80,14 @@ def fig20():
     box(ax, 0.565, 0.44, 0.30, 0.12,
         "2,999 signal-carrying records\n(measured from fresh gap sets)")
     arrow(ax, 0.72, 0.70, 0.72, 0.565)
-    box(ax, 0.565, 0.08, 0.30, 0.17,
-        "2,999\nNON_EXECUTABLE_GAPS\n0 executable-with-signal",
-        fc="#e8f0fb", ec=BLUE, tc="#1c5cab", bold=True, fs=8.0)
+    box(ax, 0.555, 0.08, 0.285, 0.17,
+        "2,999\nNON_EXECUTABLE_GAPS\n0 signal violations",
+        fc="#e8f0fb", ec=BLUE, tc="#1c5cab", bold=True, fs=7.4)
     arrow(ax, 0.68, 0.44, 0.68, 0.265, color=BLUE)
     ax.text(0.688, 0.35, "signal predicate →\nexecution state (fail-closed)",
             fontsize=8.0, color="#1c5cab", ha="left")
     # the one no-signal record
-    box(ax, 0.875, 0.08, 0.12, 0.17, "1 record,\nno signal:\nEXECUTABLE", fs=8.0)
+    box(ax, 0.875, 0.08, 0.115, 0.17, "1 record,\nno signal:\nEXECUTABLE", fs=7.6)
     arrow(ax, 0.955, 0.70, 0.945, 0.26, color=MUTED, lw=0.8, ls=(0, (3, 2)))
     ax.text(0.5, 0.002, "one-sided signal check — pass-through, specificity, and causal effect remain open",
             fontsize=8.0, color=SEC, ha="center", va="bottom", fontstyle="italic")
@@ -149,8 +149,9 @@ def _forest(panels, fname, figh, note_y, rect_top, tags=False):
         ax.grid(axis="x", color=GRID, lw=0.5)
         ax.set_axisbelow(True)
         for s in ("top", "right"): ax.spines[s].set_visible(False)
-    axes[-1].set_xlabel("Δ = Cond-B − baseline (task-bootstrap 95% CI)",
-                        fontsize=8.5)
+    xlabel = ("Δ = Cond-B − baseline (task-bootstrap 95% CI)" if tags else
+              "Δ = Cond-B − baseline\n(task-bootstrap 95% CI)")
+    axes[-1].set_xlabel(xlabel, fontsize=8.5)
     note = ("120 shared tasks; exploratory task-bootstrap intervals.\n"
             "Cond-A omitted (non-comparable structured-input condition).")
     if tags:
@@ -162,8 +163,8 @@ def _forest(panels, fname, figh, note_y, rect_top, tags=False):
     if tags:
         fig.subplots_adjust(left=0.38, right=0.97, bottom=0.20, top=0.70)
     else:
-        fig.subplots_adjust(left=0.34, right=0.96, bottom=0.15,
-                            top=rect_top, hspace=0.55)
+        fig.subplots_adjust(left=0.41, right=0.95, bottom=0.18,
+                            top=rect_top, hspace=0.62)
     fig.savefig(os.path.join(OUT, fname))
     plt.close(fig)
 
@@ -181,7 +182,7 @@ def fig21():
              ("constraint_coverage",
               "Constraint coverage — descriptive ($\\alpha$ = 0.589)",
               False)],
-            "fig21b_descriptive_forest.pdf", 4.25, 1.30, 0.93)
+            "fig21b_descriptive_forest.pdf", 4.25, 1.30, 0.86)
 
 
 # ------------------------------------------------------------- fig22 paired tasks
@@ -196,8 +197,8 @@ def fig22():
         neg = sum(1 for d in diffs if d < -1e-12); pos = sum(1 for d in diffs if d > 1e-12)
         tie = len(diffs) - neg - pos
         ax.axvline(0, color=BASE, lw=0.9)
-        ax.plot(diffs, range(len(diffs)), ls="none", marker="o", ms=2.6,
-                color=BLUE, alpha=0.55, mec="none")
+        ax.plot(diffs, range(len(diffs)), ls="none", marker="o", ms=2.8,
+                color="#1c5cab", alpha=0.82, mec="none")
         ax.plot([ci[0], ci[1]], [-8, -8], color=INK, lw=2.2, solid_capstyle="butt")
         ax.plot([delta], [-8], marker="D", ms=5, color=INK, mec=SURF, mew=0.6)
         ax.set_ylim(-14, len(diffs) + 2)
@@ -316,37 +317,37 @@ def fig24():
 def fig25():
     fig, ax = plt.subplots(figsize=(5.15, 4.05))
     ax.set_xlim(0, 1); ax.set_ylim(0, 1); ax.axis("off")
-    ax.text(0.30, 0.985, "Judged branch (all 9 systems)", ha="center", fontsize=8.5,
+    ax.text(0.28, 0.985, "Judged branch (all 9 systems)", ha="center", fontsize=8.5,
             fontweight="bold", color=INK)
-    ax.text(0.8025, 0.985, "Provenance branch\n(MANDATE artifacts only; baselines emit no chains)",
-            ha="center", fontsize=8.2, fontweight="bold", color=INK, va="top")
-    steps = ["150 frozen tasks (120 main + 30 hold-out)",
-             "10,800 main records (120 \u00d7 9 \u00d7 10)\n+ 1,200 hold-out records (30 \u00d7 4 \u00d7 10)",
-             "12,000 anonymized graded outputs",
-             "3 judges \u00d7 12,000 = 36,000 retained judge records",
+    ax.text(0.785, 0.985, "Provenance branch\n(MANDATE artifacts only; baselines emit no chains)",
+            ha="center", fontsize=7.8, fontweight="bold", color=INK, va="top")
+    steps = ["150 frozen tasks\n(120 main + 30 hold-out)",
+             "10,800 main records (120 \u00d7 9 \u00d7 10)\n+ 1,200 hold-out records\n(30 \u00d7 4 \u00d7 10)",
+             "12,000 anonymized\ngraded outputs",
+             "3 judges \u00d7 12,000\n= 36,000 retained judge records",
              "12,000 ensemble aggregates\n(0 reconciliation mismatches)",
              "120 task means per system\n\u2192 24 task-clustered contrasts",
              "claim tables and figures"]
     y = 0.90; h = 0.104; gap = 0.018
     for i, s in enumerate(steps):
-        box(ax, 0.05, y - h, 0.50, h, s, fs=8.0,
+        box(ax, 0.035, y - h, 0.49, h, s, fs=7.5,
             fc="#e8f0fb" if i in (3, 4) else "#f4f4f2",
             ec=BLUE if i in (3, 4) else BASE)
         if i < len(steps) - 1:
-            arrow(ax, 0.30, y - h, 0.30, y - h - gap + 0.003)
+            arrow(ax, 0.28, y - h, 0.28, y - h - gap + 0.003)
         y -= (h + gap)
-    dsteps = ["5,680 campaign chains\n(3,000 canonical + 1,480 primary\n+ 1,200 cross-vendor)",
+    dsteps = ["5,680 campaign chains\n3,000 canonical + 1,480 primary\n+ 1,200 cross-vendor",
               "34,080 campaign entries",
               "+ 3,000 successor chains\n\u2192 18,000 entries",
-              "52,080 core campaign + successor\nentries: entry, parent, chain,\nanchor digests recomputed (Sect. 6.3)",
-              "declared source-of-record scope:\n100,500 entries across 17,050 artifacts\n(derived copies + legacy pilot excluded)"]
+              "52,080 core entries\n(entry, parent, chain, anchor digests)\nrecomputed (Sect. 6.3)",
+              "declared source-of-record scope\n100,500 entries / 17,050 artifacts\n(derived copies + legacy pilot excluded)"]
     y = 0.86; h2 = 0.125; gap2 = 0.028
     for i, s in enumerate(dsteps):
         last = (i == len(dsteps) - 1)
-        box(ax, 0.615, y - h2, 0.375, h2, s, fs=8.0,
+        box(ax, 0.585, y - h2, 0.40, h2, s, fs=7.4,
             fc="#e8f0fb" if last else "#f4f4f2", ec=BLUE if last else BASE)
         if i < len(dsteps) - 1:
-            arrow(ax, 0.8025, y - h2, 0.8025, y - h2 - gap2 + 0.003)
+            arrow(ax, 0.785, y - h2, 0.785, y - h2 - gap2 + 0.003)
         y -= (h2 + gap2)
     fig.tight_layout(pad=0.4)
     fig.savefig(os.path.join(OUT, "fig25_evidence_pipeline.pdf"))

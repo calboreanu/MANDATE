@@ -1,7 +1,7 @@
 # code/figure_scripts — figure generation and verification tooling
 
 This is the canonical figure and verification tree for the study snapshot
-included in the MANDATE v2.0.7 publication release. Run everything from the
+included in the MANDATE v2.0.8 publication release. Run everything from the
 study root (`studies/2026q2/` in the repository).
 
 | File | What it is |
@@ -11,11 +11,12 @@ study root (`studies/2026q2/` in the repository).
 | `main_only_coverage.json` | Main-corpus-only coverage means (extract byproduct). |
 | `fig_constants.json` | Transcribed release constants with provenance notes (measured full-coverage reliability is the live posture; sampled v1 values are halt history). |
 | `make_figures.py` | Regenerates the manuscript's empirical figures from the two JSON inputs. Creates its output directory; renders the measured-reliability figure. Usage: `python3 code/figure_scripts/make_figures.py <outdir>`. |
+| `make_fig15.py` | Regenerates the standalone 12,000-record, nine-system minimum-coverage distribution figure from the ensemble scores and anonymization mapping. Usage: `python3 code/figure_scripts/make_fig15.py <study_root> <outdir>`. |
 | `fig2_standalone.tex` | Standalone TikZ source for the routing-flow figure (successor-gate annotation). |
 | `verify_trace_hashes_full.py` | Trace-hash verifier over the **declared 2026Q2 source-of-record families** (campaign, cross-vendor, successor check, perturbations, A3/A5 ablations, and source ablation-MVP records). Expected from a fresh clone: 17,050 artifacts; 100,500/100,500 entry hashes; 83,600/83,600 parent links; 16,900/16,900 chain digests; 17,050/17,050 anchor hashes; 150 deliberately empty traces (the A6 no-search-trace ablation); exit 0. Derived anonymized copies and pre-contract pilot formats are intentionally excluded, so this is not a recursive whole-repository census. The artifact-level `metadata.output_hash`/`input_hash` are carried values from the proprietary core and are not recomputed (manuscript §4.2). |
 | `trace_hash_report.json` | Committed machine-readable report from running the verifier against this release's public tree. |
-| `compute_reliability.py` | Full-coverage inter-judge reliability (Krippendorff α, closed-form) from the three retained judge streams (3 × 12,000). |
-| `compute_restricted_reliability.py` | Pair-restricted and within-system minimum-coverage reliability, including the decisive Cond-B/B3 pair. |
+| `compute_reliability.py` | Full-coverage inter-judge reliability (Krippendorff α, closed-form) from the three retained judge streams over all 12,000 records: 10,800 main-matrix records across nine systems plus 1,200 hold-out records across four systems. |
+| `compute_restricted_reliability.py` | Main-corpus pair-restricted and within-system minimum-coverage reliability: Cond-B/B3 uses 2,400 records; within Cond-B and within B3 use 1,200 records each. |
 | `compute_judge_contrast_cis.py` | Per-judge task-clustered 95% intervals for the Cond-B/B3 and Cond-B/B1 minimum-coverage contrasts. |
 | `full_coverage_reliability.json` | Committed output of `compute_reliability.py` against this release. |
 | `requirements.txt` | Pinned plotting dependency. |

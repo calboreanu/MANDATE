@@ -1,6 +1,6 @@
 # MANDATE 2026Q2 Study Evidence
 
-**Publication release:** MANDATE `2.0.7`
+**Publication release:** MANDATE `2.0.8`
 
 **Study snapshot:** `2026.08.13.1`
 
@@ -16,9 +16,11 @@ six baseline systems on a frozen three-domain corpus (120 tasks × a recorded
 plus a 30-task out-of-domain hold-out, graded 12,000 records at full coverage
 under a three-judge ensemble (Claude Opus, GPT-4o, Gemini 2.5 Pro), and added
 cross-vendor execution (4 LLM families), a 350-perturbation adversarial suite,
-and ablations. Every deviation from the locked protocol is documented (13 entries,
-D-01–D-13; standalone structured ledger at
-`pre_registration/DEVIATION_LEDGER.md`). The campaign is protocol-governed,
+and ablations. The deposit documents 13 keyed deviations (D-01–D-13;
+standalone structured ledger at `pre_registration/DEVIATION_LEDGER.md`) plus
+unkeyed differences between the locked plan and the executed study. The keyed
+ledger is not an exhaustive inventory of every plan-to-execution difference.
+The campaign is protocol-governed,
 not pre-registered: the released registration carries an unfilled lock-date
 field and no externally timestamped pre-data registration, and the executed
 analysis deviates materially from the locked plan (hypothesis dispositions in
@@ -36,8 +38,11 @@ artifact, not a probability sample from a defined task population.
 **The study result, stated as one result:** MANDATE produced schema-valid,
 fully hash-traced specification artifacts at scale. Under the retained
 three-judge full-coverage rubric, pooled minimum-coverage reliability was
-Krippendorff α = 0.855; the decisive Cond-B/B3 pair was α = 0.618, with
-within-system values of 0.446 and 0.766. The observed ensemble contrast was
+Krippendorff α = 0.855 across all 12,000 graded records (the 10,800-record,
+nine-system main matrix plus 1,200 hold-out records from MANDATE-primary,
+Cond-A, Cond-B, and B1). On the main corpus only, the decisive Cond-B/B3
+population (2,400 records) had α = 0.618, with within-system values of 0.446
+for Cond-B (1,200 records) and 0.766 for B3 (1,200 records). The observed ensemble contrast was
 Δ = −0.112, with the same direction for all three judges and 112/120
 tasks; its magnitude is descriptive because reliability depends on the
 analysis set and the protocol specified no Krippendorff-α cutoff. The retained structured result fields also exposed a result-state defect in
@@ -72,7 +77,7 @@ citation anchors; they are not separate study results or current releases.
 | Replicate (tiered, from free to cluster) | `docs/REPLICATION_INSTRUCTIONS.md` + `docs/PARTIAL_REPLICATION.md` |
 | Understand the deposited scope | `docs/CLAIM_TO_DATA_MAP.md` + `docs/EXCLUSIONS.md` |
 | Check the locked protocol + halt rules | `pre_registration/PROTOCOL_LOCK.md` |
-| See every protocol deviation | `pre_registration/DEVIATIONS.md` + supplement Deviation Table (13 rows) |
+| See the 13 keyed deviations and long-form narratives | `pre_registration/DEVIATION_LEDGER.md` + `pre_registration/DEVIATIONS.md` + supplement Deviation Table (13 rows) |
 | Know what cannot be replicated | `docs/KNOWN_GAPS.md` |
 | See which planned paths are intentionally absent (and why) | `docs/EXCLUSIONS.md` |
 | Check label errata in frozen artifacts (v1 judge "Opus"/Sonnet) | `docs/ERRATA.md` |
@@ -82,7 +87,7 @@ citation anchors; they are not separate study results or current releases.
 ```bash
 git clone https://github.com/calboreanu/MANDATE.git
 cd MANDATE
-git checkout v2.0.7
+git checkout v2.0.8
 cd studies/2026q2
 
 # Record counts match the supplement:
@@ -114,8 +119,10 @@ python3 code/scripts/verify_study_release.py
   Supplemental, v2 Protocol Amendment, Engineering and Operational Provenance).
 - `pre_registration/` — the protocol archive: PROTOCOL_LOCK.md (κ≥0.40 halt
   rule), analysis plan, prompts, forms, calibration tasks, and the complete
-  deviation record. The archive documents the protocol as executed; it is not
-  evidence of an externally timestamped pre-registration.
+  keyed deviation record. The archive preserves the locked plan alongside
+  execution records; it does not present the protocol as if it were executed
+  without additional unkeyed differences, and it is not evidence of an
+  externally timestamped pre-registration.
 - `replication_package/v0_pilot/`, `v0_5_pilot/` — historical pilot evidence
   backing the paper's §12 pilot tables.
 - `replication_package/v1_main/` — the frozen comparative-campaign component:
@@ -197,11 +204,16 @@ them.
   script `code/scripts/bootstrap_contrasts.py`, seed 20260710); the wider
   9-system grid remains descriptive. **Measured full-coverage inter-judge
   reliability** (Krippendorff α from the retained streams, via
-  `code/figure_scripts/compute_reliability.py`): minimum coverage 0.855;
+  `code/figure_scripts/compute_reliability.py`): across the 12,000-record
+  pooled population (10,800 main-matrix records across nine systems plus
+  1,200 hold-out records across MANDATE-primary, Cond-A, Cond-B, and B1),
+  minimum coverage 0.855;
   target 0.586; constraint 0.589; mission-intent
   0.536; gap classification 0.449; fabrication 0.218; trace completeness
   0.218 interval / 0.027 nominal. For minimum coverage, the decisive
-  Cond-B/B3 pair has α = 0.618 (Cond-B 0.446; B3 0.766). The locked protocol
+  main-corpus Cond-B/B3 population has α = 0.618 (2,400 records), with
+  within-Cond-B α = 0.446 and within-B3 α = 0.766 (1,200 records each).
+  The locked protocol
   specified no Krippendorff-α acceptance cutoff; these estimates describe
   measurement agreement and analysis-set sensitivity. The earlier sampled v1 values are halt-rule
   history. Judged claims are read jointly with these values; structural
@@ -211,7 +223,7 @@ them.
   records the protocol-locked ensemble (Opus); the v1 cycle executed with
   Sonnet substituted under deviation D-08 and v2 restored Opus under
   D-10. `pre_registration/DEVIATIONS.md` carries the four long-form
-  deviation narratives; the complete 13-entry structured table is §9 of
+  deviation narratives; all 13 keyed entries are in the structured table at §9 of
   the Empirical Evidence Supplemental in `supplement_pdfs/`; the precise
   file-level erratum (which fields say Opus, which prove Sonnet) is
   `docs/ERRATA.md`.

@@ -65,9 +65,11 @@
 \draw[flow] (pipe.south) -- (out.north);
 
 % ---------- terminal routing gate ----------
-\node[gatebox, below=0.85cm of out, font=\small] (pred)
-  {\textbf{signal predicate}\\[1pt]\footnotesize\ttfamily has\_blocking\_or\_insufficient\_signal};
-\node[gatebox, below=0.42cm of pred, font=\small] (state)
+\node[gatebox, below=0.85cm of out, font=\small, text width=12.2cm] (inputs)
+  {\textbf{state-derivation inputs}\\[1pt]
+   \scriptsize\ttfamily pipeline\_succeeded; artifact\_present; gap\_report\_count;\\[-1pt]
+   schema\_valid; errors\_present; has\_blocking\_or\_insufficient\_signal};
+\node[gatebox, below=0.42cm of inputs, font=\small] (state)
   {\textbf{execution state} (fail-closed routing)};
 \node[term, fill=gray!16, very thick, below=1.08cm of state, xshift=-5.30cm] (nex)
   {NON\_EXECUTABLE\\GAPS\\[-1pt]\normalfont\small blocking or insufficient signal};
@@ -83,13 +85,13 @@
 
 \begin{scope}[on background layer]
 \node[draw=black!80, thick, dashed, rounded corners=3pt, fill=gray!3,
-      fit=(pred)(state)(nex)(exe)(nev)(fail)(note), inner sep=0.26cm] (gate) {};
+      fit=(inputs)(state)(nex)(exe)(nev)(fail)(note), inner sep=0.26cm] (gate) {};
 \end{scope}
 \node[fill=white, inner xsep=5pt, font=\footnotesize\itshape, anchor=center] at (gate.south)
   {successor contract only --- absent in the evaluated \texttt{1.0.0rc1} build};
 
-\draw[flow] (out.south) -- (pred.north);
-\draw[flow] (pred) -- (state);
+\draw[flow] (out.south) -- (inputs.north);
+\draw[flow] (inputs) -- (state);
 \coordinate (routehub) at ($(state.south)+(0,-0.42cm)$);
 \draw[flow] (state.south) -- (routehub);
 \draw[thick, draw=black!70] (nex.north |- routehub) -- (fail.north |- routehub);

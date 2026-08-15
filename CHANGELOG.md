@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.0.8 (2026-08-15)
+
+### Study-documentation corrections
+- Distinguish the 13 keyed deviations from additional unkeyed differences
+  between the locked plan and execution, and make the deviation-log scope
+  non-exhaustive.
+- Disclose that the planned task-level fine-tune leakage audit was not
+  completed, identify the record populations behind each reported reliability
+  estimate, and clarify the power-analysis/MDE terminology.
+- Document the standalone Figure 15 generator. No study data, empirical
+  counts, model-generated records, or reported statistics changed.
+
 ## 2.0.7 (2026-08-15)
 
 ### Submission audit corrections

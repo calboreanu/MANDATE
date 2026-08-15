@@ -8,7 +8,8 @@ Start with:
 - `PROTOCOL_LOCK.md` for the intended decision rules and halt conditions;
 - `ANALYSIS_PLAN.md` for the planned analysis;
 - `PROMPTS.md` for the generation and grading prompts;
-- `DEVIATION_LEDGER.md` for the complete 13-entry deviation record; and
+- `DEVIATION_LEDGER.md` for all 13 keyed deviation entries (not an exhaustive
+  inventory of unkeyed plan-to-execution differences); and
 - `DEVIATIONS.md` for the long-form deviation narratives.
 
 This archive is evidence, not a current execution guide. Several original

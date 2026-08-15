@@ -1,5 +1,17 @@
 # Changelog — MANDATE 2026Q2 Evaluation Deposit
 
+## v2.0.8-publication — 2026-08-15
+
+- Clarified that the deposit enumerates 13 keyed deviations plus additional
+  unkeyed plan-to-execution differences; made actual deviation-log preambles
+  non-exhaustive.
+- Added the missing task-level fine-tune leakage-audit limitation and stated
+  the record populations for pooled, pair-restricted, and within-system
+  reliability.
+- Clarified MDE terminology without altering the frozen protocol, and
+  documented the standalone Figure 15 generator. No evidence, data,
+  statistics, or empirical result changed.
+
 ## v2.0.2-publication — 2026-08-14
 
 - Updated publication figure tooling for readability and reliability-aware

@@ -1,12 +1,14 @@
-# Complete Deviation Ledger (D-01 – D-13)
+# Keyed Deviation Ledger (D-01–D-13)
 
-The complete thirteen-entry deviation ledger in structured form (following
-Willroth & Atherton, 2024). This table is the standalone, machine-findable
-enumeration cited by the manuscript's Supplementary Information (SI S2); the
-chronological narrative for the major entries is preserved in
-`pre_registration/DEVIATIONS.md`, and the full log lives under
-`replication_package/v1_main/findings_extracted/deviations/`. Content matches
-the deposit's Empirical Evidence Supplemental §9.
+This table is the complete enumeration of the thirteen entries that received
+D-numbers, in structured form (following Willroth & Atherton, 2024). It is not
+an exhaustive inventory of every difference between the locked plan and the
+executed study; additional differences were disclosed without D-numbers. The
+table is the standalone, machine-findable enumeration cited by the
+manuscript's Supplementary Information (SI S2). Long-form narratives for four
+major entries are preserved in `pre_registration/DEVIATIONS.md` and mirrored
+under `replication_package/v1_main/findings_extracted/deviations/`. The keyed
+content matches the deposit's Empirical Evidence Supplemental §9.
 
 | # | Date | Type / severity | Actual change | Effect on conclusions |
 |---|---|---|---|---|

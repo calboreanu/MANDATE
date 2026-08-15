@@ -1,6 +1,12 @@
 # Pre-registration deviations
 
-PROTOCOL_LOCK §13 binds the formal study to the post-deposit protocol. This file records every deviation from that protocol with date, scope, rationale, and downstream implications. Deviations apply to the study as deposited; they do not retroactively change the protocol document.
+PROTOCOL_LOCK §13 states the study's deviation policy. This historical extract
+preserves long-form narratives for four major deviations; it is not an
+exhaustive log of every difference between the locked plan and execution. The
+separate `pre_registration/DEVIATION_LEDGER.md` enumerates all 13 keyed entries
+(D-01–D-13), while other plan-to-execution differences were disclosed without
+D-numbers. None of these records retroactively changes the locked protocol
+document.
 
 ---
 

@@ -26,17 +26,18 @@ plt.rcParams.update({
 ROOT = sys.argv[1] if len(sys.argv) > 1 else "."
 OUT = sys.argv[2] if len(sys.argv) > 2 else "."
 G = os.path.join(ROOT, "replication_package/v1_main/grading/v2_full_coverage")
+os.makedirs(OUT, exist_ok=True)
 
 ORDER = [
     ("mandate_primary", "MANDATE-\nprimary"),
     ("cond_a", "Cond-A"),
     ("cond_b", "Cond-B"),
-    ("baseline_1", "B1\n(Sonnet)"),
-    ("baseline_2", "B2\n(GPT-4o)"),
-    ("baseline_3", "B3\nReAct"),
+    ("baseline_1", "B1\nsingle-\nprompt"),
+    ("baseline_2", "B2\nsingle-\nprompt"),
+    ("baseline_3", "B3\nreasoning\nloop"),
     ("baseline_4", "B4\nplanner-\nreviewer"),
-    ("baseline_5", "B5\nseq. analyst-\nreviewer"),
-    ("baseline_6", "B6\nrevision-\ngraph"),
+    ("baseline_5", "B5\nanalyst-\nreviewer"),
+    ("baseline_6", "B6\nrevision\ngraph"),
 ]
 
 mapping = json.load(open(os.path.join(G, "anonymization_mapping_full.json")))
@@ -58,7 +59,7 @@ fig, ax = plt.subplots(figsize=(5.15, 3.45))
 for i, (key, label) in enumerate(ORDER):
     v = vals[key]
     xs = [i + (((j * PHI) % 1.0) - 0.5) * 0.62 for j in range(len(v))]
-    ax.plot(xs, v, ls="none", marker="o", ms=1.2, color=BLUE, alpha=0.18,
+    ax.plot(xs, v, ls="none", marker="o", ms=1.2, color="#1c5cab", alpha=0.30,
             mec="none", rasterized=True)
     mean = sum(v) / len(v)
     ax.plot([i - 0.36, i + 0.36], [mean, mean], color=INK, lw=1.6,
@@ -68,7 +69,7 @@ for i, (key, label) in enumerate(ORDER):
             bbox=dict(fc="#ffffff", ec="none", alpha=0.75, pad=0.6))
 ax.plot([], [], color=INK, lw=1.6, label="system mean")
 ax.set_xticks(range(len(ORDER)))
-ax.set_xticklabels([l for _, l in ORDER], fontsize=8.0)
+ax.set_xticklabels([l for _, l in ORDER], fontsize=7.6)
 ax.set_ylim(-0.03, 1.03)
 ax.set_xlim(-0.6, len(ORDER) - 0.4)
 ax.set_ylabel("Per-record minimum coverage", fontsize=8.5)
