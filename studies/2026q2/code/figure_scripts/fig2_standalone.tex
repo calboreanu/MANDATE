@@ -2,35 +2,35 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{tikz}
-\usetikzlibrary{arrows.meta,positioning,fit,shapes.geometric,backgrounds}
+\usetikzlibrary{arrows.meta,positioning,fit,shapes.geometric,backgrounds,calc}
 \begin{document}
 \begin{tikzpicture}[>=Stealth,
   role/.style={draw=black!70, rounded corners=2pt, align=center, text width=8.6cm,
                inner ysep=5pt, inner xsep=6pt},
   mini/.style={draw=black!60, rounded corners=2pt, align=center, text width=3.1cm,
-               inner ysep=3.5pt, font=\footnotesize, fill=gray!7},
+               inner ysep=3.5pt, font=\footnotesize, fill=white},
   gatebox/.style={draw=black!70, rounded corners=2pt, align=center,
-                  inner ysep=4.5pt, inner xsep=8pt, fill=orange!10},
-  term/.style={draw=black!70, rounded corners=2pt, align=center, text width=4.6cm,
-               inner ysep=4.5pt, font=\footnotesize\ttfamily},
+                  inner ysep=4.5pt, inner xsep=8pt, fill=gray!12},
+  term/.style={draw=black!70, rounded corners=2pt, align=center, text width=2.8cm,
+               inner ysep=5pt, inner xsep=4pt, font=\scriptsize\ttfamily},
   flow/.style={->, very thick, draw=black!75}]
 
 % ---------- input ----------
-\node[draw=black!60, rounded corners=2pt, fill=gray!10, inner ysep=5pt, inner xsep=10pt,
+\node[draw=black!60, rounded corners=2pt, fill=gray!7, inner ysep=5pt, inner xsep=10pt,
       font=\small] (input) {\textbf{Operational documents} (raw mission input)};
 
 % ---------- six-role pipeline ----------
-\node[role, fill=blue!4,  below=0.62cm of input] (intake)
+\node[role, fill=gray!4,  below=0.62cm of input] (intake)
   {\small\textbf{\textsc{1\quad Intake}}\\[1pt]\footnotesize normalize and validate input};
-\node[role, fill=blue!7,  below=0.30cm of intake] (interp)
+\node[role, fill=gray!7,  below=0.30cm of intake] (interp)
   {\small\textbf{\textsc{2\quad Interpreter}}\\[1pt]\footnotesize extract the immutable anchor (min / target / constraints)};
-\node[role, fill=blue!10, below=0.30cm of interp] (decomp)
+\node[role, fill=gray!10, below=0.30cm of interp] (decomp)
   {\small\textbf{\textsc{3\quad Decomposition}}\\[1pt]\footnotesize generate task DAGs and courses of action};
-\node[role, fill=blue!13, below=0.30cm of decomp] (proc)
+\node[role, fill=gray!13, below=0.30cm of decomp] (proc)
   {\small\textbf{\textsc{4\quad Procedure}}\\[1pt]\footnotesize match TTPs and SOPs to tasks};
-\node[role, fill=blue!16, below=0.30cm of proc] (bind)
+\node[role, fill=gray!16, below=0.30cm of proc] (bind)
   {\small\textbf{\textsc{5\quad Binding}}\\[1pt]\footnotesize assign available capabilities};
-\node[role, fill=blue!19, below=0.30cm of bind] (valid)
+\node[role, fill=gray!19, below=0.30cm of bind] (valid)
   {\small\textbf{\textsc{6\quad Validation}}\\[1pt]\footnotesize independently verify integrity, risk, and completeness};
 
 \node[draw=black!80, rounded corners=3pt, fit=(intake)(valid), inner sep=0.24cm] (pipe) {};
@@ -51,7 +51,7 @@
   {consulted by roles 2--6} (srcframe.west);
 
 % ---------- hash-linked trace (sidebar, lower) ----------
-\node[cylinder, shape border rotate=90, draw=black!70, aspect=0.12, fill=gray!8,
+\node[cylinder, shape border rotate=90, draw=black!70, aspect=0.12, fill=gray!10,
       align=center, inner ysep=6pt, inner xsep=5pt, below=0.9cm of srcframe.south,
       anchor=north, font=\footnotesize] (trace)
   {\textbf{hash-linked trace}\\one retained entry\\per role, per record};
@@ -69,15 +69,20 @@
   {\textbf{signal predicate}\\[1pt]\footnotesize\ttfamily has\_blocking\_or\_insufficient\_signal};
 \node[gatebox, below=0.42cm of pred, font=\small] (state)
   {\textbf{execution state} (fail-closed routing)};
-\node[term, fill=blue!9, below left=0.75cm and 0.20cm of state] (nex) {NON\_EXECUTABLE\_GAPS};
-\node[term, fill=green!12, below right=0.75cm and 0.20cm of state] (exe) {EXECUTABLE};
-\node[term, fill=blue!6, below=0.28cm of nex] (nev) {NON\_EXECUTABLE\_VALIDATION};
-\node[term, fill=gray!12, below=0.28cm of exe] (fail) {FAILED};
-\node[align=center, font=\footnotesize\itshape, below=3.15cm of state, text width=10.6cm] (note)
+\node[term, fill=gray!16, very thick, below=1.08cm of state, xshift=-4.95cm] (nex)
+  {NON\_EXECUTABLE\\GAPS\\[-1pt]\normalfont\tiny blocking or insufficient signal};
+\node[term, fill=gray!7, dashed, right=0.25cm of nex] (nev)
+  {NON\_EXECUTABLE\\VALIDATION\\[-1pt]\normalfont\tiny validation fails};
+\node[term, fill=white, double=black!70, double distance=0.35pt, right=0.25cm of nev] (exe)
+  {EXECUTABLE\\[-1pt]\normalfont\tiny no signal; valid artifact};
+\node[term, fill=gray!25, right=0.25cm of exe] (fail)
+  {FAILED\\[-1pt]\normalfont\tiny no valid result};
+\node[align=center, font=\footnotesize\itshape, below=0.55cm of nev.south east,
+      xshift=1.65cm, text width=11.8cm] (note)
   {a generated artifact is not necessarily executable:\\the gate, not artifact completion, decides};
 
 \begin{scope}[on background layer]
-\node[draw=black!80, thick, dashed, rounded corners=3pt, fill=orange!5,
+\node[draw=black!80, thick, dashed, rounded corners=3pt, fill=gray!3,
       fit=(pred)(state)(nex)(exe)(nev)(fail)(note), inner sep=0.26cm] (gate) {};
 \end{scope}
 \node[fill=white, inner xsep=5pt, font=\footnotesize\itshape, anchor=center] at (gate.south)
@@ -85,10 +90,13 @@
 
 \draw[flow] (out.south) -- (pred.north);
 \draw[flow] (pred) -- (state);
-\draw[flow] (state.south) -- node[left=2pt, font=\scriptsize]{signal present} (nex.north);
-\draw[flow] (state.south) -- node[right=2pt, font=\scriptsize]{no signal; valid} (exe.north);
-\draw[flow] (state.south west) -- node[left=2pt, font=\scriptsize, align=right]{validation gate\\fails} (nev.north);
-\draw[flow] (state.south east) -- node[right=2pt, font=\scriptsize, align=left]{no valid\\artifact} (fail.north);
+\coordinate (routehub) at ($(state.south)+(0,-0.42cm)$);
+\draw[flow] (state.south) -- (routehub);
+\draw[thick, draw=black!70] (nex.north |- routehub) -- (fail.north |- routehub);
+\foreach \terminal in {nex,nev,exe,fail}
+  {\draw[->, thick, draw=black!75] (\terminal.north |- routehub) -- (\terminal.north);}
+\node[fill=gray!3, inner xsep=3pt, font=\tiny\itshape, above=1pt of routehub]
+  {exactly one terminal state};
 
 \node[fill=white, inner xsep=6pt, font=\small\bfseries] at (pipe.north) {\textsc{Six-Role Pipeline}};
 \node[fill=white, inner xsep=6pt, font=\small\bfseries] at (gate.north) {\textsc{Terminal Routing Gate}};

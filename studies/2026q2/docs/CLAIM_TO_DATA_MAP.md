@@ -8,7 +8,7 @@ it. Paths are study-root-relative (`studies/2026q2/` in the repository).
 "Supp." = the deposit's Empirical Evidence Supplemental (`supplement_pdfs/`);
 "SI" = the manuscript's Supplementary Information; "§" = manuscript section.
 
-Regenerated for the study snapshot included in the MANDATE v2.0.4 publication
+Regenerated for the study snapshot included in the MANDATE v2.0.5 publication
 release and aligned to the submission manuscript's section numbering.
 
 | # | Claim (as stated) | Data | How to check |
